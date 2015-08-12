@@ -1,0 +1,264 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>br.com.wjaa</groupId>
+    <artifactId>ranchucrutes-web</artifactId>
+    <packaging>war</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>br.com</groupId>
+        <artifactId>ranchucrutes</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <name>ranchucrutes-web Camada WEB</name>
+    <url>http://maven.apache.org</url>
+
+    <!--some custom options are necessary. Perhaps they make their way to a convention in the future -->
+    <build>
+        <finalName>ranchucrutes-web</finalName>
+        <plugins>
+
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.2.10.v20150310</version>
+                <configuration>
+                    <webApp>
+                        <contextPath>/${project.artifactId}</contextPath>
+                    </webApp>
+                    <stopKey>STOP</stopKey>
+                    <stopPort>9999</stopPort>
+                    <scanIntervalSeconds>5</scanIntervalSeconds>
+                </configuration>
+            </plugin>
+
+            <!--source level should be 1.6 (which is not Maven default) for java EE 6 projects, so let's change it -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+
+            <!-- When using xml-less approach, you need to disable Maven's warning about missing web.xml -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <dependencies>
+
+        <!--We need servlet API for compiling the classes. Not needed in runtime -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--adding spring mvc is easy -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>4.1.6.RELEASE</version>
+        </dependency>
+
+        <!-- Required for xml-less configuration of Spring via @Configuration annotations -->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+
+        <!-- required for getting spring working with Hibernate -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>4.1.6.RELEASE</version>
+        </dependency>
+
+        <!-- Adding Hibernate -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+
+        <!-- Only needed when using JPA instead of "pure Hibernate" -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+
+        <!-- DB connection pooling for production applications -->
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+        <!-- replace with concrete JDBC driver depending on your DB -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.19</version>
+        </dependency>
+
+        <!-- Add Taglib support -->
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+            <!-- Use Provided when using JBoss or Glassfish, since they already bundle it. I'm using Tomcat so it has to go in -->
+            <!-- <scope>provided</scope> -->
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <version>1.1.2</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.4.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.wjaa</groupId>
+            <artifactId>ranchucrutes-commons</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
+    </dependencies>
+
+
+    <profiles>
+    <profile>
+        <id>hml1</id>
+        <properties>
+            <server.ip>52.25.40.240</server.ip>
+            <server.container>/opt/jetty-distribution-9.2.10.v20150310</server.container>
+            <server.container.webapps>${server.container}/webapps</server.container.webapps>
+            <server.container.bin>sudo service jetty</server.container.bin>
+            <server.tmp>${server.container}/deploy</server.tmp>
+            <server.user>ubuntu</server.user>
+            <server.keyFile>/home/wagner/aws-fmma-key.pem</server.keyFile>
+        </properties>
+
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.8</version>
+                    <executions>
+                        <execution>
+                            <id>deploy-hml1</id>
+                            <phase>install</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                            <configuration>
+
+                                <target>
+                                    <echo message="INICIANDO DO DEPLOY DA PRIMEIRA MAQUINA" />
+
+                                    <echo message="Copiando o war pra o server (pasta temporaria) ..." />
+                                    <scp trust="true"
+                                         file="${project.build.directory}/${project.build.finalName}.war"
+                                         keyfile="${server.keyFile}" remoteTofile="${server.user}@${server.ip}:${server.tmp}/marcmed.war"
+                                         failonerror="true" />
+
+                                    <echo message="Parando o container ..." />
+                                    <sshexec trust="true" host="${server.ip}" username="${server.user}"
+                                             keyfile="${server.keyFile}" command="${server.container.bin} stop"
+                                             failonerror="true" usepty="true" />
+                                    <sleep seconds="10" />
+
+                                    <echo message="Movendo war para pasta do container..." />
+                                    <sshexec trust="true" host="${server.ip}" username="${server.user}"
+                                             keyfile="${server.keyFile}"
+                                             command="sudo mv ${server.tmp}/marcmed.war ${server.container.webapps}/ROOT.war"
+                                             failonerror="true" usepty="true" />
+                                    <sleep seconds="10" />
+
+                                    <echo message="Iniciando o container ..." />
+                                    <sshexec trust="true" host="${server.ip}" username="${server.user}"
+                                             keyfile="${server.keyFile}" command="${server.container.bin} start"
+                                             failonerror="true" usepty="true" />
+                                    <sleep seconds="10" />
+
+
+                                    <echo message="Pingando o endereço http://${server.ip}/  ..." />
+                                    <waitfor maxwait="1" maxwaitunit="minute" checkevery="10"
+                                             checkeveryunit="second">
+                                        <http url="http://${server.ip}/" />
+                                    </waitfor>
+                                    <echo message="SUCESSO, FIM DO DEPLOY DA PRIMEIRA MAQUINA" />
+
+                                </target>
+                            </configuration>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.ant</groupId>
+                            <artifactId>ant-jsch</artifactId>
+                            <version>1.8.3</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>com.jcraft</groupId>
+                            <artifactId>jsch</artifactId>
+                            <version>0.1.44-1</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+
+            </plugins>
+        </build>
+
+
+    </profile>
+    </profiles>
+
+</project>
