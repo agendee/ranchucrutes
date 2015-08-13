@@ -6,38 +6,38 @@
     FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'pt_BR': {
             base64: {
-                'default': 'Por favor insira um cÃ³digo base 64 vÃ¡lido'
+                'default': 'Por favor insira um código base 64 válido'
             },
             between: {
                 'default': 'Por favor insira um valor entre %s e %s',
                 notInclusive: 'Por favor insira um valor estritamente entre %s e %s'
             },
             bic: {
-                'default': 'Por favor insira um nÃºmero BIC vÃ¡lido'
+                'default': 'Por favor insira um número BIC válido'
             },
             callback: {
-                'default': 'Por favor insira um valor vÃ¡lido'
+                'default': 'Por favor insira um valor válido'
             },
             choice: {
-                'default': 'Por favor insira um valor vÃ¡lido',
-                less: 'Por favor escolha %s opÃ§Ãµes no mÃ­nimo',
-                more: 'Por favor escolha %s opÃ§Ãµes no mÃ¡ximo',
-                between: 'Por favor escolha de %s a %s opÃ§Ãµes'
+                'default': 'Por favor insira um valor válido',
+                less: 'Por favor escolha %s opções no mínimo',
+                more: 'Por favor escolha %s opções no máximo',
+                between: 'Por favor escolha de %s a %s opções'
             },
             color: {
-                'default': 'Por favor insira uma cor vÃ¡lida'
+                'default': 'Por favor insira uma cor válida'
             },
             creditCard: {
-                'default': 'Por favor insira um nÃºmero de cartÃ£o de crÃ©dito vÃ¡lido'
+                'default': 'Por favor insira um número de cartão de crédito válido'
             },
             cusip: {
-                'default': 'Por favor insira um nÃºmero CUSIP vÃ¡lido'
+                'default': 'Por favor insira um número CUSIP válido'
             },
             cvv: {
-                'default': 'Por favor insira um nÃºmero CVV vÃ¡lido'
+                'default': 'Por favor insira um número CVV válido'
             },
             date: {
-                'default': 'Por favor insira uma data vÃ¡lida',
+                'default': 'Por favor insira uma data válida',
                 min: 'Por favor insira uma data posterior a %s',
                 max: 'Por favor insira uma data anterior a %s',
                 range: 'Por favor insira uma data entre %s e %s'
@@ -46,331 +46,331 @@
                 'default': 'Por favor insira valores diferentes'
             },
             digits: {
-                'default': 'Por favor insira somente dÃ­gitos'
+                'default': 'Por favor insira somente dígitos'
             },
             ean: {
-                'default': 'Por favor insira um nÃºmero EAN vÃ¡lido'
+                'default': 'Por favor insira um número EAN válido'
             },
             ein: {
-                'default': 'Por favor insira um nÃºmero EIN vÃ¡lido'
+                'default': 'Por favor insira um número EIN válido'
             },
             emailAddress: {
-                'default': 'Por favor insira um email vÃ¡lido'
+                'default': 'Por favor insira um email válido'
             },
             file: {
-                'default': 'Por favor escolha um arquivo vÃ¡lido'
+                'default': 'Por favor escolha um arquivo válido'
             },
             greaterThan: {
                 'default': 'Por favor insira um valor maior ou igual a %s',
                 notInclusive: 'Por favor insira um valor maior do que %s'
             },
             grid: {
-                'default': 'Por favor insira uma GRID vÃ¡lida'
+                'default': 'Por favor insira uma GRID válida'
             },
             hex: {
-                'default': 'Por favor insira um hexadecimal vÃ¡lido'
+                'default': 'Por favor insira um hexadecimal válido'
             },
             iban: {
-                'default': 'Por favor insira um nÃºmero IBAN vÃ¡lido',
-                country: 'Por favor insira um nÃºmero IBAN vÃ¡lido em %s',
+                'default': 'Por favor insira um número IBAN válido',
+                country: 'Por favor insira um número IBAN válido em %s',
                 countries: {
                     AD: 'Andorra',
-                    AE: 'Emirados Ãrabes',
-                    AL: 'AlbÃ¢nia',
+                    AE: 'Emirados Árabes',
+                    AL: 'Albânia',
                     AO: 'Angola',
-                    AT: 'Ãustria',
-                    AZ: 'AzerbaijÃ£o',
-                    BA: 'BÃ³snia-Herzegovina',
-                    BE: 'BÃ©lgica',
+                    AT: 'Áustria',
+                    AZ: 'Azerbaijão',
+                    BA: 'Bósnia-Herzegovina',
+                    BE: 'Bélgica',
                     BF: 'Burkina Faso',
-                    BG: 'BulgÃ¡ria',
+                    BG: 'Bulgária',
                     BH: 'Bahrain',
                     BI: 'Burundi',
                     BJ: 'Benin',
                     BR: 'Brasil',
-                    CH: 'SuÃ­Ã§a',
+                    CH: 'Suíça',
                     IC: 'Costa do Marfim',
-                    CM: 'CamarÃµes',
+                    CM: 'Camarões',
                     CR: 'Costa Rica',
                     CV: 'Cabo Verde',
                     CY: 'Chipre',
-                    CZ: 'RepÃºblica Checa',
+                    CZ: 'República Checa',
                     DE: 'Alemanha',
                     DK: 'Dinamarca',
-                    DO: 'RepÃºblica Dominicana',
-                    DZ: 'ArgÃ©lia',
-                    EE: 'EstÃ³nia',
+                    DO: 'República Dominicana',
+                    DZ: 'Argélia',
+                    EE: 'Estónia',
                     ES: 'Espanha',
-                    FI: 'FinlÃ¢ndia',
-                    FO: 'Ilhas FaroÃ©',
-                    FR: 'FranÃ§a',
+                    FI: 'Finlândia',
+                    FO: 'Ilhas Faroé',
+                    FR: 'França',
                     GB: 'Reino Unido',
                     GE: 'Georgia',
                     GI: 'Gibraltar',
-                    GL: 'GroenlÃ¢ndia',
-                    GR: 'GrÃ©cia',
+                    GL: 'Groenlândia',
+                    GR: 'Grécia',
                     GT: 'Guatemala',
-                    HR: 'CroÃ¡cia',
+                    HR: 'Croácia',
                     HU: 'Hungria',
                     IE: 'Ireland',
                     IL: 'Israel',
-                    IR: 'IrÃ£o',
-                    IS: 'IslÃ¢ndia',
-                    TI: 'ItÃ¡lia',
+                    IR: 'Irão',
+                    IS: 'Islândia',
+                    TI: 'Itália',
                     JO: 'Jordan',
                     KW: 'Kuwait',
-                    KZ: 'CazaquistÃ£o',
-                    LB: 'LÃ­bano',
+                    KZ: 'Cazaquistão',
+                    LB: 'Líbano',
                     LI: 'Liechtenstein',
-                    LT: 'LituÃ¢nia',
+                    LT: 'Lituânia',
                     LU: 'Luxemburgo',
-                    LV: 'LetÃ³nia',
-                    MC: 'MÃ´naco',
-                    MD: 'MoldÃ¡via',
+                    LV: 'Letónia',
+                    MC: 'Mônaco',
+                    MD: 'Moldávia',
                     ME: 'Montenegro',
                     MG: 'Madagascar',
-                    MK: 'MacedÃ³nia',
+                    MK: 'Macedónia',
                     ML: 'Mali',
-                    MR: 'MauritÃ¢nia',
+                    MR: 'Mauritânia',
                     MT: 'Malta',
-                    MU: 'MaurÃ­cio',
-                    MZ: 'MoÃ§ambique',
-                    NL: 'PaÃ­ses Baixos',
+                    MU: 'Maurício',
+                    MZ: 'Moçambique',
+                    NL: 'Países Baixos',
                     NO: 'Noruega',
-                    PK: 'PaquistÃ£o',
-                    PL: 'PolÃ´nia',
+                    PK: 'Paquistão',
+                    PL: 'Polônia',
                     PS: 'Palestino',
                     PT: 'Portugal',
                     QA: 'Qatar',
-                    RO: 'RomÃ©nia',
-                    RS: 'SÃ©rvia',
-                    SA: 'ArÃ¡bia Saudita',
-                    SE: 'SuÃ©cia',
-                    SI: 'EslovÃ©nia',
-                    SK: 'EslovÃ¡quia',
+                    RO: 'Roménia',
+                    RS: 'Sérvia',
+                    SA: 'Arábia Saudita',
+                    SE: 'Suécia',
+                    SI: 'Eslovénia',
+                    SK: 'Eslováquia',
                     SM: 'San Marino',
                     SN: 'Senegal',
-                    TN: 'TunÃ­sia',
+                    TN: 'Tunísia',
                     TR: 'Turquia',
-                    VG: 'Ilhas Virgens BritÃ¢nicas'
+                    VG: 'Ilhas Virgens Britânicas'
                 }
             },
             id: {
-                'default': 'Por favor insira um cÃ³digo de identificaÃ§Ã£o vÃ¡lido',
-                country: 'Por favor insira um nÃºmero de indentificaÃ§Ã£o vÃ¡lido em %s',
+                'default': 'Por favor insira um código de identificação válido',
+                country: 'Por favor insira um número de indentificação válido em %s',
                 countries: {
-                    BA: 'BÃ³snia e Herzegovina',
-                    BG: 'BulgÃ¡ria',
+                    BA: 'Bósnia e Herzegovina',
+                    BG: 'Bulgária',
                     BR: 'Brasil',
-                    CH: 'SuÃ­Ã§a',
+                    CH: 'Suíça',
                     CL: 'Chile',
                     CN: 'China',
-                    CZ: 'RepÃºblica Checa',
+                    CZ: 'República Checa',
                     DK: 'Dinamarca',
-                    EE: 'EstÃ´nia',
+                    EE: 'Estônia',
                     ES: 'Espanha',
-                    FI: 'FinlÃ¢ndia',
-                    HR: 'CroÃ¡cia',
+                    FI: 'Finlândia',
+                    HR: 'Croácia',
                     IE: 'Irlanda',
-                    IS: 'IslÃ¢ndia',
-                    LT: 'LituÃ¢nia',
-                    LV: 'LetÃ³nia',
+                    IS: 'Islândia',
+                    LT: 'Lituânia',
+                    LV: 'Letónia',
                     ME: 'Montenegro',
-                    MK: 'MacedÃ³nia',
+                    MK: 'Macedónia',
                     NL: 'Holanda',
-                    PL: 'PolÃ´nia',
-                    RO: 'RomÃ©nia',
-                    RS: 'SÃ©rvia',
-                    SE: 'SuÃ©cia',
-                    SI: 'EslovÃªnia',
-                    SK: 'EslovÃ¡quia',
+                    PL: 'Polônia',
+                    RO: 'Roménia',
+                    RS: 'Sérvia',
+                    SE: 'Suécia',
+                    SI: 'Eslovênia',
+                    SK: 'Eslováquia',
                     SM: 'San Marino',
-                    TH: 'TailÃ¢ndia',
-                    ZA: 'Ãfrica do Sul'
+                    TH: 'Tailândia',
+                    ZA: 'África do Sul'
                 }
             },
             identical: {
                 'default': 'Por favor, insira o mesmo valor'
             },
             imei: {
-                'default': 'Por favor insira um IMEI vÃ¡lido'
+                'default': 'Por favor insira um IMEI válido'
             },
             imo: {
-                'default': 'Por favor insira um IMO vÃ¡lido'
+                'default': 'Por favor insira um IMO válido'
             },
             integer: {
-                'default': 'Por favor insira um nÃºmero inteiro vÃ¡lido'
+                'default': 'Por favor insira um número inteiro válido'
             },
             ip: {
-                'default': 'Por favor insira um IP vÃ¡lido',
-                ipv4: 'Por favor insira um endereÃ§o de IPv4 vÃ¡lido',
-                ipv6: 'Por favor insira um endereÃ§o de IPv6 vÃ¡lido'
+                'default': 'Por favor insira um IP válido',
+                ipv4: 'Por favor insira um endereço de IPv4 válido',
+                ipv6: 'Por favor insira um endereço de IPv6 válido'
             },
             isbn: {
-                'default': 'Por favor insira um ISBN vÃ¡lido'
+                'default': 'Por favor insira um ISBN válido'
             },
             isin: {
-                'default': 'Por favor insira um ISIN vÃ¡lido'
+                'default': 'Por favor insira um ISIN válido'
             },
             ismn: {
-                'default': 'Por favor insira um ISMN vÃ¡lido'
+                'default': 'Por favor insira um ISMN válido'
             },
             issn: {
-                'default': 'Por favor insira um ISSN vÃ¡lido'
+                'default': 'Por favor insira um ISSN válido'
             },
             lessThan: {
                 'default': 'Por favor insira um valor menor ou igual a %s',
                 notInclusive: 'Por favor insira um valor menor do que %s'
             },
             mac: {
-                'default': 'Por favor insira um endereÃ§o MAC vÃ¡lido'
+                'default': 'Por favor insira um endereço MAC válido'
             },
             meid: {
-                'default': 'Por favor insira um MEID vÃ¡lido'
+                'default': 'Por favor insira um MEID válido'
             },
             notEmpty: {
                 'default': 'Por favor insira um valor'
             },
             numeric: {
-                'default': 'Por favor insira um nÃºmero real vÃ¡lido'
+                'default': 'Por favor insira um número real válido'
             },
             phone: {
-                'default': 'Por favor insira um nÃºmero de telefone vÃ¡lido',
-                country: 'Por favor insira um nÃºmero de telefone vÃ¡lido em %s',
+                'default': 'Por favor insira um número de telefone válido',
+                country: 'Por favor insira um número de telefone válido em %s',
                 countries: {
-                    AE: 'Emirados Ãrabes',
-                    BG: 'BulgÃ¡ria',
+                    AE: 'Emirados Árabes',
+                    BG: 'Bulgária',
                     BR: 'Brasil',
                     CN: 'China',
-                    CZ: 'RepÃºblica Checa',
+                    CZ: 'República Checa',
                     DE: 'Alemanha',
                     DK: 'Dinamarca',
                     ES: 'Espanha',
-                    FR: 'FranÃ§a',
+                    FR: 'França',
                     GB: 'Reino Unido',
-                    IN: 'Ãndia',
+                    IN: 'Índia',
                     MA: 'Marrocos',
-                    NL: 'PaÃ­ses Baixos',
-                    PK: 'PaquistÃ£o',
-                    RO: 'RomÃ©nia',
-                    RU: 'RÃºssia',
-                    SK: 'EslovÃ¡quia',
-                    TH: 'TailÃ¢ndia',
+                    NL: 'Países Baixos',
+                    PK: 'Paquistão',
+                    RO: 'Roménia',
+                    RU: 'Rússia',
+                    SK: 'Eslováquia',
+                    TH: 'Tailândia',
                     US: 'EUA',
                     VE: 'Venezuela'
                 }
             },
             regexp: {
-                'default': 'Por favor insira um valor correspondente ao padrÃ£o'
+                'default': 'Por favor insira um valor correspondente ao padrão'
             },
             remote: {
-                'default': 'Por favor insira um valor vÃ¡lido'
+                'default': 'Por favor insira um valor válido'
             },
             rtn: {
-                'default': 'Por favor insira um nÃºmero vÃ¡lido RTN'
+                'default': 'Por favor insira um número válido RTN'
             },
             sedol: {
-                'default': 'Por favor insira um nÃºmero vÃ¡lido SEDOL'
+                'default': 'Por favor insira um número válido SEDOL'
             },
             siren: {
-                'default': 'Por favor insira um nÃºmero vÃ¡lido SIREN'
+                'default': 'Por favor insira um número válido SIREN'
             },
             siret: {
-                'default': 'Por favor insira um nÃºmero vÃ¡lido SIRET'
+                'default': 'Por favor insira um número válido SIRET'
             },
             step: {
-                'default': 'Por favor insira um passo vÃ¡lido %s'
+                'default': 'Por favor insira um passo válido %s'
             },
             stringCase: {
-                'default': 'Por favor, digite apenas caracteres minÃºsculos',
-                upper: 'Por favor, digite apenas caracteres maiÃºsculos'
+                'default': 'Por favor, digite apenas caracteres minúsculos',
+                upper: 'Por favor, digite apenas caracteres maiúsculos'
             },
             stringLength: {
-                'default': 'Por favor insira um valor com comprimento vÃ¡lido',
+                'default': 'Por favor insira um valor com comprimento válido',
                 less: 'Por favor insira menos de %s caracteres',
                 more: 'Por favor insira mais de %s caracteres',
                 between: 'Por favor insira um valor entre %s e %s caracteres'
             },
             uri: {
-                'default': 'Por favor insira um URI vÃ¡lido'
+                'default': 'Por favor insira um URI válido'
             },
             uuid: {
-                'default': 'Por favor insira um nÃºmero vÃ¡lido UUID',
-                version: 'Por favor insira uma versÃ£o %s  UUID vÃ¡lida'
+                'default': 'Por favor insira um número válido UUID',
+                version: 'Por favor insira uma versão %s  UUID válida'
             },
             vat: {
-                'default': 'Por favor insira um VAT vÃ¡lido',
-                country: 'Por favor insira um nÃºmero VAT vÃ¡lido em %s',
+                'default': 'Por favor insira um VAT válido',
+                country: 'Por favor insira um número VAT válido em %s',
                 countries: {
-                    AT: 'Ãustria',
-                    BE: 'BÃ©lgica',
-                    BG: 'BulgÃ¡ria',
+                    AT: 'Áustria',
+                    BE: 'Bélgica',
+                    BG: 'Bulgária',
                     BR: 'Brasil',
-                    CH: 'SuÃ­Ã§a',
+                    CH: 'Suíça',
                     CY: 'Chipre',
-                    CZ: 'RepÃºblica Checa',
+                    CZ: 'República Checa',
                     DE: 'Alemanha',
                     DK: 'Dinamarca',
-                    EE: 'EstÃ´nia',
+                    EE: 'Estônia',
                     ES: 'Espanha',
-                    FI: 'FinlÃ¢ndia',
-                    FR: 'FranÃ§a',
+                    FI: 'Finlândia',
+                    FR: 'França',
                     GB: 'Reino Unido',
-                    GR: 'GrÃ©cia',
-                    EL: 'GrÃ©cia',
+                    GR: 'Grécia',
+                    EL: 'Grécia',
                     HU: 'Hungria',
-                    HR: 'CroÃ¡cia',
+                    HR: 'Croácia',
                     IE: 'Irlanda',
-                    IS: 'IslÃ¢ndia',
-                    IT: 'ItÃ¡lia',
-                    LT: 'LituÃ¢nia',
+                    IS: 'Islândia',
+                    IT: 'Itália',
+                    LT: 'Lituânia',
                     LU: 'Luxemburgo',
-                    LV: 'LetÃ³nia',
+                    LV: 'Letónia',
                     MT: 'Malta',
                     NL: 'Holanda',
                     NO: 'Norway',
-                    PL: 'PolÃ´nia',
+                    PL: 'Polônia',
                     PT: 'Portugal',
-                    RO: 'RomÃ©nia',
-                    RU: 'RÃºssia',
-                    RS: 'SÃ©rvia',
-                    SE: 'SuÃ©cia',
-                    SI: 'EslovÃªnia',
-                    SK: 'EslovÃ¡quia',
+                    RO: 'Roménia',
+                    RU: 'Rússia',
+                    RS: 'Sérvia',
+                    SE: 'Suécia',
+                    SI: 'Eslovênia',
+                    SK: 'Eslováquia',
                     VE: 'Venezuela',
-                    ZA: 'Ãfrica do Sul'
+                    ZA: 'África do Sul'
                 }
             },
             vin: {
-                'default': 'Por favor insira um VIN vÃ¡lido'
+                'default': 'Por favor insira um VIN válido'
             },
             zipCode: {
-                'default': 'Por favor insira um cÃ³digo postal vÃ¡lido',
-                country: 'Por favor insira um cÃ³digo postal vÃ¡lido em %s',
+                'default': 'Por favor insira um código postal válido',
+                country: 'Por favor insira um código postal válido em %s',
                 countries: {
-                    AT: 'Ãustria',
-                    BG: 'BulgÃ¡ria',
+                    AT: 'Áustria',
+                    BG: 'Bulgária',
                     BR: 'Brasil',
-                    CA: 'CanadÃ¡',
-                    CH: 'SuÃ­Ã§a',
-                    CZ: 'RepÃºblica Checa',
+                    CA: 'Canadá',
+                    CH: 'Suíça',
+                    CZ: 'República Checa',
                     DE: 'Alemanha',
                     DK: 'Dinamarca',
                     ES: 'Espanha',
-                    FR: 'FranÃ§a',
+                    FR: 'França',
                     GB: 'Reino Unido',
                     IE: 'Irlanda',
-                    IN: 'Ãndia',
-                    IT: 'ItÃ¡lia',
+                    IN: 'Índia',
+                    IT: 'Itália',
                     MA: 'Marrocos',
                     NL: 'Holanda',
-                    PL: 'PolÃ´nia',
+                    PL: 'Polônia',
                     PT: 'Portugal',
-                    RO: 'RomÃ©nia',
-                    RU: 'RÃºssia',
-                    SE: 'SuÃ©cia',
+                    RO: 'Roménia',
+                    RU: 'Rússia',
+                    SE: 'Suécia',
                     SG: 'Cingapura',
-                    SK: 'EslovÃ¡quia',
+                    SK: 'Eslováquia',
                     US: 'EUA'
                 }
             }

@@ -849,19 +849,6 @@ ul.social-buttons li a:active {
     background: #a33433;
 }
 
-::selection {
-    text-shadow: none;
-    background: #a33433;
-}
-
-img::selection {
-    background: 0 0;
-}
-
-img::-moz-selection {
-    background: 0 0;
-}
-
 body {
     webkit-tap-highlight-color: #a33433;
 }

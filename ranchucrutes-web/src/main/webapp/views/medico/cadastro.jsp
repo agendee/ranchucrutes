@@ -11,67 +11,69 @@
 <body>
     <jsp:include page="/views/commons/menu.jsp" />
     <div class="col-sm-12 cadastro">
-        <form class="form-horizontal" action="/medico/save" method="POST">
+        <form id="formCadastro" class="form-horizontal" action="/medico/save" method="POST">
             <div class="col-sm-offset-3 col-sm-6">
                 <section id="dadosBasicos">
 
                     <div class="panel panel-default">
                       <div class="panel-body">
                         <h4>Cadastre seu Consultório</h4>
-                        <div class="alert alert-danger" role="alert">${errorMessage.errorMessage}</div>
+                        <c:if test="${errorMessage}">
+                            <div class="alert alert-danger" role="alert">${errorMessage.errorMessage}</div>
+                        </c:if>
                       </div>
 
                       <div class="panel-footer">
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Nome: </label>
+                                <label class="col-sm-3 control-label">Nome(*): </label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="nome" placeholder="Nome Completo" maxlength="80" value="${form.nome}"/>
+                                    <input type="text" class="form-control" name="nome" placeholder="Nome Completo" maxlength="80" value="${form.nome}" required/>
                                 </div>
                             </div>
 
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">CRM:</label>
-                                <div class="col-sm-4">
-                                    <input type="number" class="form-control" name="crm" placeholder="CRM" maxlength="10" value="${form.crm}"/>
+                                <label class="col-sm-3 control-label">CRM(*):</label>
+                                <div class="col-sm-6">
+                                    <input type="number" class="form-control" name="crm" placeholder="CRM" maxlength="10" value="${form.crm}" required/>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Especialidade:</label>
+                                <label class="col-sm-3 control-label">Especialidade(*):</label>
                                 <div class="col-sm-8">
-                                    <select id="idEspecialidade" name="idEspecialidade" data-placeholder="Selecione suas especialidades" multiple class="form-control chosen-select"></select>
+                                    <select id="idEspecialidade" name="idEspecialidade" data-placeholder="Selecione suas especialidades" multiple class="form-control chosen-select" required></select>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Celular:</label>
                                 <div class="col-sm-3">
-                                    <input type="number" class="form-control" name="ddd" placeholder="DDD" maxlength="2" value="${form.ddd}"/>
+                                    <input type="number" class="form-control" name="ddd" placeholder="DDD" maxlength="2" value="${form.ddd}" />
                                 </div>
                                 <div class="col-sm-5">
-                                    <input type="number" class="form-control" name="celular" placeholder="Celular" maxlength="9" value="${form.celular}"/>
+                                    <input type="number" class="form-control" name="celular" placeholder="Celular" maxlength="9" value="${form.celular}" />
                                 </div>
                             </div>
 
                            <div class="form-group">
-                               <label class="col-sm-3 control-label">Email:</label>
+                               <label class="col-sm-3 control-label">Email(*):</label>
                                <div class="col-sm-9">
-                                   <input type="text" class="form-control" name="email" placeholder="Email" maxlength="100" value="${form.email}"/>
+                                   <input type="text" class="form-control" name="email" placeholder="Email" maxlength="100" value="${form.email}" required/>
                                </div>
                            </div>
 
                            <div class="form-group">
-                              <label class="col-sm-3 control-label">Senha:</label>
+                              <label class="col-sm-3 control-label">Senha(*):</label>
                               <div class="col-sm-4">
-                                  <input type="password" class="form-control" name="senha" placeholder="Senha" maxlength="10" />
+                                  <input type="password" class="form-control" name="senha" placeholder="Senha" maxlength="10" required />
                               </div>
                           </div>
                            <div class="form-group">
-                              <label class="col-sm-3 control-label">Confirmação:</label>
+                              <label class="col-sm-3 control-label">Confirmação(*):</label>
                               <div class="col-sm-4">
-                                  <input type="password" class="form-control" placeholder="Repita a Senha" maxlength="10"/>
+                                  <input type="password" class="form-control" name="confirmacao" placeholder="Repita a Senha" maxlength="10" required/>
                               </div>
                           </div>
 
@@ -83,9 +85,6 @@
 
                       </div>
                     </div>
-
-
-
                 </session>
             </div>
         </form>
