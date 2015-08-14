@@ -9,7 +9,7 @@ public class MedicoForm {
     private String nome;
     private Integer crm;
     private Integer [] idEspecialidade;
-    private Integer ddd;
+    private Short ddd;
     private Long celular;
     private String email;
     private String senha;
@@ -38,11 +38,11 @@ public class MedicoForm {
         this.idEspecialidade = idEspecialidade;
     }
 
-    public Integer getDdd() {
+    public Short getDdd() {
         return ddd;
     }
 
-    public void setDdd(Integer ddd) {
+    public void setDdd(Short ddd) {
         this.ddd = ddd;
     }
 

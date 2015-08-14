@@ -10,15 +10,15 @@
 </head>
 <body>
     <jsp:include page="/views/commons/menu.jsp" />
-    <div class="col-sm-12 cadastro">
+    <div class="col-md-12 cadastro">
         <form id="formCadastro" class="form-horizontal" action="/medico/save" method="POST">
-            <div class="col-sm-offset-3 col-sm-6">
+            <div class="col-md-offset-3 col-md-8">
                 <section id="dadosBasicos">
 
                     <div class="panel panel-default">
                       <div class="panel-body">
-                        <h4>Cadastre seu Consultório</h4>
-                        <c:if test="${errorMessage}">
+                        <h4>Cadastre-se</h4>
+                        <c:if test="${errorMessage != null}">
                             <div class="alert alert-danger" role="alert">${errorMessage.errorMessage}</div>
                         </c:if>
                       </div>
@@ -26,59 +26,66 @@
                       <div class="panel-footer">
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Nome(*): </label>
-                                <div class="col-sm-9">
+                                <label class="col-md-3 control-label">Nome(*): </label>
+                                <div class="col-md-9">
                                     <input type="text" class="form-control" name="nome" placeholder="Nome Completo" maxlength="80" value="${form.nome}" required/>
                                 </div>
                             </div>
 
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">CRM(*):</label>
-                                <div class="col-sm-6">
+                                <label class="col-md-3 control-label">CRM(*):</label>
+                                <div class="col-md-6">
                                     <input type="number" class="form-control" name="crm" placeholder="CRM" maxlength="10" value="${form.crm}" required/>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Especialidade(*):</label>
-                                <div class="col-sm-8">
+                                <label class="col-md-3 control-label">CPF(*):</label>
+                                <div class="col-md-6">
+                                    <input type="number" class="form-control" name="crm" placeholder="CPF" maxlength="11" value="${form.crm}" required/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Especialidade(*):</label>
+                                <div class="col-md-8">
                                     <select id="idEspecialidade" name="idEspecialidade" data-placeholder="Selecione suas especialidades" multiple class="form-control chosen-select" required></select>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Celular:</label>
-                                <div class="col-sm-3">
+                                <label class="col-md-3 control-label">Celular:</label>
+                                <div class="col-md-3">
                                     <input type="number" class="form-control" name="ddd" placeholder="DDD" maxlength="2" value="${form.ddd}" />
                                 </div>
-                                <div class="col-sm-5">
+                                <div class="col-md-5">
                                     <input type="number" class="form-control" name="celular" placeholder="Celular" maxlength="9" value="${form.celular}" />
                                 </div>
                             </div>
 
                            <div class="form-group">
-                               <label class="col-sm-3 control-label">Email(*):</label>
-                               <div class="col-sm-9">
+                               <label class="col-md-3 control-label">Email(*):</label>
+                               <div class="col-md-9">
                                    <input type="text" class="form-control" name="email" placeholder="Email" maxlength="100" value="${form.email}" required/>
                                </div>
                            </div>
 
                            <div class="form-group">
-                              <label class="col-sm-3 control-label">Senha(*):</label>
-                              <div class="col-sm-4">
+                              <label class="col-md-3 control-label">Senha(*):</label>
+                              <div class="col-md-4">
                                   <input type="password" class="form-control" name="senha" placeholder="Senha" maxlength="10" required />
                               </div>
                           </div>
                            <div class="form-group">
-                              <label class="col-sm-3 control-label">Confirmação(*):</label>
-                              <div class="col-sm-4">
+                              <label class="col-md-3 control-label">Confirmação(*):</label>
+                              <div class="col-md-4">
                                   <input type="password" class="form-control" name="confirmacao" placeholder="Repita a Senha" maxlength="10" required/>
                               </div>
                           </div>
 
                             <div class="form-group">
-                                <div class="col-sm-9 col-sm-offset-3">
+                                <div class="col-md-9 col-sm-offset-3">
                                     <button type="submit" class="btn btn-primary">Enviar</button>
                                 </div>
                             </div>
