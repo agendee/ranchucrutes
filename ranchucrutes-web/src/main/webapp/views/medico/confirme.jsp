@@ -10,11 +10,11 @@
 <body>
     <jsp:include page="/views/commons/menu.jsp" />
     <section id="resultado">
-        <div class="col-xs-12 container">
+        <div class="col-md-offset-2 col-md-8 container">
             ${errorMessage}
 
 
-            <div class="panel panel-primary">
+            <div class="  panel panel-primary">
                   <div class="panel-heading">
                     <h3 class="panel-title">Obrigado por se cadastrar</h3>
                   </div>
@@ -26,6 +26,7 @@
 
         </div>
     </section>
+    <jsp:include page="/views/commons/rodape.jsp" />
     <jsp:include page="/views/commons/footer.jsp" />
     <jsp:include page="/views/commons/footer-components.jsp" />
 </body>

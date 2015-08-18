@@ -60,6 +60,24 @@ public class RanchucrutesDaoImpl implements RanchucrutesDao {
     }
 
     @Override
+    public <T> T getSingleRecordByProperties(Class<T> clazz, String paramName, Object value) {
+        List<T> result = this.getByProperties(clazz, paramName,value);
+        if (result.size() > 0){
+            return result.get(0);
+        }
+        return null;
+    }
+
+    @Override
+    public <T> T getSingleRecordByProperties(Class<T> clazz, String[] paramsName, Object[] values) {
+        List<T> result = this.getByProperties(clazz, paramsName,values);
+        if (result.size() > 0){
+            return result.get(0);
+        }
+        return null;
+    }
+
+    @Override
     public void remove(Object o) {
         this.hibernateTemplate.delete(o);
     }

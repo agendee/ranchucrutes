@@ -18,5 +18,9 @@ public interface RanchucrutesDao {
 
     <T> List<T> getByProperties(Class<T> clazz, String [] paramName, Object [] value);
 
+    <T> T getSingleRecordByProperties(Class<T> clazz, String paramName, Object value);
+
+    <T> T getSingleRecordByProperties(Class<T> clazz, String [] paramName, Object [] value);
+
     void remove(Object o);
 }

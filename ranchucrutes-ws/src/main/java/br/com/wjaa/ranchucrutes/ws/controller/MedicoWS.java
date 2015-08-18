@@ -2,8 +2,8 @@ package br.com.wjaa.ranchucrutes.ws.controller;
 
 import br.com.wjaa.ranchucrutes.commons.form.FindMedicoForm;
 import br.com.wjaa.ranchucrutes.commons.form.MedicoForm;
-import br.com.wjaa.ranchucrutes.ws.controller.adapter.MedicoAdapter;
-import br.com.wjaa.ranchucrutes.ws.vo.ResultadoBuscaMedicoVo;
+import br.com.wjaa.ranchucrutes.ws.adapter.MedicoAdapter;
+import br.com.wjaa.ranchucrutes.commons.vo.ResultadoBuscaMedicoVo;
 import br.com.wjaa.ranchucrutes.ws.entity.*;
 import br.com.wjaa.ranchucrutes.ws.exception.CepNotFoundException;
 import br.com.wjaa.ranchucrutes.ws.exception.LocationDuplicateFoundException;
@@ -13,7 +13,6 @@ import br.com.wjaa.ranchucrutes.ws.service.MedicoService;
 import br.com.wjaa.ranchucrutes.ws.vo.ErrorMessageVo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

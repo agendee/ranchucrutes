@@ -1,4 +1,4 @@
-package br.com.wjaa.ranchucrutes.web.vo;
+package br.com.wjaa.ranchucrutes.commons.vo;
 
 /**
  * Created by wagner on 22/07/15.

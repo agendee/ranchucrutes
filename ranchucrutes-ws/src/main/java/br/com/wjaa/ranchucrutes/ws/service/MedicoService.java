@@ -7,8 +7,7 @@ import br.com.wjaa.ranchucrutes.ws.exception.LocationDuplicateFoundException;
 import br.com.wjaa.ranchucrutes.ws.entity.MedicoEntity;
 import br.com.wjaa.ranchucrutes.ws.exception.LocationNotFoundException;
 import br.com.wjaa.ranchucrutes.ws.exception.MedicoServiceException;
-import br.com.wjaa.ranchucrutes.ws.vo.MedicoBasicoVo;
-import br.com.wjaa.ranchucrutes.ws.vo.ResultadoBuscaMedicoVo;
+import br.com.wjaa.ranchucrutes.commons.vo.ResultadoBuscaMedicoVo;
 
 import java.util.List;
 

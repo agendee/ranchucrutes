@@ -1,4 +1,4 @@
-package br.com.wjaa.ranchucrutes.ws.vo;
+package br.com.wjaa.ranchucrutes.commons.vo;
 
 import java.util.List;
 

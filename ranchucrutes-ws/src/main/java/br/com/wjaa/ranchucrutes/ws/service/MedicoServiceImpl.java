@@ -2,12 +2,12 @@ package br.com.wjaa.ranchucrutes.ws.service;
 
 import br.com.wjaa.ranchucrutes.commons.form.FindMedicoForm;
 import br.com.wjaa.ranchucrutes.commons.vo.LocationVo;
+import br.com.wjaa.ranchucrutes.ws.adapter.MedicoAdapter;
 import br.com.wjaa.ranchucrutes.ws.dao.MedicoDao;
 import br.com.wjaa.ranchucrutes.ws.entity.*;
 import br.com.wjaa.ranchucrutes.ws.exception.*;
 import br.com.wjaa.ranchucrutes.ws.vo.DistanceVo;
-import br.com.wjaa.ranchucrutes.ws.vo.MedicoBasicoVo;
-import br.com.wjaa.ranchucrutes.ws.vo.ResultadoBuscaMedicoVo;
+import br.com.wjaa.ranchucrutes.commons.vo.ResultadoBuscaMedicoVo;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -101,7 +101,7 @@ public class MedicoServiceImpl extends GenericServiceImpl<MedicoEntity, Long> im
                 LOG.error("Erro ao buscar as distancias para " + form, e);
             }
         }*/
-        resultado.setMedicos(MedicoBasicoVo.toListMedicoBasico(medicosProximos));
+        resultado.setMedicos(MedicoAdapter.toListMedicoBasico(medicosProximos));
         return resultado;
     }
 
@@ -160,25 +160,21 @@ public class MedicoServiceImpl extends GenericServiceImpl<MedicoEntity, Long> im
     }
 
     private MedicoEntity insertMedico(MedicoEntity medico) throws MedicoServiceException {
+
         List<MedicoClinicaEntity> clinicas = medico.getClinicas();
         medico.setDataCriacao(new Date());
         medico.setDataUltimoAcesso(new Date());
-        medico.setCodeConfirmacao(this.createCodeConfirmacao());
         try {
+            medico.setCodeConfirmacao(loginService.createCodeConfirmation(medico.getEmail(),medico.getCrm()));
             medico.setSenha(loginService.createHashPass(medico.getSenha()));
-        } catch (LoginServiceException e) {
-            throw new MedicoServiceException("Erro ao gerar a senha do cliente");
+        } catch (Exception e) {
+            throw new MedicoServiceException("Erro ao gerar senha|codigo de confirmacao do cliente");
         }
         medico = medicoDao.save(medico);
         LOG.info("Enviando email de confirmacao para " + medico.getEmail());
         emailService.sendEmailNovoMedico(medico.getEmail(), medico.getNome(), medico.getCodeConfirmacao());
         return medico;
 
-    }
-
-    private String createCodeConfirmacao() {
-        String time = String.valueOf(new Date().getTime());
-        return time.substring(time.length() -5, time.length());
     }
 
     @Override
@@ -264,4 +260,8 @@ public class MedicoServiceImpl extends GenericServiceImpl<MedicoEntity, Long> im
             }
         }
     }
+
+
+
+
 }
