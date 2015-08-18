@@ -12,7 +12,7 @@
     <jsp:include page="/views/commons/menu.jsp" />
     <div class="col-md-12 cadastro">
         <form id="formCadastro" class="form-horizontal" action="/medico/save" method="POST">
-            <div class="col-md-offset-3 col-md-8">
+            <div class="col-md-offset-2 col-md-8">
                 <section id="dadosBasicos">
 
                     <div class="panel panel-default">
@@ -43,7 +43,7 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label">CPF(*):</label>
                                 <div class="col-md-6">
-                                    <input type="number" class="form-control" name="crm" placeholder="CPF" maxlength="11" value="${form.crm}" required/>
+                                    <input type="number" class="form-control" name="cpf" placeholder="CPF" maxlength="11" value="${form.crm}" required/>
                                 </div>
                             </div>
 
@@ -98,8 +98,8 @@
     </div>
     <jsp:include page="/views/commons/footer.jsp" />
     <jsp:include page="/views/commons/footer-components.jsp" />
-    <script src="/static/js/libs/chosen.jquery.js" type="text/javascript"></script>
     <script src="/static/js/ws/ranchucrutes-ws-client.js"></script>
+    <script src="/static/js/commons/utils.js"></script>
     <script src="/static/js/medico/cadastro.js"></script>
     <script>
         var especSelected = [];

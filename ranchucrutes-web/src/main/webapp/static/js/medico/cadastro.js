@@ -21,11 +21,12 @@ var cadastro = function() {
                         $("#idEspecialidade option[value=" + especSelected[i] + "]").attr('selected','selected');
                     }
 
-                    $('#idEspecialidade')
+                    /*$('#idEspecialidade')
                     .chosen({no_results_text:'Oops, especialidade não encontrada!'})
                     .change( function(){
                        //nada
-                    } );
+                    } );*/
+                    $('#idEspecialidade').select2({placeholder:"Selecione um plano de saúde"});
 
                 });
         },
@@ -62,6 +63,16 @@ var cadastro = function() {
                                             regexp: /^([0-9]+)$/,
                                             message: 'Número de CRM inválido'
                                         }
+                                }
+                            },
+                            cpf: {
+                                validators: {
+                                    callback: {
+                                        message: 'Cpf Inválido',
+                                        callback: function(value, validator) {
+                                            return Utils.validarCPF(value);
+                                        }
+                                    }
                                 }
                             },
                             idEspecialidade: {

@@ -13,7 +13,16 @@
         <div class="col-xs-12 container">
             ${errorMessage}
 
-            Você deve ter recebido um email com os passos para confirmar o seu cadastro.
+
+            <div class="panel panel-primary">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Obrigado por se cadastrar</h3>
+                  </div>
+                  <div class="panel-body">
+                    Em pouco instantantes você receberá um email.
+                    Clique no link do email para confirmar o cadastro.
+                   </div>
+            </div>
 
         </div>
     </section>
