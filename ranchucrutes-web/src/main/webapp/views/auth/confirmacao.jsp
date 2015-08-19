@@ -10,10 +10,20 @@
 </head>
 <body>
     <jsp:include page="/views/commons/menu.jsp" />
-    <section id="resultado">
-        <h:info-panel title="Obrigado por se cadastrar!"
-        msg="Em pouco instantantes você receberá um email.<br/>Clique no link do email para confirmar o cadastro."/>
-    </section>
+    <div class="col-xs-12 container">
+        <section id="resultado">
+
+            <c:if test="${confirmaCadastro.isError()}">
+                <h:info-panel title="Ops!" msg="${confirmaCadastro.status.msg}"/>
+            </c:if>
+
+            <c:if test="${!confirmaCadastro.isError()}">
+                 <h:info-panel title="Cadastro confirmado com sucesso!" msg="Seu cadastro foi confirmado, clique <a href='/medico/login'>aqui</a> para fazer login."/>
+            </c:if>
+
+        </section>
+
+    </div>
     <jsp:include page="/views/commons/rodape.jsp" />
     <jsp:include page="/views/commons/footer.jsp" />
     <jsp:include page="/views/commons/footer-components.jsp" />

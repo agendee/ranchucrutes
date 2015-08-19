@@ -161,9 +161,9 @@ public class MedicoServiceImpl extends GenericServiceImpl<MedicoEntity, Long> im
 
     private MedicoEntity insertMedico(MedicoEntity medico) throws MedicoServiceException {
 
-        List<MedicoClinicaEntity> clinicas = medico.getClinicas();
         medico.setDataCriacao(new Date());
         medico.setDataUltimoAcesso(new Date());
+        medico.setAtivo(false);
         try {
             medico.setCodeConfirmacao(loginService.createCodeConfirmation(medico.getEmail(),medico.getCrm()));
             medico.setSenha(loginService.createHashPass(medico.getSenha()));

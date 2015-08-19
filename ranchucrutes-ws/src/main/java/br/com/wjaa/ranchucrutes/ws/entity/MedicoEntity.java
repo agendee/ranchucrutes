@@ -23,6 +23,7 @@ public class MedicoEntity extends LoginEntity implements Serializable{
     private Long celular;
     private List<MedicoClinicaEntity> clinicas;
     private List<EspecialidadeEntity> especialidades;
+    private String cpf;
     //private Notification notificacoes de aplicativos
 
     @Column(name = "CRM", nullable = false)
@@ -91,5 +92,15 @@ public class MedicoEntity extends LoginEntity implements Serializable{
         }
         this.especialidades.add(new EspecialidadeEntity(idEspecialidade,null));
     }
+
+    @Column(name = "CPF")
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
 
 }

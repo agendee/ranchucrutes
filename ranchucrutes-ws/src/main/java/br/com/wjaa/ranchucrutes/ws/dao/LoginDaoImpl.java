@@ -2,12 +2,14 @@ package br.com.wjaa.ranchucrutes.ws.dao;
 
 import br.com.wjaa.ranchucrutes.ws.entity.LoginEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.MedicoEntity;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by wagner on 18/08/15.
  */
+@Repository
 public class LoginDaoImpl extends GenericDaoImpl<LoginEntity,Integer> implements LoginDao {
 
 

@@ -2,6 +2,7 @@ package br.com.wjaa.ranchucrutes.ws.controller;
 
 import br.com.wjaa.ranchucrutes.commons.vo.ConfirmaCadastroVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ResultadoLoginVo;
+import br.com.wjaa.ranchucrutes.ws.exception.LoginNotConfirmationException;
 import br.com.wjaa.ranchucrutes.ws.exception.LoginServiceException;
 import br.com.wjaa.ranchucrutes.ws.service.LoginService;
 import org.apache.commons.logging.Log;
@@ -28,16 +29,21 @@ public class AuthWS {
     }
 
     @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8", method = RequestMethod.POST)
-    public ResultadoLoginVo confirma(@RequestParam String emailOuCrm, @RequestParam String senha){
+    public ResultadoLoginVo auth(@RequestParam String emailOuCrm, @RequestParam String senha){
         ResultadoLoginVo resultadoLoginVo = new ResultadoLoginVo();
         try {
             resultadoLoginVo.setMedico(loginService.autenticarMedico(emailOuCrm, senha));
+            resultadoLoginVo.setStatus(ResultadoLoginVo.StatusLogin.SUCESSO);
             return resultadoLoginVo;
         } catch (LoginServiceException e) {
             LOG.error("Erro no login ", e);
-            resultadoLoginVo.setMsg(e.getMessage());
+            resultadoLoginVo.setStatus(ResultadoLoginVo.StatusLogin.ERRO);
             return resultadoLoginVo;
+        } catch (LoginNotConfirmationException e) {
+            LOG.error("Erro no login ", e);
+            resultadoLoginVo.setStatus(ResultadoLoginVo.StatusLogin.ACESSO_NAO_CONFIRMADO);
         }
+        return resultadoLoginVo;
     }
 
 }

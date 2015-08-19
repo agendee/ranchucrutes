@@ -1,5 +1,8 @@
 package br.com.wjaa.ranchucrutes.commons.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Created by wagner on 18/08/15.
  */
@@ -40,6 +43,7 @@ public class ConfirmaCadastroVo {
         this.status = status;
     }
 
+    @JsonIgnore
     public Boolean isError(){
         return (StatusConfirmacaoCadastro.CODIGO_INVALIDO.equals(status) ||
             StatusConfirmacaoCadastro.UNKOWN_ERROR.equals(status) ||

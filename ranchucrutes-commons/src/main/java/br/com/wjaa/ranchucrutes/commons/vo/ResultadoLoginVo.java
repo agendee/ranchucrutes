@@ -1,12 +1,32 @@
 package br.com.wjaa.ranchucrutes.commons.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Created by wagner on 18/08/15.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ResultadoLoginVo {
 
+    public enum StatusLogin{
+        SUCESSO("Logado"),
+        ERRO("Usúario ou senha inválido!"),
+        ACESSO_NAO_CONFIRMADO("Seu acesso não foi confirmado!");
+
+        private String msg;
+        private StatusLogin(String msg){
+            this.msg = msg;
+        }
+
+        public String getMsg() {
+            return msg;
+        }
+    }
+
+
     private MedicoBasicoVo medico;
-    private String msg;
+    private StatusLogin status;
 
     public MedicoBasicoVo getMedico() {
         return medico;
@@ -16,11 +36,26 @@ public class ResultadoLoginVo {
         this.medico = medico;
     }
 
-    public String getMsg() {
-        return msg;
+    public StatusLogin getStatus() {
+        return status;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setStatus(StatusLogin status) {
+        this.status = status;
+    }
+
+    @JsonIgnore
+    public Boolean isSucesso(){
+        return StatusLogin.SUCESSO.equals(this.status);
+    }
+
+    @JsonIgnore
+    public Boolean isErro(){
+        return StatusLogin.ERRO.equals(this.status);
+    }
+
+    @JsonIgnore
+    public Boolean isAcessoNaoConfirmado(){
+        return StatusLogin.ACESSO_NAO_CONFIRMADO.equals(this.status);
     }
 }

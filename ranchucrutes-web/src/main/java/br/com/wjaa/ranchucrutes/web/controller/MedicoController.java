@@ -63,11 +63,6 @@ public class MedicoController {
     }
 
 
-    @RequestMapping(value = "/medico/teste", method = RequestMethod.GET)
-    public String save() {
-        return "medico/confirme";
-    }
-
     @RequestMapping(value = "/medico/cadastro", method = RequestMethod.GET)
     public ModelAndView cadastro() {
         ModelAndView mav = new ModelAndView("medico/cadastro");

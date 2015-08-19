@@ -7,6 +7,7 @@ import br.com.wjaa.ranchucrutes.ws.adapter.MedicoAdapter;
 import br.com.wjaa.ranchucrutes.ws.dao.LoginDao;
 import br.com.wjaa.ranchucrutes.ws.dao.RanchucrutesDao;
 import br.com.wjaa.ranchucrutes.ws.entity.MedicoEntity;
+import br.com.wjaa.ranchucrutes.ws.exception.LoginNotConfirmationException;
 import br.com.wjaa.ranchucrutes.ws.exception.LoginServiceException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -57,13 +58,14 @@ public class LoginServiceImpl implements LoginService {
         }
 
         medicoEntity.setDataConfirmacao(new Date());
+        medicoEntity.setAtivo(true);
         dao.save(medicoEntity);
 
         return new ConfirmaCadastroVo(ConfirmaCadastroVo.StatusConfirmacaoCadastro.SUCESSO);
     }
 
     @Override
-    public MedicoBasicoVo autenticarMedico(String emailOuCrm, String pass) throws LoginServiceException {
+    public MedicoBasicoVo autenticarMedico(String emailOuCrm, String pass) throws LoginServiceException, LoginNotConfirmationException {
         MedicoEntity medicoEntity;
         if (org.apache.commons.lang.StringUtils.isNumeric(emailOuCrm)){
             medicoEntity = this.loginDao.autenticarMedico(Integer.valueOf(emailOuCrm), this.createHashPass(pass));
@@ -73,6 +75,14 @@ public class LoginServiceImpl implements LoginService {
 
         if (medicoEntity == null){
             throw new LoginServiceException("Login ou senha inválido.");
+        }
+
+        if (medicoEntity.getDataConfirmacao() == null){
+            throw new LoginNotConfirmationException("Você não confirmou o seu acesso.");
+        }
+
+        if (medicoEntity.getAtivo() == null || !medicoEntity.getAtivo()){
+            throw new LoginServiceException("Seu acesso está inativado, contate o nosso suporte técnico.");
         }
 
         return MedicoAdapter.toMedicoBasico(medicoEntity);

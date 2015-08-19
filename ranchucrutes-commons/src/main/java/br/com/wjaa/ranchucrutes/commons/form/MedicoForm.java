@@ -13,6 +13,7 @@ public class MedicoForm {
     private Long celular;
     private String email;
     private String senha;
+    private String cpf;
 
     public String getNome() {
         return nome;
@@ -70,4 +71,19 @@ public class MedicoForm {
         this.senha = senha;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public Long getIdLogin() {
+        return idLogin;
+    }
+
+    public void setIdLogin(Long idLogin) {
+        this.idLogin = idLogin;
+    }
 }
