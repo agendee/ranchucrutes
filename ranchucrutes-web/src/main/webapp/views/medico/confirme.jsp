@@ -10,11 +10,14 @@
 </head>
 <body>
     <jsp:include page="/views/commons/menu.jsp" />
-    <section id="resultado">
-        <h:info-panel title="Obrigado por se cadastrar!"
-        msg="Em pouco instantantes você receberá um email.<br/>Clique no link do email para confirmar o cadastro."/>
-    </section>
-    <jsp:include page="/views/commons/rodape.jsp" />
+    <div class="col-xs-12 container">
+        <section id="resultado">
+            <h:info-panel title="Obrigado por se cadastrar!"
+            msg="Em pouco instantantes você receberá um email.<br/>Clique no link do email para confirmar o cadastro."/>
+        </section>
+        <jsp:include page="/views/commons/rodape.jsp" />
+    </div>
+
     <jsp:include page="/views/commons/footer.jsp" />
     <jsp:include page="/views/commons/footer-components.jsp" />
 </body>

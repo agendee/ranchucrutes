@@ -10,8 +10,11 @@
 <body>
     <jsp:include page="/views/commons/menu.jsp" />
     <div class="col-xs-12 container">
-        page base
+        <session>
+                page base.
+        </session>
 
+    <jsp:include page="/views/commons/rodape.jsp" />
     </div>
     <jsp:include page="/views/commons/footer.jsp" />
     <jsp:include page="/views/commons/footer-components.jsp" />

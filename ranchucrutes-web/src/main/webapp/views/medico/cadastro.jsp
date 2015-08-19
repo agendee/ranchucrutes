@@ -95,8 +95,9 @@
                 </session>
             </div>
         </form>
-    </div>
     <jsp:include page="/views/commons/rodape.jsp" />
+    </div>
+
     <jsp:include page="/views/commons/footer.jsp" />
     <jsp:include page="/views/commons/footer-components.jsp" />
     <script src="/static/js/ws/ranchucrutes-ws-client.js"></script>

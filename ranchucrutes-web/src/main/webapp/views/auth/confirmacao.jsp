@@ -22,9 +22,8 @@
             </c:if>
 
         </section>
-
+        <jsp:include page="/views/commons/rodape.jsp" />
     </div>
-    <jsp:include page="/views/commons/rodape.jsp" />
     <jsp:include page="/views/commons/footer.jsp" />
     <jsp:include page="/views/commons/footer-components.jsp" />
 </body>
