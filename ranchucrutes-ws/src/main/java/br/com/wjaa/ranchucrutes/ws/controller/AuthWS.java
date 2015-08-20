@@ -1,5 +1,7 @@
 package br.com.wjaa.ranchucrutes.ws.controller;
 
+import br.com.wjaa.ranchucrutes.commons.form.FindMedicoForm;
+import br.com.wjaa.ranchucrutes.commons.form.LoginForm;
 import br.com.wjaa.ranchucrutes.commons.vo.ConfirmaCadastroVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ResultadoLoginVo;
 import br.com.wjaa.ranchucrutes.ws.exception.LoginNotConfirmationException;
@@ -29,10 +31,10 @@ public class AuthWS {
     }
 
     @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8", method = RequestMethod.POST)
-    public ResultadoLoginVo auth(@RequestParam String emailOuCrm, @RequestParam String senha){
+    public ResultadoLoginVo auth(@RequestBody LoginForm form){
         ResultadoLoginVo resultadoLoginVo = new ResultadoLoginVo();
         try {
-            resultadoLoginVo.setMedico(loginService.autenticarMedico(emailOuCrm, senha));
+            resultadoLoginVo.setMedico(loginService.autenticarMedico(form.getLogin(), form.getSenha()));
             resultadoLoginVo.setStatus(ResultadoLoginVo.StatusLogin.SUCESSO);
             return resultadoLoginVo;
         } catch (LoginServiceException e) {

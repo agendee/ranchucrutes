@@ -8,9 +8,11 @@
     <jsp:include page="/views/commons/header-components.jsp" />
 </head>
 <body>
-    <jsp:include page="/views/commons/menu.jsp" />
+    <jsp:include page="/views/commons/menu_admin.jsp" />
     <div class="col-xs-12 container">
-        page base
+        <section>
+            <h1>Olá bem vindo a area administrativa da sua agenda online</h1>
+        </section>
 
     </div>
     <jsp:include page="/views/commons/footer.jsp" />

@@ -26,7 +26,7 @@
                       <div class="panel-footer">
 
                             <div class="form-group">
-                                <label class="col-md-3 control-label">Nome(*): </label>
+                                <label class="col-md-3 control-label">Nome:<font style="color: rgb(169, 68, 66);">*</font> </label>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control" name="nome" placeholder="Nome Completo" maxlength="80" value="${form.nome}" required/>
                                 </div>
@@ -34,21 +34,21 @@
 
 
                             <div class="form-group">
-                                <label class="col-md-3 control-label">CRM(*):</label>
+                                <label class="col-md-3 control-label">CRM:<font style="color: rgb(169, 68, 66);">*</font></label>
                                 <div class="col-md-6">
                                     <input type="number" class="form-control" name="crm" placeholder="CRM" maxlength="10" value="${form.crm}" required/>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-3 control-label">CPF(*):</label>
+                                <label class="col-md-3 control-label">CPF:<font style="color: rgb(169, 68, 66);">*</font></label>
                                 <div class="col-md-6">
                                     <input type="number" class="form-control" name="cpf" placeholder="CPF" maxlength="11" value="${form.cpf}" required/>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-3 control-label">Especialidade(*):</label>
+                                <label class="col-md-3 control-label">Especialidade:<font style="color: rgb(169, 68, 66);">*</font></label>
                                 <div class="col-md-8">
                                     <select id="idEspecialidade" name="idEspecialidade" data-placeholder="Selecione suas especialidades" multiple class="form-control chosen-select" required></select>
                                 </div>
@@ -65,20 +65,20 @@
                             </div>
 
                            <div class="form-group">
-                               <label class="col-md-3 control-label">Email(*):</label>
+                               <label class="col-md-3 control-label">Email:<font style="color: rgb(169, 68, 66);">*</font></label>
                                <div class="col-md-9">
                                    <input type="text" class="form-control" name="email" placeholder="Email" maxlength="100" value="${form.email}" required/>
                                </div>
                            </div>
 
                            <div class="form-group">
-                              <label class="col-md-3 control-label">Senha(*):</label>
+                              <label class="col-md-3 control-label">Senha:<font style="color: rgb(169, 68, 66);">*</font></label>
                               <div class="col-md-4">
                                   <input type="password" class="form-control" name="senha" placeholder="Senha" maxlength="10" required />
                               </div>
                           </div>
                            <div class="form-group">
-                              <label class="col-md-3 control-label">Confirmação(*):</label>
+                              <label class="col-md-3 control-label">Confirmação:<font style="color: rgb(169, 68, 66);">*</font></label>
                               <div class="col-md-4">
                                   <input type="password" class="form-control" name="confirmacao" placeholder="Repita a Senha" maxlength="10" required/>
                               </div>

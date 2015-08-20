@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-fixed-top navbar-shrink">
@@ -19,9 +20,16 @@
                 <li class="hidden">
                     <a href="#page-top"></a>
                 </li>
-                <li>
-                    <a class="page-scroll" href="/#logar">Entrar</a>
-                </li>
+                <c:if test="${sessionScope.loginSession == null}">
+                    <li>
+                        <a class="page-scroll" href="/#logar">Entrar</a>
+                    </li>
+                </c:if>
+                <c:if test="${sessionScope.loginSession != null}">
+                    <li>
+                        <a class="page-scroll" href="/auth/medico"><i class="fa fa-user-md"></i> ${sessionScope.loginSession.primeiroNome}</a>
+                    </li>
+                </c:if>
                 <li>
                     <a class="page-scroll" href="/#services">Serviços</a>
                 </li>

@@ -20,30 +20,17 @@
                 <li class="hidden">
                     <a href="#page-top"></a>
                 </li>
-                <c:if test="${sessionScope.loginSession == null}">
-                    <li>
-                        <a class="page-scroll" href="#logar">Entrar</a>
-                    </li>
-                </c:if>
-                <c:if test="${sessionScope.loginSession != null}">
-                    <li>
-                        <a class="page-scroll" href="/auth/medico"><i class="fa fa-user-md"></i> ${sessionScope.loginSession.primeiroNome}</a>
-                    </li>
-                </c:if>
                 <li>
-                    <a class="page-scroll" href="#services">Serviços</a>
+                    <a class="page-scroll" href="/medico/agenda">Agenda</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="#about">Sobre</a>
+                    <a class="page-scroll" href="/medico/cadastro">Cadastro</a>
                 </li>
-                <!--
+
                 <li>
-                    <a class="page-scroll" href="#team">Equipe</a>
+                    <a class="page-scroll" href="/medico/sair">Sair</a>
                 </li>
-                -->
-                <li>
-                    <a class="page-scroll" href="#contact">Contatos</a>
-                </li>
+
             </ul>
         </div>
         <!-- /.navbar-collapse -->

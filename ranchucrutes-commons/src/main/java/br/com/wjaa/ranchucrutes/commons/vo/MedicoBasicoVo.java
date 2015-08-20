@@ -1,5 +1,7 @@
 package br.com.wjaa.ranchucrutes.commons.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Created by wagner on 22/07/15.
  */
@@ -67,5 +69,13 @@ public class MedicoBasicoVo {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    @JsonIgnore
+    public String getPrimeiroNome(){
+        if (this.nome != null && this.nome.length() > 0){
+            return this.nome.split(" ")[0];
+        }
+        return "Sem Nome";
     }
 }

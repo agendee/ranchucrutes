@@ -1,20 +1,24 @@
 package br.com.wjaa.ranchucrutes.web.controller;
 
+import br.com.wjaa.ranchucrutes.commons.form.LoginForm;
+import br.com.wjaa.ranchucrutes.commons.utils.ObjectUtils;
 import br.com.wjaa.ranchucrutes.commons.vo.ConfirmaCadastroVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ResultadoLoginVo;
 import br.com.wjaa.ranchucrutes.web.exception.RestException;
 import br.com.wjaa.ranchucrutes.web.exception.RestRequestUnstable;
 import br.com.wjaa.ranchucrutes.web.exception.RestResponseUnsatisfiedException;
+import br.com.wjaa.ranchucrutes.web.helper.AuthHelper;
 import br.com.wjaa.ranchucrutes.web.rest.RestUtils;
 import br.com.wjaa.ranchucrutes.web.utils.RanchucrutesConstantes;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestScope;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by wagner on 18/08/15.
@@ -40,21 +44,33 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/auth/medico", method = RequestMethod.POST)
-    public ModelAndView loginMedico(@RequestParam String login, @RequestParam String senha){
+    public ModelAndView loginMedico(@ModelAttribute LoginForm loginForm, HttpServletRequest request){
         ModelAndView mav = new ModelAndView("medico/admin");
         try {
-            ResultadoLoginVo resultadoLogin = RestUtils.postParam(ResultadoLoginVo.class, RanchucrutesConstantes.HOST_WS,
-                    "auth", new String[]{"emailOuCrm","senha"},new String[]{login,senha});
+
+            if ( AuthHelper.isAutenticado(request) ){
+                mav.addObject("medico", AuthHelper.getMedico(request));
+                return mav;
+            }
+
+            mav.addObject("form",loginForm);
+            String json = ObjectUtils.toJson(loginForm);
+            ResultadoLoginVo resultadoLogin = RestUtils.postJson(ResultadoLoginVo.class, RanchucrutesConstantes.HOST_WS,
+                    "auth", json);
 
             if (ResultadoLoginVo.StatusLogin.SUCESSO.equals(resultadoLogin.getStatus())){
                 mav.addObject("medico", resultadoLogin.getMedico());
+                HttpSession session = request.getSession();
+                session.setAttribute(RanchucrutesConstantes.LOGIN_SESSION, resultadoLogin.getMedico());
+                //20 minutos
+                session.setMaxInactiveInterval(20*60);
                 return mav;
             }else if (ResultadoLoginVo.StatusLogin.ERRO.equals(resultadoLogin.getStatus())){
                 mav.setViewName("medico/login");
-                mav.addObject("error", resultadoLogin.getStatus().getMsg());
+                mav.addObject("errorMessage", resultadoLogin.getStatus().getMsg());
             }else if (ResultadoLoginVo.StatusLogin.ACESSO_NAO_CONFIRMADO.equals(resultadoLogin.getStatus())){
                 mav.setViewName("medico/login");
-                mav.addObject("error", resultadoLogin.getStatus().getMsg());
+                mav.addObject("errorMessage", resultadoLogin.getStatus().getMsg());
                 //TODO ADICIONAR ALGO AQUI PRA QUE NA TELA O USUARIO TENHA UM LINK PARA RENVIAR O EMAIL CASO ELE DESEJE.
             }
 
