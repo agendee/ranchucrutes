@@ -44,7 +44,7 @@
                                                 <div class="form-group">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">
-                                                            <i class="glyphicon glyphicon-lock"></i>
+                                                            <i class="fa fa-key"></i>
                                                         </span>
                                                         <input class="form-control" placeholder="Senha" name="senha" type="password" required value="">
                                                     </div>

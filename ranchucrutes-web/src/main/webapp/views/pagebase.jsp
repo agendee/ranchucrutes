@@ -10,9 +10,9 @@
 <body>
     <jsp:include page="/views/commons/menu.jsp" />
     <div class="col-xs-12 container">
-        <session>
+        <section>
                 page base.
-        </session>
+        </section>
 
     <jsp:include page="/views/commons/rodape.jsp" />
     </div>

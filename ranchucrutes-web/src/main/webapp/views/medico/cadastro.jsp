@@ -12,7 +12,7 @@
     <jsp:include page="/views/commons/menu.jsp" />
     <div class="col-md-12 cadastro container">
         <form id="formCadastro" class="form-horizontal" action="/medico/save" method="POST">
-            <div class="col-md-offset-2 col-md-8">
+            <div class="col-md-offset-3 col-md-6">
                 <section id="dadosBasicos">
 
                     <div class="panel panel-default">

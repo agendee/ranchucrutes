@@ -27,7 +27,7 @@
                 </c:if>
                 <c:if test="${sessionScope.loginSession != null}">
                     <li>
-                        <a class="page-scroll" href="/auth/medico"><i class="fa fa-user-md"></i> ${sessionScope.loginSession.primeiroNome}</a>
+                        <a class="page-scroll" href="/medico/admin"><i class="fa fa-user-md"></i> ${sessionScope.loginSession.primeiroNome}</a>
                     </li>
                 </c:if>
                 <li>

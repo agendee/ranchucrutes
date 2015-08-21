@@ -24,7 +24,7 @@
                     <a class="page-scroll" href="/medico/agenda">Agenda</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="/medico/cadastro">Cadastro</a>
+                    <a class="page-scroll" href="/medico/admin">Cadastro</a>
                 </li>
 
                 <li>

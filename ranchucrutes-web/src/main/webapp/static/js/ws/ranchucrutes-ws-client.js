@@ -21,6 +21,13 @@ var RanchucrutesWS = function() {
                     callback(convenios);
                 });
         },
+        listAllConvenioCategorias: function(callback){
+            RanchucrutesWS.ajax('http://rest.marcmed.com.br/convenio/categoria/all',
+                'get',
+                function(categorias){
+                    callback(categorias);
+                });
+        },
         getCategoriasByIdConvenio: function(idConvenio, callback){
             RanchucrutesWS.ajax('http://rest.marcmed.com.br/convenio/categoria/' + idConvenio,
                 'get',

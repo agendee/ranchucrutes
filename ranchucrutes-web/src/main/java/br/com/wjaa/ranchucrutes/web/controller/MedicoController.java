@@ -2,11 +2,13 @@ package br.com.wjaa.ranchucrutes.web.controller;
 
 import br.com.wjaa.ranchucrutes.commons.form.FindMedicoForm;
 import br.com.wjaa.ranchucrutes.commons.form.MedicoForm;
+import br.com.wjaa.ranchucrutes.commons.form.MedicoFullForm;
 import br.com.wjaa.ranchucrutes.commons.utils.ObjectUtils;
 import br.com.wjaa.ranchucrutes.commons.vo.ResultadoBuscaMedicoVo;
 import br.com.wjaa.ranchucrutes.web.exception.RestException;
 import br.com.wjaa.ranchucrutes.web.exception.RestRequestUnstable;
 import br.com.wjaa.ranchucrutes.web.exception.RestResponseUnsatisfiedException;
+import br.com.wjaa.ranchucrutes.web.helper.AuthHelper;
 import br.com.wjaa.ranchucrutes.web.rest.RestUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by wagner on 12/06/15.
@@ -63,6 +67,13 @@ public class MedicoController {
     }
 
 
+    @RequestMapping(value = "/medico/safefull", method = RequestMethod.POST)
+    public ModelAndView save(@ModelAttribute MedicoFullForm form) {
+        return null;
+    }
+
+
+
     @RequestMapping(value = "/medico/cadastro", method = RequestMethod.GET)
     public ModelAndView cadastro() {
         ModelAndView mav = new ModelAndView("medico/cadastro");
@@ -71,8 +82,32 @@ public class MedicoController {
 
 
     @RequestMapping(value = "/medico/login", method = RequestMethod.GET)
-    public ModelAndView login() {
+    public ModelAndView login(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("medico/login");
+
+        if (AuthHelper.isAutenticado(request)){
+            mav.setViewName("redirect:/medico/admin");
+        }
+        return mav;
+    }
+
+    @RequestMapping(value = "/medico/admin", method = RequestMethod.GET)
+    public ModelAndView admin(HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("medico/admin");
+
+        if (!AuthHelper.isAutenticado(request)){
+            mav.setViewName("redirect:/medico/login");
+        }
+        return mav;
+    }
+
+    @RequestMapping(value = "/medico/agenda", method = RequestMethod.GET)
+    public ModelAndView calendario(HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("medico/agenda");
+
+        if (!AuthHelper.isAutenticado(request)){
+            mav.setViewName("redirect:/medico/login");
+        }
         return mav;
     }
 
