@@ -4,8 +4,22 @@ var admin = function() {
             admin.initValidate();
             admin.initComboEspecialidade();
             admin.initComboConvenio();
+            admin.initInput();
+        },
+        initInput: function(){
+            $('[data-toggle="tooltip"]').tooltip();
+            $('#valorConsulta').maskMoney({
+               				prefix:'',
+               				allowNegative: true,
+               				thousands:'.',
+               				decimal:',',
+               				affixesStay: false
+               			});
+               			/*$('#valorConsulta').bind('change',function(){
+               				$("#formCadastro").formValidation('updateStatus', 'pesoKg', 'NOT_VALIDATED')
+            				.formValidation('validateField', 'pesoKg');
 
-
+               			});*/
         },
         initComboEspecialidade: function(){
              RanchucrutesWS.listAllEspecialidade(function(especialidades){
@@ -19,11 +33,11 @@ var admin = function() {
                     });
 
 
-                    /* selecionados
+
                     for (var i = 0; i < especSelected.length; i++){
                         $("#idEspecialidade option[value=" + especSelected[i] + "]").attr('selected','selected');
                     }
-                    */
+
 
 
                     /*$('#idEspecialidade')

@@ -2,6 +2,7 @@ package br.com.wjaa.ranchucrutes.ws.controller;
 
 import br.com.wjaa.ranchucrutes.commons.form.FindMedicoForm;
 import br.com.wjaa.ranchucrutes.commons.form.MedicoForm;
+import br.com.wjaa.ranchucrutes.commons.form.MedicoFullForm;
 import br.com.wjaa.ranchucrutes.ws.adapter.MedicoAdapter;
 import br.com.wjaa.ranchucrutes.commons.vo.ResultadoBuscaMedicoVo;
 import br.com.wjaa.ranchucrutes.ws.entity.*;
@@ -33,8 +34,9 @@ public class MedicoWS extends BaseWS {
     private MedicoService medicoService;
 
     @RequestMapping(value = "/medico/{id}", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
-    public MedicoEntity getMedicoById(@PathVariable Long id) {
-        return this.medicoService.get(id);
+    public MedicoFullForm getMedicoById(@PathVariable Long id) {
+        MedicoEntity entity = this.medicoService.get(id);
+        return MedicoAdapter.toMedicoFullForm(entity);
     }
 
     @RequestMapping(value = "/medico/search", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
@@ -50,6 +52,14 @@ public class MedicoWS extends BaseWS {
         MedicoEntity medico = MedicoAdapter.fromMedicoForm(form);
         MedicoEntity entity = this.medicoService.save(medico);
         return MedicoAdapter.toMedicoForm(entity);
+    }
+
+    @RequestMapping(value = "/medico/update", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8",
+            method = RequestMethod.POST)
+    public @ResponseBody MedicoFullForm update(@RequestBody final MedicoFullForm form) throws MedicoServiceException {
+        MedicoEntity medico = MedicoAdapter.fromMedicoFullForm(form);
+        MedicoEntity entity = this.medicoService.update(medico);
+        return MedicoAdapter.toMedicoFullForm(entity);
     }
 
 

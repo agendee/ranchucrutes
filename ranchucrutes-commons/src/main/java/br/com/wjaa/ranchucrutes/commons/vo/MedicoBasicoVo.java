@@ -1,12 +1,15 @@
 package br.com.wjaa.ranchucrutes.commons.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * Created by wagner on 22/07/15.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MedicoBasicoVo {
 
+    private Long id;
     private String nome;
     private Integer crm;
     private String espec;
@@ -69,6 +72,14 @@ public class MedicoBasicoVo {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @JsonIgnore

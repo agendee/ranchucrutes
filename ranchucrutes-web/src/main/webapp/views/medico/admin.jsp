@@ -6,6 +6,7 @@
 <head>
     <jsp:include page="/views/commons/header.jsp" />
     <jsp:include page="/views/commons/header-components.jsp" />
+    <link href="/static/css/medico/admin.css" rel="stylesheet">
 </head>
 <body>
     <jsp:include page="/views/commons/menu_admin.jsp" />
@@ -27,6 +28,7 @@
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionDadosPessoais" href="#collapseDadosPessoais">Dados Pessoais</a>
+                                <input type="hidden" name="medico.idLogin" value="${form.medico.idLogin}"/>
                             </h4>
                         </div>
                         <div class="panel-collapse collapse in" id="collapseDadosPessoais">
@@ -81,14 +83,18 @@
                 </div>
 
 
-                <h4>Minhas Clinicas <button class="btn btn-success" ><i class="fa fa-plus"></i></button></h4>
+                <!-- CLINICAS -->
+
+                <h4>Minhas Clinicas <a class="btn btn-success" ><i class="fa fa-plus"></i></a></h4>
 
                 <div class="panel-group" id="accordion">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Clinica Jóse maria da silva </a>
-                                <button class="btn btn-danger" style="float:right; padding: 4px 10px; " ><i class="fa fa-minus"></i></button>
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" id="">Clínica #1 </a>
+                                <a class="btn btn-danger" style="float:right; padding: 4px 10px; " ><i class="fa fa-minus"></i></a>
+                                <input type="hidden" name="clinicas[0].id" value="${form.clinicas[0].id}"/>
+                                <input type="hidden" name="clinicas[0].idClinica" value="${form.clinicas[0].idClinica}"/>
                             </h4>
                         </div>
                         <div id="collapse1" class="panel-collapse collapse in">
@@ -96,82 +102,105 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Nome:<font style="color: rgb(169, 68, 66);">*</font> </label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" name="clinica[0].nome" placeholder="Nome da clinica[0]" maxlength="80" value="${form.clinica[0].nome}" required/>
+                                        <input type="text" class="form-control" name="clinicas[0].nome" placeholder="Nome da clínica" maxlength="200" value="${form.clinicas[0].nome}" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Telefone:<font style="color: rgb(169, 68, 66);">*</font></label>
                                     <div class="col-md-3">
-                                        <input type="number" class="form-control" name="clinica[0].ddd" placeholder="DDD" maxlength="2" value="${form.clinica[0].ddd}" />
+                                        <input type="number" class="form-control" name="clinicas[0].ddd" placeholder="DDD" maxlength="2" value="${form.clinicas[0].ddd}" />
                                     </div>
                                     <div class="col-md-5">
-                                        <input type="number" class="form-control" name="clinica[0].telefone" placeholder="Telefone da clinica[0]" maxlength="9" value="${form.clinica[0].telefone}" />
+                                        <input type="number" class="form-control" name="clinicas[0].telefone" placeholder="Telefone da clínica" maxlength="9" value="${form.clinicas[0].telefone}" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Tempo Consulta:<font style="color: rgb(169, 68, 66);">*</font> </label>
-                                    <div class="col-md-5">
-                                        <input type="number" class="form-control" name="clinica[0].tempoConsulta" placeholder="Duração Consulta" maxlength="80" value="${form.clinica[0].tempoConsulta}" required/>
+                                    <div class="col-md-5 col-xs-9">
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" name="clinicas[0].tempoConsultaEmMin" placeholder="" maxlength="80" value="${form.clinicas[0].tempoConsultaEmMin}" required/>
+                                            <span class="input-group-addon">min&nbsp;&nbsp;&nbsp;   </span>
+                                        </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <span>Tempo em minutos</span>
+                                    <div class="col-xs-2">
+                                        <label for="clinicas[0].tempoConsulta" class="control-label" style="font-size: 25px; cursor: pointer;" data-toggle="tooltip" title="Informe aqui a duração em minutos de cada consulta."><i class="fa fa-info-circle"></i></label>
                                      </div>
-                                </div>
+                               </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Horário de Funcionamento:<font style="color: rgb(169, 68, 66);"></font></label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control" name="clinica[0].horaAbertura" placeholder="Hora de abertura" maxlength="2" value="${form.clinica[0].horaAbertura}" />
+                                        <div class="input-group">
+                                            <div class="input-group-addon">hh:mm</div>
+                                            <input type="time" class="form-control" name="clinicas[0].horaFuncionamentoIni" placeholder="Hora de abertura" maxlength="5" value="${form.clinicas[0].horaFuncionamentoIni}" />
+                                        </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control" name="clinica[0].horaFechamento" placeholder="Hora de fechamento" maxlength="9" value="${form.clinica[0].horaFechamento}" />
+                                        <div class="input-group">
+                                            <div class="input-group-addon">hh:mm</div>
+                                            <input type="time" class="form-control" name="clinicas[0].horaFuncionamentoFim" placeholder="Hora de fechamento" maxlength="5" value="${form.clinicas[0].horaFuncionamentoFim}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"></font> </label>
+                                    <div class="col-md-4">
+                                        <input id="box1" type="checkbox" name="clinicas[0].aceitaParticular" />
+                                        <label for="box1" style="font-size: 18px;">Aceita particular</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                          <div class="input-group-addon">R$</div>
+                                          <input id="valorConsulta" type="text" class="form-control" name="clinicas[0].valorConsulta" placeholder="Valor da Consulta" maxlength="9" value="${form.clinicas[0].valorConsulta}" />
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">Endereço</h3>
+                                        <input type="hidden" name="clinicas[0].endereco.id" value="${form.clinicas[0].id}"/>
                                     </div>
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">CEP:<font style="color: rgb(169, 68, 66);">*</font> </label>
                                             <div class="col-md-4">
-                                                <input type="number" class="form-control" name="clinica[0].cep" placeholder="Cep" maxlength="8" value="${form.clinica[0].cep}" required/>
+                                                <input type="text" class="form-control" name="clinicas[0].endereco.cep" placeholder="Cep" maxlength="8" value="${form.clinicas[0].cep}" required/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Logradouro:<font style="color: rgb(169, 68, 66);">*</font> </label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control" name="clinica[0].logradouro" placeholder="Logradouro" maxlength="80" value="${form.clinica[0].logradouro}" required/>
+                                                <input type="text" class="form-control" name="clinicas[0].endereco.logradouro" placeholder="Logradouro" maxlength="80" value="${form.clinicas[0].logradouro}" required/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Número:<font style="color: rgb(169, 68, 66);">*</font> </label>
                                             <div class="col-md-4">
-                                                <input type="number" class="form-control" name="clinica[0].numero" placeholder="Número" maxlength="10" value="${form.clinica[0].numero}" required/>
+                                                <input type="number" class="form-control" name="clinicas[0].endereco.numero" placeholder="Número" maxlength="10" value="${form.clinicas[0].numero}" required/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Complemento:</font> </label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control" name="clinica[0].complemento" placeholder="Complemento" maxlength="40" value="${form.clinica[0].complemento}"/>
+                                                <input type="text" class="form-control" name="clinicas[0].endereco.complemento" placeholder="Complemento" maxlength="40" value="${form.clinicas[0].complemento}"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Bairro:<font style="color: rgb(169, 68, 66);">*</font> </label>
                                             <div class="col-md-6">
-                                                <input type="text" class="form-control" name="clinica[0].bairro" placeholder="Bairro" maxlength="60" value="${form.clinica[0].bairro}" required/>
+                                                <input type="text" class="form-control" name="clinicas[0].endereco.bairro" placeholder="Bairro" maxlength="60" value="${form.clinicas[0].bairro}" required/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Cidade:<font style="color: rgb(169, 68, 66);">*</font> </label>
                                             <div class="col-md-6">
-                                                <input type="text" class="form-control" name="clinica[0].cidade" placeholder="Cidade" maxlength="60" value="${form.clinica[0].cidade}" required/>
+                                                <input type="text" class="form-control" name="clinicas[0].endereco.localidade" placeholder="Cidade" maxlength="60" value="${form.clinicas[0].cidade}" required/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">UF:<font style="color: rgb(169, 68, 66);">*</font> </label>
                                             <div class="col-md-4">
-                                                <input type="text" class="form-control" name="clinica[0].uf" placeholder="UF" maxlength="2" value="${form.clinica[0].uf}" required/>
+                                                <input type="text" class="form-control" name="clinicas[0].endereco.uf" placeholder="UF" maxlength="2" value="${form.clinicas[0].uf}" required/>
                                             </div>
                                         </div>
                                     </div>
@@ -185,7 +214,7 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Convênios:<font style="color: rgb(169, 68, 66);">*</font> </label>
                                             <div class="col-md-8">
-                                                <select id="idPlano" name="clinica[0].idPlano" data-placeholder="Selecione os convênios atendidos" multiple class="form-control chosen-select" required></select>
+                                                <select id="idPlano" name="clinicas[0].idPlanos" data-placeholder="Selecione os convênios atendidos" multiple class="form-control chosen-select" required></select>
                                             </div>
                                         </div>
                                     </div>
@@ -194,6 +223,8 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">Horários Agenda</h3>
+                                        <input type="hidden" name="clinicas[0].idAgenda" value="${form.clinicas[0].idAgenda}"/>
+                                        <input type="hidden" name="clinicas[0].agendaHorarios[0].id" value="${form.clinicas[0].idAgenda}"/>
                                     </div>
                                     <div class="panel-body">
                                         <div class="form-group">
@@ -202,13 +233,13 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Das:</font> </label>
                                             <div class="col-md-4">
-                                                <input type="text" class="form-control" name="clinica[0].horarios[0].horaIni" placeholder="Hora inicial" maxlength="60" value="${form.clinica[0].horarios[0].horaIni}"/>
+                                                <input type="time" class="form-control" name="clinicas[0].agendaHorarios[0].horaIni" placeholder="Hora inicial" maxlength="5" value="${form.clinicas[0].horarios[0].horaIni}"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Até:</label>
                                             <div class="col-md-4">
-                                                <input type="text" class="form-control" name="clinica[0].horarios[0].horaFim" placeholder="Hora final" maxlength="2" value="${form.clinica[0].horarios[0].horaFim}"/>
+                                                <input type="time" class="form-control" name="clinicas[0].agendaHorarios[0].horaFim" placeholder="Hora final" maxlength="5" value="${form.clinicas[0].horarios[0].horaFim}"/>
                                             </div>
                                         </div>
                                     </div>
@@ -232,7 +263,11 @@
 
                 </div>
 
-
+                <div class="form-group">
+                    <div class="col-md-9 col-sm-offset-3">
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </div>
 
             </section>
         </div>
@@ -244,5 +279,13 @@
     <script src="/static/js/ws/ranchucrutes-ws-client.js"></script>
     <script src="/static/js/commons/utils.js"></script>
     <script src="/static/js/medico/admin.js"></script>
+
+    <script>
+        var especSelected = [];
+        <c:forEach var="esp" items="${form.medico.idEspecialidade}">
+            especSelected.push("${esp}");
+        </c:forEach>
+    </script>
+
 </body>
 </html>

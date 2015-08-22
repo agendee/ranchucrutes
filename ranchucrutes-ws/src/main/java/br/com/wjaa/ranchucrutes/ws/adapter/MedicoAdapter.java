@@ -1,13 +1,13 @@
 package br.com.wjaa.ranchucrutes.ws.adapter;
 
+import br.com.wjaa.ranchucrutes.commons.form.ClinicaForm;
 import br.com.wjaa.ranchucrutes.commons.form.MedicoForm;
+import br.com.wjaa.ranchucrutes.commons.form.MedicoFullForm;
 import br.com.wjaa.ranchucrutes.commons.vo.MedicoBasicoVo;
-import br.com.wjaa.ranchucrutes.ws.entity.ClinicaEntity;
-import br.com.wjaa.ranchucrutes.ws.entity.EnderecoEntity;
-import br.com.wjaa.ranchucrutes.ws.entity.EspecialidadeEntity;
-import br.com.wjaa.ranchucrutes.ws.entity.MedicoEntity;
+import br.com.wjaa.ranchucrutes.ws.entity.*;
 import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Bean;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -33,9 +33,10 @@ public class MedicoAdapter {
         Integer [] idEspecs = new Integer[]{};
         if (entity.getEspecialidades() != null){
             for (EspecialidadeEntity espec : entity.getEspecialidades() ){
-                ArrayUtils.add(idEspecs,espec.getId());
+                idEspecs = (Integer[]) ArrayUtils.add(idEspecs,espec.getId());
             }
         }
+        form.setIdEspecialidade(idEspecs);
         return form;
     }
 
@@ -49,6 +50,7 @@ public class MedicoAdapter {
 
     public static MedicoBasicoVo toMedicoBasico(MedicoEntity me){
         MedicoBasicoVo mv = new MedicoBasicoVo();
+        mv.setId(me.getIdLogin());
         mv.setNome(me.getNome());
         mv.setCrm(me.getCrm());
         if (!CollectionUtils.isEmpty(me.getEspecialidades())){
@@ -70,4 +72,110 @@ public class MedicoAdapter {
         return mv;
     }
 
+    public static MedicoFullForm toMedicoFullForm(MedicoEntity entity) {
+        MedicoFullForm medicoFull = new MedicoFullForm();
+        MedicoForm medicoForm = toMedicoForm(entity);
+        medicoFull.setMedico(medicoForm);
+        List<ClinicaForm> clinicasForm = toClinicaForm(entity.getClinicas());
+        medicoFull.setClinicas(clinicasForm);
+        return medicoFull;
+    }
+
+    public static MedicoEntity fromMedicoFullForm(MedicoFullForm form) {
+        MedicoEntity entity = fromMedicoForm(form.getMedico());
+        entity.setClinicas(fromClinicaForm(form.getClinicas(),form.getMedico().getIdLogin()));
+        return entity;
+    }
+
+    public static List<ClinicaForm> toClinicaForm(List<MedicoClinicaEntity> clinicas) {
+
+        List<ClinicaForm> clinicasForm = new ArrayList<>();
+
+        if (clinicas != null){
+
+            for (MedicoClinicaEntity medicoClinica : clinicas){
+                ClinicaEntity clinica = medicoClinica.getClinica();
+                ClinicaForm form = new ClinicaForm();
+
+                BeanUtils.copyProperties(medicoClinica,form,"ddd","telefone");
+
+                if (clinica != null){
+                    BeanUtils.copyProperties(clinica,form,"id");
+                    form.setIdClinica(clinica.getId());
+                    form.setIdPlanos(getIdConvenios(clinica.getConvenios()));
+                }
+
+                if (clinica.getAgenda() != null){
+                    AgendaEntity agenda = clinica.getAgenda();
+                    BeanUtils.copyProperties(agenda,form,"id","idClinica");
+                    form.setIdAgenda(agenda.getId());
+                }
+                clinicasForm.add(form);
+            }
+
+        }
+
+        return clinicasForm;
+
+    }
+
+
+    public static List<MedicoClinicaEntity> fromClinicaForm(List<ClinicaForm> clinicasForm, Long idMedico) {
+
+        List<MedicoClinicaEntity> medicoClinicas = new ArrayList<>();
+
+        if (clinicasForm != null){
+
+            for (ClinicaForm form : clinicasForm){
+                MedicoClinicaEntity medicoClinica = new MedicoClinicaEntity();
+                //dados do medico na clinica
+                BeanUtils.copyProperties(form,medicoClinica,"ddd","telefone");
+                ClinicaEntity clinicaEntity = new ClinicaEntity();
+
+                //dados da clinica
+                BeanUtils.copyProperties(form,clinicaEntity,"id");
+                clinicaEntity.setId(form.getIdClinica());
+
+                //dados da agenda
+                AgendaEntity agenda = new AgendaEntity();
+                BeanUtils.copyProperties(form,agenda,"id");
+                agenda.setId(form.getIdAgenda());
+
+                clinicaEntity.setAgenda(agenda);
+                clinicaEntity.setConvenios(getConvenios(form.getIdPlanos()));
+
+                medicoClinica.setClinica(clinicaEntity);
+
+                medicoClinicas.add(medicoClinica);
+            }
+
+        }
+
+        return medicoClinicas;
+
+    }
+
+    private static List<ConvenioCategoriaEntity> getConvenios(Integer[] idPlanos) {
+        List<ConvenioCategoriaEntity> convenios = new ArrayList<>();
+        if (idPlanos != null){
+            for (Integer id: idPlanos){
+                ConvenioCategoriaEntity cc = new ConvenioCategoriaEntity();
+                cc.setId(id);
+                convenios.add(cc);
+            }
+        }
+        return convenios;
+    }
+
+
+    private static Integer[] getIdConvenios(List<ConvenioCategoriaEntity> planos) {
+        if (planos != null){
+            Integer [] idPlanos = new Integer[planos.size()];
+            for (int i = 0; i < planos.size(); i ++){
+                idPlanos[i] = planos.get(i).getId();
+            }
+            return idPlanos;
+        }
+        return null;
+    }
 }

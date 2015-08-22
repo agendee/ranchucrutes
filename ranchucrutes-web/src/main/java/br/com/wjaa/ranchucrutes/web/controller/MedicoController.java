@@ -4,12 +4,14 @@ import br.com.wjaa.ranchucrutes.commons.form.FindMedicoForm;
 import br.com.wjaa.ranchucrutes.commons.form.MedicoForm;
 import br.com.wjaa.ranchucrutes.commons.form.MedicoFullForm;
 import br.com.wjaa.ranchucrutes.commons.utils.ObjectUtils;
+import br.com.wjaa.ranchucrutes.commons.vo.MedicoBasicoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ResultadoBuscaMedicoVo;
 import br.com.wjaa.ranchucrutes.web.exception.RestException;
 import br.com.wjaa.ranchucrutes.web.exception.RestRequestUnstable;
 import br.com.wjaa.ranchucrutes.web.exception.RestResponseUnsatisfiedException;
 import br.com.wjaa.ranchucrutes.web.helper.AuthHelper;
 import br.com.wjaa.ranchucrutes.web.rest.RestUtils;
+import br.com.wjaa.ranchucrutes.web.utils.RanchucrutesConstantes;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by wagner on 12/06/15.
@@ -34,7 +37,7 @@ public class MedicoController {
         ModelAndView mav = new ModelAndView("findDoctor");
         String json = ObjectUtils.toJson(form);
         try {
-            ResultadoBuscaMedicoVo resultado = RestUtils.postJson(ResultadoBuscaMedicoVo.class, "rest.marcmed.com.br", "medico/search", json);
+            ResultadoBuscaMedicoVo resultado = RestUtils.postJson(ResultadoBuscaMedicoVo.class, RanchucrutesConstantes.HOST_WS, "medico/search", json);
             mav.addObject("result", resultado);
         } catch (RestResponseUnsatisfiedException | RestRequestUnstable e) {
             LOG.error("Erro ao buscar medicos ", e);
@@ -52,14 +55,14 @@ public class MedicoController {
         mav.addObject("form", form);
         String json = ObjectUtils.toJson(form);
         try {
-            MedicoForm resultado = RestUtils.postJson(MedicoForm.class, "rest.marcmed.com.br", "medico/save", json);
+            MedicoForm resultado = RestUtils.postJson(MedicoForm.class, RanchucrutesConstantes.HOST_WS, "medico/save", json);
             mav.addObject("result", resultado);
         } catch (RestResponseUnsatisfiedException | RestRequestUnstable e) {
-            LOG.error("Erro ao buscar medicos ", e);
+            LOG.error("Erro ao cadastrar o medico", e);
             mav.setViewName("medico/cadastro");
             mav.addObject("errorMessage", "Ocorreu um erro interno, tente novamente mais tarde.");
         } catch (RestException e) {
-            LOG.error("Erro ao buscar medicos: ErrorMessage " + e.getErrorMessage(), e);
+            LOG.error("Erro ao cadastrar o medico: ErrorMessage " + e.getErrorMessage(), e);
             mav.setViewName("medico/cadastro");
             mav.addObject("errorMessage", e.getErrorMessage());
         }
@@ -68,8 +71,27 @@ public class MedicoController {
 
 
     @RequestMapping(value = "/medico/safefull", method = RequestMethod.POST)
-    public ModelAndView save(@ModelAttribute MedicoFullForm form) {
-        return null;
+    public ModelAndView savefull(@ModelAttribute MedicoFullForm form, HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("medico/admin");
+
+        if (!AuthHelper.isAutenticado(request)){
+            mav.setViewName("redirect:/medico/login");
+            return mav;
+        }
+
+        mav.addObject("form", form);
+        String json = ObjectUtils.toJson(form);
+        try {
+            MedicoFullForm resultado = RestUtils.postJson(MedicoFullForm.class, RanchucrutesConstantes.HOST_WS, "medico/update", json);
+            mav.addObject("form", resultado);
+        } catch (RestResponseUnsatisfiedException | RestRequestUnstable e) {
+            LOG.error("Erro ao alterar os dados do medico ", e);
+            mav.addObject("errorMessage", "Ocorreu um erro interno, tente novamente mais tarde.");
+        } catch (RestException e) {
+            LOG.error("Erro ao alterar os dados do medico: ErrorMessage " + e.getErrorMessage(), e);
+            mav.addObject("errorMessage", e.getErrorMessage());
+        }
+        return mav;
     }
 
 
@@ -86,7 +108,7 @@ public class MedicoController {
         ModelAndView mav = new ModelAndView("medico/login");
 
         if (AuthHelper.isAutenticado(request)){
-            mav.setViewName("redirect:/medico/admin");
+            mav.setViewName("redirect:/medico/agenda");
         }
         return mav;
     }
@@ -97,7 +119,21 @@ public class MedicoController {
 
         if (!AuthHelper.isAutenticado(request)){
             mav.setViewName("redirect:/medico/login");
+            return mav;
         }
+        MedicoBasicoVo medicoBasico = AuthHelper.getMedico(request);
+        try {
+            MedicoFullForm form = RestUtils.getJsonWithParamPath(MedicoFullForm.class, RanchucrutesConstantes.HOST_WS,
+                    "medico",medicoBasico.getId().toString());
+            mav.addObject("form",form);
+        } catch (RestResponseUnsatisfiedException | RestRequestUnstable e) {
+            LOG.error("Erro ao pegar um medico pelo seu id ", e);
+            mav.addObject("errorMessage", "Ocorreu um erro interno, tente novamente mais tarde.");
+        } catch (RestException e) {
+            LOG.error("Erro ao buscar um medico pelo seu id: ErrorMessage " + e.getErrorMessage(), e);
+            mav.addObject("errorMessage", e.getErrorMessage());
+        }
+
         return mav;
     }
 

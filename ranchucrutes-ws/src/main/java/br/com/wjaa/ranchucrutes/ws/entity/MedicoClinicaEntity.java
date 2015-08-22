@@ -15,6 +15,7 @@ public class MedicoClinicaEntity {
     private Short ddd;
     private Long telefone;
     private Boolean aceitaParticular;
+    private Double valorConsulta;
 
 
     @Id
@@ -72,5 +73,15 @@ public class MedicoClinicaEntity {
 
     public void setAceitaParticular(Boolean aceitaParticular) {
         this.aceitaParticular = aceitaParticular;
+    }
+
+
+    @Column(name = "VALOR_CONSULTA")
+    public Double getValorConsulta() {
+        return valorConsulta;
+    }
+
+    public void setValorConsulta(Double valorConsulta) {
+        this.valorConsulta = valorConsulta;
     }
 }
