@@ -35,6 +35,13 @@ var RanchucrutesWS = function() {
                     callback(categoria);
                 });
         },
+        getCep: function(cep, callback){
+            RanchucrutesWS.ajax('http://rest.marcmed.com.br/cep/' + cep,
+                'get',
+                function(endereco){
+                    callback(endereco);
+                });
+        },
         ajax:function(url,method,callback){
             $.ajax({
                 url: url,

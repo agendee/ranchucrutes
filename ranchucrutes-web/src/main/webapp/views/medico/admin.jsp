@@ -2,6 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html lang="pt">
 <head>
     <jsp:include page="/views/commons/header.jsp" />
@@ -12,7 +13,7 @@
     <jsp:include page="/views/commons/menu_admin.jsp" />
     <div class="col-xs-12 container">
 
-        <form id="formCadastro" class="form-horizontal" action="/medico/savefull" method="POST">
+        <form:form id="formCadastro" class="form-horizontal" action="/medico/update" method="POST" role="form" modelAtribute="form">
         <div class="col-md-offset-3 col-md-6">
             <section>
 
@@ -164,43 +165,43 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">CEP:<font style="color: rgb(169, 68, 66);">*</font> </label>
                                             <div class="col-md-4">
-                                                <input type="text" class="form-control" name="clinicas[0].endereco.cep" placeholder="Cep" maxlength="8" value="${form.clinicas[0].cep}" required/>
+                                                <input id="cep" type="text" class="form-control" name="clinicas[0].endereco.cep" placeholder="Cep" maxlength="8" value="${form.clinicas[0].endereco.cep}" required/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Logradouro:<font style="color: rgb(169, 68, 66);">*</font> </label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control" name="clinicas[0].endereco.logradouro" placeholder="Logradouro" maxlength="80" value="${form.clinicas[0].logradouro}" required/>
+                                                <input id="logradouro" type="text" class="form-control" name="clinicas[0].endereco.logradouro" placeholder="Logradouro" maxlength="80" value="${form.clinicas[0].endereco.logradouro}" required/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Número:<font style="color: rgb(169, 68, 66);">*</font> </label>
                                             <div class="col-md-4">
-                                                <input type="number" class="form-control" name="clinicas[0].endereco.numero" placeholder="Número" maxlength="10" value="${form.clinicas[0].numero}" required/>
+                                                <input  id="numer" type="number" class="form-control" name="clinicas[0].endereco.numero" placeholder="Número" maxlength="10" value="${form.clinicas[0].endereco.numero}" required/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Complemento:</font> </label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control" name="clinicas[0].endereco.complemento" placeholder="Complemento" maxlength="40" value="${form.clinicas[0].complemento}"/>
+                                                <input id="complemento" type="text" class="form-control" name="clinicas[0].endereco.complemento" placeholder="Complemento" maxlength="40" value="${form.clinicas[0].endereco.complemento}"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Bairro:<font style="color: rgb(169, 68, 66);">*</font> </label>
                                             <div class="col-md-6">
-                                                <input type="text" class="form-control" name="clinicas[0].endereco.bairro" placeholder="Bairro" maxlength="60" value="${form.clinicas[0].bairro}" required/>
+                                                <input id="bairro" type="text" class="form-control" name="clinicas[0].endereco.bairro" placeholder="Bairro" maxlength="60" value="${form.clinicas[0].endereco.bairro}" required/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Cidade:<font style="color: rgb(169, 68, 66);">*</font> </label>
                                             <div class="col-md-6">
-                                                <input type="text" class="form-control" name="clinicas[0].endereco.localidade" placeholder="Cidade" maxlength="60" value="${form.clinicas[0].cidade}" required/>
+                                                <input id="localidade" type="text" class="form-control" name="clinicas[0].endereco.localidade" placeholder="Cidade" maxlength="60" value="${form.clinicas[0].endereco.localidade}" required/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">UF:<font style="color: rgb(169, 68, 66);">*</font> </label>
                                             <div class="col-md-4">
-                                                <input type="text" class="form-control" name="clinicas[0].endereco.uf" placeholder="UF" maxlength="2" value="${form.clinicas[0].uf}" required/>
+                                                <input id="uf" type="text" class="form-control" name="clinicas[0].endereco.uf" placeholder="UF" maxlength="2" value="${form.clinicas[0].endereco.uf}" required/>
                                             </div>
                                         </div>
                                     </div>
@@ -271,7 +272,7 @@
 
             </section>
         </div>
-        </form>
+        </form:form>
         <jsp:include page="/views/commons/rodape.jsp" />
     </div>
     <jsp:include page="/views/commons/footer.jsp" />

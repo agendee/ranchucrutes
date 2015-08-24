@@ -1,10 +1,7 @@
-package br.com.wjaa.ranchucrutes.ws.vo;
+package br.com.wjaa.ranchucrutes.commons.vo;
 
-import br.com.wjaa.ranchucrutes.ws.entity.ClinicaEntity;
-import br.com.wjaa.ranchucrutes.ws.entity.EnderecoEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * Created by wagner on 05/07/15.
@@ -99,13 +96,4 @@ public class EnderecoVo{
         this.uf = uf;
     }
 
-    public EnderecoEntity toEnderecoEntity() {
-        EnderecoEntity ee =new EnderecoEntity();
-        ee.setBairro(this.bairro);
-        ee.setLocalidade(this.localidade);
-        ee.setCep(this.cep);
-        ee.setLogradouro(this.logradouro);
-        ee.setUf(this.uf);
-        return ee;
-    }
 }

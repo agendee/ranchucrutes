@@ -45,7 +45,7 @@ public class AuthController {
 
     @RequestMapping(value = "/auth/medico", method = RequestMethod.POST)
     public ModelAndView loginMedico(@ModelAttribute LoginForm loginForm, HttpServletRequest request){
-        ModelAndView mav = new ModelAndView("redirect:/medico/admin");
+        ModelAndView mav = new ModelAndView("redirect:/medico/agenda");
         try {
 
             if ( AuthHelper.isAutenticado(request) ){

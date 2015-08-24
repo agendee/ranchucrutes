@@ -4,8 +4,14 @@ import br.com.wjaa.ranchucrutes.commons.vo.ConvenioCategoriaVo;
 import br.com.wjaa.ranchucrutes.ws.adapter.RanchucrutesAdapter;
 import br.com.wjaa.ranchucrutes.ws.entity.ConvenioEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.ConvenioCategoriaEntity;
+import br.com.wjaa.ranchucrutes.ws.entity.EnderecoEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.EspecialidadeEntity;
+import br.com.wjaa.ranchucrutes.ws.exception.CepNotFoundException;
+import br.com.wjaa.ranchucrutes.ws.service.CepService;
 import br.com.wjaa.ranchucrutes.ws.service.RanchucrutesService;
+import br.com.wjaa.ranchucrutes.commons.vo.EnderecoVo;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +24,14 @@ import java.util.List;
 @RestController
 public class RanchucrutesWS extends BaseWS {
 
+    private static final Log LOG = LogFactory.getLog(RanchucrutesWS.class);
+
 
     @Autowired
     private RanchucrutesService ranchucrutesService;
+
+    @Autowired
+    private CepService cepService;
 
     @RequestMapping(value = "/convenio/all", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
     public
@@ -46,6 +57,17 @@ public class RanchucrutesWS extends BaseWS {
     public
     List<EspecialidadeEntity> listAllEspecialidade() {
         return this.ranchucrutesService.listAll(EspecialidadeEntity.class);
+    }
+
+    @RequestMapping(value = "/cep/{cep}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    public EnderecoVo getCep(@PathVariable String cep) {
+        try {
+            EnderecoEntity endereco = this.cepService.find(cep);
+            return RanchucrutesAdapter.toEnderecoVo(endereco);
+        } catch (CepNotFoundException e) {
+            LOG.error("Cep nao encontrado", e);
+        }
+        return new EnderecoVo();
     }
 
 }

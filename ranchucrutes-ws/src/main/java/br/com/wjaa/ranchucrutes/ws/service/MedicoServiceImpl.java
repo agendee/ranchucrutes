@@ -144,6 +144,9 @@ public class MedicoServiceImpl extends GenericServiceImpl<MedicoEntity, Long> im
         if (medico.getIdLogin() == null){
             throw new MedicoServiceException("Impossivel atualizar um médico sem ID");
         }
+
+        this.saveClinicas(medico.getIdLogin(),medico.getClinicas());
+
         MedicoEntity medicoExists = this.medicoDao.get(medico.getIdLogin());
         LOG.info("Atualizando medico [" + medico.getIdLogin() + "]");
         return this.mergeMedico(medicoExists,medico);
@@ -154,7 +157,8 @@ public class MedicoServiceImpl extends GenericServiceImpl<MedicoEntity, Long> im
                 "dataUltimoAcesso",
                 "codeConfirmacao",
                 "dataCriacao",
-                "senha");
+                "dataConfirmacao",
+                "senha","ativo");
         medicoPersisted = medicoDao.save(medicoPersisted);
         return medicoPersisted;
     }

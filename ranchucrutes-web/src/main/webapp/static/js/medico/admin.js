@@ -9,17 +9,34 @@ var admin = function() {
         initInput: function(){
             $('[data-toggle="tooltip"]').tooltip();
             $('#valorConsulta').maskMoney({
-               				prefix:'',
-               				allowNegative: true,
-               				thousands:'.',
-               				decimal:',',
-               				affixesStay: false
-               			});
-               			/*$('#valorConsulta').bind('change',function(){
-               				$("#formCadastro").formValidation('updateStatus', 'pesoKg', 'NOT_VALIDATED')
-            				.formValidation('validateField', 'pesoKg');
+                prefix:'',
+                allowNegative: true,
+                thousands:'.',
+                decimal:',',
+                affixesStay: false
+            });
+            $("#cep").blur(function(){
+                admin.findCep(this.value);
+            });
 
-               			});*/
+        },
+        findCep: function(cep){
+            RanchucrutesWS.getCep(cep,function(endereco){
+                $('#logradouro').val(endereco.logradouro);
+                $('#bairro').val(endereco.bairro);
+                $('#localidade').val(endereco.localidade);
+                $('#uf').val(endereco.uf);
+                $("#formCadastro").formValidation('updateStatus', 'logradouro', 'NOT_VALIDATED')
+                    .formValidation('validateField', 'logradouro');
+                $("#formCadastro").formValidation('updateStatus', 'bairro', 'NOT_VALIDATED')
+                    .formValidation('validateField', 'bairro');
+                $("#formCadastro").formValidation('updateStatus', 'localidade', 'NOT_VALIDATED')
+                    .formValidation('validateField', 'localidade');
+                $("#formCadastro").formValidation('updateStatus', 'uf', 'NOT_VALIDATED')
+                    .formValidation('validateField', 'uf');
+
+
+            });
         },
         initComboEspecialidade: function(){
              RanchucrutesWS.listAllEspecialidade(function(especialidades){

@@ -103,13 +103,14 @@ public class MedicoAdapter {
                     BeanUtils.copyProperties(clinica,form,"id");
                     form.setIdClinica(clinica.getId());
                     form.setIdPlanos(getIdConvenios(clinica.getConvenios()));
+
+                    if (clinica.getAgenda() != null){
+                        AgendaEntity agenda = clinica.getAgenda();
+                        BeanUtils.copyProperties(agenda,form,"id","idClinica");
+                        form.setIdAgenda(agenda.getId());
+                    }
                 }
 
-                if (clinica.getAgenda() != null){
-                    AgendaEntity agenda = clinica.getAgenda();
-                    BeanUtils.copyProperties(agenda,form,"id","idClinica");
-                    form.setIdAgenda(agenda.getId());
-                }
                 clinicasForm.add(form);
             }
 

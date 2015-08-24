@@ -1,6 +1,7 @@
 package br.com.wjaa.ranchucrutes.ws.service;
 
 import br.com.wjaa.ranchucrutes.commons.vo.LocationVo;
+import br.com.wjaa.ranchucrutes.ws.adapter.RanchucrutesAdapter;
 import br.com.wjaa.ranchucrutes.ws.dao.RanchucrutesDao;
 import br.com.wjaa.ranchucrutes.ws.entity.CacheCep;
 import br.com.wjaa.ranchucrutes.ws.entity.EnderecoEntity;
@@ -9,7 +10,7 @@ import br.com.wjaa.ranchucrutes.ws.exception.RestResponseUnsatisfiedException;
 import br.com.wjaa.ranchucrutes.ws.exception.RestException;
 import br.com.wjaa.ranchucrutes.ws.exception.RestRequestUnstable;
 import br.com.wjaa.ranchucrutes.ws.rest.RestUtils;
-import br.com.wjaa.ranchucrutes.ws.vo.EnderecoVo;
+import br.com.wjaa.ranchucrutes.commons.vo.EnderecoVo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class CepServiceImpl implements CepService {
             try {
                 LOG.debug("Tentando na primeira api = " + api.url);
                 EnderecoVo e = this.findWithoutTryCatch(api);
-                return e.toEnderecoEntity();
+                return RanchucrutesAdapter.fromEnderecoVo(e);
             } catch (RestResponseUnsatisfiedException e) {
                 LOG.error("Nenhum endereco encontrado para o CEP:" + cep, e);
                 LOG.error("Iniciando tentativa na proxima api...");
@@ -52,7 +53,7 @@ public class CepServiceImpl implements CepService {
                 try{
                     Thread.sleep(300l);
                     EnderecoVo end = this.findWithoutTryCatch(api);
-                    return end.toEnderecoEntity();
+                    return RanchucrutesAdapter.fromEnderecoVo(end);
                 }catch(Exception ex){
                     LOG.error("Erro na segunda tentativa, iniciando busca na proxima api.", ex);
                 }
