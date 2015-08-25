@@ -234,13 +234,13 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Das:</font> </label>
                                             <div class="col-md-4">
-                                                <input type="time" class="form-control" name="clinicas[0].agendaHorarios[0].horaIni" placeholder="Hora inicial" maxlength="5" value="${form.clinicas[0].horarios[0].horaIni}"/>
+                                                <input type="time" class="form-control" name="clinicas[0].agendaHorarios[0].horaIni" placeholder="Hora inicial" maxlength="5" value="${form.clinicas[0].agendaHorarios[0].horaIni}"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Até:</label>
                                             <div class="col-md-4">
-                                                <input type="time" class="form-control" name="clinicas[0].agendaHorarios[0].horaFim" placeholder="Hora final" maxlength="5" value="${form.clinicas[0].horarios[0].horaFim}"/>
+                                                <input type="time" class="form-control" name="clinicas[0].agendaHorarios[0].horaFim" placeholder="Hora final" maxlength="5" value="${form.clinicas[0].agendaHorarios[0].horaFim}"/>
                                             </div>
                                         </div>
                                     </div>

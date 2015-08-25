@@ -1,8 +1,6 @@
 package br.com.wjaa.ranchucrutes.ws.adapter;
 
-import br.com.wjaa.ranchucrutes.commons.form.ClinicaForm;
-import br.com.wjaa.ranchucrutes.commons.form.MedicoForm;
-import br.com.wjaa.ranchucrutes.commons.form.MedicoFullForm;
+import br.com.wjaa.ranchucrutes.commons.form.*;
 import br.com.wjaa.ranchucrutes.commons.vo.MedicoBasicoVo;
 import br.com.wjaa.ranchucrutes.ws.entity.*;
 import org.apache.commons.lang.ArrayUtils;
@@ -106,8 +104,25 @@ public class MedicoAdapter {
 
                     if (clinica.getAgenda() != null){
                         AgendaEntity agenda = clinica.getAgenda();
-                        BeanUtils.copyProperties(agenda,form,"id","idClinica");
+                        BeanUtils.copyProperties(agenda,form,"id","idClinica","agendaHorarios");
                         form.setIdAgenda(agenda.getId());
+
+                        if (agenda.getAgendaHorarios()!= null){
+                            List<HorarioForm> listHorarios = new ArrayList<>(agenda.getAgendaHorarios().size());
+                            for(AgendaHorarioEntity h : agenda.getAgendaHorarios()){
+                                HorarioForm hf = new HorarioForm();
+                                BeanUtils.copyProperties(h,hf);
+                                listHorarios.add(hf);
+                            }
+                            form.setAgendaHorarios(listHorarios);
+                        }
+
+                    }
+                    if (clinica.getEndereco() != null){
+                        EnderecoEntity endereco = clinica.getEndereco();
+                        EnderecoForm endForm = new EnderecoForm();
+                        BeanUtils.copyProperties(endereco, endForm);
+                        form.setEndereco(endForm);
                     }
                 }
 
@@ -137,10 +152,25 @@ public class MedicoAdapter {
                 BeanUtils.copyProperties(form,clinicaEntity,"id");
                 clinicaEntity.setId(form.getIdClinica());
 
+                EnderecoEntity enderecoEntity = new EnderecoEntity();
+                BeanUtils.copyProperties(form.getEndereco(),enderecoEntity);
+                clinicaEntity.setEndereco(enderecoEntity);
+
                 //dados da agenda
                 AgendaEntity agenda = new AgendaEntity();
                 BeanUtils.copyProperties(form,agenda,"id");
                 agenda.setId(form.getIdAgenda());
+
+                if (form.getAgendaHorarios()!= null){
+                    List<AgendaHorarioEntity> listHorarios = new ArrayList<>(form.getAgendaHorarios().size());
+                    for(HorarioForm hf : form.getAgendaHorarios()){
+                        AgendaHorarioEntity h = new AgendaHorarioEntity();
+                        BeanUtils.copyProperties(hf,h);
+                        listHorarios.add(h);
+                    }
+                    agenda.setAgendaHorarios(listHorarios);
+                }
+
 
                 clinicaEntity.setAgenda(agenda);
                 clinicaEntity.setConvenios(getConvenios(form.getIdPlanos()));

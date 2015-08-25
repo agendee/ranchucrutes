@@ -71,7 +71,7 @@ public class MedicoController {
 
 
     @RequestMapping(value = "/medico/update", method = RequestMethod.POST)
-    public ModelAndView savefull(@ModelAttribute MedicoFullForm form, HttpServletRequest request) {
+    public ModelAndView update(@ModelAttribute MedicoFullForm form, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("medico/admin");
 
         if (!AuthHelper.isAutenticado(request)){
@@ -99,7 +99,7 @@ public class MedicoController {
     @RequestMapping(value = "/medico/cadastro", method = RequestMethod.GET)
     public ModelAndView cadastro() {
         ModelAndView mav = new ModelAndView("medico/cadastro");
-        mav.addObject("form",new MedicoFullForm());
+        mav.addObject("form",new MedicoForm());
         return mav;
     }
 

@@ -135,7 +135,7 @@ public class ClinicaForm {
     }
 
     public Boolean getAceitaParticular() {
-        return aceitaParticular;
+        return aceitaParticular == null ? false : aceitaParticular ;
     }
 
     public void setAceitaParticular(Boolean aceitaParticular) {

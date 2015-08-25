@@ -159,8 +159,8 @@ public class MedicoServiceImpl extends GenericServiceImpl<MedicoEntity, Long> im
                 "dataCriacao",
                 "dataConfirmacao",
                 "senha","ativo");
-        medicoPersisted = medicoDao.save(medicoPersisted);
-        return medicoPersisted;
+        medicoDao.save(medicoPersisted);
+        return this.medicoDao.get(medicoPersisted.getIdLogin());
     }
 
     private MedicoEntity insertMedico(MedicoEntity medico) throws MedicoServiceException {
@@ -201,6 +201,7 @@ public class MedicoServiceImpl extends GenericServiceImpl<MedicoEntity, Long> im
                 agenda.setIdClinica(clinica.getId());
                 agenda = this.ranchucrutesService.saveWithRequied(agenda);
                 this.saveAgendaHorarios(agendaHorarios,agenda);
+
             }
         }
     }
