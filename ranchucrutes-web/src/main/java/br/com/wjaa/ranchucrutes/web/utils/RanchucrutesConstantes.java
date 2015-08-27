@@ -8,4 +8,8 @@ public class RanchucrutesConstantes {
     public static final String HOST_WS = "rest.marcmed.com.br";
 
     public static final String LOGIN_SESSION = "loginSession";
+
+    public static final String ERROR_MESSAGE = "errorMessage";
+
+    public static final String SUCCESS_MESSAGE = "successMessage";
 }

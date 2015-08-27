@@ -1,6 +1,9 @@
 package br.com.wjaa.ranchucrutes.commons.form;
 
 import br.com.wjaa.ranchucrutes.commons.form.HorarioForm;
+import br.com.wjaa.ranchucrutes.commons.utils.NumberUtils;
+import br.com.wjaa.ranchucrutes.commons.vo.ConvenioCategoriaVo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
@@ -19,7 +22,8 @@ public class ClinicaForm {
     /*endereco*/
     private EnderecoForm endereco;
     /*convenios aceitos*/
-    private Integer [] idPlanos;
+    private List<ConvenioCategoriaForm> categorias;
+    private Integer [] idsCategoria;
 
     /*Horarios agenda*/
     private Long idAgenda;
@@ -62,12 +66,12 @@ public class ClinicaForm {
         this.valorConsulta = valorConsulta;
     }
 
-    public Integer[] getIdPlanos() {
-        return idPlanos;
+    public List<ConvenioCategoriaForm> getCategorias() {
+        return categorias;
     }
 
-    public void setIdPlanos(Integer[] idPlanos) {
-        this.idPlanos = idPlanos;
+    public void setCategorias(List<ConvenioCategoriaForm> categorias) {
+        this.categorias = categorias;
     }
 
     public Long getId() {
@@ -135,10 +139,26 @@ public class ClinicaForm {
     }
 
     public Boolean getAceitaParticular() {
-        return aceitaParticular == null ? false : aceitaParticular ;
+        return aceitaParticular == null ? false : aceitaParticular;
     }
 
     public void setAceitaParticular(Boolean aceitaParticular) {
         this.aceitaParticular = aceitaParticular;
+    }
+
+    public Integer[] getIdsCategoria() {
+        return idsCategoria;
+    }
+
+    public void setIdsCategoria(Integer[] idsCategoria) {
+        this.idsCategoria = idsCategoria;
+    }
+
+    @JsonIgnore
+    public String getValorConsultaStr(){
+        if (valorConsulta != null){
+            return NumberUtils.formatPTbr(this.valorConsulta);
+        }
+        return "";
     }
 }

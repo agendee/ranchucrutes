@@ -18,4 +18,8 @@ public class AuthHelper {
     public static MedicoBasicoVo getMedico(HttpServletRequest request) {
         return (MedicoBasicoVo) request.getSession().getAttribute(RanchucrutesConstantes.LOGIN_SESSION);
     }
+
+    public static void sair(HttpServletRequest request) {
+        request.getSession().removeAttribute(RanchucrutesConstantes.LOGIN_SESSION);
+    }
 }

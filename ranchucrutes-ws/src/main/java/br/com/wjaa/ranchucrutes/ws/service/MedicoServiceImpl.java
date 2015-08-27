@@ -182,7 +182,6 @@ public class MedicoServiceImpl extends GenericServiceImpl<MedicoEntity, Long> im
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void saveClinicas(Long idMedico, List<MedicoClinicaEntity> clinicas) throws MedicoServiceException {
         for (MedicoClinicaEntity medicoClinica : clinicas){
             ClinicaEntity clinica = medicoClinica.getClinica();

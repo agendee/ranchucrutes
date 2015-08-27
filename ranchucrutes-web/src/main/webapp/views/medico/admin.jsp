@@ -17,9 +17,13 @@
         <div class="col-md-offset-3 col-md-6">
             <section>
 
-
+                <!-- transformar isso aqui em uma tag -->
                 <c:if test="${errorMessage != null}">
                     <div class="alert alert-danger" role="alert">${errorMessage.errorMessage}</div>
+                </c:if>
+
+                <c:if test="${successMessage != null}">
+                     <div class="alert alert-success" role="alert">${successMessage}</div>
                 </c:if>
 
 
@@ -145,13 +149,14 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label"></font> </label>
                                     <div class="col-md-4">
-                                        <input id="box1" type="checkbox" name="clinicas[0].aceitaParticular" />
+
+                                        <input id="box1" type="checkbox" name="clinicas[0].aceitaParticular"  <c:if test="${form.clinicas[0].aceitaParticular}">checked</c:if> value="true"/>
                                         <label for="box1" style="font-size: 18px;">Aceita particular</label>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="input-group">
                                           <div class="input-group-addon">R$</div>
-                                          <input id="valorConsulta" type="text" class="form-control" name="clinicas[0].valorConsulta" placeholder="Valor da Consulta" maxlength="9" value="${form.clinicas[0].valorConsulta}" />
+                                          <input id="valorConsulta" type="text" class="form-control" name="clinicas[0].valorConsulta" placeholder="Valor da Consulta" maxlength="9" value="${form.clinicas[0].valorConsultaStr}" />
                                         </div>
                                     </div>
                                 </div>
@@ -213,9 +218,28 @@
                                     </div>
                                     <div class="panel-body">
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">Convênios:<font style="color: rgb(169, 68, 66);">*</font> </label>
+                                            <label class="col-md-3 control-label">Selecione um Convênio:<font style="color: rgb(169, 68, 66);">*</font> </label>
                                             <div class="col-md-8">
-                                                <select id="idPlano" name="clinicas[0].idPlanos" data-placeholder="Selecione os convênios atendidos" multiple class="form-control chosen-select" required></select>
+                                                <select class="form-control" id="planoSaude" data-live-search="true"></select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-12">Selecione a partir de qual categoria sua clinica atendente o plano:<font style="color: rgb(169, 68, 66);">*</font> </label>
+                                            <div class="col-md-offset-2 col-md-8">
+                                                <select class="form-control col-md-9" id="categoria" data-live-search="true" ></select>
+                                                <a id="btnAddCategoria" class="btn btn-success col-md-3" ><i class="fa fa-plus"></i></a>
+                                            <div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Convênios Aceitos:<font style="color: rgb(169, 68, 66);">*</font> </label>
+                                            <div class="col-md-8">
+                                                <select id="categoriasSelecionadas" name="clinicas[0].idsCategoria" data-placeholder="Selecione os convênios atendidos" multiple class="form-control chosen-select" required>
+                                                    <c:forEach var="e" items="${form.clinicas[0].categorias}">
+                                                        <option value="${e.id}" selected>${e.nome}</option>
+                                                    </c:forEach>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -225,24 +249,51 @@
                                     <div class="panel-heading">
                                         <h3 class="panel-title">Horários Agenda</h3>
                                         <input type="hidden" name="clinicas[0].idAgenda" value="${form.clinicas[0].idAgenda}"/>
-                                        <input type="hidden" name="clinicas[0].agendaHorarios[0].id" value="${form.clinicas[0].idAgenda}"/>
+
                                     </div>
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <label class="col-md-8 control-label">Quais horários você quer abrir?</label>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">Das:</font> </label>
-                                            <div class="col-md-4">
-                                                <input type="time" class="form-control" name="clinicas[0].agendaHorarios[0].horaIni" placeholder="Hora inicial" maxlength="5" value="${form.clinicas[0].agendaHorarios[0].horaIni}"/>
+                                        <c:set var="countHorarios" value="0"/>
+
+                                        <c:if test="${form.clinicas[0].agendaHorarios != null && form.clinicas[0].agendaHorarios.size() > 0}">
+                                            <c:forEach var="h" items="${form.clinicas[0].agendaHorarios}">
+                                                <div class="row">
+                                                    <input type="hidden" name="clinicas[0].agendaHorarios[${countHorarios}].id" value="${h.id}"/>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">Das:</font> </label>
+                                                        <div class="col-md-4">
+                                                            <input type="time" class="form-control" name="clinicas[0].agendaHorarios[${countHorarios}].horaIni" placeholder="Hora inicial" maxlength="5" value="${h.horaIni}"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">Até:</label>
+                                                        <div class="col-md-4">
+                                                            <input type="time" class="form-control" name="clinicas[0].agendaHorarios[${countHorarios}].horaFim" placeholder="Hora final" maxlength="5" value="${h.horaFim}"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <c:set var="countHorarios" value="${countHorarios + 1}"/>
+                                            </c:forEach>
+                                        </c:if>
+                                        <c:if test="${form.clinicas[0].agendaHorarios == null || form.clinicas[0].agendaHorarios.size() == 0}">
+                                            <div class="row">
+                                                <input type="hidden" name="clinicas[0].agendaHorarios[0].id"/>
+                                                <div class="form-group">
+                                                    <label class="col-md-3 control-label">Das:</font> </label>
+                                                    <div class="col-md-4">
+                                                        <input type="time" class="form-control" name="clinicas[0].agendaHorarios[0].horaIni" placeholder="Hora inicial" maxlength="5"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-3 control-label">Até:</label>
+                                                    <div class="col-md-4">
+                                                        <input type="time" class="form-control" name="clinicas[0].agendaHorarios[0].horaFim" placeholder="Hora final" maxlength="5"/>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">Até:</label>
-                                            <div class="col-md-4">
-                                                <input type="time" class="form-control" name="clinicas[0].agendaHorarios[0].horaFim" placeholder="Hora final" maxlength="5" value="${form.clinicas[0].agendaHorarios[0].horaFim}"/>
-                                            </div>
-                                        </div>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>
@@ -261,9 +312,9 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
+             </div>
+             </div>
                 <div class="form-group">
                     <div class="col-md-9 col-sm-offset-3">
                         <button type="submit" class="btn btn-primary">Enviar</button>

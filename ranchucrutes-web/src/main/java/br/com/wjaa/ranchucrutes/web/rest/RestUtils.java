@@ -52,6 +52,7 @@ public class RestUtils {
             int statusCode = response.getStatusLine().getStatusCode();
 
             if ( statusCode >= 400 && statusCode < 500){
+                LOG.error("Error code:" + statusCode + " response: " + response);
                 throw new RestRequestUnstable("Servico está fora do ar.");
             }
 
@@ -93,7 +94,8 @@ public class RestUtils {
             int statusCode = response.getStatusLine().getStatusCode();
 
             if ( statusCode >= 400 && statusCode < 500){
-                throw new RestRequestUnstable("Servico está fora do ar.");
+                LOG.error("Error code:" + statusCode + " response: " + response);
+                throw new RestRequestUnstable("Serviço está fora do ar.");
             }
 
             if (statusCode >= 500 && statusCode < 600){
@@ -149,6 +151,7 @@ public class RestUtils {
             int statusCode = response.getStatusLine().getStatusCode();
 
             if ( statusCode >= 400 && statusCode < 500){
+                LOG.error("Error code:" + statusCode + " response: " + response);
                 throw new RestRequestUnstable("Servico está fora do ar.");
             }
 

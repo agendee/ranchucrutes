@@ -100,7 +100,7 @@ public class MedicoAdapter {
                 if (clinica != null){
                     BeanUtils.copyProperties(clinica,form,"id");
                     form.setIdClinica(clinica.getId());
-                    form.setIdPlanos(getIdConvenios(clinica.getConvenios()));
+                    form.setCategorias(toCategoriaForm(clinica.getConvenios()));
 
                     if (clinica.getAgenda() != null){
                         AgendaEntity agenda = clinica.getAgenda();
@@ -173,7 +173,7 @@ public class MedicoAdapter {
 
 
                 clinicaEntity.setAgenda(agenda);
-                clinicaEntity.setConvenios(getConvenios(form.getIdPlanos()));
+                clinicaEntity.setConvenios(toCategoriaEntity(form.getIdsCategoria()));
 
                 medicoClinica.setClinica(clinicaEntity);
 
@@ -186,10 +186,10 @@ public class MedicoAdapter {
 
     }
 
-    private static List<ConvenioCategoriaEntity> getConvenios(Integer[] idPlanos) {
+    private static List<ConvenioCategoriaEntity> toCategoriaEntity(Integer [] idsCategoria) {
         List<ConvenioCategoriaEntity> convenios = new ArrayList<>();
-        if (idPlanos != null){
-            for (Integer id: idPlanos){
+        if (idsCategoria != null){
+            for (Integer id: idsCategoria){
                 ConvenioCategoriaEntity cc = new ConvenioCategoriaEntity();
                 cc.setId(id);
                 convenios.add(cc);
@@ -199,13 +199,13 @@ public class MedicoAdapter {
     }
 
 
-    private static Integer[] getIdConvenios(List<ConvenioCategoriaEntity> planos) {
-        if (planos != null){
-            Integer [] idPlanos = new Integer[planos.size()];
-            for (int i = 0; i < planos.size(); i ++){
-                idPlanos[i] = planos.get(i).getId();
+    private static List<ConvenioCategoriaForm> toCategoriaForm(List<ConvenioCategoriaEntity> conveniosEntity) {
+        List<ConvenioCategoriaForm> convenios = new ArrayList<>();
+        if (conveniosEntity != null){
+            for (ConvenioCategoriaEntity e : conveniosEntity){
+                convenios.add(new ConvenioCategoriaForm(e.getId(),e.getNome()));
             }
-            return idPlanos;
+            return convenios;
         }
         return null;
     }

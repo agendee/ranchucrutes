@@ -3,6 +3,7 @@ package br.com.wjaa.ranchucrutes.web.controller;
 import br.com.wjaa.ranchucrutes.commons.form.FindMedicoForm;
 import br.com.wjaa.ranchucrutes.commons.form.MedicoForm;
 import br.com.wjaa.ranchucrutes.commons.form.MedicoFullForm;
+import br.com.wjaa.ranchucrutes.commons.utils.NumberUtils;
 import br.com.wjaa.ranchucrutes.commons.utils.ObjectUtils;
 import br.com.wjaa.ranchucrutes.commons.vo.MedicoBasicoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ResultadoBuscaMedicoVo;
@@ -14,7 +15,12 @@ import br.com.wjaa.ranchucrutes.web.rest.RestUtils;
 import br.com.wjaa.ranchucrutes.web.utils.RanchucrutesConstantes;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.propertyeditors.CustomBooleanEditor;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +28,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by wagner on 12/06/15.
@@ -30,6 +41,7 @@ import javax.servlet.http.HttpSession;
 public class MedicoController {
 
     private static final Log LOG = LogFactory.getLog(MedicoController.class);
+
 
 
     @RequestMapping("/medico/find")
@@ -43,7 +55,7 @@ public class MedicoController {
             LOG.error("Erro ao buscar medicos ", e);
         } catch (RestException e) {
             LOG.error("Erro ao buscar medicos: ErrorMessage " + e.getErrorMessage(), e);
-            mav.addObject("errorMessage", e.getErrorMessage());
+            mav.addObject(RanchucrutesConstantes.ERROR_MESSAGE, e.getErrorMessage());
 
         }
         return mav;
@@ -60,11 +72,11 @@ public class MedicoController {
         } catch (RestResponseUnsatisfiedException | RestRequestUnstable e) {
             LOG.error("Erro ao cadastrar o medico", e);
             mav.setViewName("medico/cadastro");
-            mav.addObject("errorMessage", "Ocorreu um erro interno, tente novamente mais tarde.");
+            mav.addObject(RanchucrutesConstantes.ERROR_MESSAGE, "Ocorreu um erro interno, tente novamente mais tarde.");
         } catch (RestException e) {
             LOG.error("Erro ao cadastrar o medico: ErrorMessage " + e.getErrorMessage(), e);
             mav.setViewName("medico/cadastro");
-            mav.addObject("errorMessage", e.getErrorMessage());
+            mav.addObject(RanchucrutesConstantes.ERROR_MESSAGE, e.getErrorMessage());
         }
         return mav;
     }
@@ -84,12 +96,13 @@ public class MedicoController {
         try {
             MedicoFullForm resultado = RestUtils.postJson(MedicoFullForm.class, RanchucrutesConstantes.HOST_WS, "medico/update", json);
             mav.addObject("form", resultado);
+            mav.addObject(RanchucrutesConstantes.SUCCESS_MESSAGE, "Cadastro alterado com sucesso!");
         } catch (RestResponseUnsatisfiedException | RestRequestUnstable e) {
             LOG.error("Erro ao alterar os dados do medico ", e);
-            mav.addObject("errorMessage", "Ocorreu um erro interno, tente novamente mais tarde.");
+            mav.addObject(RanchucrutesConstantes.ERROR_MESSAGE, "Ocorreu um erro interno, tente novamente mais tarde.");
         } catch (RestException e) {
             LOG.error("Erro ao alterar os dados do medico: ErrorMessage " + e.getErrorMessage(), e);
-            mav.addObject("errorMessage", e.getErrorMessage());
+            mav.addObject(RanchucrutesConstantes.ERROR_MESSAGE, e.getErrorMessage());
         }
         return mav;
     }
@@ -129,10 +142,10 @@ public class MedicoController {
             mav.addObject("form",form);
         } catch (RestResponseUnsatisfiedException | RestRequestUnstable e) {
             LOG.error("Erro ao pegar um medico pelo seu id ", e);
-            mav.addObject("errorMessage", "Ocorreu um erro interno, tente novamente mais tarde.");
+            mav.addObject(RanchucrutesConstantes.ERROR_MESSAGE, "Ocorreu um erro interno, tente novamente mais tarde.");
         } catch (RestException e) {
             LOG.error("Erro ao buscar um medico pelo seu id: ErrorMessage " + e.getErrorMessage(), e);
-            mav.addObject("errorMessage", e.getErrorMessage());
+            mav.addObject(RanchucrutesConstantes.ERROR_MESSAGE, e.getErrorMessage());
         }
 
         return mav;
@@ -146,6 +159,36 @@ public class MedicoController {
             mav.setViewName("redirect:/medico/login");
         }
         return mav;
+    }
+
+
+    @InitBinder
+    public void binder(WebDataBinder binder) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf,true){
+
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                try{
+                    super.setAsText(text);
+                }catch (IllegalArgumentException ex) {
+                    LOG.warn("Erro no parse da data=" + text);
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    Date d;
+                    try {
+                        d = sdf.parse(text);
+                        setValue(d);
+                    } catch (ParseException e) {
+                        LOG.warn("Erro no parse da data=" + text);
+                        throw new IllegalArgumentException("Could not parse date: " + e.getMessage(), e);
+                    }
+
+
+                }
+
+            }
+        });
+        binder.registerCustomEditor(Double.class, new CustomNumberEditor(Double.class, NumberUtils.getFormat(), true));
     }
 
 

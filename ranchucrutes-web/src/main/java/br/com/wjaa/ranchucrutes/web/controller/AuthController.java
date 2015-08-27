@@ -82,4 +82,13 @@ public class AuthController {
         return mav;
     }
 
+
+    @RequestMapping(value = "/auth/sair", method = RequestMethod.GET)
+    public ModelAndView sair(HttpServletRequest request){
+        if ( AuthHelper.isAutenticado(request) ){
+            AuthHelper.sair(request);
+        }
+        return new ModelAndView("redirect:/medico/login");
+    }
+
 }

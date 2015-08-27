@@ -28,7 +28,7 @@
                 </li>
 
                 <li>
-                    <a class="page-scroll" href="/medico/sair">Sair</a>
+                    <a class="page-scroll" href="/auth/sair">Sair</a>
                 </li>
 
             </ul>
