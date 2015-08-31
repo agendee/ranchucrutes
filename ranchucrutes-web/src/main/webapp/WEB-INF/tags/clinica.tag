@@ -15,7 +15,7 @@
                     Nova clínica
                 </c:if>
             </a>
-            <a class="btn btn-danger" style="float:right; padding: 4px 10px; " ><i class="fa fa-minus"></i></a>
+            <a class="btn btn-danger" style="float:right; padding: 4px 10px;" onclick="admin.removeClinica('clinica${index}');" ><i class="fa fa-trash-o"></i></a>
             <input type="hidden" name="clinicas[${index}].id" value="${clinica.id}"/>
             <input type="hidden" name="clinicas[${index}].idClinica" value="${clinica.idClinica}"/>
         </h4>

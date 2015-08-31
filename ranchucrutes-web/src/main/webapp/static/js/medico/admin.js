@@ -222,9 +222,13 @@ var admin = function() {
         },
         addClinica : function(){
             var clinicaBase = $("#clinica__INDEX").html();
-            var clinica = $("<div class=\"panel panel-default\">" + clinicaBase.replace(/__INDEX/g,countClinica) + "</div>")
+            var clinica = $("<div id=\"clinica" + countClinica + "\" class=\"panel panel-default\">" + clinicaBase.replace(/__INDEX/g,countClinica) + "</div>")
             $("#accordionClinica").append(clinica);
             countClinica++;
+        },
+        removeClinica: function(obj){
+            $("#" + obj).hide();
+
         }
   }
 }();
