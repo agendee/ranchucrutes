@@ -7,6 +7,7 @@ var admin = function() {
             admin.initComboCategoria();
             admin.initInput();
             admin.initBtnAddCategoria();
+            admin.initBtnAddClinica();
         },
         initInput: function(){
             $('[data-toggle="tooltip"]').tooltip();
@@ -212,9 +213,18 @@ var admin = function() {
                 $("#planoSaude").val(null).trigger("change");
                 $("#categoria").val(null).trigger("change");
 
-
-
             });
+        },
+        initBtnAddClinica: function(){
+            $("#btnAddClinica").click(function(){
+                admin.addClinica();
+            });
+        },
+        addClinica : function(){
+            var clinicaBase = $("#clinica__INDEX").html();
+            var clinica = $("<div class=\"panel panel-default\">" + clinicaBase.replace(/__INDEX/g,countClinica) + "</div>")
+            $("#accordionClinica").append(clinica);
+            countClinica++;
         }
   }
 }();
