@@ -15,6 +15,7 @@ public class AgendaHorarioEntity implements Serializable {
     private Long id;
     private String horaIni;
     private String horaFim;
+    private Integer diaSemana;
     private Long idAgenda;
 
 
@@ -54,5 +55,15 @@ public class AgendaHorarioEntity implements Serializable {
 
     public void setIdAgenda(Long idAgenda) {
         this.idAgenda = idAgenda;
+    }
+
+
+    @Column(name = "DIA_SEMANA")
+    public Integer getDiaSemana() {
+        return diaSemana;
+    }
+
+    public void setDiaSemana(Integer diaSemana) {
+        this.diaSemana = diaSemana;
     }
 }

@@ -1,5 +1,6 @@
 <%@tag pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="h" tagdir="/WEB-INF/tags"%>
 <%@ attribute name="index" required="true" rtexprvalue="true" type="java.lang.String"%>
 <%@ attribute name="clinica" required="false" rtexprvalue="true" type="br.com.wjaa.ranchucrutes.commons.form.ClinicaForm"%>
 <%@ attribute name="oculto" required="false" rtexprvalue="true" type="java.lang.Boolean"%>
@@ -20,7 +21,7 @@
             <input type="hidden" name="clinicas[${index}].idClinica" value="${clinica.idClinica}"/>
         </h4>
     </div>
-    <div id="collapse${index}" class="panel-collapse collapse in" aria-expanded="true">
+    <div id="collapse${index}" class="panel-collapse collapse in clinicaCollapse" aria-expanded="true">
 
         <div class="panel-body">
             <div class="form-group">
@@ -75,7 +76,7 @@
                 <div class="col-md-4">
                     <div class="input-group">
                       <div class="input-group-addon">R$</div>
-                      <input id="valorConsulta" type="text" class="form-control" name="clinicas[${index}].valorConsulta" placeholder="Valor da Consulta" maxlength="9" value="${clinica.valorConsultaStr}" />
+                      <input id="valorConsulta${index}" type="text" class="form-control" name="clinicas[${index}].valorConsulta" placeholder="Valor da Consulta" maxlength="9" value="${clinica.valorConsultaStr}" />
                     </div>
                 </div>
             </div>
@@ -89,7 +90,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">CEP:<font style="color: rgb(169, 68, 66);">*</font> </label>
                         <div class="col-md-4">
-                            <input id="cep" type="text" class="form-control" name="clinicas[${index}].endereco.cep" placeholder="Cep" maxlength="8" value="${clinica.endereco.cep}" required/>
+                            <input id="cep${index}" type="text" class="form-control" name="clinicas[${index}].endereco.cep" placeholder="Cep" maxlength="8" value="${clinica.endereco.cep}" required/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -139,21 +140,21 @@
                 <div class="panel-body">
                     <div class="form-group">
                         <label>Selecione um Convênio:</label>
-                        <select class="form-control" id="planoSaude" data-live-search="true"></select>
+                        <select class="form-control planoSaude" id="planoSaude${index}" data-live-search="true"></select>
                     </div>
 
                     <div class="form-group">
                         <label>Selecione a partir de qual categoria sua clinica atendente o plano: </label>
                         <div class="col-xs-9" style="padding-left:0px;">
-                            <select class="form-control" id="categoria" data-live-search="true" ></select>
+                            <select class="form-control" id="categoria${index}" data-live-search="true" ></select>
                         </div>
-                        <a id="btnAddCategoria" class="btn btn-success col-xs-1" ><i class="fa fa-plus"></i></a>
+                        <a id="btnAddCategoria${index}" class="btn btn-success col-xs-1" ><i class="fa fa-plus"></i></a>
 
                     </div>
 
                     <div class="form-group" style="margin-top:30px;">
                         <label>Convênios Aceitos:<font style="color: rgb(169, 68, 66);">*</font> </label>
-                        <select id="categoriasSelecionadas" name="clinicas[${index}].idsCategoria" data-placeholder="Selecione os convênios atendidos" multiple class="form-control chosen-select" required>
+                        <select id="categoriasSelecionadas${index}" name="clinicas[${index}].idsCategoria" data-placeholder="Selecione os convênios atendidos" multiple class="form-control chosen-select categoriasSelecionadas" required>
                             <c:forEach var="e" items="${clinica.categorias}">
                                 <option value="${e.id}" selected>${e.nome}</option>
                             </c:forEach>
@@ -172,38 +173,15 @@
                     <div class="form-group">
                         <label class="col-md-8 control-label">Quais horários você quer abrir?</label>
                     </div>
-                    <c:set var="countHorarios" value="0"/>
-
                     <c:if test="${clinica.agendaHorarios != null && clinica.agendaHorarios.size() > 0}">
+                        <c:set var="countHorarios" value="0"/>
                         <c:forEach var="h" items="${clinica.agendaHorarios}">
-                            <div id="horario1">
-                                <input type="hidden" name="clinicas[${index}].agendaHorarios[${countHorarios}].id" value="${h.id}"/>
-                                <div class="form-group">
-                                    <label>Das: </label>
-                                    <input type="time" class="form-control" name="clinicas[${index}].agendaHorarios[${countHorarios}].horaIni" placeholder="Hora inicial" maxlength="5" value="${h.horaIni}"/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Até:</label>
-                                    <input type="time" class="form-control" name="clinicas[${index}].agendaHorarios[${countHorarios}].horaFim" placeholder="Hora final" maxlength="5" value="${h.horaFim}"/>
-                                </div>
-                            </div>
+                            <h:horario indexClinica="${index}" indexHorario="${countHorarios}" horario="${h}"/>
                             <c:set var="countHorarios" value="${countHorarios + 1}"/>
                         </c:forEach>
                     </c:if>
                     <c:if test="${clinica.agendaHorarios == null || clinica.agendaHorarios.size() == 0}">
-                        <div class="row">
-                            <input type="hidden" name="clinicas[${index}].agendaHorarios[${index}].id"/>
-                            <div class="form-group">
-                                <label class="col-xs-2">Das:</font> </label>
-                                <div class="col-xs-4">
-                                    <input type="time" class="form-control" name="clinicas[${index}].agendaHorarios[${index}].horaIni" placeholder="Hora inicial" maxlength="5"/>
-                                </div>
-                                <label class="col-xs-2">Até:</label>
-                                <div class="col-xs-4">
-                                    <input type="time" class="form-control" name="clinicas[${index}].agendaHorarios[${index}].horaFim" placeholder="Hora final" maxlength="5"/>
-                                </div>
-                            </div>
-                        </div>
+                        <h:horario indexClinica="${index}" indexHorario="0"/>
                     </c:if>
                 </div>
             </div>

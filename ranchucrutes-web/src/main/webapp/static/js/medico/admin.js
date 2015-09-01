@@ -3,22 +3,29 @@ var admin = function() {
         init: function(){
             admin.initValidate();
             admin.initComboEspecialidade();
-            admin.initComboConvenio();
-            admin.initComboCategoria();
-            admin.initInput();
-            admin.initBtnAddCategoria();
             admin.initBtnAddClinica();
+            admin.prepareInputsClinica();
+
         },
-        initInput: function(){
+        prepareInputsClinica: function(){
+            for (var index = 0; index < countClinica; index ++ ){
+                admin.initComboConvenio(index);
+                admin.initComboCategoria(index);
+                admin.initBtnAddCategoria(index);
+                admin.initInput(index);
+                admin.initBntDiaSemana(index);
+            }
+        },
+        initInput: function(index){
             $('[data-toggle="tooltip"]').tooltip();
-            $('#valorConsulta').maskMoney({
+            $('#valorConsulta' + index).maskMoney({
                 prefix:'',
                 allowNegative: true,
                 thousands:'.',
                 decimal:',',
                 affixesStay: false
             });
-            $("#cep").blur(function(){
+            $("#cep" + index).blur(function(){
                 admin.findCep(this.value);
             });
 
@@ -63,49 +70,52 @@ var admin = function() {
 
              });
         },
-        initComboConvenio: function(){
+        initComboConvenio: function(index){
             RanchucrutesWS.listAllConvenio(function(convenios){
-                $('#planoSaude').html("<option/>");
-                $.each(convenios, function(index) {
-                    $('#planoSaude').append($("<option/>", {
-                        value: convenios[index].id,
-                        text: convenios[index].nome
+                $('#planoSaude' + index).html("<option/>");
+                $.each(convenios, function(i) {
+                    $('#planoSaude' + index).append($("<option/>", {
+                        value: convenios[i].id,
+                        text: convenios[i].nome
                     }));
                 });
-                $('#planoSaude').select2({placeholder:"Selecione um plano de saúde"});
+                $('#planoSaude' + index).select2({placeholder:"Selecione um plano de saúde"});
                 //BUG DO FOCUS.
-                $("#planoSaude").next(".select2").find(".select2-selection").focus(function() {
-                    $("#planoSaude").select2("open");
+                $("#planoSaude" + index).next(".select2").find(".select2-selection").focus(function() {
+                    $("#planoSaude" + index).select2("open");
                 });
 
 
             });
+            //adicionando o change.
+            $('#planoSaude' + index).change(admin.makeChangePlanoSaude(index));
 
-
-            $('#planoSaude').change(function(){
-                  admin.getCategoriasByIdConvenio($("#planoSaude").select2('val'));
-            });
         },
-        getCategoriasByIdConvenio : function (idConvenio){
+        makeChangePlanoSaude: function(index){
+            return function(){
+                   admin.getCategoriasByIdConvenio($("#planoSaude" + index).select2('val'), index);
+            }
+        },
+        getCategoriasByIdConvenio : function (idConvenio, index){
             if (idConvenio == null || idConvenio == ''){
                 return;
             }
             RanchucrutesWS.getCategoriasByIdConvenio(idConvenio, function(categorias){
-                $('#categoria').html("<option/>");
-                $.each(categorias, function(index) {
-                   $('#categoria').append($("<option/>", {
-                       value: categorias[index].id,
-                       text: categorias[index].nome
+                $('#categoria' + index).html("<option/>");
+                $.each(categorias, function(i) {
+                   $('#categoria' + index).append($("<option/>", {
+                       value: categorias[i].id,
+                       text: categorias[i].nome
                    }));
 
                 });
-                $('#categoria').select2({placeholder:"Selecione a categoria"})
+                $('#categoria' + index).select2({placeholder:"Selecione a categoria"})
                 .on("select2:select", function (e) {
                     categoriaSelecionada = e.params.data;
                 });
                  //BUG DO FOCUS.
-                $("#categoria").next(".select2").find(".select2-selection").focus(function() {
-                    $("#categoria").select2("open");
+                $("#categoria" + index).next(".select2").find(".select2-selection").focus(function() {
+                    $("#categoria" + index).select2("open");
                 });
             });
         },
@@ -187,48 +197,140 @@ var admin = function() {
                     }
                 });
         },
-        initComboCategoria : function(){
-
-          $('#categoriasSelecionadas').select2();
-
+        initComboCategoria : function(index){
+          $('#categoriasSelecionadas' + index).select2();
         },
-        initBtnAddCategoria :function(){
-            $("#btnAddCategoria").click(function(){
+        initBtnAddCategoria :function(index){
+
+            $("#btnAddCategoria" + index).click(function(){
                 if ( categoriaSelecionada == null ){
-                    alert("está nulo seu burro");
                     return;
                 }
 
-                 $('#categoriasSelecionadas').append($("<option/>", {
-                    value: categoriaSelecionada.id,
-                    text: categoriaSelecionada.text
-                 })).attr('selected','selected');
+                $('#categoriasSelecionadas' + index).append($("<option/>", {
+                   value: categoriaSelecionada.id,
+                   text: categoriaSelecionada.text
+                })).attr('selected','selected');
 
-                var options = $('#categoriasSelecionadas option');
+                var options = $('#categoriasSelecionadas' + index + ' option');
 
                 var values = $.map(options ,function(option) {
                     return option.value;
                 });
-                $("#categoriasSelecionadas").val(values).trigger("change");
-                $("#planoSaude").val(null).trigger("change");
-                $("#categoria").val(null).trigger("change");
+                $("#categoriasSelecionadas" + index).val(values).trigger("change");
+                $("#planoSaude" + index).val(null).trigger("change");
+                $("#categoria" + index).val(null).trigger("change");
 
             });
+
         },
         initBtnAddClinica: function(){
             $("#btnAddClinica").click(function(){
                 admin.addClinica();
             });
         },
+        initBntDiaSemana: function(index){
+             $('.button-checkbox' + index).each(function () {
+                // Settings
+                var $widget = $(this),
+                    $button = $widget.find('button'),
+                    $checkbox = $widget.find('input:checkbox'),
+                    color = $button.data('color'),
+                    settings = {
+                        on: {
+                            icon: 'glyphicon glyphicon-check'
+                        },
+                        off: {
+                            icon: 'glyphicon glyphicon-unchecked'
+                        }
+                    };
+
+                // Event Handlers
+                $button.on('click', function () {
+                    $checkbox.prop('checked', !$checkbox.is(':checked'));
+                    $checkbox.triggerHandler('change');
+                    updateDisplay();
+                });
+                $checkbox.on('change', function () {
+                    updateDisplay();
+                });
+
+                // Actions
+                function updateDisplay() {
+                    var isChecked = $checkbox.is(':checked');
+
+                    // Set the button's state
+                    $button.data('state', (isChecked) ? "on" : "off");
+
+                    // Set the button's icon
+                    $button.find('.state-icon')
+                        .removeClass()
+                        .addClass('state-icon ' + settings[$button.data('state')].icon);
+
+                    // Update the button's color
+                    if (isChecked) {
+                        $button
+                            .removeClass('btn-default')
+                            .addClass('btn-' + color + ' active');
+                    }
+                    else {
+                        $button
+                            .removeClass('btn-' + color + ' active')
+                            .addClass('btn-default');
+                    }
+                }
+                // Initialization
+                function init() {
+                    updateDisplay();
+                    // Inject the icon if applicable
+                    if ($button.find('.state-icon').length == 0) {
+                        $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i> ');
+                    }
+                }
+                init();
+            });
+        },
         addClinica : function(){
+
+
+            $('#accordionClinica .clinicaCollapse').collapse('hide');
+
+
             var clinicaBase = $("#clinica__INDEX").html();
+
             var clinica = $("<div id=\"clinica" + countClinica + "\" class=\"panel panel-default\">" + clinicaBase.replace(/__INDEX/g,countClinica) + "</div>")
             $("#accordionClinica").append(clinica);
+
+
+            admin.initComboConvenio(countClinica);
+            admin.initComboCategoria(countClinica);
+            admin.initBtnAddCategoria(countClinica);
+            admin.initInput(countClinica);
+            admin.initBntDiaSemana(countClinica);
+             $('#formCadastro')
+                    .formValidation('addField', 'clinicas[' + countClinica + '].nome')
+                    .formValidation('addField', 'clinicas[' + countClinica + '].ddd')
+                    .formValidation('addField', 'clinicas[' + countClinica + '].telefone')
+                    .formValidation('addField', 'clinicas[' + countClinica + '].tempoConsultaEmMin')
+                    .formValidation('addField', 'clinicas[' + countClinica + '].horaFuncionamentoIni')
+                    .formValidation('addField', 'clinicas[' + countClinica + '].horaFuncionamentoFim')
+                    .formValidation('addField', 'clinicas[' + countClinica + '].aceitaParticular')
+                    .formValidation('addField', 'clinicas[' + countClinica + '].valorConsulta')
+                    .formValidation('addField', 'clinicas[' + countClinica + '].endereco.cep')
+                    .formValidation('addField', 'clinicas[' + countClinica + '].endereco.logradouro')
+                    .formValidation('addField', 'clinicas[' + countClinica + '].endereco.numero')
+                    .formValidation('addField', 'clinicas[' + countClinica + '].endereco.complemento')
+                    .formValidation('addField', 'clinicas[' + countClinica + '].endereco.bairro')
+                    .formValidation('addField', 'clinicas[' + countClinica + '].endereco.localidade')
+                    .formValidation('addField', 'clinicas[' + countClinica + '].endereco.uf')
+                    .formValidation('addField', 'clinicas[' + countClinica + '].idsCategoria')
+                    .formValidation('addField', 'clinicas[' + countClinica + '].agendaHorarios[0].horaIni')
+                    .formValidation('addField', 'clinicas[' + countClinica + '].agendaHorarios[0].horaFim');
+
             countClinica++;
         },
         removeClinica: function(obj){
             $("#" + obj).hide();
-
         }
   }
 }();
@@ -237,5 +339,3 @@ var categoriaSelecionada = null;
 $(document).ready(function(){
   admin.init();
 });
-
-

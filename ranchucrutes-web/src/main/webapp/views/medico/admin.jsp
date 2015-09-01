@@ -27,7 +27,7 @@
                          <div class="alert alert-success" role="alert">${successMessage}</div>
                     </c:if>
 
-
+                    <!-- DADOS DO MÉDICO -->
                     <h4>Meu cadastro</h4>
                     <div class="panel-group" id="accordionDadosPessoais">
                         <div class="panel panel-default">
@@ -87,28 +87,38 @@
                             </div>
                         </div>
                     </div>
+                    <!-- FIM DADOS DO MEDICO -->
+
 
 
                     <!-- CLINICAS -->
-
                     <h4>Minhas Clinicas <a id="btnAddClinica" class="btn btn-success" ><i class="fa fa-plus"></i></a></h4>
 
-                    <div id="accordionClinica" class="panel-group" id="accordion">
+                    <div id="accordionClinica" class="panel-group">
                         <c:set var="countClinica" value="0"/>
                         <c:forEach var="clinica" items="${form.clinicas}">
                             <h:clinica index="${countClinica}" clinica="${clinica}"/>
                             <c:set var="countClinica" value="${countClinica+1}"/>
                         </c:forEach>
-                        <h:clinica index="__INDEX" oculto="true"/>
                     </div>
+                    <!-- FIM DADOS DA CLINICA -->
+
+
                     <div class="form-group" style="margin-bottom:100px;">
                         <div class="col-md-9 col-sm-offset-3">
                             <button type="submit" class="btn btn-primary">Enviar</button>
                         </div>
                     </div>
+
+
                 </div>
             </form:form>
         </section>
+
+        <!-- TEMPLATE DE CLINICA -->
+        <h:clinica index="__INDEX" oculto="true"/>
+        <h:horario indexClinica="__INDEX" indexHorario="__2INDEX" oculto="true"/>
+
         <jsp:include page="/views/commons/rodape.jsp" />
     </div>
     <jsp:include page="/views/commons/footer.jsp" />

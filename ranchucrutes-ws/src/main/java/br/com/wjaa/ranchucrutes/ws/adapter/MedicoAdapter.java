@@ -166,17 +166,15 @@ public class MedicoAdapter {
                     for(HorarioForm hf : form.getAgendaHorarios()){
                         AgendaHorarioEntity h = new AgendaHorarioEntity();
                         BeanUtils.copyProperties(hf,h);
+                        h.setDiaSemana(hf.getTotDiaSemana());
                         listHorarios.add(h);
                     }
                     agenda.setAgendaHorarios(listHorarios);
                 }
 
-
                 clinicaEntity.setAgenda(agenda);
                 clinicaEntity.setConvenios(toCategoriaEntity(form.getIdsCategoria()));
-
                 medicoClinica.setClinica(clinicaEntity);
-
                 medicoClinicas.add(medicoClinica);
             }
 
