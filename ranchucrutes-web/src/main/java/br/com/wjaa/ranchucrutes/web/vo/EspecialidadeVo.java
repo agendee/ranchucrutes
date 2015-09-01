@@ -1,6 +1,5 @@
 package br.com.wjaa.ranchucrutes.web.vo;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**

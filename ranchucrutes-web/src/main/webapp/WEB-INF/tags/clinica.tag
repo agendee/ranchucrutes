@@ -7,7 +7,7 @@
 <div id="clinica${index}" class="panel panel-default" <c:if test="${oculto}"> style="display:none;" </c:if> >
     <div class="panel-heading">
         <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordionClinica" href="#collapse${index}" aria-expanded="false" class="collapsed">
+            <a data-toggle="collapse" data-parent="#accordionClinica" href="#collapse${index}" aria-expanded="true" class="collapsed">
                 <c:if test="${clinica.nome != null}">
                     ${clinica.nome}
                 </c:if>
@@ -20,7 +20,7 @@
             <input type="hidden" name="clinicas[${index}].idClinica" value="${clinica.idClinica}"/>
         </h4>
     </div>
-    <div id="collapse${index}" class="panel-collapse collapse" aria-expanded="false">
+    <div id="collapse${index}" class="panel-collapse collapse in" aria-expanded="true">
 
         <div class="panel-body">
             <div class="form-group">
@@ -138,29 +138,26 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="col-md-3 control-label">Selecione um Convênio:<font style="color: rgb(169, 68, 66);">*</font> </label>
-                        <div class="col-md-8">
-                            <select class="form-control" id="planoSaude" data-live-search="true"></select>
-                        </div>
+                        <label>Selecione um Convênio:</label>
+                        <select class="form-control" id="planoSaude" data-live-search="true"></select>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-12">Selecione a partir de qual categoria sua clinica atendente o plano:<font style="color: rgb(169, 68, 66);">*</font> </label>
-                        <div class="col-md-offset-2 col-md-8">
-                            <select class="form-control col-md-9" id="categoria" data-live-search="true" ></select>
-                            <a id="btnAddCategoria" class="btn btn-success col-md-3" ><i class="fa fa-plus"></i></a>
+                        <label>Selecione a partir de qual categoria sua clinica atendente o plano: </label>
+                        <div class="col-xs-9" style="padding-left:0px;">
+                            <select class="form-control" id="categoria" data-live-search="true" ></select>
                         </div>
+                        <a id="btnAddCategoria" class="btn btn-success col-xs-1" ><i class="fa fa-plus"></i></a>
+
                     </div>
 
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Convênios Aceitos:<font style="color: rgb(169, 68, 66);">*</font> </label>
-                        <div class="col-md-8">
-                            <select id="categoriasSelecionadas" name="clinicas[${index}].idsCategoria" data-placeholder="Selecione os convênios atendidos" multiple class="form-control chosen-select" required>
-                                <c:forEach var="e" items="${clinica.categorias}">
-                                    <option value="${e.id}" selected>${e.nome}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
+                    <div class="form-group" style="margin-top:30px;">
+                        <label>Convênios Aceitos:<font style="color: rgb(169, 68, 66);">*</font> </label>
+                        <select id="categoriasSelecionadas" name="clinicas[${index}].idsCategoria" data-placeholder="Selecione os convênios atendidos" multiple class="form-control chosen-select" required>
+                            <c:forEach var="e" items="${clinica.categorias}">
+                                <option value="${e.id}" selected>${e.nome}</option>
+                            </c:forEach>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -179,19 +176,15 @@
 
                     <c:if test="${clinica.agendaHorarios != null && clinica.agendaHorarios.size() > 0}">
                         <c:forEach var="h" items="${clinica.agendaHorarios}">
-                            <div class="row">
+                            <div id="horario1">
                                 <input type="hidden" name="clinicas[${index}].agendaHorarios[${countHorarios}].id" value="${h.id}"/>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Das:</font> </label>
-                                    <div class="col-md-4">
-                                        <input type="time" class="form-control" name="clinicas[${index}].agendaHorarios[${countHorarios}].horaIni" placeholder="Hora inicial" maxlength="5" value="${h.horaIni}"/>
-                                    </div>
+                                    <label>Das: </label>
+                                    <input type="time" class="form-control" name="clinicas[${index}].agendaHorarios[${countHorarios}].horaIni" placeholder="Hora inicial" maxlength="5" value="${h.horaIni}"/>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Até:</label>
-                                    <div class="col-md-4">
-                                        <input type="time" class="form-control" name="clinicas[${index}].agendaHorarios[${countHorarios}].horaFim" placeholder="Hora final" maxlength="5" value="${h.horaFim}"/>
-                                    </div>
+                                    <label>Até:</label>
+                                    <input type="time" class="form-control" name="clinicas[${index}].agendaHorarios[${countHorarios}].horaFim" placeholder="Hora final" maxlength="5" value="${h.horaFim}"/>
                                 </div>
                             </div>
                             <c:set var="countHorarios" value="${countHorarios + 1}"/>
@@ -201,14 +194,12 @@
                         <div class="row">
                             <input type="hidden" name="clinicas[${index}].agendaHorarios[${index}].id"/>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">Das:</font> </label>
-                                <div class="col-md-4">
+                                <label class="col-xs-2">Das:</font> </label>
+                                <div class="col-xs-4">
                                     <input type="time" class="form-control" name="clinicas[${index}].agendaHorarios[${index}].horaIni" placeholder="Hora inicial" maxlength="5"/>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">Até:</label>
-                                <div class="col-md-4">
+                                <label class="col-xs-2">Até:</label>
+                                <div class="col-xs-4">
                                     <input type="time" class="form-control" name="clinicas[${index}].agendaHorarios[${index}].horaFim" placeholder="Hora final" maxlength="5"/>
                                 </div>
                             </div>

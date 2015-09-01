@@ -1,7 +1,5 @@
 package br.com.wjaa.ranchucrutes.web.vo;
 
-import javax.persistence.*;
-
 /**
  * Created by wagner on 21/07/15.
  */
