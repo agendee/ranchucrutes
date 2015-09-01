@@ -13,7 +13,7 @@
 <body>
     <jsp:include page="/views/commons/menu_admin.jsp" />
     <div class="col-xs-12 container">
-        <section>
+        <section class="form">
             <form:form id="formCadastro" class="form-horizontal" action="/medico/update" method="POST" role="form" modelAtribute="form">
                 <div class="col-md-offset-3 col-md-6">
 
@@ -101,13 +101,11 @@
                         </c:forEach>
                         <h:clinica index="__INDEX" oculto="true"/>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="margin-bottom:100px;">
                         <div class="col-md-9 col-sm-offset-3">
                             <button type="submit" class="btn btn-primary">Enviar</button>
                         </div>
                     </div>
-
-
                 </div>
             </form:form>
         </section>

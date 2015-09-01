@@ -3,6 +3,9 @@
   margin-left: 5px !important;
   margin-right: 5px !important;
 }
+#formCadastro{
+    margin-bottom:80px;
+}
 
 input[type=checkbox] { display:none; } /* to hide the checkbox itself */
 input[type=checkbox] + label:before {

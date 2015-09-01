@@ -11,7 +11,7 @@
 <body>
     <jsp:include page="/views/commons/menu.jsp" />
     <div class="col-md-12 cadastro container">
-        <form id="formCadastro" action="/medico/save" method="POST">
+        <form id="formCadastro" class="form-horizontal" action="/medico/save" method="POST">
             <div class="col-md-offset-3 col-md-6">
                 <section id="dadosBasicos">
 
