@@ -43,8 +43,17 @@ public class HorarioForm {
     }
 
 
-    public void setDiaSemana(Integer[] diasSemana) {
+    public void setDiasSemana(Integer[] diasSemana) {
         this.diasSemana = diasSemana;
+    }
+
+
+    public Integer getDiaSemana() {
+        return diaSemana;
+    }
+
+    public void setDiaSemana(Integer diaSemana) {
+        this.diaSemana = diaSemana;
     }
 
     @JsonIgnore
@@ -81,6 +90,8 @@ public class HorarioForm {
     public boolean temDomingo(){
         return DiaSemana.temDomingo(diaSemana);
     }
+
+
 
     @JsonIgnore
     public Integer getTotDiaSemana(){

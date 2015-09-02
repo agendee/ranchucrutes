@@ -58,8 +58,11 @@ public class MedicoWS extends BaseWS {
             method = RequestMethod.POST)
     public @ResponseBody MedicoFullForm update(@RequestBody final MedicoFullForm form) throws MedicoServiceException {
         MedicoEntity medico = MedicoAdapter.fromMedicoFullForm(form);
-        MedicoEntity entity = this.medicoService.update(medico);
-        return MedicoAdapter.toMedicoFullForm(entity);
+        MedicoEntity medicoUpdated = this.medicoService.update(medico);
+        //a atualizacao do medico é feita em 2 transacoes
+        //buscando os dados atualizados.
+        medicoUpdated = this.medicoService.get(medicoUpdated.getIdLogin());
+        return MedicoAdapter.toMedicoFullForm(medicoUpdated);
     }
 
 

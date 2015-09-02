@@ -96,13 +96,13 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">Logradouro:<font style="color: rgb(169, 68, 66);">*</font> </label>
                         <div class="col-md-9">
-                            <input id="logradouro" type="text" class="form-control" name="clinicas[${index}].endereco.logradouro" placeholder="Logradouro" maxlength="80" value="${clinica.endereco.logradouro}" required/>
+                            <input id="logradouro${index}" type="text" class="form-control" name="clinicas[${index}].endereco.logradouro" placeholder="Logradouro" maxlength="80" value="${clinica.endereco.logradouro}" required/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">Número:<font style="color: rgb(169, 68, 66);">*</font> </label>
                         <div class="col-md-4">
-                            <input  id="numer" type="number" class="form-control" name="clinicas[${index}].endereco.numero" placeholder="Número" maxlength="10" value="${clinica.endereco.numero}" required/>
+                            <input  id="number" type="number" class="form-control" name="clinicas[${index}].endereco.numero" placeholder="Número" maxlength="10" value="${clinica.endereco.numero}" required/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -114,19 +114,19 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">Bairro:<font style="color: rgb(169, 68, 66);">*</font> </label>
                         <div class="col-md-6">
-                            <input id="bairro" type="text" class="form-control" name="clinicas[${index}].endereco.bairro" placeholder="Bairro" maxlength="60" value="${clinica.endereco.bairro}" required/>
+                            <input id="bairro${index}" type="text" class="form-control" name="clinicas[${index}].endereco.bairro" placeholder="Bairro" maxlength="60" value="${clinica.endereco.bairro}" required/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">Cidade:<font style="color: rgb(169, 68, 66);">*</font> </label>
                         <div class="col-md-6">
-                            <input id="localidade" type="text" class="form-control" name="clinicas[${index}].endereco.localidade" placeholder="Cidade" maxlength="60" value="${clinica.endereco.localidade}" required/>
+                            <input id="localidade${index}" type="text" class="form-control" name="clinicas[${index}].endereco.localidade" placeholder="Cidade" maxlength="60" value="${clinica.endereco.localidade}" required/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">UF:<font style="color: rgb(169, 68, 66);">*</font> </label>
                         <div class="col-md-4">
-                            <input id="uf" type="text" class="form-control" name="clinicas[${index}].endereco.uf" placeholder="UF" maxlength="2" value="${clinica.endereco.uf}" required/>
+                            <input id="uf${index}" type="text" class="form-control" name="clinicas[${index}].endereco.uf" placeholder="UF" maxlength="2" value="${clinica.endereco.uf}" required/>
                         </div>
                     </div>
                 </div>

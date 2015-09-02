@@ -26,24 +26,24 @@ var admin = function() {
                 affixesStay: false
             });
             $("#cep" + index).blur(function(){
-                admin.findCep(this.value);
+                admin.findCep(this, index);
             });
 
         },
-        findCep: function(cep){
-            RanchucrutesWS.getCep(cep,function(endereco){
-                $('#logradouro').val(endereco.logradouro);
-                $('#bairro').val(endereco.bairro);
-                $('#localidade').val(endereco.localidade);
-                $('#uf').val(endereco.uf);
-                $("#formCadastro").formValidation('updateStatus', 'logradouro', 'NOT_VALIDATED')
-                    .formValidation('validateField', 'logradouro');
-                $("#formCadastro").formValidation('updateStatus', 'bairro', 'NOT_VALIDATED')
-                    .formValidation('validateField', 'bairro');
-                $("#formCadastro").formValidation('updateStatus', 'localidade', 'NOT_VALIDATED')
-                    .formValidation('validateField', 'localidade');
-                $("#formCadastro").formValidation('updateStatus', 'uf', 'NOT_VALIDATED')
-                    .formValidation('validateField', 'uf');
+        findCep: function(input, index){
+            RanchucrutesWS.getCep(input.value,function(endereco){
+                $('#logradouro' + index).val(endereco.logradouro);
+                $('#bairro' + index).val(endereco.bairro);
+                $('#localidade' + index).val(endereco.localidade);
+                $('#uf' + index).val(endereco.uf);
+                $("#formCadastro").formValidation('updateStatus', 'clinicas[' + index +'].endereco.logradouro', 'NOT_VALIDATED')
+                    .formValidation('validateField', 'clinicas[' + index +'].endereco.logradouro');
+                $("#formCadastro").formValidation('updateStatus', 'clinicas[' + index +'].endereco.bairro', 'NOT_VALIDATED')
+                    .formValidation('validateField', 'clinicas[' + index +'].endereco.bairro');
+                $("#formCadastro").formValidation('updateStatus', 'clinicas[' + index +'].endereco.localidade', 'NOT_VALIDATED')
+                    .formValidation('validateField', 'clinicas[' + index +'].endereco.localidade');
+                $("#formCadastro").formValidation('updateStatus', 'clinicas[' + index +'].endereco.uf', 'NOT_VALIDATED')
+                    .formValidation('validateField', 'clinicas[' + index +'].endereco.uf');
 
 
             });

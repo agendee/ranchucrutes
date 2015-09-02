@@ -159,8 +159,8 @@ public class MedicoServiceImpl extends GenericServiceImpl<MedicoEntity, Long> im
                 "dataCriacao",
                 "dataConfirmacao",
                 "senha","ativo");
-        medicoDao.save(medicoPersisted);
-        return this.medicoDao.get(medicoPersisted.getIdLogin());
+
+        return medicoDao.save(medicoPersisted);
     }
 
     private MedicoEntity insertMedico(MedicoEntity medico) throws MedicoServiceException {

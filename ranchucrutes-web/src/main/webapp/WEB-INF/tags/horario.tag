@@ -11,31 +11,31 @@
          <div class="col-md-12">
              <span class="button-checkbox button-checkbox${indexClinica}">
                  <button type="button" class="btn" data-color="success">Seg</button>
-                 <input type="checkbox" class="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].diaSemana" value="1" <c:if test="${horario.temSegunda()}"> checked </c:if> />
+                 <input type="checkbox" class="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].diasSemana" value="1" <c:if test="${horario.temSegunda()}"> checked </c:if> />
              </span>
              <span class="button-checkbox button-checkbox${indexClinica}">
                   <button type="button" class="btn" data-color="success">Ter</button>
-                  <input type="checkbox" class="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].diaSemana" value="2" <c:if test="${horario.temTerca()}"> checked </c:if>/>
+                  <input type="checkbox" class="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].diasSemana" value="2" <c:if test="${horario.temTerca()}"> checked </c:if>/>
              </span>
              <span class="button-checkbox button-checkbox${indexClinica}">
                   <button type="button" class="btn" data-color="success">Qua</button>
-                  <input type="checkbox" class="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].diaSemana" value="4" <c:if test="${horario.temQuarta()}"> checked </c:if>/>
+                  <input type="checkbox" class="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].diasSemana" value="4" <c:if test="${horario.temQuarta()}"> checked </c:if>/>
              </span>
              <span class="button-checkbox button-checkbox${indexClinica}">
                   <button type="button" class="btn" data-color="success">Qui</button>
-                  <input type="checkbox" class="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].diaSemana" value="8" <c:if test="${horario.temQuinta()}"> checked </c:if>/>
+                  <input type="checkbox" class="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].diasSemana" value="8" <c:if test="${horario.temQuinta()}"> checked </c:if>/>
              </span>
              <span class="button-checkbox button-checkbox${indexClinica}">
                   <button type="button" class="btn" data-color="success">Sex</button>
-                  <input type="checkbox" class="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].diaSemana" value="16" <c:if test="${horario.temSexta()}"> checked </c:if> />
+                  <input type="checkbox" class="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].diasSemana" value="16" <c:if test="${horario.temSexta()}"> checked </c:if> />
              </span>
              <span class="button-checkbox button-checkbox${indexClinica}">
                   <button type="button" class="btn" data-color="success">Sab</button>
-                  <input type="checkbox" class="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].diaSemana" value="32" <c:if test="${horario.temSabado()}"> checked </c:if>/>
+                  <input type="checkbox" class="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].diasSemana" value="32" <c:if test="${horario.temSabado()}"> checked </c:if>/>
              </span>
              <span class="button-checkbox button-checkbox${indexClinica}">
                   <button type="button" class="btn" data-color="success">Dom</button>
-                  <input type="checkbox" class="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].diaSemana" value="64" <c:if test="${horario.temDomingo()}"> checked </c:if>/>
+                  <input type="checkbox" class="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].diasSemana" value="64" <c:if test="${horario.temDomingo()}"> checked </c:if>/>
              </span>
          </div>
     </div>
