@@ -155,6 +155,26 @@ var Utils = function() {
 	   waitingClose: function(){
 		   waitingDialog.hide();
 	   },
+	   confirm: function(message, successCallback){
+	   		bootbox.dialog({
+              message: message,
+              title: 'Confirmação',
+              buttons: {
+                success: {
+                  label: "Confirmar",
+                  className: "btn-success",
+                  callback: successCallback
+                },
+                danger: {
+                  label: "Cancelar",
+                  className: "btn-danger",
+                  callback: function() {
+
+                  }
+                },
+              }
+            });
+	   },
 	   numberOnly:function(campo){
 		   $(campo).val($(campo).val().replace(/[^0-9]/g, ''));
 	   }

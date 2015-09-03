@@ -18,7 +18,7 @@ public interface MedicoService extends GenericService<MedicoEntity, Long> {
 
     ResultadoBuscaMedicoVo find(FindMedicoForm findDoctorForm) throws CepNotFoundException, LocationDuplicateFoundException, LocationNotFoundException;
 
-    void saveClinicas(Long idMedico, List<MedicoClinicaEntity> clinicas) throws MedicoServiceException;
+    void saveClinicas(MedicoEntity medicoPersisted, List<MedicoClinicaEntity> clinicas) throws MedicoServiceException;
 
     void removeClinica(Long idClinica) throws MedicoServiceException;
 

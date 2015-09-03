@@ -201,7 +201,7 @@ public class MedicoAdapter {
         List<ConvenioCategoriaForm> convenios = new ArrayList<>();
         if (conveniosEntity != null){
             for (ConvenioCategoriaEntity e : conveniosEntity){
-                convenios.add(new ConvenioCategoriaForm(e.getId(),e.getNome()));
+                convenios.add(new ConvenioCategoriaForm(e.getId(),e.getConvenio().getNome() + " - " + e.getNome()));
             }
             return convenios;
         }

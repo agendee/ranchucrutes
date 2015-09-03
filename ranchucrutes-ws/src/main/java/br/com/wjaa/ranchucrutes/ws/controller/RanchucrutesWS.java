@@ -49,8 +49,9 @@ public class RanchucrutesWS extends BaseWS {
 
     @RequestMapping(value = "/convenio/categoria/{idConvenio}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
     public
-    List<ConvenioCategoriaEntity> getCategoriasByIdConvenio(@PathVariable Integer idConvenio) {
-        return this.ranchucrutesService.getByProperties(ConvenioCategoriaEntity.class,"idConvenio", idConvenio);
+    List<ConvenioCategoriaVo> getCategoriasByIdConvenio(@PathVariable Integer idConvenio) {
+        List<ConvenioCategoriaEntity> categorias = this.ranchucrutesService.getByProperties(ConvenioCategoriaEntity.class,"idConvenio", idConvenio);
+        return RanchucrutesAdapter.toConvenioCategoriaVo(categorias);
     }
 
     @RequestMapping(value = "/especialidade/all", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")

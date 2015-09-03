@@ -48,7 +48,12 @@ public class RanchucrutesServiceImpl implements RanchucrutesService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void removeByProperties(Class clazz, String property, Object value) {
-        Object o = this.ranchucrutesDao.getByProperties(clazz,property, value);
-        this.ranchucrutesDao.remove(o);
+        List<?> list = this.ranchucrutesDao.getByProperties(clazz,property, value);
+        if (list.size() > 0 ){
+            for (Object o : list){
+                this.ranchucrutesDao.remove(o);
+            }
+        }
+
     }
 }

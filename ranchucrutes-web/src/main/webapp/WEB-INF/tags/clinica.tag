@@ -8,7 +8,7 @@
 <div id="clinica${index}" class="panel panel-default" <c:if test="${oculto}"> style="display:none;" </c:if> >
     <div class="panel-heading">
         <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordionClinica" href="#collapse${index}" aria-expanded="true" class="collapsed">
+            <a data-toggle="collapse" data-parent="#accordionClinica" href="#collapse${index}" aria-expanded="true" class="collapsed nomeTitle">
                 <c:if test="${clinica.nome != null}">
                     ${clinica.nome}
                 </c:if>
@@ -16,7 +16,7 @@
                     Nova clínica
                 </c:if>
             </a>
-            <a class="btn btn-danger" style="float:right; padding: 4px 10px;" onclick="admin.removeClinica('clinica${index}');" ><i class="fa fa-trash-o"></i></a>
+            <a class="btn btn-danger" style="float:right; padding: 4px 10px;" onclick="admin.removeClinica(${index});" ><i class="fa fa-trash-o"></i></a>
             <input type="hidden" name="clinicas[${index}].id" value="${clinica.id}"/>
             <input type="hidden" name="clinicas[${index}].idClinica" value="${clinica.idClinica}"/>
         </h4>
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-3 control-label">Telefone:<font style="color: rgb(169, 68, 66);">*</font></label>
+                <label class="col-md-3 control-label">Telefone:</label>
                 <div class="col-md-3">
                     <input type="number" class="form-control" name="clinicas[${index}].ddd" placeholder="DDD" maxlength="2" value="${clinica.ddd}" />
                 </div>

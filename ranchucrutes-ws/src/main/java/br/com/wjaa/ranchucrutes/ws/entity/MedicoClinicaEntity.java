@@ -84,4 +84,25 @@ public class MedicoClinicaEntity {
     public void setValorConsulta(Double valorConsulta) {
         this.valorConsulta = valorConsulta;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MedicoClinicaEntity that = (MedicoClinicaEntity) o;
+
+        if (!getId().equals(that.getId())) return false;
+        if (!getIdMedico().equals(that.getIdMedico())) return false;
+        return getClinica().equals(that.getClinica());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getIdMedico().hashCode();
+        result = 31 * result + getClinica().hashCode();
+        return result;
+    }
 }

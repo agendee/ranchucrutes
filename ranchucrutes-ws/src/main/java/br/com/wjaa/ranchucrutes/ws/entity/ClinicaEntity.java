@@ -121,4 +121,20 @@ public class ClinicaEntity implements Serializable{
     public void setEndereco(EnderecoEntity endereco) {
         this.endereco = endereco;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ClinicaEntity that = (ClinicaEntity) o;
+
+        return getId().equals(that.getId());
+
+    }
+
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
+    }
 }

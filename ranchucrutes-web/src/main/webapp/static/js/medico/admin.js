@@ -31,20 +31,23 @@ var admin = function() {
 
         },
         findCep: function(input, index){
+            Utils.waitingSearch();
             RanchucrutesWS.getCep(input.value,function(endereco){
-                $('#logradouro' + index).val(endereco.logradouro);
-                $('#bairro' + index).val(endereco.bairro);
-                $('#localidade' + index).val(endereco.localidade);
-                $('#uf' + index).val(endereco.uf);
-                $("#formCadastro").formValidation('updateStatus', 'clinicas[' + index +'].endereco.logradouro', 'NOT_VALIDATED')
-                    .formValidation('validateField', 'clinicas[' + index +'].endereco.logradouro');
-                $("#formCadastro").formValidation('updateStatus', 'clinicas[' + index +'].endereco.bairro', 'NOT_VALIDATED')
-                    .formValidation('validateField', 'clinicas[' + index +'].endereco.bairro');
-                $("#formCadastro").formValidation('updateStatus', 'clinicas[' + index +'].endereco.localidade', 'NOT_VALIDATED')
-                    .formValidation('validateField', 'clinicas[' + index +'].endereco.localidade');
-                $("#formCadastro").formValidation('updateStatus', 'clinicas[' + index +'].endereco.uf', 'NOT_VALIDATED')
-                    .formValidation('validateField', 'clinicas[' + index +'].endereco.uf');
-
+                if (endereco){
+                    $('#logradouro' + index).val(endereco.logradouro);
+                    $('#bairro' + index).val(endereco.bairro);
+                    $('#localidade' + index).val(endereco.localidade);
+                    $('#uf' + index).val(endereco.uf);
+                    $("#formCadastro").formValidation('updateStatus', 'clinicas[' + index +'].endereco.logradouro', 'NOT_VALIDATED')
+                        .formValidation('validateField', 'clinicas[' + index +'].endereco.logradouro');
+                    $("#formCadastro").formValidation('updateStatus', 'clinicas[' + index +'].endereco.bairro', 'NOT_VALIDATED')
+                        .formValidation('validateField', 'clinicas[' + index +'].endereco.bairro');
+                    $("#formCadastro").formValidation('updateStatus', 'clinicas[' + index +'].endereco.localidade', 'NOT_VALIDATED')
+                        .formValidation('validateField', 'clinicas[' + index +'].endereco.localidade');
+                    $("#formCadastro").formValidation('updateStatus', 'clinicas[' + index +'].endereco.uf', 'NOT_VALIDATED')
+                        .formValidation('validateField', 'clinicas[' + index +'].endereco.uf');
+                }
+                Utils.waitingClose();
 
             });
         },
@@ -329,8 +332,31 @@ var admin = function() {
 
             countClinica++;
         },
-        removeClinica: function(obj){
-            $("#" + obj).hide();
+        removeClinica: function(index){
+            var nomeClinica = $("#clinica" + index + " > .panel-heading > .panel-title > a.nomeTitle").html();
+            Utils.confirm("Você realmente quer remover a clinica '" + nomeClinica + " ' ?", function(){
+                $('#formCadastro')
+                    .formValidation('removeField', 'clinicas[' + index + '].nome')
+                    .formValidation('removeField', 'clinicas[' + index + '].ddd')
+                    .formValidation('removeField', 'clinicas[' + index + '].telefone')
+                    .formValidation('removeField', 'clinicas[' + index + '].tempoConsultaEmMin')
+                    .formValidation('removeField', 'clinicas[' + index + '].horaFuncionamentoIni')
+                    .formValidation('removeField', 'clinicas[' + index + '].horaFuncionamentoFim')
+                    .formValidation('removeField', 'clinicas[' + index + '].aceitaParticular')
+                    .formValidation('removeField', 'clinicas[' + index + '].valorConsulta')
+                    .formValidation('removeField', 'clinicas[' + index + '].endereco.cep')
+                    .formValidation('removeField', 'clinicas[' + index + '].endereco.logradouro')
+                    .formValidation('removeField', 'clinicas[' + index + '].endereco.numero')
+                    .formValidation('removeField', 'clinicas[' + index + '].endereco.complemento')
+                    .formValidation('removeField', 'clinicas[' + index + '].endereco.bairro')
+                    .formValidation('removeField', 'clinicas[' + index + '].endereco.localidade')
+                    .formValidation('removeField', 'clinicas[' + index + '].endereco.uf')
+                    .formValidation('removeField', 'clinicas[' + index + '].idsCategoria')
+                    .formValidation('removeField', 'clinicas[' + index + '].agendaHorarios[0].horaIni')
+                    .formValidation('removeField', 'clinicas[' + index + '].agendaHorarios[0].horaFim');
+
+                $("#clinica" + index).remove();
+            });
         }
   }
 }();

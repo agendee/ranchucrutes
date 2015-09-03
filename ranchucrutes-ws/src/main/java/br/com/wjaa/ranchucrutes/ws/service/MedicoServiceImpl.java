@@ -145,10 +145,10 @@ public class MedicoServiceImpl extends GenericServiceImpl<MedicoEntity, Long> im
             throw new MedicoServiceException("Impossivel atualizar um médico sem ID");
         }
 
-        this.saveClinicas(medico.getIdLogin(),medico.getClinicas());
-
         MedicoEntity medicoExists = this.medicoDao.get(medico.getIdLogin());
         LOG.info("Atualizando medico [" + medico.getIdLogin() + "]");
+
+        this.saveClinicas(medicoExists, medico.getClinicas());
         return this.mergeMedico(medicoExists,medico);
     }
 
@@ -182,7 +182,7 @@ public class MedicoServiceImpl extends GenericServiceImpl<MedicoEntity, Long> im
     }
 
     @Override
-    public void saveClinicas(Long idMedico, List<MedicoClinicaEntity> clinicas) throws MedicoServiceException {
+    public void saveClinicas(MedicoEntity medicoPersisted, List<MedicoClinicaEntity> clinicas) throws MedicoServiceException {
         for (MedicoClinicaEntity medicoClinica : clinicas){
             ClinicaEntity clinica = medicoClinica.getClinica();
             EnderecoEntity endereco = clinica.getEndereco();
@@ -192,7 +192,7 @@ public class MedicoServiceImpl extends GenericServiceImpl<MedicoEntity, Long> im
             clinica = this.ranchucrutesService.saveWithRequied(clinica);
 
             medicoClinica.setClinica(clinica);
-            medicoClinica.setIdMedico(idMedico);
+            medicoClinica.setIdMedico(medicoPersisted.getIdLogin());
             this.ranchucrutesService.saveWithRequied(medicoClinica);
             //salvando a agenda.
             if (agenda != null){
@@ -203,12 +203,21 @@ public class MedicoServiceImpl extends GenericServiceImpl<MedicoEntity, Long> im
 
             }
         }
+        //verificando se alguma clinica foi exluida.
+        for (MedicoClinicaEntity clinicaPersisted: medicoPersisted.getClinicas()){
+            if ( !clinicas.contains(clinicaPersisted)){
+                if ( clinicaPersisted.getClinica() != null ){
+                    this.removeClinica(clinicaPersisted.getId());
+                }
+            }
+        }
+
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void removeClinica(Long idClinica) throws MedicoServiceException {
-        this.ranchucrutesService.removeByProperties(ClinicaEntity.class, "id", idClinica);
+    public void removeClinica(Long idMedicoClinica) throws MedicoServiceException {
+        this.ranchucrutesService.removeByProperties(MedicoClinicaEntity.class, "id", idMedicoClinica);
     }
 
     private EnderecoEntity saveEndereco(EnderecoEntity endereco) throws MedicoServiceException {
