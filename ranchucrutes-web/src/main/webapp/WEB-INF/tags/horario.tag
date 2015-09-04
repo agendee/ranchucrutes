@@ -5,9 +5,20 @@
 <%@ attribute name="horario" required="false" rtexprvalue="true" type="br.com.wjaa.ranchucrutes.commons.form.HorarioForm"%>
 <%@ attribute name="oculto" required="false" rtexprvalue="true" type="java.lang.Boolean"%>
 
-<div id="horario${index}" class="panel panel-default" <c:if test="${oculto}"> style="display:none;" </c:if>>
-    <input type="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].id" value="${horario.id}"/>
-    <div class="form-group" style="margin-top:15px;">
+<div id="horario${indexClinica}${indexHorario}" class="panel panel-default" <c:if test="${oculto}"> style="display:none;" </c:if>>
+
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordionHorario" href="#collapseHorario${indexClinica}${indexHorario}" aria-expanded="true" class="collapsed nomeTitle">
+                ${horario.label}
+            </a>
+            <a class="btn btn-danger" style="float:right; padding: 4px 10px;" onclick="admin.removeHorarioClinica(${indexClinica}${indexHorario});" ><i class="fa fa-trash-o"></i></a>
+            <input type="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].id" value="${horario.id}"/>
+        </h4>
+    </div>
+
+
+    <div id="collapseHorario${indexClinica}${indexHorario}" class="form-group collapse in" style="margin-top:15px;">
          <div class="col-md-12">
              <span class="button-checkbox button-checkbox${indexClinica}">
                  <button type="button" class="btn" data-color="success">Seg</button>
@@ -38,16 +49,16 @@
                   <input type="checkbox" class="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].diasSemana" value="64" <c:if test="${horario.temDomingo()}"> checked </c:if>/>
              </span>
          </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-6">
-            <label>Das: </label>
-            <input type="time" class="form-control" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].horaIni" placeholder="Hora inicial" maxlength="5" value="${horario.horaIni}"/>
-        </div>
-        <div class="col-md-6">
-            <label>Até:</label>
-            <input type="time" class="form-control" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].horaFim" placeholder="Hora final" maxlength="5" value="${horario.horaFim}"/>
-        </div>
+         <div class="form-group">
+             <div class="col-md-6">
+                <label>Das: </label>
+                <input type="time" class="form-control" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].horaIni" placeholder="Hora inicial" maxlength="5" value="${horario.horaIni}"/>
+             </div>
+             <div class="col-md-6">
+                <label>Até:</label>
+                <input type="time" class="form-control" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].horaFim" placeholder="Hora final" maxlength="5" value="${horario.horaFim}"/>
+             </div>
+         </div>
     </div>
 </div>
 

@@ -1,6 +1,7 @@
 package br.com.wjaa.ranchucrutes.commons.form;
 
 import br.com.wjaa.ranchucrutes.commons.helper.DiaSemana;
+import br.com.wjaa.ranchucrutes.commons.utils.StringUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -102,6 +103,44 @@ public class HorarioForm {
             }
         }
         return total;
+    }
+
+    @JsonIgnore
+    public String getLabel(){
+        String label = "De ";
+
+        if (temSegunda()){
+            label += "Seg, ";
+        }
+        if (temTerca()){
+            label += "Ter, ";
+        }
+        if (temQuarta()){
+            label += "Qua, ";
+        }
+        if (temQuinta()){
+            label += "Qui, ";
+        }
+        if (temSexta()){
+            label += "Sex, ";
+        }
+        if (temSabado()){
+            label += "Sáb, ";
+        }
+        if (temDomingo()){
+            label += "Dom, ";
+        }
+
+        if (horaIni != null && horaFim != null){
+            label += "das " + horaIni + " até " + horaFim;
+        }
+
+        if (diaSemana == null || diaSemana < 1){
+            return "Escolha um horário para abertura da sua agenda.";
+        }
+
+        return label;
+
     }
 
 }

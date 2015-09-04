@@ -70,8 +70,11 @@
                 <label class="col-md-3 control-label"></font> </label>
                 <div class="col-md-4">
 
-                    <input id="box1" type="checkbox" name="clinicas[${index}].aceitaParticular"  <c:if test="${clinica.aceitaParticular}">checked</c:if> value="true"/>
-                    <label for="box1" style="font-size: 18px;">Aceita particular</label>
+                    <span class="button-checkbox button-checkbox${index}">
+                          <button type="button" class="btn" data-color="success">Aceita particular</button>
+                          <input type="checkbox" class="hidden" name="clinicas[${index}].aceitaParticular" value="true" <c:if test="${clinica.aceitaParticular}">checked</c:if>/>
+                    </span>
+
                 </div>
                 <div class="col-md-4">
                     <div class="input-group">
@@ -171,17 +174,21 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="col-md-8 control-label">Quais horários você quer abrir?</label>
+                        <label class="col-md-8 control-label">Quais horários você quer abrir? <a id="btnAddHorario" class="btn btn-success" ><i class="fa fa-plus"></i></a></label>
                     </div>
                     <c:if test="${clinica.agendaHorarios != null && clinica.agendaHorarios.size() > 0}">
                         <c:set var="countHorarios" value="0"/>
-                        <c:forEach var="h" items="${clinica.agendaHorarios}">
-                            <h:horario indexClinica="${index}" indexHorario="${countHorarios}" horario="${h}"/>
-                            <c:set var="countHorarios" value="${countHorarios + 1}"/>
-                        </c:forEach>
+                        <div id="accordionHorario" class="panel-group">
+                            <c:forEach var="h" items="${clinica.agendaHorarios}">
+                                <h:horario indexClinica="${index}" indexHorario="${countHorarios}" horario="${h}"/>
+                                <c:set var="countHorarios" value="${countHorarios + 1}"/>
+                            </c:forEach>
+                        </div>
                     </c:if>
                     <c:if test="${clinica.agendaHorarios == null || clinica.agendaHorarios.size() == 0}">
-                        <h:horario indexClinica="${index}" indexHorario="0"/>
+                        <div id="accordionHorario" class="panel-group">
+                            <h:horario indexClinica="${index}" indexHorario="0"/>
+                        </div>
                     </c:if>
                 </div>
             </div>
