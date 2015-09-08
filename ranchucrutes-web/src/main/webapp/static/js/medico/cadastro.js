@@ -28,6 +28,10 @@ var cadastro = function() {
                     } );*/
                     $('#idEspecialidade').select2({placeholder:"Selecione um plano de saúde"});
 
+                    $("#idEspecialidade").next(".select2").find(".select2-selection").focus(function() {
+                        $("#idEspecialidade").select2("open");
+                    });
+
                 });
         },
         initValidate: function(){
@@ -101,11 +105,12 @@ var cadastro = function() {
                     if (data.fv.getSubmitButton()) {
                         data.fv.disableSubmitButtons(false);
                     }
-                })
-                .on('success.field.fv', function(e, data) {
+                }).on('success.field.fv', function(e, data) {
                     if (data.fv.getSubmitButton()) {
                         data.fv.disableSubmitButtons(false);
                     }
+                }).on('success.form.fv', function(e) {
+                    Utils.waiting();
                 });
         }
   }

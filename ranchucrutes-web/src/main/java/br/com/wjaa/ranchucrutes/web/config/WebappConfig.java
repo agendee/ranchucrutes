@@ -3,6 +3,8 @@ package br.com.wjaa.ranchucrutes.web.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -24,6 +26,14 @@ public class WebappConfig extends WebMvcConfigurerAdapter {
         return resolver;
     }
 
+
+    @Bean
+    public MultipartResolver multipartResolver(){
+        CommonsMultipartResolver m = new CommonsMultipartResolver();
+        m.setMaxUploadSize(3145728);//3mb;
+        m.setDefaultEncoding("UTF-8");
+        return m;
+    }
 
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {

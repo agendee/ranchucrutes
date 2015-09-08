@@ -18,7 +18,7 @@
             </c:if>
 
             <c:if test="${!confirmaCadastro.isError()}">
-                 <h:info-panel title="Cadastro confirmado com sucesso!" msg="Seu cadastro foi confirmado, clique <a href='/medico/login'>aqui</a> para fazer login."/>
+                 <h:info-panel title="Cadastro confirmado com sucesso!" msg="Seu cadastro foi confirmado, clique <a class='btn btn-success' href='/medico/admin'>aqui</a> para fazer login."/>
             </c:if>
 
         </section>

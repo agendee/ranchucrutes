@@ -26,6 +26,9 @@
                 <li>
                     <a class="page-scroll" href="/medico/admin">Cadastro</a>
                 </li>
+                <li>
+                    <a class="page-scroll" href="/medico/horario">Horários</a>
+                </li>
 
                 <li>
                     <a class="page-scroll" href="/auth/sair">Sair</a>

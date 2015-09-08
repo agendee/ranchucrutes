@@ -8,19 +8,20 @@
 <head>
     <jsp:include page="/views/commons/header.jsp" />
     <jsp:include page="/views/commons/header-components.jsp" />
-    <link href="/static/css/medico/admin.css" rel="stylesheet">
+    <link href="/static/css/medico/admin.css" rel="stylesheet"/>
+    <link href="/static/css/libs/jasny-bootstrap.css" rel="stylesheet"/>
 </head>
 <body>
     <jsp:include page="/views/commons/menu_admin.jsp" />
     <div class="col-xs-12 container">
-        <section class="form">
-            <form:form id="formCadastro" class="form-horizontal" action="/medico/update" method="POST" role="form" modelAtribute="form">
-                <div class="col-md-offset-3 col-md-6">
 
+        <form:form id="formCadastro" class="form-horizontal" action="/medico/update" method="POST" role="form" modelAtribute="form" enctype="multipart/form-data" acceptcharset="UTF-8">
+            <div class="col-md-offset-3 col-md-6">
+                <section class="form">
 
                     <!-- transformar isso aqui em uma tag -->
                     <c:if test="${errorMessage != null}">
-                        <div class="alert alert-danger" role="alert">${errorMessage.errorMessage}</div>
+                        <div class="alert alert-danger" role="alert">${errorMessage}</div>
                     </c:if>
 
                     <c:if test="${successMessage != null}">
@@ -35,10 +36,30 @@
                                 <h4 class="panel-title">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionDadosPessoais" href="#collapseDadosPessoais">Dados Pessoais</a>
                                     <input type="hidden" name="medico.idLogin" value="${form.medico.idLogin}"/>
+                                    <input type="hidden" name="medico.foto" value="${form.medico.foto}"/>
                                 </h4>
                             </div>
                             <div class="panel-collapse collapse in" id="collapseDadosPessoais">
                                 <div class="panel-body">
+
+
+                                    <div class="row">
+                                        <div class="fileinput fileinput-new center-block" data-provides="fileinput">
+                                          <div class="fileinput-new thumbnail center-block" style="width: 200px; height: 150px;">
+                                            <img class="onerror"  onerror="this.onerror=null;this.src='/static/img/doctor/user.png';" src="/f/${form.medico.foto}" alt="Sua foto aparecerá na pesquisa de médicos.">
+                                          </div>
+                                          <div class="fileinput-preview fileinput-exists thumbnail center-block" style="max-width: 200px; max-height: 200px;"></div>
+                                          <div>
+                                            <center>
+                                            <span class="btn btn-default btn-file"><span class="fileinput-new">Adicionar Foto</span><span class="fileinput-exists">Alterar Foto</span><input type="file" name="file"></span>
+                                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                            </center>
+                                          </div>
+                                        </div>
+                                    </div>
+
+
+
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Nome:<font style="color: rgb(169, 68, 66);">*</font> </label>
                                         <div class="col-md-9">
@@ -110,15 +131,13 @@
                         </div>
                     </div>
 
+                </section>
+            </div>
+        </form:form>
 
-                </div>
-            </form:form>
-        </section>
 
         <!-- TEMPLATE DE CLINICA -->
         <h:clinica index="__INDEX" oculto="true"/>
-        <h:horario indexClinica="__INDEX" indexHorario="__2INDEX" oculto="true"/>
-
         <jsp:include page="/views/commons/rodape.jsp" />
     </div>
     <jsp:include page="/views/commons/footer.jsp" />
@@ -126,6 +145,7 @@
     <script src="/static/js/ws/ranchucrutes-ws-client.js"></script>
     <script src="/static/js/commons/utils.js"></script>
     <script src="/static/js/medico/admin.js"></script>
+    <script src="/static/js/libs/jasny-bootstrap.min.js"></script>
 
     <script>
         var especSelected = [];

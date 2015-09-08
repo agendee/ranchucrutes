@@ -19,7 +19,7 @@
                       <div class="panel-body">
                         <h4>Cadastre-se</h4>
                         <c:if test="${errorMessage != null}">
-                            <div class="alert alert-danger" role="alert">${errorMessage.errorMessage}</div>
+                            <div class="alert alert-danger" role="alert">${errorMessage}</div>
                         </c:if>
                       </div>
 

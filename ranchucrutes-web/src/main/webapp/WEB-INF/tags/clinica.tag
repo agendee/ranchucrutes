@@ -87,7 +87,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Endereço</h3>
-                    <input type="hidden" name="clinicas[${index}].endereco.id" value="${clinica.id}"/>
+                    <input type="hidden" name="clinicas[${index}].endereco.id" value="${clinica.endereco.id}"/>
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
@@ -166,6 +166,7 @@
                 </div>
             </div>
 
+            <!-- TODO REMOVER DEPOIS
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Horários Agenda</h3>
@@ -192,6 +193,7 @@
                     </c:if>
                 </div>
             </div>
+            -->
         </div>
     </div>
 </div>

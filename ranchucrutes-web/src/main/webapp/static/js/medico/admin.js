@@ -198,6 +198,8 @@ var admin = function() {
                     if (data.fv.getSubmitButton()) {
                         data.fv.disableSubmitButtons(false);
                     }
+                }).on('success.form.fv', function(e) {
+                    Utils.waiting();
                 });
         },
         initComboCategoria : function(index){

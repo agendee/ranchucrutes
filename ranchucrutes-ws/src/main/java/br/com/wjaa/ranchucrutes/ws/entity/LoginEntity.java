@@ -21,6 +21,7 @@ public abstract class LoginEntity implements Serializable {
     private Date dataConfirmacao;
     private String codeConfirmacao;
     private Boolean ativo;
+    private String foto;
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -96,5 +97,14 @@ public abstract class LoginEntity implements Serializable {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+
+    @Column(name = "FOTO", nullable = false)
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }

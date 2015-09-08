@@ -198,8 +198,8 @@ public class MedicoServiceImpl extends GenericServiceImpl<MedicoEntity, Long> im
             if (agenda != null){
                 List<AgendaHorarioEntity> agendaHorarios = agenda.getAgendaHorarios();
                 agenda.setIdClinica(clinica.getId());
-                agenda = this.ranchucrutesService.saveWithRequied(agenda);
-                this.saveAgendaHorarios(agendaHorarios,agenda);
+                this.ranchucrutesService.saveWithRequied(agenda);
+                //this.saveAgendaHorarios(agenda.getId(),agendaHorarios);
 
             }
         }
@@ -212,6 +212,18 @@ public class MedicoServiceImpl extends GenericServiceImpl<MedicoEntity, Long> im
             }
         }
 
+    }
+
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void saveAgendaHorarios(List<MedicoClinicaEntity> clinicas){
+        for (MedicoClinicaEntity medicoClinica: clinicas){
+            AgendaEntity agenda = medicoClinica.getClinica().getAgenda();
+            if (agenda != null){
+                this.saveAgendaHorarios(agenda.getId(),agenda.getAgendaHorarios());
+            }
+        }
     }
 
     @Override
@@ -265,14 +277,27 @@ public class MedicoServiceImpl extends GenericServiceImpl<MedicoEntity, Long> im
         }
     }
 
-    private void saveAgendaHorarios(List<AgendaHorarioEntity> agendaHorarios, AgendaEntity agenda) {
+    private void saveAgendaHorarios(Long idAgenda, List<AgendaHorarioEntity> agendaHorarios) {
+        AgendaEntity agenda = this.ranchucrutesService.get(AgendaEntity.class,idAgenda);
         if (!CollectionUtils.isEmpty(agendaHorarios)){
             for(AgendaHorarioEntity ah : agendaHorarios){
-                ah.setIdAgenda(agenda.getId());
+                ah.setIdAgenda(idAgenda);
                 this.ranchucrutesService.saveWithRequied(ah);
             }
         }
+
+        if (agenda.getAgendaHorarios() != null){
+            //verificando se algum horario foi excluido
+            for (AgendaHorarioEntity ahe: agenda.getAgendaHorarios()){
+                if ( !agendaHorarios.contains(ahe)){
+                    this.ranchucrutesService.removeByProperties(AgendaHorarioEntity.class,"id",ahe.getId());
+                }
+            }
+        }
+
     }
+
+
 
 
 

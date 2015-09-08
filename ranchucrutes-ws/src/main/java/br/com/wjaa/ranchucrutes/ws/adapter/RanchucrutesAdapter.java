@@ -1,6 +1,8 @@
 package br.com.wjaa.ranchucrutes.ws.adapter;
 
+import br.com.wjaa.ranchucrutes.commons.vo.AppConfigVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ConvenioCategoriaVo;
+import br.com.wjaa.ranchucrutes.ws.entity.AppConfigEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.ConvenioCategoriaEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.EnderecoEntity;
 import br.com.wjaa.ranchucrutes.commons.vo.EnderecoVo;
@@ -39,5 +41,18 @@ public class RanchucrutesAdapter {
         ee.setLogradouro(vo.getLogradouro());
         ee.setUf(vo.getUf());
         return ee;
+    }
+
+    public static AppConfigVo toAppConfigVo(AppConfigEntity appConfig) {
+        AppConfigVo vo = new AppConfigVo();
+        if (appConfig == null){
+            return vo;
+        }
+
+        vo.setChave(appConfig.getChave());
+        vo.setValor(appConfig.getValor());
+
+        return vo;
+
     }
 }

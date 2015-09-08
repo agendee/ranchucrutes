@@ -66,6 +66,16 @@ public class MedicoWS extends BaseWS {
     }
 
 
+    @RequestMapping(value = "/medico/horario/save", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8",
+            method = RequestMethod.POST)
+    public @ResponseBody MedicoFullForm saveHorario(@RequestBody final MedicoFullForm form) throws MedicoServiceException {
+        MedicoEntity medico = MedicoAdapter.fromMedicoFullForm(form);
+        this.medicoService.saveAgendaHorarios(medico.getClinicas());
+        MedicoEntity medicoUpdated = this.medicoService.get(form.getMedico().getIdLogin());
+        return MedicoAdapter.toMedicoFullForm(medicoUpdated);
+    }
+
+
     @ExceptionHandler(CepNotFoundException.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public @ResponseBody

@@ -66,4 +66,23 @@ public class AgendaHorarioEntity implements Serializable {
     public void setDiaSemana(Integer diaSemana) {
         this.diaSemana = diaSemana;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AgendaHorarioEntity that = (AgendaHorarioEntity) o;
+
+        if (!id.equals(that.id)) return false;
+        return idAgenda.equals(that.idAgenda);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + idAgenda.hashCode();
+        return result;
+    }
 }

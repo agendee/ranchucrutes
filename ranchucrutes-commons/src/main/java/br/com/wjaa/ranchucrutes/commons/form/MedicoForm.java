@@ -1,5 +1,8 @@
 package br.com.wjaa.ranchucrutes.commons.form;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  * Created by wagner on 12/08/15.
  */
@@ -14,6 +17,8 @@ public class MedicoForm {
     private String email;
     private String senha;
     private String cpf;
+    private String foto;
+
 
     public String getNome() {
         return nome;
@@ -85,5 +90,13 @@ public class MedicoForm {
 
     public void setIdLogin(Long idLogin) {
         this.idLogin = idLogin;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }

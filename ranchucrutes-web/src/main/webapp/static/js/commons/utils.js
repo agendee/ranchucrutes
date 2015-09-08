@@ -152,6 +152,9 @@ var Utils = function() {
 	   waitingSearch: function(){
 		   waitingDialog.show('Pesquisando aguarde...', {dialogSize: 'sm', progressType: 'warning'});
 	   },
+	   waiting: function(){
+		   waitingDialog.show('Aguarde ...', {dialogSize: 'sm', progressType: 'warning'});
+	   },
 	   waitingClose: function(){
 		   waitingDialog.hide();
 	   },
