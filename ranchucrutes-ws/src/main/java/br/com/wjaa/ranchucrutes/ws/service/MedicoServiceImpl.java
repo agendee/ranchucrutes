@@ -131,7 +131,7 @@ public class MedicoServiceImpl extends GenericServiceImpl<MedicoEntity, Long> im
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public MedicoEntity save(MedicoEntity medico) throws MedicoServiceException {
+    public MedicoEntity saveMedico(MedicoEntity medico) throws MedicoServiceException {
         this.validate(medico);
         LOG.info("Novo médico, criando....");
         return this.insertMedico(medico);

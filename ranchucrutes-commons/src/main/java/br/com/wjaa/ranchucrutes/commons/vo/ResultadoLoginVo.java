@@ -12,6 +12,7 @@ public class ResultadoLoginVo {
     public enum StatusLogin{
         SUCESSO("Logado"),
         ERRO("Usúario ou senha inválido!"),
+        ERRO_SOCIAL("Usuário não cadastrado!"),
         ACESSO_NAO_CONFIRMADO("Seu acesso não foi confirmado!");
 
         private String msg;
@@ -26,6 +27,7 @@ public class ResultadoLoginVo {
 
 
     private MedicoBasicoVo medico;
+    private PacienteVo paciente;
     private StatusLogin status;
 
     public MedicoBasicoVo getMedico() {
@@ -57,5 +59,13 @@ public class ResultadoLoginVo {
     @JsonIgnore
     public Boolean isAcessoNaoConfirmado(){
         return StatusLogin.ACESSO_NAO_CONFIRMADO.equals(this.status);
+    }
+
+    public PacienteVo getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(PacienteVo paciente) {
+        this.paciente = paciente;
     }
 }

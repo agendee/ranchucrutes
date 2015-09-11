@@ -25,6 +25,8 @@ public interface MedicoService extends GenericService<MedicoEntity, Long> {
 
     void removeClinica(Long idClinica) throws MedicoServiceException;
 
+    MedicoEntity saveMedico(MedicoEntity medico) throws MedicoServiceException;
+
     MedicoEntity update(MedicoEntity medico) throws MedicoServiceException;
 
 }

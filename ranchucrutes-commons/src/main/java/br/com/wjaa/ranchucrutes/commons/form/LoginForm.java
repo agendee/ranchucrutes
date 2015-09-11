@@ -5,8 +5,18 @@ package br.com.wjaa.ranchucrutes.commons.form;
  */
 public class LoginForm {
 
+    public enum AuthType{
+        AUTH_FACEBOOK,
+        AUTH_GPLUS,
+        AUTH_RANCHUCRUTES
+    }
+
+
     private String login;
     private String senha;
+    private String key;
+    private AuthType type;
+
 
     public String getLogin() {
         return login;
@@ -22,5 +32,21 @@ public class LoginForm {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public AuthType getType() {
+        return type;
+    }
+
+    public void setType(AuthType type) {
+        this.type = type;
     }
 }

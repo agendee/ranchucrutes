@@ -56,7 +56,7 @@ public class AuthController {
             mav.addObject("form",loginForm);
             String json = ObjectUtils.toJson(loginForm);
             ResultadoLoginVo resultadoLogin = RestUtils.postJson(ResultadoLoginVo.class, RanchucrutesConstantes.HOST_WS,
-                    "auth", json);
+                    RanchucrutesConstantes.END_POINT_AUTH_MEDICO, json);
 
             if (ResultadoLoginVo.StatusLogin.SUCESSO.equals(resultadoLogin.getStatus())){
                 mav.addObject("medico", resultadoLogin.getMedico());

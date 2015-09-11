@@ -99,7 +99,7 @@ public abstract class LoginEntity implements Serializable {
         this.ativo = ativo;
     }
 
-    @Column(name = "FOTO", nullable = false)
+    @Column(name = "FOTO")
     public String getFoto() {
         return foto;
     }

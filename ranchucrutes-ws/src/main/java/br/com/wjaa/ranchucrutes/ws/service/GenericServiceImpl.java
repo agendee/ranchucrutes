@@ -61,7 +61,7 @@ public abstract class GenericServiceImpl<T, PK extends Serializable> implements
      * {@inheritDoc}
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public T save(T object) throws MedicoServiceException {
+    public T save(T object){
         return this.genericDao.save(object);
     }
 

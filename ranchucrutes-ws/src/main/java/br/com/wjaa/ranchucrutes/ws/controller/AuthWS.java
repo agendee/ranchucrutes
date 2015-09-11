@@ -6,6 +6,7 @@ import br.com.wjaa.ranchucrutes.commons.vo.ConfirmaCadastroVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ResultadoLoginVo;
 import br.com.wjaa.ranchucrutes.ws.exception.LoginNotConfirmationException;
 import br.com.wjaa.ranchucrutes.ws.exception.LoginServiceException;
+import br.com.wjaa.ranchucrutes.ws.exception.LoginSocialException;
 import br.com.wjaa.ranchucrutes.ws.service.LoginService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,8 +31,8 @@ public class AuthWS {
         return loginService.confirmaCadastro(code);
     }
 
-    @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8", method = RequestMethod.POST)
-    public ResultadoLoginVo auth(@RequestBody LoginForm form){
+    @RequestMapping(value = "/auth/medico", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8", method = RequestMethod.POST)
+    public ResultadoLoginVo authMedico(@RequestBody LoginForm form){
         ResultadoLoginVo resultadoLoginVo = new ResultadoLoginVo();
         try {
             resultadoLoginVo.setMedico(loginService.autenticarMedico(form.getLogin(), form.getSenha()));
@@ -46,6 +47,25 @@ public class AuthWS {
             resultadoLoginVo.setStatus(ResultadoLoginVo.StatusLogin.ACESSO_NAO_CONFIRMADO);
         }
         return resultadoLoginVo;
+    }
+
+    @RequestMapping(value = "/auth/paciente", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8", method = RequestMethod.POST)
+    public ResultadoLoginVo authPaciente(@RequestBody LoginForm form){
+        ResultadoLoginVo resultadoLoginVo = new ResultadoLoginVo();
+        try {
+            resultadoLoginVo.setPaciente(loginService.autenticarPaciente(form));
+            resultadoLoginVo.setStatus(ResultadoLoginVo.StatusLogin.SUCESSO);
+            return resultadoLoginVo;
+        } catch (LoginServiceException e) {
+            LOG.error("Erro no login ", e);
+            resultadoLoginVo.setStatus(ResultadoLoginVo.StatusLogin.ERRO);
+            return resultadoLoginVo;
+        } catch (LoginSocialException e) {
+            LOG.error("Erro no login ", e);
+            resultadoLoginVo.setStatus(ResultadoLoginVo.StatusLogin.ERRO_SOCIAL);
+            return resultadoLoginVo;
+        }
+
     }
 
 }
