@@ -60,7 +60,7 @@ public class LoginDaoImpl extends GenericDaoImpl<LoginEntity,Integer> implements
         sb.append(" where p.redeSocial = ?  and p.keySocial = ? ");
 
         List<PacienteEntity> result = (List<PacienteEntity>) this.getHibernateTemplate().find(sb.toString(),
-                redeSocial.ordinal(), keySocial);
+                redeSocial, keySocial);
         if (result.size() > 0){
             return result.get(0);
         }

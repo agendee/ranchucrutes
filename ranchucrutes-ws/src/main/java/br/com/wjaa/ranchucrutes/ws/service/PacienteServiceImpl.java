@@ -1,5 +1,6 @@
 package br.com.wjaa.ranchucrutes.ws.service;
 
+import br.com.wjaa.ranchucrutes.commons.utils.StringUtils;
 import br.com.wjaa.ranchucrutes.ws.dao.PacienteDao;
 import br.com.wjaa.ranchucrutes.ws.entity.PacienteEntity;
 import br.com.wjaa.ranchucrutes.ws.exception.PacienteServiceException;
@@ -24,7 +25,6 @@ public class PacienteServiceImpl extends GenericServiceImpl<PacienteEntity,Long>
         this.pacienteDao = pacienteDao;
     }
 
-
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public PacienteEntity savePaciente(PacienteEntity pacienteEntity) throws PacienteServiceException {
@@ -37,6 +37,12 @@ public class PacienteServiceImpl extends GenericServiceImpl<PacienteEntity,Long>
             }
 
             pacienteEntity.setSenha("unknow");
+        }else{
+            PacienteEntity pacienteFound = pacienteDao.getPacienteByEmail(pacienteEntity.getEmail());
+            if (pacienteFound != null){
+                throw new PacienteServiceException("Paciente já cadastrado!");
+            }
+            pacienteEntity.setSenha(StringUtils.createMD5(pacienteEntity.getSenha()));
         }
         pacienteEntity.setAtivo(true);
         pacienteEntity.setDataCriacao(new Date());

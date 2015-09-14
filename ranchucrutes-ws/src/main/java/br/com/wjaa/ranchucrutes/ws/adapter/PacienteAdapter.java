@@ -19,7 +19,9 @@ public class PacienteAdapter {
 
         if (pacienteEntity != null){
             BeanUtils.copyProperties(pacienteEntity,pacienteVo,"senha");
-            pacienteVo.setAuthType(pacienteEntity.getRedeSocial().getSocialType());
+            if (pacienteEntity.getRedeSocial() != null){
+                pacienteVo.setAuthType(pacienteEntity.getRedeSocial().getSocialType());
+            }
             pacienteVo.setId(pacienteEntity.getIdLogin());
         }
         return pacienteVo;
@@ -30,7 +32,9 @@ public class PacienteAdapter {
 
         if (pacienteVo != null){
             BeanUtils.copyProperties(pacienteVo,entity);
-            entity.setRedeSocial(RedeSocialEnum.adapterSocialType(pacienteVo.getAuthType()));
+            if (pacienteVo.getAuthType() != null){
+                entity.setRedeSocial(RedeSocialEnum.adapterSocialType(pacienteVo.getAuthType()));
+            }
 
         }
         return entity;

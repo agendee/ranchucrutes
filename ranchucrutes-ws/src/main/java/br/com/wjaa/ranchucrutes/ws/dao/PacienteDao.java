@@ -8,4 +8,6 @@ import br.com.wjaa.ranchucrutes.ws.entity.RedeSocialEnum;
  */
 public interface PacienteDao extends GenericDao<PacienteEntity,Long>{
     PacienteEntity getPacienteByKeySocial(RedeSocialEnum redeSocial, String keySocial);
+
+    PacienteEntity getPacienteByEmail(String email);
 }

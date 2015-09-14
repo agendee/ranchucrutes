@@ -105,7 +105,7 @@ public class LoginServiceImpl implements LoginService {
         PacienteEntity pacienteEntity;
         if (LoginForm.AuthType.AUTH_RANCHUCRUTES.equals(form.getType())){
 
-            pacienteEntity = this.loginDao.autenticarPaciente(form.getLogin(),form.getSenha());
+            pacienteEntity = this.loginDao.autenticarPaciente(form.getLogin(), this.createHashPass(form.getSenha()));
 
             if (pacienteEntity == null){
                 throw new LoginServiceException("Usuário ou senha inválida");
@@ -113,7 +113,7 @@ public class LoginServiceImpl implements LoginService {
 
         }else{
             pacienteEntity = this.loginDao.autenticarPaciente(RedeSocialEnum.adapterSocialType(form.getType()),
-                    form.getKey());
+                    form.getKeySocial());
 
             if(pacienteEntity == null){
                 throw new LoginSocialException("Usuário não cadastrado!");
