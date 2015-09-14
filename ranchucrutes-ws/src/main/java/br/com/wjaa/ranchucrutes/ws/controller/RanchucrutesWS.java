@@ -36,13 +36,13 @@ public class RanchucrutesWS extends BaseWS {
     @RequestMapping(value = "/convenio/all", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
     public
     List<ConvenioEntity> listAllConvenio() {
-        return this.ranchucrutesService.listAll(ConvenioEntity.class);
+        return this.ranchucrutesService.getByProperties(ConvenioEntity.class,"ativo",true);
     }
 
     @RequestMapping(value = "/convenio/categoria/all", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
     public
     List<ConvenioCategoriaVo> listAllConvenioCategorias() {
-        List<ConvenioCategoriaEntity> categorias = this.ranchucrutesService.listAll(ConvenioCategoriaEntity.class);
+        List<ConvenioCategoriaEntity> categorias = this.ranchucrutesService.getByProperties(ConvenioCategoriaEntity.class,"ativo",true);
         return RanchucrutesAdapter.toConvenioCategoriaVo(categorias);
     }
 
@@ -50,14 +50,15 @@ public class RanchucrutesWS extends BaseWS {
     @RequestMapping(value = "/convenio/categoria/{idConvenio}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
     public
     List<ConvenioCategoriaVo> getCategoriasByIdConvenio(@PathVariable Integer idConvenio) {
-        List<ConvenioCategoriaEntity> categorias = this.ranchucrutesService.getByProperties(ConvenioCategoriaEntity.class,"idConvenio", idConvenio);
+        List<ConvenioCategoriaEntity> categorias = this.ranchucrutesService.getByProperties(ConvenioCategoriaEntity.class,
+                new String[]{"idConvenio","ativo"}, new Object[]{idConvenio,true});
         return RanchucrutesAdapter.toConvenioCategoriaVo(categorias);
     }
 
     @RequestMapping(value = "/especialidade/all", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
     public
     List<EspecialidadeEntity> listAllEspecialidade() {
-        return this.ranchucrutesService.listAll(EspecialidadeEntity.class);
+        return this.ranchucrutesService.getByProperties(EspecialidadeEntity.class,"ativo",true);
     }
 
     @RequestMapping(value = "/cep/{cep}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")

@@ -18,5 +18,7 @@ public interface RanchucrutesService {
 
     <T>List<T> getByProperties(Class<T> clazz,String property, Object value);
 
+    <T> List<T> getByProperties(Class<T> clazz, String [] properties, Object [] values);
+
     void removeByProperties(Class clazz,String property, Object value);
 }

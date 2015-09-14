@@ -46,6 +46,11 @@ public class RanchucrutesServiceImpl implements RanchucrutesService {
     }
 
     @Override
+    public <T> List<T> getByProperties(Class<T> clazz, String [] properties, Object [] values) {
+        return this.ranchucrutesDao.getByProperties(clazz,properties, values);
+    }
+
+    @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void removeByProperties(Class clazz, String property, Object value) {
         List<?> list = this.ranchucrutesDao.getByProperties(clazz,property, value);
@@ -56,4 +61,5 @@ public class RanchucrutesServiceImpl implements RanchucrutesService {
         }
 
     }
+
 }

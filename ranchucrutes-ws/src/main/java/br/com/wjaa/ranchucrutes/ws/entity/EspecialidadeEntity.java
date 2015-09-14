@@ -14,6 +14,8 @@ public class EspecialidadeEntity implements Serializable {
     private Integer id;
     private String nome;
     private Boolean popular;
+    private Boolean ativo;
+
 
     public EspecialidadeEntity(){}
 
@@ -50,5 +52,14 @@ public class EspecialidadeEntity implements Serializable {
 
     public void setPopular(Boolean popular) {
         this.popular = popular;
+    }
+
+    @Column(name = "ATIVO", nullable = false)
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 }

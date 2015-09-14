@@ -18,6 +18,7 @@ public class ConvenioCategoriaEntity implements Serializable {
     private Integer idConvenio;
     @JsonIgnore
     private ConvenioEntity convenio;
+    private Boolean ativo;
 
 
     @Id
@@ -57,5 +58,14 @@ public class ConvenioCategoriaEntity implements Serializable {
 
     public void setConvenio(ConvenioEntity convenio) {
         this.convenio = convenio;
+    }
+
+    @Column(name = "ATIVO", nullable = false)
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 }

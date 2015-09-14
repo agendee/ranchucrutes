@@ -14,6 +14,7 @@ public class ConvenioEntity {
     private String nome;
     private Boolean popular;
     private List<ConvenioCategoriaEntity> categorias;
+    private Boolean ativo;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,6 +53,15 @@ public class ConvenioEntity {
 
     public void setCategorias(List<ConvenioCategoriaEntity> categorias) {
         this.categorias = categorias;
+    }
+
+    @Column(name = "ATIVO", nullable = false)
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 
     @Override
