@@ -9,4 +9,6 @@ import br.com.wjaa.ranchucrutes.ws.exception.PacienteServiceException;
 public interface PacienteService extends GenericService<PacienteEntity,Long>{
 
     PacienteEntity savePaciente(PacienteEntity pacienteEntity) throws PacienteServiceException;
+
+    PacienteEntity updatePaciente(PacienteEntity pacienteEntity) throws PacienteServiceException;
 }

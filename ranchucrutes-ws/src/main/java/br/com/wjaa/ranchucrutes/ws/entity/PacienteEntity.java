@@ -21,6 +21,7 @@ public class PacienteEntity extends LoginEntity implements Serializable{
     private String telefone;
     private String keySocial;
     private RedeSocialEnum redeSocial;
+    private Integer idCategoria;
 
 
 
@@ -60,5 +61,15 @@ public class PacienteEntity extends LoginEntity implements Serializable{
 
     public void setRedeSocial(RedeSocialEnum redeSocial) {
         this.redeSocial = redeSocial;
+    }
+
+
+    @Column(name = "ID_CATEGORIA")
+    public Integer getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(Integer idCategoria) {
+        this.idCategoria = idCategoria;
     }
 }

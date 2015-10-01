@@ -38,9 +38,18 @@ public class PacienteWS {
     @RequestMapping(value = "/paciente/save", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8",
             method = RequestMethod.POST)
     public @ResponseBody
-    PacienteVo saveMedico(@RequestBody final PacienteVo pacienteVo) throws PacienteServiceException {
+    PacienteVo savePaciente(@RequestBody final PacienteVo pacienteVo) throws PacienteServiceException {
         PacienteEntity pacienteEntity = PacienteAdapter.fromPacienteVo(pacienteVo);
         pacienteEntity = this.pacienteService.savePaciente(pacienteEntity);
+        return PacienteAdapter.toPacienteVo(pacienteEntity);
+    }
+
+    @RequestMapping(value = "/paciente/update", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8",
+            method = RequestMethod.POST)
+    public @ResponseBody
+    PacienteVo updatePaciente(@RequestBody final PacienteVo pacienteVo) throws PacienteServiceException {
+        PacienteEntity pacienteEntity = PacienteAdapter.fromPacienteVo(pacienteVo);
+        pacienteEntity = this.pacienteService.updatePaciente(pacienteEntity);
         return PacienteAdapter.toPacienteVo(pacienteEntity);
     }
 

@@ -14,6 +14,7 @@ public class PacienteVo {
     private String senha;
     private String keySocial;
     private LoginForm.AuthType authType;
+    private Integer idCategoria;
 
 
     public PacienteVo(){}
@@ -82,4 +83,11 @@ public class PacienteVo {
         this.id = id;
     }
 
+    public Integer getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(Integer idCategoria) {
+        this.idCategoria = idCategoria;
+    }
 }
