@@ -53,6 +53,7 @@ public class PacienteServiceImpl extends GenericServiceImpl<PacienteEntity,Long>
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public PacienteEntity updatePaciente(PacienteEntity pacienteEntity) throws PacienteServiceException {
 
         PacienteEntity pacientePersisted = pacienteDao.get(pacienteEntity.getIdLogin());
