@@ -32,6 +32,7 @@ public class PacienteAdapter {
 
         if (pacienteVo != null){
             BeanUtils.copyProperties(pacienteVo,entity);
+            entity.setIdLogin(pacienteVo.getId());
             if (pacienteVo.getAuthType() != null){
                 entity.setRedeSocial(RedeSocialEnum.adapterSocialType(pacienteVo.getAuthType()));
             }
