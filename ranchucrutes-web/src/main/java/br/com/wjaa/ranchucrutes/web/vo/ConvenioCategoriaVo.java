@@ -1,5 +1,7 @@
 package br.com.wjaa.ranchucrutes.web.vo;
 
+import br.com.wjaa.ranchucrutes.commons.vo.ConvenioVo;
+
 import java.io.Serializable;
 
 /**

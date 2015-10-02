@@ -2,8 +2,10 @@ package br.com.wjaa.ranchucrutes.ws.adapter;
 
 import br.com.wjaa.ranchucrutes.commons.vo.AppConfigVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ConvenioCategoriaVo;
+import br.com.wjaa.ranchucrutes.commons.vo.ConvenioVo;
 import br.com.wjaa.ranchucrutes.ws.entity.AppConfigEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.ConvenioCategoriaEntity;
+import br.com.wjaa.ranchucrutes.ws.entity.ConvenioEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.EnderecoEntity;
 import br.com.wjaa.ranchucrutes.commons.vo.EnderecoVo;
 import org.springframework.beans.BeanUtils;
@@ -25,6 +27,23 @@ public class RanchucrutesAdapter {
             }
         }
         return categoriaVos;
+    }
+
+
+    public static ConvenioCategoriaVo toConvenioCategoriaVo(ConvenioCategoriaEntity categoria) {
+        if (categoria == null){
+            return null;
+        }
+
+        ConvenioCategoriaVo categoriaVo = new ConvenioCategoriaVo(categoria.getId(),
+                        categoria.getConvenio().getNome() + " - " + categoria.getNome());
+        if (categoria.getConvenio() != null){
+            ConvenioEntity convenio = categoria.getConvenio();
+            categoriaVo.setConvenioVo(new ConvenioVo(convenio.getId(), convenio.getNome()));
+            categoriaVo.setIdConvenio(convenio.getId());
+        }
+
+        return categoriaVo;
     }
 
     public static EnderecoVo toEnderecoVo(EnderecoEntity endereco) {

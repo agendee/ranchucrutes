@@ -55,6 +55,14 @@ public class RanchucrutesWS extends BaseWS {
         return RanchucrutesAdapter.toConvenioCategoriaVo(categorias);
     }
 
+    @RequestMapping(value = "/categoria/{idCategoria}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    public
+    ConvenioCategoriaVo getCategoriaById(@PathVariable Integer idCategoria) {
+        ConvenioCategoriaEntity categoria = this.ranchucrutesService.get(ConvenioCategoriaEntity.class,
+                idCategoria);
+        return RanchucrutesAdapter.toConvenioCategoriaVo(categoria);
+    }
+
     @RequestMapping(value = "/especialidade/all", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
     public
     List<EspecialidadeEntity> listAllEspecialidade() {

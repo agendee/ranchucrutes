@@ -7,6 +7,8 @@ public class ConvenioCategoriaVo {
 
     private Integer id;
     private String nome;
+    private Integer idConvenio;
+    private ConvenioVo convenioVo;
 
     public ConvenioCategoriaVo(){}
     public ConvenioCategoriaVo(Integer id, String nome){
@@ -28,5 +30,21 @@ public class ConvenioCategoriaVo {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Integer getIdConvenio() {
+        return idConvenio;
+    }
+
+    public void setIdConvenio(Integer idConvenio) {
+        this.idConvenio = idConvenio;
+    }
+
+    public ConvenioVo getConvenioVo() {
+        return convenioVo;
+    }
+
+    public void setConvenioVo(ConvenioVo convenioVo) {
+        this.convenioVo = convenioVo;
     }
 }

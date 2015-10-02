@@ -1,4 +1,4 @@
-package br.com.wjaa.ranchucrutes.web.vo;
+package br.com.wjaa.ranchucrutes.commons.vo;
 
 import java.util.List;
 
@@ -11,6 +11,14 @@ public class ConvenioVo {
     private String nome;
     private Boolean popular;
     private List<ConvenioCategoriaVo> categorias;
+
+
+    public ConvenioVo(){}
+
+    public ConvenioVo(Integer id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
 
     public Integer getId() {
         return id;

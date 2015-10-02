@@ -1,6 +1,6 @@
 package br.com.wjaa.ranchucrutes.web.controller;
 
-import br.com.wjaa.ranchucrutes.web.vo.ConvenioVo;
+import br.com.wjaa.ranchucrutes.commons.vo.ConvenioVo;
 import br.com.wjaa.ranchucrutes.web.vo.EspecialidadeVo;
 
 import java.util.List;
