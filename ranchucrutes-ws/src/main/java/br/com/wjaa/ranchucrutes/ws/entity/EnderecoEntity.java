@@ -1,7 +1,7 @@
 package br.com.wjaa.ranchucrutes.ws.entity;
 
 import br.com.wjaa.ranchucrutes.commons.vo.LocationVo;
-import br.com.wjaa.ranchucrutes.ws.vo.DistanceVo;
+import br.com.wjaa.ranchucrutes.commons.vo.DistanceVo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;

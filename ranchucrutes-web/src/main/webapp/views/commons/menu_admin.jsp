@@ -21,13 +21,13 @@
                     <a href="#page-top"></a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="/medico/agenda">Agenda</a>
+                    <a class="page-scroll" href="/profissional/agenda">Agenda</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="/medico/admin">Cadastro</a>
+                    <a class="page-scroll" href="/profissional/admin">Cadastro</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="/medico/horario">Horários</a>
+                    <a class="page-scroll" href="/profissional/horario">Horários</a>
                 </li>
 
                 <li>

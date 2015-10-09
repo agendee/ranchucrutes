@@ -254,7 +254,7 @@
                                         <echo message="Copiando o war pra o server (pasta temporaria) ..." />
                                         <scp trust="true"
                                              file="${project.build.directory}/${project.build.finalName}.war"
-                                             keyfile="${server.keyFile}" remoteTofile="${server.user}@${server.ip}:${server.tmp}/marcmed-ws.war"
+                                             keyfile="${server.keyFile}" remoteTofile="${server.user}@${server.ip}:${server.tmp}/agendee-ws.war"
                                              failonerror="true" />
 
                                         <echo message="Parando o container ..." />
@@ -266,7 +266,7 @@
                                         <echo message="Movendo war para pasta do container..." />
                                         <sshexec trust="true" host="${server.ip}" username="${server.user}"
                                                  keyfile="${server.keyFile}"
-                                                 command="sudo mv ${server.tmp}/marcmed-ws.war ${server.container.webapps}/ws.war"
+                                                 command="sudo mv ${server.tmp}/agendee-ws.war ${server.container.webapps}/ws.war"
                                                  failonerror="true" usepty="true" />
                                         <sleep seconds="10" />
 

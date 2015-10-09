@@ -1,6 +1,6 @@
 package br.com.wjaa.ranchucrutes.ws.controller;
 
-import br.com.wjaa.ranchucrutes.ws.vo.ErrorMessageVo;
+import br.com.wjaa.ranchucrutes.commons.vo.ErrorMessageVo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpStatus;

@@ -1,6 +1,5 @@
 package br.com.wjaa.ranchucrutes.ws.controller;
 
-import br.com.wjaa.ranchucrutes.commons.form.FindMedicoForm;
 import br.com.wjaa.ranchucrutes.commons.form.LoginForm;
 import br.com.wjaa.ranchucrutes.commons.vo.ConfirmaCadastroVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ResultadoLoginVo;
@@ -31,11 +30,11 @@ public class AuthWS {
         return loginService.confirmaCadastro(code);
     }
 
-    @RequestMapping(value = "/auth/medico", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8", method = RequestMethod.POST)
-    public ResultadoLoginVo authMedico(@RequestBody LoginForm form){
+    @RequestMapping(value = "/auth/profissional", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8", method = RequestMethod.POST)
+    public ResultadoLoginVo authProfissional(@RequestBody LoginForm form){
         ResultadoLoginVo resultadoLoginVo = new ResultadoLoginVo();
         try {
-            resultadoLoginVo.setMedico(loginService.autenticarMedico(form.getLogin(), form.getSenha()));
+            resultadoLoginVo.setProfissional(loginService.autenticarProfissional(form.getLogin(), form.getSenha()));
             resultadoLoginVo.setStatus(ResultadoLoginVo.StatusLogin.SUCESSO);
             return resultadoLoginVo;
         } catch (LoginServiceException e) {

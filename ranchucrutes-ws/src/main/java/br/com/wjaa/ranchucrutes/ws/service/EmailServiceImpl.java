@@ -14,13 +14,13 @@ public class EmailServiceImpl implements EmailService {
 
 
     @Override
-    public void sendEmailNovoMedico(String email, String... params) {
+    public void sendEmailNovoProfissional(String email, String... params) {
         EmailParamVo emailParamVo = new EmailParamVo();
         emailParamVo.setEmail(email);
         emailParamVo.setTitle("Confirme seu cadastro");
-        emailParamVo.setFrom("notificacoes@mapdoctors.com.br");
-        emailParamVo.setName("MapDoctors - Notificação");
-        emailParamVo.setBody(EmailTemplate.NOVO_MEDICO.getBody(params));
+        emailParamVo.setFrom("notificacoes@agendee.com.br");
+        emailParamVo.setName("Agendee - Notificação");
+        emailParamVo.setBody(EmailTemplate.NOVO_PROFISSIONAL.getBody(params));
         try {
             EmailUtils.send(emailParamVo,EmailUtils.scNotificacao);
         } catch (EmailException e) {

@@ -12,7 +12,7 @@ import java.util.List;
  * Created by wagner on 10/08/15.
  */
 public enum EmailTemplate {
-    NOVO_MEDICO("novo-medico.html");
+    NOVO_PROFISSIONAL("novo-profissional.html");
 
 
     private StringBuilder template = new StringBuilder();
@@ -32,7 +32,7 @@ public enum EmailTemplate {
 
 
     public String getBody(String ... params) {
-        if (NOVO_MEDICO.equals(this)){
+        if (NOVO_PROFISSIONAL.equals(this)){
 
             Assert.isTrue(params != null && params.length == 2,"Parametros invalidos");
 

@@ -1,35 +1,30 @@
 package br.com.wjaa.ranchucrutes.web.rest;
 
+import br.com.wjaa.ranchucrutes.commons.vo.ErrorMessageVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ResultadoLoginVo;
 import br.com.wjaa.ranchucrutes.web.exception.RestException;
 import br.com.wjaa.ranchucrutes.web.exception.RestRequestUnstable;
 import br.com.wjaa.ranchucrutes.web.exception.RestResponseUnsatisfiedException;
-import br.com.wjaa.ranchucrutes.web.vo.ErrorMessageVo;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.http.*;
+import org.apache.http.Consts;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.DefaultBHttpClientConnection;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicHttpEntityEnclosingRequest;
-import org.apache.http.message.BasicHttpRequest;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.*;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
-import java.net.Socket;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by wagner on 16/06/15.

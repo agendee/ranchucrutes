@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>MarcMed.com.br</title>
+<title>agendee.com.br</title>
 <link href="/static/css/libs/bootstrap.css" rel="stylesheet">
 <link href="/static/css/libs/social-button-3.css" rel="stylesheet">
 <link href="/static/css/ranchucrutes.css" rel="stylesheet">

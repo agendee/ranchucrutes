@@ -16,14 +16,14 @@
     <header>
         <div class="container">
             <div class="intro-text">
-                <div class="intro-lead-in">Bem-Vindos ao MarcMed!</div>
-                <form action="medico/find" method="get">
+                <div class="intro-lead-in">Bem-Vindos ao Agendee!</div>
+                <form action="profissional/find" method="get">
                 <div class="panel panel-default col-lg-5 col-lg-offset-3" style="background-color:#142232;">
                     <div class="panel-body">
-                        <h3>Procure por um médico mais próximo de você.</h3>
+                        <h3>Procure por um profissional mais próximo de você.</h3>
                         <fieldset>
                             <div class="col-lg-12 form-group">
-                                <label for="especialidade" class="col-lg-12 control-label">Qual médico está procurando?</label>
+                                <label for="especialidade" class="col-lg-12 control-label">Qual profissional está procurando?</label>
                                 <div class="col-lg-12">
                                     <select class="form-control js-example-placeholder-single" id="idEspecialidade" name="idEspecialidade" data-live-search="true">
                                     </select>
@@ -54,14 +54,14 @@
                         
                         <fieldset>
                             <div class="col-lg-12 form-group">
-                                <label for="cep" class="col-lg-12 control-label">Procurar médicos próximo de qual cep?</label>
+                                <label for="cep" class="col-lg-12 control-label">Procurar profissionais próximo de qual cep?</label>
                                 <div class="col-lg-12">
                                     <input class="form-control" id="cep" name="cep" type="text" placeholder="00000-000"/>
                                 </div>    
                             </div>
                         </fieldset>    
                          <fieldset>
-                        <button type="submit" class="page-scroll btn btn-xl">Procurar Médico</button>
+                        <button type="submit" class="page-scroll btn btn-xl">Procurar Profissional</button>
                     </fieldset> 
                     </div>
                       
@@ -96,11 +96,11 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6 portfolio-item">
-                    <a href="/medico/login" class="portfolio-link" data-toggle="modal">
+                    <a href="/profissional/login" class="portfolio-link" data-toggle="modal">
                         <img src="/static/img/portfolio/doctor.png" class="img-responsive center-block" alt="">
                     </a>
                     <div class="portfolio-caption">
-                        <h4>Você é médico?</h4>
+                        <h4>Você é profissional?</h4>
                         <p class="text-muted">Acesse aqui</p>
                     </div>
                 </div>
@@ -419,7 +419,7 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-sm-6">    
-                                    <h4>Login do Médico</h4>
+                                    <h4>Login do Profissional</h4>
                                       <form class="form-signin">
                                         <label for="inputEmail" class="sr-only">CRM</label>
                                         <input type="number" id="inputCrm" class="form-control" placeholder="CRM" required="" autofocus="">
@@ -434,7 +434,7 @@
                                       </form>
                                 </div>         
                                 <div class="col-sm-6">    
-                                    <h4>Sou novo e quero usar o marcmed</h4>
+                                    <h4>Sou novo e quero usar o agendee</h4>
                                     <button class="btn btn-primary" type="button">Cadastrar</button>
                                 </div>
                             </div>        

@@ -8,7 +8,7 @@
 
     <jsp:include page="/views/commons/header.jsp" />
     <jsp:include page="/views/commons/header-components.jsp" />
-    <link href="/static/css/medico/find.css" rel="stylesheet">
+    <link href="/static/css/profissional/find.css" rel="stylesheet">
 
 </head>
 <body>
@@ -25,13 +25,13 @@
     <jsp:include page="/views/commons/footer.jsp" />
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
     <script src="/static/js/agency.js"></script>
-    <script src="/static/js/medico/medico.js"></script>
+    <script src="/static/js/profissional/profissional.js"></script>
     <script>
         var you = new google.maps.LatLng(${result.latitude}, ${result.longitude});
-        var medicos = [];
+        var profissionais = [];
 
-            <c:forEach var="m" items="${result.medicos}">
-                medicos.push({latlng: new google.maps.LatLng(${m.latitude}, ${m.longitude}),
+            <c:forEach var="m" items="${result.profissionais}">
+                profissionais.push({latlng: new google.maps.LatLng(${m.latitude}, ${m.longitude}),
                     nome: "${m.nome}",
                     crm: '${m.crm}',
                     espec: '${m.espec}',
@@ -39,7 +39,7 @@
                     telefone: '${m.telefone}'});
             </c:forEach>
     </script>
-    <script src="/static/js/medico/find.js"></script>
+    <script src="/static/js/profissional/find.js"></script>
 
 </body>
 

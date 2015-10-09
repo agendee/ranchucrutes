@@ -1,42 +1,42 @@
 var RanchucrutesWS = function() {
   return {
-	  	getMedicoById: function(id, callback){
-            RanchucrutesWS.ajax('http://rest.marcmed.com.br/medico/' + id,
+	  	getProfissionalById: function(id, callback){
+            RanchucrutesWS.ajax('http://rest.agendee.com.br/profissional/' + id,
                 'get',
-                function(medico){
-                    callback(medico);
+                function(profissional){
+                    callback(profissional);
                 });
 	    },
 	    listAllEspecialidade: function(callback){
-            RanchucrutesWS.ajax('http://rest.marcmed.com.br/especialidade/all',
+            RanchucrutesWS.ajax('http://rest.agendee.com.br/especialidade/all',
                 'get',
                 function(especialidades){
                     callback(especialidades);
                 });
         },
         listAllConvenio: function(callback){
-            RanchucrutesWS.ajax('http://rest.marcmed.com.br/convenio/all',
+            RanchucrutesWS.ajax('http://rest.agendee.com.br/convenio/all',
                 'get',
                 function(convenios){
                     callback(convenios);
                 });
         },
         listAllConvenioCategorias: function(callback){
-            RanchucrutesWS.ajax('http://rest.marcmed.com.br/convenio/categoria/all',
+            RanchucrutesWS.ajax('http://rest.agendee.com.br/convenio/categoria/all',
                 'get',
                 function(categorias){
                     callback(categorias);
                 });
         },
         getCategoriasByIdConvenio: function(idConvenio, callback){
-            RanchucrutesWS.ajax('http://rest.marcmed.com.br/convenio/categoria/' + idConvenio,
+            RanchucrutesWS.ajax('http://rest.agendee.com.br/convenio/categoria/' + idConvenio,
                 'get',
                 function(categoria){
                     callback(categoria);
                 });
         },
         getCep: function(cep, callback){
-            RanchucrutesWS.ajax('http://rest.marcmed.com.br/cep/' + cep,
+            RanchucrutesWS.ajax('http://rest.agendee.com.br/cep/' + cep,
                 'get',
                 function(endereco){
                     callback(endereco);

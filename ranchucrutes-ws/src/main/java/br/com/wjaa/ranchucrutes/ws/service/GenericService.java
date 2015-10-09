@@ -1,6 +1,6 @@
 package br.com.wjaa.ranchucrutes.ws.service;
 
-import br.com.wjaa.ranchucrutes.ws.exception.MedicoServiceException;
+import br.com.wjaa.ranchucrutes.ws.exception.ProfissionalServiceException;
 
 import java.io.Serializable;
 import java.util.List;
@@ -48,7 +48,7 @@ public interface GenericService<T, PK extends Serializable> {
      *            the object to save
      * @return the updated object
      */
-    T save(T object) throws MedicoServiceException;
+    T save(T object) throws ProfissionalServiceException;
 
     /**
      * Generic method to delete an object based on class and id

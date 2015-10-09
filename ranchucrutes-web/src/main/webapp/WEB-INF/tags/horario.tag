@@ -5,13 +5,10 @@
 <%@ attribute name="horario" required="false" rtexprvalue="true" type="br.com.wjaa.ranchucrutes.commons.form.HorarioForm"%>
 <%@ attribute name="oculto" required="false" rtexprvalue="true" type="java.lang.Boolean"%>
 
-<div id="collapseHorario${indexClinica}" class="form-group collapse in" style="margin-top:15px;" <c:if test="${oculto}"> style="display:none;" </c:if>>
-     <div class="form-group">
-        <label class="col-md-8 control-label">Quais horários você quer abrir? <a id="btnAddHorario" class="btn btn-success" ><i class="fa fa-plus"></i></a></label>
-     </div>
-     <div class="col-md-12">
-          <input type="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].id" value="${horario.id}"/>
-          <a class="btn btn-danger" style="float:right; padding: 4px 10px;" onclick="admin.removeHorarioClinica(${indexClinica}${indexHorario});" ><i class="fa fa-trash-o"></i></a>
+<div id="horario${indexClinica}${indexHorario}">
+    <div class="col-md-12" >
+         <input type="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].id" value="${horario.id}"/>
+         <a class="btn btn-danger" style="float:right; padding: 4px 10px;" onclick="$('#horario${indexClinica}${indexHorario}').remove();" ><i class="fa fa-trash-o"></i></a>
          <span class="button-checkbox button-checkbox${indexClinica}${indexHorario}">
              <button type="button" class="btn" data-color="success">Seg</button>
              <input type="checkbox" class="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].diasSemana" value="1" <c:if test="${horario.temSegunda()}"> checked </c:if> />

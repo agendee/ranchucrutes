@@ -1,6 +1,6 @@
 package br.com.wjaa.ranchucrutes.web.helper;
 
-import br.com.wjaa.ranchucrutes.commons.vo.MedicoBasicoVo;
+import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
 import br.com.wjaa.ranchucrutes.web.utils.RanchucrutesConstantes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +15,8 @@ public class AuthHelper {
         return request.getSession().getAttribute(RanchucrutesConstantes.LOGIN_SESSION) != null;
     }
 
-    public static MedicoBasicoVo getMedico(HttpServletRequest request) {
-        return (MedicoBasicoVo) request.getSession().getAttribute(RanchucrutesConstantes.LOGIN_SESSION);
+    public static ProfissionalBasicoVo getProfissional(HttpServletRequest request) {
+        return (ProfissionalBasicoVo) request.getSession().getAttribute(RanchucrutesConstantes.LOGIN_SESSION);
     }
 
     public static void sair(HttpServletRequest request) {

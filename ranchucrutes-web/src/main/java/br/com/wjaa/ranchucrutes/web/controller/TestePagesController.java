@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class TestePagesController {
 
-    @RequestMapping(value = "/medico/testeConfirme", method = RequestMethod.GET)
+    @RequestMapping(value = "/profissional/testeConfirme", method = RequestMethod.GET)
     public String testeConfirme() {
-        return "medico/confirme";
+        return "profissional/confirme";
     }
 
     @RequestMapping(value = "/auth/testeConfirme", method = RequestMethod.GET)
@@ -20,9 +20,9 @@ public class TestePagesController {
         return "auth/confirmacao";
     }
 
-    @RequestMapping(value = "/medico/testeAdmin", method = RequestMethod.GET)
-    public String medicoAdmin() {
-        return "medico/admin";
+    @RequestMapping(value = "/profissional/testeAdmin", method = RequestMethod.GET)
+    public String profissionalAdmin() {
+        return "profissional/admin";
     }
 
 }

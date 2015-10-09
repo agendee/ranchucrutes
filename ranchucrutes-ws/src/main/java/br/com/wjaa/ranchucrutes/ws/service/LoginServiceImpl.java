@@ -3,13 +3,13 @@ package br.com.wjaa.ranchucrutes.ws.service;
 import br.com.wjaa.ranchucrutes.commons.form.LoginForm;
 import br.com.wjaa.ranchucrutes.commons.utils.StringUtils;
 import br.com.wjaa.ranchucrutes.commons.vo.ConfirmaCadastroVo;
-import br.com.wjaa.ranchucrutes.commons.vo.MedicoBasicoVo;
+import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.PacienteVo;
-import br.com.wjaa.ranchucrutes.ws.adapter.MedicoAdapter;
+import br.com.wjaa.ranchucrutes.ws.adapter.ProfissionalAdapter;
 import br.com.wjaa.ranchucrutes.ws.adapter.PacienteAdapter;
 import br.com.wjaa.ranchucrutes.ws.dao.LoginDao;
 import br.com.wjaa.ranchucrutes.ws.dao.RanchucrutesDao;
-import br.com.wjaa.ranchucrutes.ws.entity.MedicoEntity;
+import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.PacienteEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.RedeSocialEnum;
 import br.com.wjaa.ranchucrutes.ws.exception.LoginNotConfirmationException;
@@ -54,44 +54,44 @@ public class LoginServiceImpl implements LoginService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ConfirmaCadastroVo confirmaCadastro(String code) {
 
-        MedicoEntity medicoEntity = dao.getSingleRecordByProperties(MedicoEntity.class, "codeConfirmacao", code);
-        if (medicoEntity == null){
+        ProfissionalEntity profissionalEntity = dao.getSingleRecordByProperties(ProfissionalEntity.class, "codeConfirmacao", code);
+        if (profissionalEntity == null){
             return new ConfirmaCadastroVo(ConfirmaCadastroVo.StatusConfirmacaoCadastro.CODIGO_INVALIDO);
         }
 
-        if (medicoEntity.getDataConfirmacao() != null){
+        if (profissionalEntity.getDataConfirmacao() != null){
             return new ConfirmaCadastroVo(ConfirmaCadastroVo.StatusConfirmacaoCadastro.CADASTRO_JA_CONFIRMADO);
         }
 
-        medicoEntity.setDataConfirmacao(new Date());
-        medicoEntity.setAtivo(true);
-        dao.save(medicoEntity);
+        profissionalEntity.setDataConfirmacao(new Date());
+        profissionalEntity.setAtivo(true);
+        dao.save(profissionalEntity);
 
         return new ConfirmaCadastroVo(ConfirmaCadastroVo.StatusConfirmacaoCadastro.SUCESSO);
     }
 
     @Override
-    public MedicoBasicoVo autenticarMedico(String emailOuCrm, String pass) throws LoginServiceException, LoginNotConfirmationException {
-        MedicoEntity medicoEntity;
+    public ProfissionalBasicoVo autenticarProfissional(String emailOuCrm, String pass) throws LoginServiceException, LoginNotConfirmationException {
+        ProfissionalEntity profissionalEntity;
         if (org.apache.commons.lang.StringUtils.isNumeric(emailOuCrm)){
-            medicoEntity = this.loginDao.autenticarMedico(Integer.valueOf(emailOuCrm), this.createHashPass(pass));
+            profissionalEntity = this.loginDao.autenticarProfissional(Integer.valueOf(emailOuCrm), this.createHashPass(pass));
         }else{
-            medicoEntity = this.loginDao.autenticarMedico(emailOuCrm, this.createHashPass(pass));
+            profissionalEntity = this.loginDao.autenticarProfissional(emailOuCrm, this.createHashPass(pass));
         }
 
-        if (medicoEntity == null){
+        if (profissionalEntity == null){
             throw new LoginServiceException("Login ou senha inválido.");
         }
 
-        if (medicoEntity.getDataConfirmacao() == null){
+        if (profissionalEntity.getDataConfirmacao() == null){
             throw new LoginNotConfirmationException("Você não confirmou o seu acesso.");
         }
 
-        if (medicoEntity.getAtivo() == null || !medicoEntity.getAtivo()){
+        if (profissionalEntity.getAtivo() == null || !profissionalEntity.getAtivo()){
             throw new LoginServiceException("Seu acesso está inativado, contate o nosso suporte técnico.");
         }
 
-        return MedicoAdapter.toMedicoBasico(medicoEntity);
+        return ProfissionalAdapter.toProfissionalBasico(profissionalEntity);
     }
 
     @Override

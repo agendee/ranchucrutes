@@ -2,7 +2,7 @@ package br.com.wjaa.ranchucrutes.ws.service;
 
 import br.com.wjaa.ranchucrutes.commons.form.LoginForm;
 import br.com.wjaa.ranchucrutes.commons.vo.ConfirmaCadastroVo;
-import br.com.wjaa.ranchucrutes.commons.vo.MedicoBasicoVo;
+import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.PacienteVo;
 import br.com.wjaa.ranchucrutes.ws.exception.LoginNotConfirmationException;
 import br.com.wjaa.ranchucrutes.ws.exception.LoginServiceException;
@@ -19,7 +19,7 @@ public interface LoginService {
 
     ConfirmaCadastroVo confirmaCadastro(String code);
 
-    MedicoBasicoVo autenticarMedico(String emailOrCrm, String pass) throws LoginServiceException, LoginNotConfirmationException;
+    ProfissionalBasicoVo autenticarProfissional(String emailOrCrm, String pass) throws LoginServiceException, LoginNotConfirmationException;
 
     PacienteVo autenticarPaciente(LoginForm form) throws LoginServiceException, LoginSocialException;
 

@@ -1,0 +1,119 @@
+package br.com.wjaa.ranchucrutes.ws.controller;
+
+import br.com.wjaa.ranchucrutes.commons.form.FindProfissionalForm;
+import br.com.wjaa.ranchucrutes.commons.form.ProfissionalForm;
+import br.com.wjaa.ranchucrutes.commons.form.ProfissionalFullForm;
+import br.com.wjaa.ranchucrutes.ws.adapter.ProfissionalAdapter;
+import br.com.wjaa.ranchucrutes.commons.vo.ResultadoBuscaProfissionalVo;
+import br.com.wjaa.ranchucrutes.ws.entity.*;
+import br.com.wjaa.ranchucrutes.ws.exception.CepNotFoundException;
+import br.com.wjaa.ranchucrutes.ws.exception.LocationDuplicateFoundException;
+import br.com.wjaa.ranchucrutes.ws.exception.LocationNotFoundException;
+import br.com.wjaa.ranchucrutes.ws.exception.ProfissionalServiceException;
+import br.com.wjaa.ranchucrutes.ws.service.ProfissionalService;
+import br.com.wjaa.ranchucrutes.commons.vo.ErrorMessageVo;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Created by wagner on 12/06/15.
+ */
+@RestController
+public class ProfissionalWS extends BaseWS {
+
+    private static final Log LOG = LogFactory.getLog(ProfissionalWS.class);
+
+
+    @Autowired
+    private ProfissionalService profissionalService;
+
+    @RequestMapping(value = "/profissional/{id}", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
+    public ProfissionalFullForm getProfissionalById(@PathVariable Long id) {
+        ProfissionalEntity entity = this.profissionalService.get(id);
+        return ProfissionalAdapter.toProfissionalFullForm(entity);
+    }
+
+    @RequestMapping(value = "/profissional/search", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    public ResultadoBuscaProfissionalVo findProfissional(@RequestBody FindProfissionalForm form) throws CepNotFoundException,
+            LocationDuplicateFoundException, LocationNotFoundException {
+       return this.profissionalService.find(form);
+    }
+
+
+    @RequestMapping(value = "/profissional/save", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8",
+            method = RequestMethod.POST)
+    public @ResponseBody
+    ProfissionalForm saveProfissional(@RequestBody final ProfissionalForm form) throws ProfissionalServiceException {
+        ProfissionalEntity profissional = ProfissionalAdapter.fromProfissionalForm(form);
+        ProfissionalEntity entity = this.profissionalService.saveProfissional(profissional);
+        return ProfissionalAdapter.toProfissionalForm(entity);
+    }
+
+    @RequestMapping(value = "/profissional/update", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8",
+            method = RequestMethod.POST)
+    public @ResponseBody
+    ProfissionalFullForm update(@RequestBody final ProfissionalFullForm form) throws ProfissionalServiceException {
+        ProfissionalEntity profissional = ProfissionalAdapter.fromProfissionalFullForm(form);
+        ProfissionalEntity profissionalUpdated = this.profissionalService.update(profissional);
+        //a atualizacao do profissional é feita em 2 transacoes
+        //buscando os dados atualizados.
+        profissionalUpdated = this.profissionalService.get(profissionalUpdated.getIdLogin());
+        return ProfissionalAdapter.toProfissionalFullForm(profissionalUpdated);
+    }
+
+
+    @RequestMapping(value = "/profissional/horario/save", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8",
+            method = RequestMethod.POST)
+    public @ResponseBody
+    ProfissionalFullForm saveHorario(@RequestBody final ProfissionalFullForm form) throws ProfissionalServiceException {
+        ProfissionalEntity profissional = ProfissionalAdapter.fromProfissionalFullForm(form);
+        this.profissionalService.saveAgendaHorarios(profissional.getClinicas());
+        ProfissionalEntity profissionalUpdated = this.profissionalService.get(form.getProfissional().getIdLogin());
+        return ProfissionalAdapter.toProfissionalFullForm(profissionalUpdated);
+    }
+
+
+    @ExceptionHandler(CepNotFoundException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public @ResponseBody
+    ErrorMessageVo handleException(CepNotFoundException e, HttpServletResponse response) {
+        LOG.error("handleException",e);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
+        return new ErrorMessageVo(HttpStatus.INTERNAL_SERVER_ERROR.value(),"Cep não encontrado.");
+    }
+
+    @ExceptionHandler(LocationDuplicateFoundException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public @ResponseBody
+    ErrorMessageVo handleException(LocationDuplicateFoundException e, HttpServletResponse response) {
+        LOG.error("handleException",e);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
+        return new ErrorMessageVo(HttpStatus.INTERNAL_SERVER_ERROR.value(),"Encontrado mais de uma localidade para o cep.");
+    }
+
+    @ExceptionHandler(LocationNotFoundException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public @ResponseBody
+    ErrorMessageVo handleException(LocationNotFoundException e, HttpServletResponse response) {
+        LOG.error("handleException",e);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
+        return new ErrorMessageVo(HttpStatus.INTERNAL_SERVER_ERROR.value(),"Não encontrou nenhuma localidade para o cep.");
+    }
+
+
+    @ExceptionHandler(ProfissionalServiceException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public @ResponseBody
+    ErrorMessageVo handleException(ProfissionalServiceException e, HttpServletResponse response) {
+        LOG.error("handleException",e);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
+        return new ErrorMessageVo(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+    }
+
+}

@@ -14,7 +14,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,33 +42,33 @@ public class AuthController {
         return mav;
     }
 
-    @RequestMapping(value = "/auth/medico", method = RequestMethod.POST)
-    public ModelAndView loginMedico(@ModelAttribute LoginForm loginForm, HttpServletRequest request){
-        ModelAndView mav = new ModelAndView("redirect:/medico/agenda");
+    @RequestMapping(value = "/auth/profissional", method = RequestMethod.POST)
+    public ModelAndView loginProfissional(@ModelAttribute LoginForm loginForm, HttpServletRequest request){
+        ModelAndView mav = new ModelAndView("redirect:/profissional/agenda");
         try {
 
             if ( AuthHelper.isAutenticado(request) ){
-                mav.addObject("medico", AuthHelper.getMedico(request));
+                mav.addObject("profissional", AuthHelper.getProfissional(request));
                 return mav;
             }
 
             mav.addObject("form",loginForm);
             String json = ObjectUtils.toJson(loginForm);
             ResultadoLoginVo resultadoLogin = RestUtils.postJson(ResultadoLoginVo.class, RanchucrutesConstantes.HOST_WS,
-                    RanchucrutesConstantes.END_POINT_AUTH_MEDICO, json);
+                    RanchucrutesConstantes.END_POINT_AUTH_PROFISSIONAL, json);
 
             if (ResultadoLoginVo.StatusLogin.SUCESSO.equals(resultadoLogin.getStatus())){
-                mav.addObject("medico", resultadoLogin.getMedico());
+                mav.addObject("profissional", resultadoLogin.getProfissional());
                 HttpSession session = request.getSession();
-                session.setAttribute(RanchucrutesConstantes.LOGIN_SESSION, resultadoLogin.getMedico());
+                session.setAttribute(RanchucrutesConstantes.LOGIN_SESSION, resultadoLogin.getProfissional());
                 //20 minutos
                 session.setMaxInactiveInterval(20*60);
                 return mav;
             }else if (ResultadoLoginVo.StatusLogin.ERRO.equals(resultadoLogin.getStatus())){
-                mav.setViewName("medico/login");
+                mav.setViewName("profissional/login");
                 mav.addObject("errorMessage", resultadoLogin.getStatus().getMsg());
             }else if (ResultadoLoginVo.StatusLogin.ACESSO_NAO_CONFIRMADO.equals(resultadoLogin.getStatus())){
-                mav.setViewName("medico/login");
+                mav.setViewName("profissional/login");
                 mav.addObject("errorMessage", resultadoLogin.getStatus().getMsg());
                 //TODO ADICIONAR ALGO AQUI PRA QUE NA TELA O USUARIO TENHA UM LINK PARA RENVIAR O EMAIL CASO ELE DESEJE.
             }
@@ -88,7 +87,7 @@ public class AuthController {
         if ( AuthHelper.isAutenticado(request) ){
             AuthHelper.sair(request);
         }
-        return new ModelAndView("redirect:/medico/login");
+        return new ModelAndView("redirect:/profissional/login");
     }
 
 }

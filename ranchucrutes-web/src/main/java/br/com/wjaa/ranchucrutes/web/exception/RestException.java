@@ -1,6 +1,7 @@
 package br.com.wjaa.ranchucrutes.web.exception;
 
-import br.com.wjaa.ranchucrutes.web.vo.ErrorMessageVo;
+
+import br.com.wjaa.ranchucrutes.commons.vo.ErrorMessageVo;
 
 /**
  * Created by wagner on 16/06/15.

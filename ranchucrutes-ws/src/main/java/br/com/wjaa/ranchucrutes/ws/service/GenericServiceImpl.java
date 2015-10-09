@@ -3,7 +3,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import br.com.wjaa.ranchucrutes.ws.dao.GenericDao;
-import br.com.wjaa.ranchucrutes.ws.exception.MedicoServiceException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.transaction.annotation.Propagation;
