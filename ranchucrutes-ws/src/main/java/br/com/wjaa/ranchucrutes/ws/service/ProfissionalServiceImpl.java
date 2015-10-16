@@ -3,6 +3,7 @@ package br.com.wjaa.ranchucrutes.ws.service;
 import br.com.wjaa.ranchucrutes.commons.form.FindProfissionalForm;
 import br.com.wjaa.ranchucrutes.commons.vo.DistanceVo;
 import br.com.wjaa.ranchucrutes.commons.vo.LocationVo;
+import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ResultadoBuscaProfissionalVo;
 import br.com.wjaa.ranchucrutes.ws.adapter.ProfissionalAdapter;
 import br.com.wjaa.ranchucrutes.ws.dao.ProfissionalDao;
@@ -150,6 +151,11 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
 
         this.saveClinicas(profissionalExists, profissional.getClinicas());
         return this.mergeProfissional(profissionalExists, profissional);
+    }
+
+    @Override
+    public ProfissionalBasicoVo getProfissionalBasico(Long idProfissional) {
+        return ProfissionalAdapter.toProfissionalBasico(get(idProfissional));
     }
 
     private ProfissionalEntity mergeProfissional(ProfissionalEntity profissionalPersisted, ProfissionalEntity profissional) {

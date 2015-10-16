@@ -19,6 +19,7 @@ public class AgendaEntity implements Serializable {
     private String horaFuncionamentoIni;
     private String horaFuncionamentoFim;
     private Integer tempoConsultaEmMin;
+    private AberturaAgendaEnum aberturaAgenda;
     private Long idClinica;
     private List<AgendaHorarioEntity> agendaHorarios;
 
@@ -81,5 +82,16 @@ public class AgendaEntity implements Serializable {
 
     public void setIdClinica(Long idClinica) {
         this.idClinica = idClinica;
+    }
+
+
+    @Column(name = "ABERTURA_AGENDA")
+    @Enumerated(EnumType.ORDINAL)
+    public AberturaAgendaEnum getAberturaAgenda() {
+        return aberturaAgenda;
+    }
+
+    public void setAberturaAgenda(AberturaAgendaEnum aberturaAgenda) {
+        this.aberturaAgenda = aberturaAgenda;
     }
 }

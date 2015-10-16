@@ -1,6 +1,7 @@
 package br.com.wjaa.ranchucrutes.ws.adapter;
 
 import br.com.wjaa.ranchucrutes.commons.form.*;
+import br.com.wjaa.ranchucrutes.commons.vo.ClinicaVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
 import br.com.wjaa.ranchucrutes.ws.entity.*;
 import org.apache.commons.lang.ArrayUtils;
@@ -53,27 +54,55 @@ public class ProfissionalAdapter {
     }
 
     public static ProfissionalBasicoVo toProfissionalBasico(ProfissionalEntity me){
-        ProfissionalBasicoVo mv = new ProfissionalBasicoVo();
-        mv.setId(me.getIdLogin());
-        mv.setNome(me.getNome());
-        mv.setCrm(me.getCrm());
+        ProfissionalBasicoVo profissionalBasicoVo = new ProfissionalBasicoVo();
+        profissionalBasicoVo.setId(me.getIdLogin());
+        profissionalBasicoVo.setNome(me.getNome());
+        profissionalBasicoVo.setCrm(me.getCrm());
         if (!CollectionUtils.isEmpty(me.getEspecialidades())){
-            mv.setEspec(me.getEspecialidades().get(0).getNome());
+            profissionalBasicoVo.setEspec(me.getEspecialidades().get(0).getNome());
         }
         if (!CollectionUtils.isEmpty(me.getClinicas())){
             ClinicaEntity c = me.getClinicas().get(0).getClinica();
             if (c != null){
-                EnderecoEntity e = c.getEndereco();
-                mv.setLatitude(e.getLatitude());
-                mv.setLongitude(e.getLongitude());
-                mv.setEndereco(e.getLogradouro() + ", " + e.getNumero() + " - " + e.getBairro());
-                if ( c.getTelefone() != null ){
 
-                    mv.setTelefone(c.getDdd() + " " + c.getTelefone());
+                /*************************/
+                /*TODO ESSE TREXO AQUI ESTÁ OBSOLETO RETIRAR, MAS OLHAR OS PONTOS QUE USAM
+                * O IDEAL É ESTAR O TELEFONE E ENEDECO DENTRO DE CLINICA*/
+                EnderecoEntity e = c.getEndereco();
+                if (e != null){
+                    profissionalBasicoVo.setLatitude(e.getLatitude());
+                    profissionalBasicoVo.setLongitude(e.getLongitude());
+                    profissionalBasicoVo.setEndereco(e.getLogradouro() + ", " + e.getNumero() + " - " + e.getBairro());
                 }
+                if ( c.getTelefone() != null ){
+                    profissionalBasicoVo.setTelefone(c.getDdd() + " " + c.getTelefone());
+                }
+                /*****************************************/
+
+                profissionalBasicoVo.setClinica(toClinicaVo(c));
+            }
+
+        }
+
+        return profissionalBasicoVo;
+    }
+
+    public static ClinicaVo toClinicaVo(ClinicaEntity c) {
+        ClinicaVo clienteVo = new ClinicaVo();
+        if (c != null){
+            clienteVo.setId(c.getId());
+            clienteVo.setNome(c.getNome());
+            EnderecoEntity e = c.getEndereco();
+            if (e != null){
+                clienteVo.setLatitude(e.getLatitude());
+                clienteVo.setLongitude(e.getLongitude());
+                clienteVo.setEndereco(e.getLogradouro() + ", " + e.getNumero() + " - " + e.getBairro());
+            }
+            if ( c.getTelefone() != null ){
+                clienteVo.setTelefone(c.getDdd() + " " + c.getTelefone());
             }
         }
-        return mv;
+        return clienteVo;
     }
 
     public static ProfissionalFullForm toProfissionalFullForm(ProfissionalEntity entity) {

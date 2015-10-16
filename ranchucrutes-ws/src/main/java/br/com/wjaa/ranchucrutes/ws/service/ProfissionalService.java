@@ -1,6 +1,7 @@
 package br.com.wjaa.ranchucrutes.ws.service;
 
 import br.com.wjaa.ranchucrutes.commons.form.FindProfissionalForm;
+import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ResultadoBuscaProfissionalVo;
 import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalClinicaEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalEntity;
@@ -27,5 +28,7 @@ public interface ProfissionalService extends GenericService<ProfissionalEntity, 
     ProfissionalEntity saveProfissional(ProfissionalEntity profissional) throws ProfissionalServiceException;
 
     ProfissionalEntity update(ProfissionalEntity profissional) throws ProfissionalServiceException;
+
+    ProfissionalBasicoVo getProfissionalBasico(Long idProfissional);
 
 }

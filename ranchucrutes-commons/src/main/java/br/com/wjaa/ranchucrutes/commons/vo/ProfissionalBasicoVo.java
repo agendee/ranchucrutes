@@ -15,8 +15,10 @@ public class ProfissionalBasicoVo {
     private String espec;
     private Double latitude;
     private Double longitude;
+    @Deprecated
     private String endereco;
     private String telefone;
+    private ClinicaVo clinica;
 
     public String getNome() {
         return nome;
@@ -62,6 +64,7 @@ public class ProfissionalBasicoVo {
         return endereco;
     }
 
+
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
@@ -88,5 +91,13 @@ public class ProfissionalBasicoVo {
             return this.nome.split(" ")[0];
         }
         return "Sem Nome";
+    }
+
+    public ClinicaVo getClinica() {
+        return clinica;
+    }
+
+    public void setClinica(ClinicaVo clinica) {
+        this.clinica = clinica;
     }
 }

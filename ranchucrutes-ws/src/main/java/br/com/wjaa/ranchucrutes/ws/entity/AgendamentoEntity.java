@@ -19,6 +19,7 @@ public class AgendamentoEntity implements Serializable {
     private Long id;
     private Long idProfissional;
     private Long idPaciente;
+    private Long idClinica;
     private Date dataAgendamento;
     private Date dataCriacao;
     private Date dataConfirmacao;
@@ -111,4 +112,12 @@ public class AgendamentoEntity implements Serializable {
         this.dataConfirmacaoConsulta = dataConfirmacaoConsulta;
     }
 
+    @Column(name = "ID_CLINICA", nullable = false)
+    public Long getIdClinica() {
+        return idClinica;
+    }
+
+    public void setIdClinica(Long idClinica) {
+        this.idClinica = idClinica;
+    }
 }
