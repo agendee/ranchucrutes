@@ -57,10 +57,20 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
             throw new AgendamentoServiceException("Horário não está mais disponível, escolha outra data.");
         }
 
+        if (this.diaEstaCancelado(form.getIdClinica(), form.getIdProfissional(), form.getDataAgendamento())){
+            throw new AgendamentoServiceException("Horário não está mais disponível, escolha outra data.");
+        }
 
-        
+
 
         return null;
+    }
+
+    private boolean diaEstaCancelado(Long idClinica, Long idProfissional, Date dataAgendamento) {
+
+        //TODO PROGRAMAR O DIA.
+
+        return false;
     }
 
     @Override
