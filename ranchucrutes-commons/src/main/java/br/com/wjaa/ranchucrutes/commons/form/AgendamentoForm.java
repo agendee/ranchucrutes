@@ -11,6 +11,7 @@ public class AgendamentoForm {
     private Long idProfissional;
     private Long idClinica;
     private Date dataAgendamento;
+    private Boolean consultaParticular;
 
     public Long getIdPaciente() {
         return idPaciente;
@@ -42,5 +43,13 @@ public class AgendamentoForm {
 
     public void setIdClinica(Long idClinica) {
         this.idClinica = idClinica;
+    }
+
+    public Boolean getConsultaParticular() {
+        return consultaParticular;
+    }
+
+    public void setConsultaParticular(Boolean consultaParticular) {
+        this.consultaParticular = consultaParticular;
     }
 }

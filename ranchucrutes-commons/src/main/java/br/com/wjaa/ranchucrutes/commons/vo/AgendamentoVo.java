@@ -7,6 +7,7 @@ import java.util.Date;
  */
 public class AgendamentoVo {
 
+    private Long id;
     private ProfissionalBasicoVo profissional;
     private PacienteVo paciente;
     private Date dataAgendamento;
@@ -33,5 +34,14 @@ public class AgendamentoVo {
 
     public void setDataAgendamento(Date dataAgendamento) {
         this.dataAgendamento = dataAgendamento;
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

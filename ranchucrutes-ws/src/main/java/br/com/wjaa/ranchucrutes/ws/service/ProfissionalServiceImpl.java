@@ -158,6 +158,12 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
         return ProfissionalAdapter.toProfissionalBasico(get(idProfissional));
     }
 
+    @Override
+    public boolean profissionalAceitaCategoria(Long idProfissional, Integer idCategoria) {
+        ProfissionalEntity profissionalEntity = this.profissionalDao.getProfissionalByIdAndCategoria(idProfissional,idCategoria);
+        return profissionalEntity != null;
+    }
+
     private ProfissionalEntity mergeProfissional(ProfissionalEntity profissionalPersisted, ProfissionalEntity profissional) {
         BeanUtils.copyProperties(profissional,profissionalPersisted,"idLogin",
                 "dataUltimoAcesso",

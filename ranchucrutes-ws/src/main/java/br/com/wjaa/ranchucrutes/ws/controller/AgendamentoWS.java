@@ -32,7 +32,7 @@ public class AgendamentoWS {
     }
 
     @RequestMapping(value = "/agendamento/criar", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
-    public ConfirmarAgendamentoVo criarAgendamento(@ModelAttribute AgendamentoForm agendamentoForm){
+    public ConfirmarAgendamentoVo criarAgendamento(@ModelAttribute AgendamentoForm agendamentoForm) throws AgendamentoServiceException {
         return this.agendamentoService.criarAgendamento(agendamentoForm);
     }
 

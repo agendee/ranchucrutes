@@ -5,17 +5,8 @@ package br.com.wjaa.ranchucrutes.commons.vo;
  */
 public class ConfirmarAgendamentoVo {
 
-    private Long id;
     private String codigoConfirmacao;
     private AgendamentoVo agendamentoVo;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCodigoConfirmacao() {
         return codigoConfirmacao;

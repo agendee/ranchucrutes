@@ -6,15 +6,21 @@ import br.com.wjaa.ranchucrutes.commons.helper.DiaSemana;
 import br.com.wjaa.ranchucrutes.commons.vo.AgendaVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ConfirmarAgendamentoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
+import br.com.wjaa.ranchucrutes.ws.adapter.AgendamentoAdapter;
+import br.com.wjaa.ranchucrutes.ws.adapter.RanchucrutesAdapter;
 import br.com.wjaa.ranchucrutes.ws.dao.AgendamentoDao;
 import br.com.wjaa.ranchucrutes.ws.entity.*;
 import br.com.wjaa.ranchucrutes.ws.exception.AgendamentoServiceException;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,11 +35,15 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
     @Autowired
     private AgendamentoDao agendamentoDao;
 
+
     @Autowired
-    private RanchucrutesService ranchucrutesService;
+    private AgendamentoServiceImpl agendamentoService;
 
     @Autowired
     private ProfissionalService profissionalService;
+
+    @Autowired
+    private PacienteService pacienteService;
 
     /**
      * Public constructor for creating a new GenericServiceImpl.
@@ -49,28 +59,101 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
     @Override
     public ConfirmarAgendamentoVo criarAgendamento(AgendamentoForm form) throws AgendamentoServiceException {
 
-        AgendamentoEntity agendamento = this.agendamentoDao
-                .getAgendamento(form.getIdProfissional(), form.getIdPaciente(), form.getIdClinica(),
-                        form.getDataAgendamento());
-
-        if (agendamento != null){
-            throw new AgendamentoServiceException("Horário não está mais disponível, escolha outra data.");
+        if (form.getIdPaciente() == null || form.getIdProfissional() == null || form.getIdClinica() == null ||
+                form.getDataAgendamento() == null){
+            throw new AgendamentoServiceException("Faltam informações para completar o agendamento.");
         }
 
+
+        //verificando se o dia nao está cancelado.
         if (this.diaEstaCancelado(form.getIdClinica(), form.getIdProfissional(), form.getDataAgendamento())){
             throw new AgendamentoServiceException("Horário não está mais disponível, escolha outra data.");
         }
 
 
+        //verificando verificando se já existe um agendamento para essa data.
+        AgendamentoEntity agendamento = this.agendamentoDao
+                .getAgendamento(form.getIdProfissional(), form.getIdClinica(),
+                        form.getDataAgendamento());
+
+        if (agendamento != null){
+            //verificando se o agendamento é do proprio paciente, isso nunca irá acontecer, mas é um bloqueio a mais.
+            if (agendamento.getIdPaciente().equals(form.getIdPaciente()) ){
+                throw new AgendamentoServiceException("Você já tem um agendamento para esse horário!");
+            }else{
+                throw new AgendamentoServiceException("Esse horário não está mais disponível!");
+            }
+        }
+
+        //verificando se o paciente já tem agendamento com esse profissional
+        List<AgendamentoEntity> agendamentosPosteriores = this.agendamentoDao
+                .getAgendamentosPosteriores(form.getIdProfissional(), form.getIdClinica(), form.getIdPaciente(),
+                        new Date());
+        if (agendamentosPosteriores.size() > 0){
+            AgendamentoEntity agendamentoEntity = agendamentosPosteriores.get(0);
+            throw new AgendamentoServiceException("Você já tem uma consulta marcada com esse profissional para o dia "
+                    + DateFormatUtils.format(agendamentoEntity.getDataAgendamento(),"dd/MM/yyyy HH:mm") + ", veja sua agenda!");
+        }
+
+        PacienteEntity pacienteEntity = pacienteService.get(form.getIdPaciente());
+
+        //se consulta nao for no particular, verificamos se o profissional aceita o plano de saude do paciente.
+        if (!form.getConsultaParticular()){
+
+            if ( !profissionalService.profissionalAceitaCategoria(form.getIdProfissional(),pacienteEntity.getIdCategoria()) ){
+                throw new AgendamentoServiceException("Profissional não aceita a categoria do seu plano de saúde, tente marcar no particular.");
+            }
+
+        }
+
+        ProfissionalEntity profissionalEntity = profissionalService.get(form.getIdProfissional());
+        //usando uma nova instancia para tentar pegar o erro de UniqueKey, caso no mesmo instante algum paciente
+        //conseguiu agendar a consulta no mesmo horário do paciente corrente.
+        try {
+            agendamentoService.criarAgendamentoNovaTransaction(form,pacienteEntity,profissionalEntity);
+        } catch (SQLException e) {
+            throw new AgendamentoServiceException("Desculpe, horário não está mais disponível!");
+        } catch (Exception e){
+            throw new AgendamentoServiceException("Ocorreu um erro no agendamento, tente novamente mais tarde!");
+        }
 
         return null;
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    private ConfirmarAgendamentoVo criarAgendamentoNovaTransaction(AgendamentoForm form, PacienteEntity pacienteEntity,
+                                                                   ProfissionalEntity profissionalEntity) throws SQLException{
+        AgendamentoEntity ae = new AgendamentoEntity();
+        ae.setCancelado(false);
+        ae.setCodigoConfirmacao(this.getCodigoConfirmacao(form));
+        ae.setDataAgendamento(form.getDataAgendamento());
+        ae.setDataCriacao(new Date());
+        ae.setIdClinica(form.getIdClinica());
+        ae.setIdPaciente(form.getIdPaciente());
+        ae.setIdProfissional(form.getIdProfissional());
+        ae = agendamentoDao.save(ae);
+
+        ConfirmarAgendamentoVo confirmarAgendamentoVo = new ConfirmarAgendamentoVo();
+        confirmarAgendamentoVo.setCodigoConfirmacao(ae.getCodigoConfirmacao());
+        confirmarAgendamentoVo.setAgendamentoVo(AgendamentoAdapter.toAgendamentoVo(ae,pacienteEntity,profissionalEntity));
+        return confirmarAgendamentoVo;
+
+    }
+
+    private String getCodigoConfirmacao(AgendamentoForm form) {
+        /*GERANDO UM MD5 COM AS 6 PRIMEIRAS POSICOES EM LOWERCASE*/
+        return br.com.wjaa.ranchucrutes.commons.utils.StringUtils.createMD5(
+                (form.getIdProfissional() + "|" + form.getIdPaciente() + "|" + new Date().getTime()))
+                .substring(0,6)
+                .toLowerCase();
+    }
+
     private boolean diaEstaCancelado(Long idClinica, Long idProfissional, Date dataAgendamento) {
 
-        //TODO PROGRAMAR O DIA.
+        List<AgendaCanceladaEntity> listAgendaCancelada = this.agendamentoDao.getAgendaCancelada(idClinica,
+                idProfissional,dataAgendamento);
 
-        return false;
+        return listAgendaCancelada.size() > 0;
     }
 
     @Override
@@ -87,9 +170,9 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         }
 
         List<AgendaCanceladaEntity> listAgendaCancelada = this.agendamentoDao
-                .getAgendaCancelada(idProfissional, idClinica, new Date());
+                .getAgendaCanceladaPosterior(idProfissional, idClinica, new Date());
 
-        List<AgendamentoEntity> listAgendamentos = this.agendamentoDao.getAgendamentos(idProfissional,idClinica,new Date());
+        List<AgendamentoEntity> listAgendamentos = this.agendamentoDao.getAgendamentosDoDia(idProfissional, idClinica, new Date());
 
         ProfissionalBasicoVo profissionalBasico = profissionalService.getProfissionalBasico(idProfissional);
 

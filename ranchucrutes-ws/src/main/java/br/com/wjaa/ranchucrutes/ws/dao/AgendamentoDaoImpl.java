@@ -65,14 +65,42 @@ public class AgendamentoDaoImpl extends GenericDaoImpl<AgendamentoEntity, Long> 
 
     }
 
+
     @Override
-    public List<AgendamentoEntity> getAgendamentos(Long idProfissional, Long idClinica, Date date) {
+    public List<AgendaCanceladaEntity> getAgendaCanceladaPosterior(Long idProfissional, Long idClinica, Date hoje) {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("select a from " + AgendaCanceladaEntity.class.getName() + " a ");
+        sb.append(" where a.idClinica = :idClinica ");
+        sb.append(" and a.idProfissional = :idProfissional ");
+        sb.append(" and a.dataCancelada >= :hoje ");
+
+        Calendar dateSemHora = Calendar.getInstance();
+        dateSemHora.setTime(hoje);
+        dateSemHora.set(Calendar.HOUR, 0);
+        dateSemHora.set(Calendar.MINUTE, 0);
+        dateSemHora.set(Calendar.SECOND, 0);
+
+        List<?> resultList = this.getHibernateTemplate().findByNamedParam(
+                sb.toString(),
+                new String[]{"idClinica", "idProfissional", "hoje"},
+                new Object[]{idClinica, idProfissional, dateSemHora.getTime()}
+        );
+
+
+        return (List<AgendaCanceladaEntity>) resultList;
+
+    }
+
+    @Override
+    public List<AgendamentoEntity> getAgendamentosDoDia(Long idProfissional, Long idClinica, Date date) {
         StringBuilder sb = new StringBuilder();
         sb.append("select a from " + AgendamentoEntity.class.getName() + " a ");
         sb.append(" where a.idClinica = :idClinica ");
         sb.append(" and a.idProfissional = :idProfissional ");
         sb.append(" and a.dataAgendamento >= :dataIni ");
         sb.append(" and a.dataAgendamento < :dataFim ");
+        sb.append(" and a.cancelado = false ");
 
         Calendar dataIni = Calendar.getInstance();
         dataIni.setTime(date);
@@ -99,20 +127,21 @@ public class AgendamentoDaoImpl extends GenericDaoImpl<AgendamentoEntity, Long> 
     }
 
     @Override
-    public AgendamentoEntity getAgendamento(Long idProfissional, Long idPaciente, Long idClinica, Date dataAgendamento) {
+    public AgendamentoEntity getAgendamento(Long idProfissional, Long idClinica, Date dataAgendamento) {
 
 
         StringBuilder sb = new StringBuilder();
         sb.append("select a from " + AgendamentoEntity.class.getName() + " a ");
         sb.append(" where a.idClinica = :idClinica ");
         sb.append(" and a.idProfissional = :idProfissional ");
-        sb.append(" and a.idPaciente = :idPaciente ");
         sb.append(" and a.dataAgendamento = :dataAgendamento ");
+        sb.append(" and a.cancelado = false ");
+
 
         List<?> resultList = this.getHibernateTemplate().findByNamedParam(
                 sb.toString(),
-                new String[]{"idClinica", "idProfissional", "idPaciente", "dataAgendamento"},
-                new Object[]{idClinica, idProfissional, idPaciente,dataAgendamento}
+                new String[]{"idClinica", "idProfissional", "dataAgendamento"},
+                new Object[]{idClinica, idProfissional, dataAgendamento}
         );
 
         if (resultList.size() > 0){
@@ -120,5 +149,24 @@ public class AgendamentoDaoImpl extends GenericDaoImpl<AgendamentoEntity, Long> 
         }
 
         return null;
+    }
+
+    @Override
+    public List<AgendamentoEntity> getAgendamentosPosteriores(Long idProfissional, Long idClinica, Long idPaciente, Date hoje) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("select a from " + AgendamentoEntity.class.getName() + " a ");
+        sb.append(" where a.idClinica = :idClinica ");
+        sb.append(" and a.idProfissional = :idProfissional ");
+        sb.append(" and a.idPaciente = :idPaciente ");
+        sb.append(" and a.dataAgendamento >= :hoje ");
+        sb.append(" and a.cancelado = false ");
+
+        List<?> resultList = this.getHibernateTemplate().findByNamedParam(
+                sb.toString(),
+                new String[]{"idClinica", "idProfissional", "hoje"},
+                new Object[]{idClinica, idProfissional, hoje}
+        );
+
+        return (List<AgendamentoEntity>) resultList;
     }
 }

@@ -43,4 +43,7 @@ public interface ProfissionalDao extends GenericDao<ProfissionalEntity,Long>{
      * @return
      */
     ProfissionalEntity getProfissionalByEmail(String email);
+
+
+    ProfissionalEntity getProfissionalByIdAndCategoria(Long idProfissional, Integer idCategoria);
 }
