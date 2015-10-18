@@ -11,11 +11,11 @@ public class ResultadoBuscaProfissionalVo {
     private Double latitude;
     private Double longitude;
 
-    public List<ProfissionalBasicoVo> getProfissional() {
+    public List<ProfissionalBasicoVo> getProfissionais() {
         return profissionais;
     }
 
-    public void setProfissional(List<ProfissionalBasicoVo> profissionais) {
+    public void setProfissionais(List<ProfissionalBasicoVo> profissionais) {
         this.profissionais = profissionais;
     }
 

@@ -102,7 +102,7 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
                 LOG.error("Erro ao buscar as distancias para " + form, e);
             }
         }*/
-        resultado.setProfissional(ProfissionalAdapter.toListProfissionalBasico(profissionaisProximos));
+        resultado.setProfissionais(ProfissionalAdapter.toListProfissionalBasico(profissionaisProximos));
         return resultado;
     }
 
