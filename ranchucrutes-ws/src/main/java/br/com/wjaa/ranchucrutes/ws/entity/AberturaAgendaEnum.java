@@ -10,7 +10,7 @@ public enum AberturaAgendaEnum {
     TRES_SEMANAS(21),
     QUATRO_SEMANAS(28),
     MENSAL(30),
-    BISTRAL(60);
+    BIMESTRAL(60);
 
     private int dias;
     private AberturaAgendaEnum(int dias){

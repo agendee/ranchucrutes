@@ -32,6 +32,7 @@ public class ClinicaForm {
     private Integer tempoConsultaEmMin;
     private Double valorConsulta;
     private List<HorarioForm> agendaHorarios;
+    private String aberturaAgenda;
 
 
     public String getNome() {
@@ -152,6 +153,14 @@ public class ClinicaForm {
 
     public void setIdsCategoria(Integer[] idsCategoria) {
         this.idsCategoria = idsCategoria;
+    }
+
+    public String getAberturaAgenda() {
+        return aberturaAgenda;
+    }
+
+    public void setAberturaAgenda(String aberturaAgenda) {
+        this.aberturaAgenda = aberturaAgenda;
     }
 
     @JsonIgnore

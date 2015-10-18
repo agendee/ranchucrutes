@@ -24,9 +24,9 @@ public class AgendamentoDaoImpl extends GenericDaoImpl<AgendamentoEntity, Long> 
         sb.append("select a from " + ProfissionalEntity.class.getName() + " p ");
         sb.append(" join p.clinicas pc ");
         sb.append(" join pc.clinica c ");
-        sb.append(" join c.agenda a ");
+        sb.append(" join c.agendas a ");
         sb.append(" where c.id = :idClinica ");
-        sb.append(" and p.idLogin = :idProfissional ");
+        sb.append(" and p.id = :idProfissional ");
         List<?> resultList = this.getHibernateTemplate().findByNamedParam(
                 sb.toString(),
                 new String[]{"idClinica", "idProfissional"},

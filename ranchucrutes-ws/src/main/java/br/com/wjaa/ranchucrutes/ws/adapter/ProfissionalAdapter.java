@@ -5,6 +5,7 @@ import br.com.wjaa.ranchucrutes.commons.vo.ClinicaVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
 import br.com.wjaa.ranchucrutes.ws.entity.*;
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 
@@ -137,11 +138,14 @@ public class ProfissionalAdapter {
                     form.setIdClinica(clinica.getId());
                     form.setCategorias(toCategoriaForm(clinica.getConvenios()));
 
+
                     if (clinica.getAgenda() != null){
                         AgendaEntity agenda = clinica.getAgenda();
                         BeanUtils.copyProperties(agenda,form,"id","idClinica","agendaHorarios");
                         form.setIdAgenda(agenda.getId());
-
+                        if ( agenda.getAberturaAgenda() != null ){
+                            form.setAberturaAgenda(agenda.getAberturaAgenda().toString());
+                        }
                         if (agenda.getAgendaHorarios()!= null){
                             List<HorarioForm> listHorarios = new ArrayList<>(agenda.getAgendaHorarios().size());
                             for(AgendaHorarioEntity h : agenda.getAgendaHorarios()){
@@ -197,6 +201,9 @@ public class ProfissionalAdapter {
                 AgendaEntity agenda = new AgendaEntity();
                 BeanUtils.copyProperties(form,agenda,"id");
                 agenda.setId(form.getIdAgenda());
+                if (StringUtils.isNotBlank(form.getAberturaAgenda())){
+                    agenda.setAberturaAgenda(AberturaAgendaEnum.valueOf(form.getAberturaAgenda()));
+                }
 
                 if (form.getAgendaHorarios()!= null){
                     List<AgendaHorarioEntity> listHorarios = new ArrayList<>(form.getAgendaHorarios().size());

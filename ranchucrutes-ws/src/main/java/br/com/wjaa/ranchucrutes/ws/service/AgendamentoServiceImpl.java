@@ -15,11 +15,14 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.PostConstruct;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,15 +32,11 @@ import java.util.List;
 /**
  * Created by wagner on 15/10/15.
  */
-@Service
+@Service("AgendamentoServiceImpl")
 public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity, Long> implements  AgendamentoService{
 
-    @Autowired
     private AgendamentoDao agendamentoDao;
-
-
-    @Autowired
-    private AgendamentoServiceImpl agendamentoService;
+    private AgendamentoService agendamentoService;
 
     @Autowired
     private ProfissionalService profissionalService;
@@ -45,11 +44,16 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
     @Autowired
     private PacienteService pacienteService;
 
+    @Autowired
+    private ApplicationContext applicationContext;
+
+
     /**
      * Public constructor for creating a new GenericServiceImpl.
      *
      * @param agendamentoDao the GenericDao to use for persistence
      */
+    @Autowired
     public AgendamentoServiceImpl(AgendamentoDao agendamentoDao) {
         super(agendamentoDao);
         this.agendamentoDao = agendamentoDao;
@@ -109,19 +113,25 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         ProfissionalEntity profissionalEntity = profissionalService.get(form.getIdProfissional());
         //usando uma nova instancia para tentar pegar o erro de UniqueKey, caso no mesmo instante algum paciente
         //conseguiu agendar a consulta no mesmo horário do paciente corrente.
-        try {
-            agendamentoService.criarAgendamentoNovaTransaction(form,pacienteEntity,profissionalEntity);
+        /*try {
+            //agendamentoService.criarAgendamentoNovaTransaction(form,pacienteEntity,profissionalEntity);
         } catch (SQLException e) {
             throw new AgendamentoServiceException("Desculpe, horário não está mais disponível!");
         } catch (Exception e){
             throw new AgendamentoServiceException("Ocorreu um erro no agendamento, tente novamente mais tarde!");
-        }
+        }*/
 
         return null;
     }
 
+    @PostConstruct
+    private void init() {
+        agendamentoService = (AgendamentoService) applicationContext.getBean("AgendamentoServiceImpl");
+    }
+
+    @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    private ConfirmarAgendamentoVo criarAgendamentoNovaTransaction(AgendamentoForm form, PacienteEntity pacienteEntity,
+    public ConfirmarAgendamentoVo criarAgendamentoNovaTransaction(AgendamentoForm form, PacienteEntity pacienteEntity,
                                                                    ProfissionalEntity profissionalEntity) throws SQLException{
         AgendamentoEntity ae = new AgendamentoEntity();
         ae.setCancelado(false);

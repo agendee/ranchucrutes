@@ -19,6 +19,7 @@
             <a class="btn btn-danger" style="float:right; padding: 4px 10px;" onclick="admin.removeClinica(${index});" ><i class="fa fa-trash-o"></i></a>
             <input type="hidden" name="clinicas[${index}].id" value="${clinica.id}"/>
             <input type="hidden" name="clinicas[${index}].idClinica" value="${clinica.idClinica}"/>
+            <input type="hidden" name="clinicas[${index}].idAgenda" value="${clinica.idAgenda}"/>
         </h4>
     </div>
     <div id="collapse${index}" class="panel-collapse collapse in clinicaCollapse" aria-expanded="true">
@@ -50,7 +51,26 @@
                 <div class="col-xs-2">
                     <label for="clinicas[${index}].tempoConsulta" class="control-label" style="font-size: 25px; cursor: pointer;" data-toggle="tooltip" title="Informe aqui a duração em minutos de cada consulta."><i class="fa fa-info-circle"></i></label>
                  </div>
-           </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label">Tempo de abertura da agenda:<font style="color: rgb(169, 68, 66);">*</font> </label>
+                <div class="col-md-5 col-xs-9">
+                    <select class="form-control" name="clinicas[${index}].aberturaAgenda" placeholder="Tempo para abertura da agenda"  value="${clinica.aberturaAgenda}" required>
+                        <option value="SEMANAL" <c:if test="${clinica.aberturaAgenda == 'SEMANAL'}"> selected </c:if> > Semanal</option>
+                        <option value="DUAS_SEMANAS" <c:if test="${clinica.aberturaAgenda == 'DUAS_SEMANAS'}"> selected </c:if>> 2 Semanas</option>
+                        <option value="TRES_SEMANAS" <c:if test="${clinica.aberturaAgenda == 'TRES_SEMANAS'}"> selected </c:if>> 3 Semanas</option>
+                        <option value="QUATRO_SEMANAS" <c:if test="${clinica.aberturaAgenda == 'QUATRO_SEMANAS'}"> selected </c:if>> 4 Semanas</option>
+                        <option value="MENSAL" <c:if test="${clinica.aberturaAgenda == 'MENSAL'}"> selected </c:if>> Mensal</option>
+                        <option value="BIMESTRAL" <c:if test="${clinica.aberturaAgenda == 'BIMESTRAL'}"> selected </c:if>> 2 Meses</option>
+                    </select>
+                 </div>
+
+                <div class="col-xs-2">
+                    <label for="clinicas[${index}].aberturaAgenda" class="control-label" style="font-size: 25px; cursor: pointer;" data-toggle="tooltip" title="Informe aqui até quanto tempo você quer deixar sua agenda aberta."><i class="fa fa-info-circle"></i></label>
+                 </div>
+            </div>
+
             <div class="form-group">
                 <label class="col-md-3 control-label">Horário de Funcionamento:<font style="color: rgb(169, 68, 66);"></font></label>
                 <div class="col-md-4">
@@ -166,34 +186,7 @@
                 </div>
             </div>
 
-            <!-- TODO REMOVER DEPOIS
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Horários Agenda</h3>
-                    <input type="hidden" name="clinicas[${index}].idAgenda" value="${clinica.idAgenda}"/>
 
-                </div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="col-md-8 control-label">Quais horários você quer abrir? <a id="btnAddHorario" class="btn btn-success" ><i class="fa fa-plus"></i></a></label>
-                    </div>
-                    <c:if test="${clinica.agendaHorarios != null && clinica.agendaHorarios.size() > 0}">
-                        <c:set var="countHorarios" value="0"/>
-                        <div id="accordionHorario" class="panel-group">
-                            <c:forEach var="h" items="${clinica.agendaHorarios}">
-                                <h:horario indexClinica="${index}" indexHorario="${countHorarios}" horario="${h}"/>
-                                <c:set var="countHorarios" value="${countHorarios + 1}"/>
-                            </c:forEach>
-                        </div>
-                    </c:if>
-                    <c:if test="${clinica.agendaHorarios == null || clinica.agendaHorarios.size() == 0}">
-                        <div id="accordionHorario" class="panel-group">
-                            <h:horario indexClinica="${index}" indexHorario="0"/>
-                        </div>
-                    </c:if>
-                </div>
-            </div>
-            -->
         </div>
     </div>
 </div>

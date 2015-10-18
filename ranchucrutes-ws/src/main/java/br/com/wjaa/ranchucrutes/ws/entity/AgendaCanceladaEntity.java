@@ -8,7 +8,7 @@ import java.util.Date;
  * Created by wagner on 01/07/15.
  */
 @Entity
-@Table(name = "AGENDA")
+@Table(name = "AGENDA_CANCELADA")
 public class AgendaCanceladaEntity implements Serializable {
 
     private static final long serialVersionUID = 2483618403981663111L;
@@ -40,6 +40,7 @@ public class AgendaCanceladaEntity implements Serializable {
     }
 
     @Column(name = "DATA_CANCELADA", nullable = false)
+    @Temporal(TemporalType.DATE)
     public Date getDataCancelada() {
         return dataCancelada;
     }

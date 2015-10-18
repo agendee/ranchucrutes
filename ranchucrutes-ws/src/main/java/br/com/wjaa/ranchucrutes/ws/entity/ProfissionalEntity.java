@@ -26,7 +26,8 @@ public class ProfissionalEntity extends LoginEntity implements Serializable{
     private String cpf;
     //private Notification notificacoes de aplicativos
 
-    @Column(name = "CRM", nullable = false)
+
+     @Column(name = "CRM", nullable = false)
     public Integer getCrm() {
         return crm;
     }

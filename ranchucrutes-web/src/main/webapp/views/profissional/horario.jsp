@@ -57,6 +57,7 @@
                                      <c:if test="${clinica.agendaHorarios == null || clinica.agendaHorarios.size() == 0}">
                                          <div id="accordionHorario" class="panel-group">
                                              <h:horario indexClinica="${countClinica}" indexHorario="0"/>
+                                             <c:set var="countHorario" value="${countHorario + 1}"/>
                                          </div>
                                      </c:if>
                                      <c:set var="countClinica" value="${countClinica+1}"/>
