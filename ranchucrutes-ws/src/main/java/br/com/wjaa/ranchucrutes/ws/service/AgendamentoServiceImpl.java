@@ -75,6 +75,12 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         }
 
 
+        //verificando se o médico tem agenda
+        AgendaEntity agenda = this.agendamentoDao.getAgendaConfig(form.getIdProfissional(),form.getIdClinica());
+        if (agenda == null){
+            throw new AgendamentoServiceException("O profissional selecionado não possui agenda online!");
+        }
+
         //verificando verificando se já existe um agendamento para essa data.
         AgendamentoEntity agendamento = this.agendamentoDao
                 .getAgendamento(form.getIdProfissional(), form.getIdClinica(),
