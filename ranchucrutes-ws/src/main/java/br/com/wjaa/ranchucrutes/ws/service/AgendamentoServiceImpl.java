@@ -113,15 +113,13 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         ProfissionalEntity profissionalEntity = profissionalService.get(form.getIdProfissional());
         //usando uma nova instancia para tentar pegar o erro de UniqueKey, caso no mesmo instante algum paciente
         //conseguiu agendar a consulta no mesmo horário do paciente corrente.
-        /*try {
-            //agendamentoService.criarAgendamentoNovaTransaction(form,pacienteEntity,profissionalEntity);
+        try {
+            return agendamentoService.criarAgendamentoNovaTransaction(form,pacienteEntity,profissionalEntity);
         } catch (SQLException e) {
             throw new AgendamentoServiceException("Desculpe, horário não está mais disponível!");
         } catch (Exception e){
             throw new AgendamentoServiceException("Ocorreu um erro no agendamento, tente novamente mais tarde!");
-        }*/
-
-        return null;
+        }
     }
 
     @PostConstruct

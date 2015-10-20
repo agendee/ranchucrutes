@@ -163,8 +163,8 @@ public class AgendamentoDaoImpl extends GenericDaoImpl<AgendamentoEntity, Long> 
 
         List<?> resultList = this.getHibernateTemplate().findByNamedParam(
                 sb.toString(),
-                new String[]{"idClinica", "idProfissional", "hoje"},
-                new Object[]{idClinica, idProfissional, hoje}
+                new String[]{"idClinica", "idProfissional", "idPaciente", "hoje"},
+                new Object[]{idClinica, idProfissional,idPaciente, hoje}
         );
 
         return (List<AgendamentoEntity>) resultList;

@@ -115,10 +115,10 @@ public class ProfissionalDaoImpl extends GenericDaoImpl<ProfissionalEntity, Long
         sb.append(" join cl.convenios c");
         sb.append(" join c.convenio cv ");
         sb.append(" join cv.categorias ct ");
-        sb.append(" where m.idLogin = :idProfissional ");
+        sb.append(" where m.id = :idProfissional ");
         sb.append(" and ct.id = :idConvenio ");
 
-        String [] nameParams = new String[]{"idLogin","idConvenio"};
+        String [] nameParams = new String[]{"idProfissional","idConvenio"};
 
         List<?> resultList = this.getHibernateTemplate().findByNamedParam(sb.toString(), nameParams,
                 new Object[]{idProfissional,idCategoria});
