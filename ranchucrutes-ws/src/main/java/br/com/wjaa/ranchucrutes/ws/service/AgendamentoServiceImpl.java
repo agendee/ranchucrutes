@@ -11,6 +11,7 @@ import br.com.wjaa.ranchucrutes.ws.adapter.RanchucrutesAdapter;
 import br.com.wjaa.ranchucrutes.ws.dao.AgendamentoDao;
 import br.com.wjaa.ranchucrutes.ws.entity.*;
 import br.com.wjaa.ranchucrutes.ws.exception.AgendamentoServiceException;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -208,15 +209,16 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         int limiteAbertura = aberturaAgendaEnum.getDias();
 
         //QUANTIDADE DE DIAS
+        List<Date> horariosDisponiveis = new ArrayList<>();
         for (int i = 0; i < limiteAbertura; i++){
             Calendar day = Calendar.getInstance();
             day.add(Calendar.DATE,i);
             //QUANTIDADE DE HORARIOS POR DIA
-            List<Date> horariosDisponiveis = this.getHorariosDisponiveis(agendaConfig,listAgendaCancelada,listAgendamentos ,
-                    day);
-            if (!CollectionUtils.isEmpty(horariosDisponiveis)){
-                agenda.putHorariosDisponiveis(horariosDisponiveis);
-            }
+            horariosDisponiveis.addAll(this.getHorariosDisponiveis(agendaConfig,listAgendaCancelada,listAgendamentos ,
+                    day));
+        }
+        if (!CollectionUtils.isEmpty(horariosDisponiveis)){
+            agenda.setHorariosDisponiveis(horariosDisponiveis.toArray(new Date[horariosDisponiveis.size()]));
         }
         return agenda;
     }
