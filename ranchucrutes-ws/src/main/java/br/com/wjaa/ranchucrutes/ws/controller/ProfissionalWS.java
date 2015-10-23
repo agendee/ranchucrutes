@@ -41,8 +41,8 @@ public class ProfissionalWS extends BaseWS {
     }
 
     @RequestMapping(value = "/profissional/basico/{id}", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
-    public ProfissionalBasicoVo getProfissionalBasico(@PathVariable Long idProfissional) {
-        return this.profissionalService.getProfissionalBasico(idProfissional);
+    public ProfissionalBasicoVo getProfissionalBasico(@PathVariable Long id) {
+        return this.profissionalService.getProfissionalBasico(id);
 
     }
 
