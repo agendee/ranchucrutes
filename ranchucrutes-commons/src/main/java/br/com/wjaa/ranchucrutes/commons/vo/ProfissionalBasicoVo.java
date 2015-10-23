@@ -3,6 +3,9 @@ package br.com.wjaa.ranchucrutes.commons.vo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by wagner on 22/07/15.
  */
@@ -18,7 +21,7 @@ public class ProfissionalBasicoVo {
     @Deprecated
     private String endereco;
     private String telefone;
-    private ClinicaVo clinica;
+    private List<ClinicaVo> clinicas;
 
     public String getNome() {
         return nome;
@@ -93,11 +96,18 @@ public class ProfissionalBasicoVo {
         return "Sem Nome";
     }
 
-    public ClinicaVo getClinica() {
-        return clinica;
+    public List<ClinicaVo> getClinicas() {
+        return clinicas;
     }
 
-    public void setClinica(ClinicaVo clinica) {
-        this.clinica = clinica;
+    public void setClinicas(List<ClinicaVo> clinicas) {
+        this.clinicas = clinicas;
+    }
+
+    public void addClinica(ClinicaVo clinica){
+        if (clinicas == null){
+            this.clinicas = new ArrayList<>();
+        }
+        this.clinicas.add(clinica);
     }
 }

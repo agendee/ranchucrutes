@@ -64,11 +64,13 @@ public class ProfissionalAdapter {
         }
         if (!CollectionUtils.isEmpty(me.getClinicas())){
             ClinicaEntity c = me.getClinicas().get(0).getClinica();
+
+
             if (c != null){
 
                 /*************************/
                 /*TODO ESSE TREXO AQUI ESTÁ OBSOLETO RETIRAR, MAS OLHAR OS PONTOS QUE USAM
-                * O IDEAL É ESTAR O TELEFONE E ENEDECO DENTRO DE CLINICA*/
+                * O IDEAL É ESTAR O TELEFONE E ENDERECO DENTRO DE CLINICA QUE JÁ ESTA NO LOOP ABAIXO*/
                 EnderecoEntity e = c.getEndereco();
                 if (e != null){
                     profissionalBasicoVo.setLatitude(e.getLatitude());
@@ -79,8 +81,11 @@ public class ProfissionalAdapter {
                     profissionalBasicoVo.setTelefone(c.getDdd() + " " + c.getTelefone());
                 }
                 /*****************************************/
+            }
 
-                profissionalBasicoVo.setClinica(toClinicaVo(c));
+
+            for (ProfissionalClinicaEntity clinicaEntity : me.getClinicas()){
+                profissionalBasicoVo.addClinica(toClinicaVo(clinicaEntity.getClinica()));
             }
 
         }
