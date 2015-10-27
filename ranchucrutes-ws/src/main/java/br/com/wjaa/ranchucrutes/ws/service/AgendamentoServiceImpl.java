@@ -292,24 +292,30 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
 
         Calendar dataHoraIni = Calendar.getInstance();
         dataHoraIni.setTime(day.getTime());
-        dataHoraIni.set(Calendar.HOUR, Integer.valueOf(horaIni.split(":")[0]));
+        dataHoraIni.set(Calendar.HOUR_OF_DAY, Integer.valueOf(horaIni.split(":")[0]));
         dataHoraIni.set(Calendar.MINUTE, Integer.valueOf(horaIni.split(":")[1]));
+        dataHoraIni.set(Calendar.SECOND,0);
 
         Calendar dataHoraFim = Calendar.getInstance();
         dataHoraFim.setTime(day.getTime());
-        dataHoraFim.set(Calendar.HOUR, Integer.valueOf(horaFim.split(":")[0]));
+        dataHoraFim.set(Calendar.HOUR_OF_DAY, Integer.valueOf(horaFim.split(":")[0]));
         dataHoraFim.set(Calendar.MINUTE, Integer.valueOf(horaFim.split(":")[1]));
+        dataHoraFim.set(Calendar.SECOND,0);
 
+
+        //verificando se data e hora já esta agendanda
+        if (this.naoTemAgendamento(listAgendamentos, dataHoraIni)){
+            horarios.add(dataHoraIni.getTime());
+        }
+        dataHoraIni.add(Calendar.MINUTE, consultaMin);
 
         //interando em cada hora aberta
         while (dataHoraIni.before(dataHoraFim)){
-            dataHoraIni.add(Calendar.MINUTE, consultaMin);
-
             //verificando se data e hora já esta agendanda
             if (this.naoTemAgendamento(listAgendamentos, dataHoraIni)){
                 horarios.add(dataHoraIni.getTime());
             }
-
+            dataHoraIni.add(Calendar.MINUTE, consultaMin);
         }
 
         return horarios;
