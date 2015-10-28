@@ -15,6 +15,8 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -25,16 +27,16 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by wagner on 15/10/15.
  */
 @Service("AgendamentoServiceImpl")
 public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity, Long> implements  AgendamentoService{
+
+    private static final Log LOG = LogFactory.getLog(AgendamentoServiceImpl.class);
+
 
     private AgendamentoDao agendamentoDao;
     private AgendamentoService agendamentoService;
@@ -47,6 +49,8 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
 
     @Autowired
     private ApplicationContext applicationContext;
+
+    private Locale locale = new Locale("pt", "BR");
 
 
     /**
@@ -82,7 +86,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
             throw new AgendamentoServiceException("O profissional selecionado não possui agenda online!");
         }
 
-        //verificando verificando se já existe um agendamento para essa data.
+        //verificando se já existe um agendamento para essa data.
         AgendamentoEntity agendamento = this.agendamentoDao
                 .getAgendamento(form.getIdProfissional(), form.getIdClinica(),
                         form.getDataAgendamento());
@@ -99,7 +103,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         //verificando se o paciente já tem agendamento com esse profissional
         List<AgendamentoEntity> agendamentosPosteriores = this.agendamentoDao
                 .getAgendamentosPosteriores(form.getIdProfissional(), form.getIdClinica(), form.getIdPaciente(),
-                        new Date());
+                        Calendar.getInstance(locale).getTime());
         if (agendamentosPosteriores.size() > 0){
             AgendamentoEntity agendamentoEntity = agendamentosPosteriores.get(0);
             throw new AgendamentoServiceException("Você já tem uma consulta marcada com esse profissional para o dia "
@@ -290,13 +294,13 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
             throw new AgendamentoServiceException("Profissional não possui horários cadastrados em sua agenda.");
         }
 
-        Calendar dataHoraIni = Calendar.getInstance();
+        Calendar dataHoraIni = Calendar.getInstance(locale);
         dataHoraIni.setTime(day.getTime());
         dataHoraIni.set(Calendar.HOUR_OF_DAY, Integer.valueOf(horaIni.split(":")[0]));
         dataHoraIni.set(Calendar.MINUTE, Integer.valueOf(horaIni.split(":")[1]));
         dataHoraIni.set(Calendar.SECOND,0);
 
-        Calendar dataHoraFim = Calendar.getInstance();
+        Calendar dataHoraFim = Calendar.getInstance(locale);
         dataHoraFim.setTime(day.getTime());
         dataHoraFim.set(Calendar.HOUR_OF_DAY, Integer.valueOf(horaFim.split(":")[0]));
         dataHoraFim.set(Calendar.MINUTE, Integer.valueOf(horaFim.split(":")[1]));
@@ -304,7 +308,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
 
 
         //verificando se data e hora já esta agendanda
-        if (this.naoTemAgendamento(listAgendamentos, dataHoraIni)){
+        if (this.naoTemAgendamento(listAgendamentos, dataHoraIni) && this.ehMaiorQueHorarioLimite(dataHoraIni)){
             horarios.add(dataHoraIni.getTime());
         }
         dataHoraIni.add(Calendar.MINUTE, consultaMin);
@@ -312,16 +316,31 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         //interando em cada hora aberta
         while (dataHoraIni.before(dataHoraFim)){
             //verificando se data e hora já esta agendanda
-            if (this.naoTemAgendamento(listAgendamentos, dataHoraIni)){
+            if (this.naoTemAgendamento(listAgendamentos, dataHoraIni) && this.ehMaiorQueHorarioLimite(dataHoraIni)){
                 horarios.add(dataHoraIni.getTime());
             }
+
             dataHoraIni.add(Calendar.MINUTE, consultaMin);
         }
 
         return horarios;
     }
 
+    /**
+     * Horario limite é data do momento mais 2 hora, ou seja, é um tempo limite onde o paciente consegue marcar uma consulta
+     * no mesmo dia.
+     * @param dataHoraIni
+     * @return
+     */
+    private boolean ehMaiorQueHorarioLimite(Calendar dataHoraIni) {
+        Calendar agora = Calendar.getInstance(locale);
+        agora.add(Calendar.HOUR_OF_DAY,2);
+
+        return agora.before(dataHoraIni);
+    }
+
     private boolean naoTemAgendamento(List<AgendamentoEntity> listAgendamentos, Calendar dataHora) {
+
         if (CollectionUtils.isEmpty(listAgendamentos)){
             return true;
         }

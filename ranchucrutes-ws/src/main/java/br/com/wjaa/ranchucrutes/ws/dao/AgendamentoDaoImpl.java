@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by wagner on 16/10/15.
@@ -48,7 +49,7 @@ public class AgendamentoDaoImpl extends GenericDaoImpl<AgendamentoEntity, Long> 
         sb.append(" and a.idProfissional = :idProfissional ");
         sb.append(" and a.dataCancelada = :dataCancelada ");
 
-        Calendar dateSemHora = Calendar.getInstance();
+        Calendar dateSemHora = Calendar.getInstance(new Locale("pt", "BR"));
         dateSemHora.setTime(date);
         dateSemHora.set(Calendar.HOUR, 0);
         dateSemHora.set(Calendar.MINUTE, 0);
@@ -75,7 +76,7 @@ public class AgendamentoDaoImpl extends GenericDaoImpl<AgendamentoEntity, Long> 
         sb.append(" and a.idProfissional = :idProfissional ");
         sb.append(" and a.dataCancelada >= :hoje ");
 
-        Calendar dateSemHora = Calendar.getInstance();
+        Calendar dateSemHora = Calendar.getInstance(new Locale("pt", "BR"));
         dateSemHora.setTime(hoje);
         dateSemHora.set(Calendar.HOUR, 0);
         dateSemHora.set(Calendar.MINUTE, 0);
@@ -102,15 +103,16 @@ public class AgendamentoDaoImpl extends GenericDaoImpl<AgendamentoEntity, Long> 
         sb.append(" and a.dataAgendamento < :dataFim ");
         sb.append(" and a.cancelado = false ");
 
-        Calendar dataIni = Calendar.getInstance();
+        Calendar dataIni = Calendar.getInstance(new Locale("pt", "BR"));
         dataIni.setTime(date);
-        dataIni.set(Calendar.HOUR, 0);
+        dataIni.set(Calendar.HOUR_OF_DAY, 0);
         dataIni.set(Calendar.MINUTE, 0);
         dataIni.set(Calendar.SECOND, 0);
 
-        Calendar dataFim = Calendar.getInstance();
+
+        Calendar dataFim = Calendar.getInstance(new Locale("pt", "BR"));
         dataFim.setTime(date);
-        dataFim.set(Calendar.HOUR, 0);
+        dataFim.set(Calendar.HOUR_OF_DAY, 0);
         dataFim.set(Calendar.MINUTE, 0);
         dataFim.set(Calendar.SECOND, 0);
         dataFim.add(Calendar.DATE,1);
