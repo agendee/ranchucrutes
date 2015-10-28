@@ -326,7 +326,9 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
             return true;
         }
         for (AgendamentoEntity agendamento : listAgendamentos){
-            if ( agendamento.getDataAgendamento().equals(dataHora.getTime()) ){
+            if ( DateUtils.isSameDay(agendamento.getDataAgendamento(),dataHora.getTime()) &&
+                 DateUtils.truncatedEquals(agendamento.getDataAgendamento(),dataHora.getTime(),Calendar.HOUR_OF_DAY) &&
+                 DateUtils.truncatedEquals(agendamento.getDataAgendamento(),dataHora.getTime(),Calendar.MINUTE)){
                 return false;
             }
         }
