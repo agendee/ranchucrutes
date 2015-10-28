@@ -1,5 +1,8 @@
 package br.com.wjaa.ranchucrutes.commons.vo;
 
+import br.com.wjaa.ranchucrutes.commons.helper.JacksonDateSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.util.Date;
 
 /**
@@ -10,6 +13,7 @@ public class AgendamentoVo {
     private Long id;
     private ProfissionalBasicoVo profissional;
     private PacienteVo paciente;
+    @JsonSerialize(using = JacksonDateSerializer.class)
     private Date dataAgendamento;
 
     public ProfissionalBasicoVo getProfissional() {
