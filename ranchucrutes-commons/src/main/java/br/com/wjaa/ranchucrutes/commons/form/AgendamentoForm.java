@@ -1,5 +1,8 @@
 package br.com.wjaa.ranchucrutes.commons.form;
 
+import br.com.wjaa.ranchucrutes.commons.helper.JacksonDateDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import java.util.Date;
 
 /**
@@ -10,6 +13,7 @@ public class AgendamentoForm {
     private Long idPaciente;
     private Long idProfissional;
     private Long idClinica;
+    @JsonDeserialize(using = JacksonDateDeserializer.class)
     private Date dataAgendamento;
     private Boolean consultaParticular;
 
