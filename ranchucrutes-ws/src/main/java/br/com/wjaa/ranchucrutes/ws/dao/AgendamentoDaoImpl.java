@@ -94,13 +94,12 @@ public class AgendamentoDaoImpl extends GenericDaoImpl<AgendamentoEntity, Long> 
     }
 
     @Override
-    public List<AgendamentoEntity> getAgendamentosDoDia(Long idProfissional, Long idClinica, Date date) {
+    public List<AgendamentoEntity> getAgendamentos(Long idProfissional, Long idClinica, Date date) {
         StringBuilder sb = new StringBuilder();
         sb.append("select a from " + AgendamentoEntity.class.getName() + " a ");
         sb.append(" where a.idClinica = :idClinica ");
         sb.append(" and a.idProfissional = :idProfissional ");
         sb.append(" and a.dataAgendamento >= :dataIni ");
-        sb.append(" and a.dataAgendamento < :dataFim ");
         sb.append(" and a.cancelado = false ");
 
         Calendar dataIni = Calendar.getInstance(new Locale("pt", "BR"));
@@ -110,18 +109,11 @@ public class AgendamentoDaoImpl extends GenericDaoImpl<AgendamentoEntity, Long> 
         dataIni.set(Calendar.SECOND, 0);
 
 
-        Calendar dataFim = Calendar.getInstance(new Locale("pt", "BR"));
-        dataFim.setTime(date);
-        dataFim.set(Calendar.HOUR_OF_DAY, 0);
-        dataFim.set(Calendar.MINUTE, 0);
-        dataFim.set(Calendar.SECOND, 0);
-        dataFim.add(Calendar.DATE,1);
-
 
         List<?> resultList = this.getHibernateTemplate().findByNamedParam(
                 sb.toString(),
-                new String[]{"idClinica", "idProfissional", "dataIni", "dataFim"},
-                new Object[]{idClinica, idProfissional, dataIni.getTime(),dataFim.getTime()}
+                new String[]{"idClinica", "idProfissional", "dataIni"},
+                new Object[]{idClinica, idProfissional, dataIni.getTime()}
         );
 
 

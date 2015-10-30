@@ -187,11 +187,11 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         if (agendaConfig == null){
             throw new AgendamentoServiceException("Profissional não possuí agenda cadastrada!");
         }
-
+        Calendar agora = Calendar.getInstance(locale);
         List<AgendaCanceladaEntity> listAgendaCancelada = this.agendamentoDao
-                .getAgendaCanceladaPosterior(idProfissional, idClinica, new Date());
+                .getAgendaCanceladaPosterior(idProfissional, idClinica, agora.getTime());
 
-        List<AgendamentoEntity> listAgendamentos = this.agendamentoDao.getAgendamentosDoDia(idProfissional, idClinica, new Date());
+        List<AgendamentoEntity> listAgendamentos = this.agendamentoDao.getAgendamentos(idProfissional, idClinica, agora.getTime() );
 
         ProfissionalBasicoVo profissionalBasico = profissionalService.getProfissionalBasico(idProfissional);
 
