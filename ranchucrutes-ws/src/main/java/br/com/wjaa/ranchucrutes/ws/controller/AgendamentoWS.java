@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by wagner on 08/10/15.
@@ -45,6 +46,11 @@ public class AgendamentoWS {
     @RequestMapping(value = "/agendamento/confirmarConsulta/{idAgendamento}/{confirma}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
     public AgendamentoVo confirmarConsulta(@PathVariable Long idAgendamento, @PathVariable Boolean confirma) throws AgendamentoServiceException {
         return this.agendamentoService.confirmarConsulta(idAgendamento, confirma);
+    }
+
+    @RequestMapping(value = "/agendamento/list/{idPaciente}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    public List<AgendamentoVo> getAgendamentos(@PathVariable Long idPaciente) throws AgendamentoServiceException {
+        return this.agendamentoService.getAgendamentosPaciente(idPaciente);
     }
 
 

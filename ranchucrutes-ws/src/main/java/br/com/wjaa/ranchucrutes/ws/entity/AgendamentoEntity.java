@@ -120,4 +120,20 @@ public class AgendamentoEntity implements Serializable {
     public void setIdClinica(Long idClinica) {
         this.idClinica = idClinica;
     }
+
+    @Override
+    public String toString() {
+        return "AgendamentoEntity{" +
+                "id=" + id +
+                ", idProfissional=" + idProfissional +
+                ", idPaciente=" + idPaciente +
+                ", idClinica=" + idClinica +
+                ", dataAgendamento=" + dataAgendamento +
+                ", dataCriacao=" + dataCriacao +
+                ", dataConfirmacao=" + dataConfirmacao +
+                ", codigoConfirmacao='" + codigoConfirmacao + '\'' +
+                ", cancelado=" + cancelado +
+                ", dataConfirmacaoConsulta=" + dataConfirmacaoConsulta +
+                '}';
+    }
 }

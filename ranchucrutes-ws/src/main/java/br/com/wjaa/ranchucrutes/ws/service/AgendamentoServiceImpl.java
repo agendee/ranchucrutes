@@ -161,6 +161,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public AgendamentoVo confirmarAgendamento(Long idAgendamento, String codigo) throws AgendamentoServiceException {
 
         AgendamentoEntity agendamento = agendamentoDao.get(idAgendamento);
@@ -172,14 +173,57 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
             throw new AgendamentoServiceException("Código de confirmação inválido!");
         }
 
-        agendamento.setDataConfirmacao(Calendar.getInstance(locale));
+        agendamento.setDataConfirmacao(Calendar.getInstance(locale).getTime());
+        agendamento = agendamentoDao.save(agendamento);
 
-        return null;
+        PacienteEntity pacienteEntity = pacienteService.get(agendamento.getIdPaciente());
+        ProfissionalEntity profissionalEntity = profissionalService.get(agendamento.getIdProfissional());
+
+        return AgendamentoAdapter.toAgendamentoVo(agendamento,pacienteEntity,profissionalEntity);
     }
 
     @Override
-    public AgendamentoVo confirmarConsulta(Long idAgendamento, Boolean confirma) {
-        return null;
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public AgendamentoVo confirmarConsulta(Long idAgendamento, Boolean confirma) throws AgendamentoServiceException {
+        AgendamentoEntity agendamento = agendamentoDao.get(idAgendamento);
+        if (agendamento == null){
+            throw new AgendamentoServiceException("Agendamento não encontrado!");
+        }
+
+        if (confirma != null && confirma){
+            LOG.info("Confirmando agendamento " + agendamento);
+            agendamento.setDataConfirmacaoConsulta(Calendar.getInstance(locale).getTime());
+        }else{
+            LOG.info("Cancelando agendamento " + agendamento);
+            agendamento.setCancelado(true);
+        }
+        agendamentoDao.save(agendamento);
+
+        PacienteEntity pacienteEntity = pacienteService.get(agendamento.getIdPaciente());
+        ProfissionalEntity profissionalEntity = profissionalService.get(agendamento.getIdProfissional());
+
+        return AgendamentoAdapter.toAgendamentoVo(agendamento,pacienteEntity,profissionalEntity);
+
+
+    }
+
+    @Override
+    public List<AgendamentoVo> getAgendamentosPaciente(Long idPaciente) throws AgendamentoServiceException {
+        PacienteEntity pacienteEntity = pacienteService.get(idPaciente);
+        if (pacienteEntity == null){
+            throw new AgendamentoServiceException("Paciente não encontrado!");
+        }
+
+        List<AgendamentoVo> agendamentoVos = new ArrayList<>();
+
+        List<AgendamentoEntity> agendamentos = agendamentoDao.getAgendamentosPaciente(idPaciente);
+
+        for(AgendamentoEntity a : agendamentos){
+            ProfissionalEntity profissionalEntity = profissionalService.get(a.getIdProfissional());
+            agendamentoVos.add(AgendamentoAdapter.toAgendamentoVo(a, pacienteEntity, profissionalEntity));
+        }
+
+        return agendamentoVos;
     }
 
     private String getCodigoConfirmacao(AgendamentoForm form) {
@@ -218,7 +262,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
 
         ProfissionalBasicoVo profissionalBasico = profissionalService.getProfissionalBasico(idProfissional);
 
-        AgendaVo agendaVo = this.createAgenda(agendaConfig, listAgendaCancelada, listAgendamentos, profissionalBasico );
+        AgendaVo agendaVo = this.createAgenda(agendaConfig, listAgendaCancelada, listAgendamentos, profissionalBasico);
 
 
 

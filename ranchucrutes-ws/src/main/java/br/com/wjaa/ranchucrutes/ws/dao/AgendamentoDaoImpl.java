@@ -163,4 +163,20 @@ public class AgendamentoDaoImpl extends GenericDaoImpl<AgendamentoEntity, Long> 
 
         return (List<AgendamentoEntity>) resultList;
     }
+
+    @Override
+    public List<AgendamentoEntity> getAgendamentosPaciente(Long idPaciente) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("select a from " + AgendamentoEntity.class.getName() + " a ");
+        sb.append(" where a.idPaciente = :idPaciente");
+        sb.append(" and a.cancelado = false ");
+
+        List<?> resultList = this.getHibernateTemplate().findByNamedParam(
+                sb.toString(),
+                new String[]{"idPaciente"},
+                new Object[]{idPaciente}
+        );
+
+        return (List<AgendamentoEntity>) resultList;
+    }
 }

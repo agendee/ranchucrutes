@@ -10,6 +10,7 @@ import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalEntity;
 import br.com.wjaa.ranchucrutes.ws.exception.AgendamentoServiceException;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by wagner on 15/10/15.
@@ -24,5 +25,7 @@ public interface AgendamentoService extends GenericService<AgendamentoEntity, Lo
 
     AgendamentoVo confirmarAgendamento(Long idAgendamento, String codigo) throws AgendamentoServiceException;
 
-    AgendamentoVo confirmarConsulta(Long idAgendamento, Boolean confirma);
+    AgendamentoVo confirmarConsulta(Long idAgendamento, Boolean confirma) throws AgendamentoServiceException;
+
+    List<AgendamentoVo> getAgendamentosPaciente(Long idPaciente) throws AgendamentoServiceException;
 }

@@ -23,4 +23,6 @@ public interface AgendamentoDao extends GenericDao<AgendamentoEntity, Long>{
     AgendamentoEntity getAgendamento(Long idProfissional, Long idClinica, Date dataAgendamento);
 
     List<AgendamentoEntity> getAgendamentosPosteriores(Long idProfissional, Long idClinica, Long idPaciente, Date date);
+
+    List<AgendamentoEntity> getAgendamentosPaciente(Long idPaciente);
 }
