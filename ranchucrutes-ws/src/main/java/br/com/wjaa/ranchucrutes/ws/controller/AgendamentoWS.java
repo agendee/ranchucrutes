@@ -2,6 +2,7 @@ package br.com.wjaa.ranchucrutes.ws.controller;
 
 import br.com.wjaa.ranchucrutes.commons.form.AgendamentoForm;
 import br.com.wjaa.ranchucrutes.commons.vo.AgendaVo;
+import br.com.wjaa.ranchucrutes.commons.vo.AgendamentoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ConfirmarAgendamentoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ErrorMessageVo;
 import br.com.wjaa.ranchucrutes.ws.exception.AgendamentoServiceException;
@@ -34,6 +35,16 @@ public class AgendamentoWS {
     @RequestMapping(value = "/agendamento/criar", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
     public ConfirmarAgendamentoVo criarAgendamento(@ModelAttribute AgendamentoForm agendamentoForm) throws AgendamentoServiceException {
         return this.agendamentoService.criarAgendamento(agendamentoForm);
+    }
+
+    @RequestMapping(value = "/agendamento/confirmarSolicitacao/{idAgendamento}/{codigo}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    public AgendamentoVo confirmarSolicitacao(@PathVariable Long idAgendamento, @PathVariable String codigo) throws AgendamentoServiceException {
+        return this.agendamentoService.confirmarAgendamento(idAgendamento, codigo);
+    }
+
+    @RequestMapping(value = "/agendamento/confirmarConsulta/{idAgendamento}/{confirma}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    public AgendamentoVo confirmarConsulta(@PathVariable Long idAgendamento, @PathVariable Boolean confirma) throws AgendamentoServiceException {
+        return this.agendamentoService.confirmarConsulta(idAgendamento, confirma);
     }
 
 

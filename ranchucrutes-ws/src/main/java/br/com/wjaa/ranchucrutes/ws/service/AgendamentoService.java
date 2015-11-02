@@ -2,6 +2,7 @@ package br.com.wjaa.ranchucrutes.ws.service;
 
 import br.com.wjaa.ranchucrutes.commons.form.AgendamentoForm;
 import br.com.wjaa.ranchucrutes.commons.vo.AgendaVo;
+import br.com.wjaa.ranchucrutes.commons.vo.AgendamentoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ConfirmarAgendamentoVo;
 import br.com.wjaa.ranchucrutes.ws.entity.AgendamentoEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.PacienteEntity;
@@ -21,4 +22,7 @@ public interface AgendamentoService extends GenericService<AgendamentoEntity, Lo
     ConfirmarAgendamentoVo criarAgendamentoNovaTransaction(AgendamentoForm form, PacienteEntity pacienteEntity,
                                                                   ProfissionalEntity profissionalEntity) throws SQLException;
 
+    AgendamentoVo confirmarAgendamento(Long idAgendamento, String codigo) throws AgendamentoServiceException;
+
+    AgendamentoVo confirmarConsulta(Long idAgendamento, Boolean confirma);
 }

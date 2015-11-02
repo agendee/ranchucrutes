@@ -4,6 +4,7 @@ import br.com.wjaa.ranchucrutes.commons.form.AgendamentoForm;
 import br.com.wjaa.ranchucrutes.commons.form.HorarioForm;
 import br.com.wjaa.ranchucrutes.commons.helper.DiaSemana;
 import br.com.wjaa.ranchucrutes.commons.vo.AgendaVo;
+import br.com.wjaa.ranchucrutes.commons.vo.AgendamentoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ConfirmarAgendamentoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
 import br.com.wjaa.ranchucrutes.ws.adapter.AgendamentoAdapter;
@@ -148,6 +149,28 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         confirmarAgendamentoVo.setAgendamentoVo(AgendamentoAdapter.toAgendamentoVo(ae,pacienteEntity,profissionalEntity));
         return confirmarAgendamentoVo;
 
+    }
+
+    @Override
+    public AgendamentoVo confirmarAgendamento(Long idAgendamento, String codigo) throws AgendamentoServiceException {
+
+        AgendamentoEntity agendamento = agendamentoDao.get(idAgendamento);
+        if (agendamento == null){
+            throw new AgendamentoServiceException("Agendamento não encontrado!");
+        }
+
+        if ( !agendamento.getCodigoConfirmacao().equalsIgnoreCase(codigo) ){
+            throw new AgendamentoServiceException("Código de confirmação inválido!");
+        }
+
+        agendamento.setDataConfirmacao(Calendar.getInstance(locale));
+
+        return null;
+    }
+
+    @Override
+    public AgendamentoVo confirmarConsulta(Long idAgendamento, Boolean confirma) {
+        return null;
     }
 
     private String getCodigoConfirmacao(AgendamentoForm form) {
