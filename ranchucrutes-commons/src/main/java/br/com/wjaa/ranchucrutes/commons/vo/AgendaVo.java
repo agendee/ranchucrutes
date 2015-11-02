@@ -1,6 +1,10 @@
 package br.com.wjaa.ranchucrutes.commons.vo;
 
+import br.com.wjaa.ranchucrutes.commons.helper.JacksonArrayDateSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -9,7 +13,9 @@ import java.util.List;
  */
 public class AgendaVo {
     private ProfissionalBasicoVo profissional;
-    private List<Date> horariosDisponiveis;
+
+    @JsonSerialize(using = JacksonArrayDateSerializer.class)
+    private Date[] horariosDisponiveis;
 
     public ProfissionalBasicoVo getProfissional() {
         return profissional;
@@ -19,18 +25,11 @@ public class AgendaVo {
         this.profissional = profissional;
     }
 
-    public List<Date> getHorariosDisponiveis() {
+    public Date[] getHorariosDisponiveis() {
         return horariosDisponiveis;
     }
 
-    public void setHorariosDisponiveis(List<Date> horariosDisponiveis) {
+    public void setHorariosDisponiveis(Date[] horariosDisponiveis) {
         this.horariosDisponiveis = horariosDisponiveis;
-    }
-
-    public void putHorariosDisponiveis(List<Date> horariosDisponiveis) {
-        if (this.horariosDisponiveis == null){
-            this.horariosDisponiveis = new ArrayList<>();
-        }
-        this.horariosDisponiveis.addAll(horariosDisponiveis);
     }
 }

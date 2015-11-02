@@ -3,6 +3,7 @@ package br.com.wjaa.ranchucrutes.ws.controller;
 import br.com.wjaa.ranchucrutes.commons.form.FindProfissionalForm;
 import br.com.wjaa.ranchucrutes.commons.form.ProfissionalForm;
 import br.com.wjaa.ranchucrutes.commons.form.ProfissionalFullForm;
+import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
 import br.com.wjaa.ranchucrutes.ws.adapter.ProfissionalAdapter;
 import br.com.wjaa.ranchucrutes.commons.vo.ResultadoBuscaProfissionalVo;
 import br.com.wjaa.ranchucrutes.ws.entity.*;
@@ -37,6 +38,12 @@ public class ProfissionalWS extends BaseWS {
     public ProfissionalFullForm getProfissionalById(@PathVariable Long id) {
         ProfissionalEntity entity = this.profissionalService.get(id);
         return ProfissionalAdapter.toProfissionalFullForm(entity);
+    }
+
+    @RequestMapping(value = "/profissional/basico/{id}", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
+    public ProfissionalBasicoVo getProfissionalBasico(@PathVariable Long id) {
+        return this.profissionalService.getProfissionalBasico(id);
+
     }
 
     @RequestMapping(value = "/profissional/search", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
