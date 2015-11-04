@@ -1,10 +1,10 @@
 package br.com.wjaa.ranchucrutes.ws.service;
 
 import br.com.wjaa.ranchucrutes.commons.vo.LocationVo;
-import br.com.wjaa.ranchucrutes.ws.entity.EnderecoEntity;
 import br.com.wjaa.ranchucrutes.ws.exception.DistanceNotFoundException;
 import br.com.wjaa.ranchucrutes.ws.exception.LocationDuplicateFoundException;
 import br.com.wjaa.ranchucrutes.ws.exception.LocationNotFoundException;
+import br.com.wjaa.ranchucrutes.ws.entity.EnderecoEntity;
 import br.com.wjaa.ranchucrutes.commons.vo.DistanceVo;
 
 import java.util.List;

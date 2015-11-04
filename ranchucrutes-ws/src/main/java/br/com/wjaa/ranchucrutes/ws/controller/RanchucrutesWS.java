@@ -1,14 +1,14 @@
 package br.com.wjaa.ranchucrutes.ws.controller;
 
 import br.com.wjaa.ranchucrutes.commons.vo.ConvenioCategoriaVo;
+import br.com.wjaa.ranchucrutes.framework.service.RanchucrutesService;
 import br.com.wjaa.ranchucrutes.ws.adapter.RanchucrutesAdapter;
-import br.com.wjaa.ranchucrutes.ws.entity.ConvenioEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.ConvenioCategoriaEntity;
+import br.com.wjaa.ranchucrutes.ws.entity.ConvenioEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.EnderecoEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.EspecialidadeEntity;
 import br.com.wjaa.ranchucrutes.ws.exception.CepNotFoundException;
 import br.com.wjaa.ranchucrutes.ws.service.CepService;
-import br.com.wjaa.ranchucrutes.ws.service.RanchucrutesService;
 import br.com.wjaa.ranchucrutes.commons.vo.EnderecoVo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

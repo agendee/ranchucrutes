@@ -1,8 +1,8 @@
 package br.com.wjaa.ranchucrutes.ws.adapter;
 
 import br.com.wjaa.ranchucrutes.commons.vo.PacienteVo;
-import br.com.wjaa.ranchucrutes.ws.entity.PacienteEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.RedeSocialEnum;
+import br.com.wjaa.ranchucrutes.ws.entity.PacienteEntity;
 import org.springframework.beans.BeanUtils;
 
 /**

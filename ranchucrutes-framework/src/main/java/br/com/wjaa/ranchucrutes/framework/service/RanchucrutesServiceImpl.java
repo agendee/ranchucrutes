@@ -1,6 +1,6 @@
-package br.com.wjaa.ranchucrutes.ws.service;
+package br.com.wjaa.ranchucrutes.framework.service;
 
-import br.com.wjaa.ranchucrutes.ws.dao.RanchucrutesDao;
+import br.com.wjaa.ranchucrutes.framework.dao.RanchucrutesDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;

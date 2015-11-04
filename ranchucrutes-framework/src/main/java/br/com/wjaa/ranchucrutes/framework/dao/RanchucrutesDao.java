@@ -1,4 +1,4 @@
-package br.com.wjaa.ranchucrutes.ws.dao;
+package br.com.wjaa.ranchucrutes.framework.dao;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,11 +16,11 @@ public interface RanchucrutesDao {
 
     <T> List<T> getByProperties(Class<T> clazz, String paramName, Object value);
 
-    <T> List<T> getByProperties(Class<T> clazz, String [] paramName, Object [] value);
+    <T> List<T> getByProperties(Class<T> clazz, String[] paramName, Object[] value);
 
     <T> T getSingleRecordByProperties(Class<T> clazz, String paramName, Object value);
 
-    <T> T getSingleRecordByProperties(Class<T> clazz, String [] paramName, Object [] value);
+    <T> T getSingleRecordByProperties(Class<T> clazz, String[] paramName, Object[] value);
 
     void remove(Object o);
 }

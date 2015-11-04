@@ -1,6 +1,7 @@
 package br.com.wjaa.ranchucrutes.ws.dao;
 
 import br.com.wjaa.ranchucrutes.commons.vo.LocationVo;
+import br.com.wjaa.ranchucrutes.framework.dao.GenericDao;
 import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalEntity;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 /**
  * Created by wagner on 17/06/15.
  */
-public interface ProfissionalDao extends GenericDao<ProfissionalEntity,Long>{
+public interface ProfissionalDao extends GenericDao<ProfissionalEntity,Long> {
 
     /**
      *

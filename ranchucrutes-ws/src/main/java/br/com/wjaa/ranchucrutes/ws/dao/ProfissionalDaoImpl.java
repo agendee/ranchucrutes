@@ -1,6 +1,7 @@
 package br.com.wjaa.ranchucrutes.ws.dao;
 
 import br.com.wjaa.ranchucrutes.commons.vo.LocationVo;
+import br.com.wjaa.ranchucrutes.framework.dao.GenericDaoImpl;
 import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;

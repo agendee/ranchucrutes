@@ -1,15 +1,13 @@
-package br.com.wjaa.ranchucrutes.ws.service;
-import java.io.Serializable;
-import java.util.List;
+package br.com.wjaa.ranchucrutes.framework.service;
 
-import br.com.wjaa.ranchucrutes.ws.dao.GenericDao;
-import br.com.wjaa.ranchucrutes.ws.entity.AgendaCanceladaEntity;
-import br.com.wjaa.ranchucrutes.ws.entity.AgendaEntity;
-import br.com.wjaa.ranchucrutes.ws.entity.AgendamentoEntity;
+import br.com.wjaa.ranchucrutes.framework.dao.GenericDao;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author wagner

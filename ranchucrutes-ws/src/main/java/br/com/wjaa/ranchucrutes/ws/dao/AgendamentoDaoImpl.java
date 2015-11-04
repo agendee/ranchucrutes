@@ -1,9 +1,10 @@
 package br.com.wjaa.ranchucrutes.ws.dao;
 
+import br.com.wjaa.ranchucrutes.framework.dao.GenericDaoImpl;
+import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.AgendaCanceladaEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.AgendaEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.AgendamentoEntity;
-import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.Calendar;

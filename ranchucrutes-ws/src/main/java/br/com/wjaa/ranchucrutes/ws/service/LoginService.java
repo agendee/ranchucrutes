@@ -4,9 +4,9 @@ import br.com.wjaa.ranchucrutes.commons.form.LoginForm;
 import br.com.wjaa.ranchucrutes.commons.vo.ConfirmaCadastroVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.PacienteVo;
-import br.com.wjaa.ranchucrutes.ws.exception.LoginNotConfirmationException;
 import br.com.wjaa.ranchucrutes.ws.exception.LoginServiceException;
 import br.com.wjaa.ranchucrutes.ws.exception.LoginSocialException;
+import br.com.wjaa.ranchucrutes.ws.exception.LoginNotConfirmationException;
 
 /**
  * Created by wagner on 10/08/15.

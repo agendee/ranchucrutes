@@ -1,6 +1,4 @@
-package br.com.wjaa.ranchucrutes.ws.service;
-
-import br.com.wjaa.ranchucrutes.ws.exception.ProfissionalServiceException;
+package br.com.wjaa.ranchucrutes.framework.service;
 
 import java.io.Serializable;
 import java.util.List;
@@ -48,7 +46,7 @@ public interface GenericService<T, PK extends Serializable> {
      *            the object to save
      * @return the updated object
      */
-    T save(T object) throws ProfissionalServiceException;
+    T save(T object);
 
     /**
      * Generic method to delete an object based on class and id

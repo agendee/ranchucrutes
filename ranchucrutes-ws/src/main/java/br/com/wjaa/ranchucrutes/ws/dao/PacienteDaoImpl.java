@@ -1,7 +1,8 @@
 package br.com.wjaa.ranchucrutes.ws.dao;
 
-import br.com.wjaa.ranchucrutes.ws.entity.PacienteEntity;
+import br.com.wjaa.ranchucrutes.framework.dao.GenericDaoImpl;
 import br.com.wjaa.ranchucrutes.ws.entity.RedeSocialEnum;
+import br.com.wjaa.ranchucrutes.ws.entity.PacienteEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

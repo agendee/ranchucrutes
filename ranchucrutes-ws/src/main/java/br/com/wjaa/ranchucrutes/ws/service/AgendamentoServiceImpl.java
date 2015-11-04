@@ -1,25 +1,22 @@
 package br.com.wjaa.ranchucrutes.ws.service;
 
 import br.com.wjaa.ranchucrutes.commons.form.AgendamentoForm;
-import br.com.wjaa.ranchucrutes.commons.form.HorarioForm;
 import br.com.wjaa.ranchucrutes.commons.helper.DiaSemana;
 import br.com.wjaa.ranchucrutes.commons.vo.AgendaVo;
 import br.com.wjaa.ranchucrutes.commons.vo.AgendamentoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ConfirmarAgendamentoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
-import br.com.wjaa.ranchucrutes.ws.adapter.AgendamentoAdapter;
-import br.com.wjaa.ranchucrutes.ws.adapter.RanchucrutesAdapter;
-import br.com.wjaa.ranchucrutes.ws.dao.AgendamentoDao;
+import br.com.wjaa.ranchucrutes.framework.service.GenericServiceImpl;
 import br.com.wjaa.ranchucrutes.ws.entity.*;
 import br.com.wjaa.ranchucrutes.ws.exception.AgendamentoServiceException;
-import org.apache.commons.lang.ArrayUtils;
+import br.com.wjaa.ranchucrutes.ws.adapter.AgendamentoAdapter;
+import br.com.wjaa.ranchucrutes.ws.dao.AgendamentoDao;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -50,9 +47,6 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
 
     @Autowired
     private ApplicationContext applicationContext;
-
-    private Locale locale = new Locale("pt", "BR");
-
 
     /**
      * Public constructor for creating a new GenericServiceImpl.
@@ -104,7 +98,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         //verificando se o paciente já tem agendamento com esse profissional
         List<AgendamentoEntity> agendamentosPosteriores = this.agendamentoDao
                 .getAgendamentosPosteriores(form.getIdProfissional(), form.getIdClinica(), form.getIdPaciente(),
-                        Calendar.getInstance(locale).getTime());
+                        br.com.wjaa.ranchucrutes.commons.utils.DateUtils.now());
         if (agendamentosPosteriores.size() > 0){
             AgendamentoEntity agendamentoEntity = agendamentosPosteriores.get(0);
             throw new AgendamentoServiceException("Você já tem uma consulta marcada com esse profissional para o dia "
@@ -155,7 +149,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
 
         ConfirmarAgendamentoVo confirmarAgendamentoVo = new ConfirmarAgendamentoVo();
         confirmarAgendamentoVo.setCodigoConfirmacao(ae.getCodigoConfirmacao());
-        confirmarAgendamentoVo.setAgendamentoVo(AgendamentoAdapter.toAgendamentoVo(ae,pacienteEntity,profissionalEntity));
+        confirmarAgendamentoVo.setAgendamentoVo(AgendamentoAdapter.toAgendamentoVo(ae, pacienteEntity, profissionalEntity));
         return confirmarAgendamentoVo;
 
     }
@@ -173,7 +167,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
             throw new AgendamentoServiceException("Código de confirmação inválido!");
         }
 
-        agendamento.setDataConfirmacao(Calendar.getInstance(locale).getTime());
+        agendamento.setDataConfirmacao(br.com.wjaa.ranchucrutes.commons.utils.DateUtils.now());
         agendamento = agendamentoDao.save(agendamento);
 
         PacienteEntity pacienteEntity = pacienteService.get(agendamento.getIdPaciente());
@@ -192,7 +186,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
 
         if (confirma != null && confirma){
             LOG.info("Confirmando agendamento " + agendamento);
-            agendamento.setDataConfirmacaoConsulta(Calendar.getInstance(locale).getTime());
+            agendamento.setDataConfirmacaoConsulta(br.com.wjaa.ranchucrutes.commons.utils.DateUtils.now());
         }else{
             LOG.info("Cancelando agendamento " + agendamento);
             agendamento.setCancelado(true);
@@ -254,11 +248,11 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         if (agendaConfig == null){
             throw new AgendamentoServiceException("Profissional não possuí agenda cadastrada!");
         }
-        Calendar agora = Calendar.getInstance(locale);
+        Date agora = br.com.wjaa.ranchucrutes.commons.utils.DateUtils.now();
         List<AgendaCanceladaEntity> listAgendaCancelada = this.agendamentoDao
-                .getAgendaCanceladaPosterior(idProfissional, idClinica, agora.getTime());
+                .getAgendaCanceladaPosterior(idProfissional, idClinica, agora);
 
-        List<AgendamentoEntity> listAgendamentos = this.agendamentoDao.getAgendamentos(idProfissional, idClinica, agora.getTime() );
+        List<AgendamentoEntity> listAgendamentos = this.agendamentoDao.getAgendamentos(idProfissional, idClinica, agora );
 
         ProfissionalBasicoVo profissionalBasico = profissionalService.getProfissionalBasico(idProfissional);
 
@@ -361,13 +355,13 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
             throw new AgendamentoServiceException("Profissional não possui horários cadastrados em sua agenda.");
         }
 
-        Calendar dataHoraIni = Calendar.getInstance(locale);
+        Calendar dataHoraIni = br.com.wjaa.ranchucrutes.commons.utils.DateUtils.nowCalendar();
         dataHoraIni.setTime(day.getTime());
         dataHoraIni.set(Calendar.HOUR_OF_DAY, Integer.valueOf(horaIni.split(":")[0]));
         dataHoraIni.set(Calendar.MINUTE, Integer.valueOf(horaIni.split(":")[1]));
         dataHoraIni.set(Calendar.SECOND,0);
 
-        Calendar dataHoraFim = Calendar.getInstance(locale);
+        Calendar dataHoraFim = br.com.wjaa.ranchucrutes.commons.utils.DateUtils.nowCalendar();
         dataHoraFim.setTime(day.getTime());
         dataHoraFim.set(Calendar.HOUR_OF_DAY, Integer.valueOf(horaFim.split(":")[0]));
         dataHoraFim.set(Calendar.MINUTE, Integer.valueOf(horaFim.split(":")[1]));
@@ -400,7 +394,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
      * @return
      */
     private boolean ehMaiorQueHorarioLimite(Calendar dataHoraIni) {
-        Calendar agora = Calendar.getInstance(locale);
+        Calendar agora = br.com.wjaa.ranchucrutes.commons.utils.DateUtils.nowCalendar();
         agora.add(Calendar.HOUR_OF_DAY,2);
 
         return agora.before(dataHoraIni);

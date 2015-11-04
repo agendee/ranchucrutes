@@ -1,15 +1,15 @@
 package br.com.wjaa.ranchucrutes.ws.service;
 
 import br.com.wjaa.ranchucrutes.commons.vo.LocationVo;
+import br.com.wjaa.ranchucrutes.framework.dao.RanchucrutesDao;
 import br.com.wjaa.ranchucrutes.ws.adapter.RanchucrutesAdapter;
-import br.com.wjaa.ranchucrutes.ws.dao.RanchucrutesDao;
 import br.com.wjaa.ranchucrutes.ws.entity.CacheCep;
-import br.com.wjaa.ranchucrutes.ws.entity.EnderecoEntity;
-import br.com.wjaa.ranchucrutes.ws.exception.CepNotFoundException;
-import br.com.wjaa.ranchucrutes.ws.exception.RestResponseUnsatisfiedException;
 import br.com.wjaa.ranchucrutes.ws.exception.RestException;
 import br.com.wjaa.ranchucrutes.ws.exception.RestRequestUnstable;
+import br.com.wjaa.ranchucrutes.ws.exception.RestResponseUnsatisfiedException;
 import br.com.wjaa.ranchucrutes.ws.rest.RestUtils;
+import br.com.wjaa.ranchucrutes.ws.entity.EnderecoEntity;
+import br.com.wjaa.ranchucrutes.ws.exception.CepNotFoundException;
 import br.com.wjaa.ranchucrutes.commons.vo.EnderecoVo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -88,7 +88,7 @@ public class CepServiceImpl implements CepService {
     }
 
     private EnderecoVo findWithoutTryCatch(CepApiUrl api) throws RestResponseUnsatisfiedException, RestRequestUnstable, RestException {
-        return RestUtils.getJsonWithParamPath(EnderecoVo.class,api.url,api.uri );
+        return RestUtils.getJsonWithParamPath(EnderecoVo.class, api.url, api.uri);
     }
 
 

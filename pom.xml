@@ -9,11 +9,12 @@
 	<name>Ranchucrutes Parent</name>
 	<url>http://maven.apache.org</url>
 
-
     <modules>
     	<module>ranchucrutes-commons</module>
-        <module>ranchucrutes-web</module>
+		<module>ranchucrutes-framework</module>
+		<module>ranchucrutes-jobs</module>
         <module>ranchucrutes-ws</module>
+		<module>ranchucrutes-web</module>
     </modules>
 
 	<properties>

@@ -4,9 +4,10 @@ import br.com.wjaa.ranchucrutes.commons.form.AgendamentoForm;
 import br.com.wjaa.ranchucrutes.commons.vo.AgendaVo;
 import br.com.wjaa.ranchucrutes.commons.vo.AgendamentoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ConfirmarAgendamentoVo;
-import br.com.wjaa.ranchucrutes.ws.entity.AgendamentoEntity;
-import br.com.wjaa.ranchucrutes.ws.entity.PacienteEntity;
+import br.com.wjaa.ranchucrutes.framework.service.GenericService;
 import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalEntity;
+import br.com.wjaa.ranchucrutes.ws.entity.PacienteEntity;
+import br.com.wjaa.ranchucrutes.ws.entity.AgendamentoEntity;
 import br.com.wjaa.ranchucrutes.ws.exception.AgendamentoServiceException;
 
 import java.sql.SQLException;

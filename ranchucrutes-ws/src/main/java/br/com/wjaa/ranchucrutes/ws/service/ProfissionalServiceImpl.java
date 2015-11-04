@@ -5,6 +5,8 @@ import br.com.wjaa.ranchucrutes.commons.vo.DistanceVo;
 import br.com.wjaa.ranchucrutes.commons.vo.LocationVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ResultadoBuscaProfissionalVo;
+import br.com.wjaa.ranchucrutes.framework.service.GenericServiceImpl;
+import br.com.wjaa.ranchucrutes.framework.service.RanchucrutesService;
 import br.com.wjaa.ranchucrutes.ws.adapter.ProfissionalAdapter;
 import br.com.wjaa.ranchucrutes.ws.dao.ProfissionalDao;
 import br.com.wjaa.ranchucrutes.ws.entity.*;

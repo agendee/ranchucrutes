@@ -1,9 +1,10 @@
-package br.com.wjaa.ranchucrutes.ws.dao;
+package br.com.wjaa.ranchucrutes.framework.dao;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.orm.hibernate4.HibernateTemplate;
+//import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 

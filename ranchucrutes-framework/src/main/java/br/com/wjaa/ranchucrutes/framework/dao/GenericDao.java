@@ -1,4 +1,4 @@
-package br.com.wjaa.ranchucrutes.ws.dao;
+package br.com.wjaa.ranchucrutes.framework.dao;
 
 
 import java.io.Serializable;

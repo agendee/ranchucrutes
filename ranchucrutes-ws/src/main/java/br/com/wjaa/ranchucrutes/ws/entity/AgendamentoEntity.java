@@ -1,12 +1,8 @@
 package br.com.wjaa.ranchucrutes.ws.entity;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by wagner on 01/07/15.

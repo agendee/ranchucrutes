@@ -1,6 +1,5 @@
 package br.com.wjaa.ranchucrutes.ws.service;
 
-import br.com.wjaa.ranchucrutes.commons.vo.AppConfigVo;
 import br.com.wjaa.ranchucrutes.ws.entity.AppConfigEntity;
 
 /**

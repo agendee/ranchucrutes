@@ -1,9 +1,10 @@
 package br.com.wjaa.ranchucrutes.ws.service;
 
 import br.com.wjaa.ranchucrutes.commons.utils.StringUtils;
+import br.com.wjaa.ranchucrutes.framework.service.GenericServiceImpl;
 import br.com.wjaa.ranchucrutes.ws.dao.PacienteDao;
-import br.com.wjaa.ranchucrutes.ws.entity.PacienteEntity;
 import br.com.wjaa.ranchucrutes.ws.exception.PacienteServiceException;
+import br.com.wjaa.ranchucrutes.ws.entity.PacienteEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

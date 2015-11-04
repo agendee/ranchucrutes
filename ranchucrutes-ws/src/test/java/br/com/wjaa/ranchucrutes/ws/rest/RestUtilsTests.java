@@ -2,9 +2,9 @@ package br.com.wjaa.ranchucrutes.ws.rest;
 
 import br.com.wjaa.ranchucrutes.commons.vo.LocationVo;
 import br.com.wjaa.ranchucrutes.ws.entity.ClinicaEntity;
-import br.com.wjaa.ranchucrutes.ws.entity.EnderecoEntity;
 import br.com.wjaa.ranchucrutes.ws.exception.*;
 import br.com.wjaa.ranchucrutes.ws.service.GoogleMapsServiceImpl;
+import br.com.wjaa.ranchucrutes.ws.entity.EnderecoEntity;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;

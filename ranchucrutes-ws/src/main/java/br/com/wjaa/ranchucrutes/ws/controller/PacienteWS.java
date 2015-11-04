@@ -1,9 +1,9 @@
 package br.com.wjaa.ranchucrutes.ws.controller;
 
 import br.com.wjaa.ranchucrutes.commons.vo.PacienteVo;
+import br.com.wjaa.ranchucrutes.ws.exception.PacienteServiceException;
 import br.com.wjaa.ranchucrutes.ws.adapter.PacienteAdapter;
 import br.com.wjaa.ranchucrutes.ws.entity.PacienteEntity;
-import br.com.wjaa.ranchucrutes.ws.exception.PacienteServiceException;
 import br.com.wjaa.ranchucrutes.ws.service.PacienteService;
 import br.com.wjaa.ranchucrutes.commons.vo.ErrorMessageVo;
 import org.apache.commons.logging.Log;

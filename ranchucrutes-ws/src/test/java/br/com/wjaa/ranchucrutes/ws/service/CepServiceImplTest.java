@@ -1,6 +1,5 @@
 package br.com.wjaa.ranchucrutes.ws.service;
 
-import br.com.wjaa.ranchucrutes.ws.entity.ClinicaEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.EnderecoEntity;
 import org.junit.Test;
 

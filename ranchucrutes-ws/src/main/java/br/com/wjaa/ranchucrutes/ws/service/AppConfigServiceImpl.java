@@ -1,7 +1,6 @@
 package br.com.wjaa.ranchucrutes.ws.service;
 
-import br.com.wjaa.ranchucrutes.commons.vo.AppConfigVo;
-import br.com.wjaa.ranchucrutes.ws.dao.RanchucrutesDao;
+import br.com.wjaa.ranchucrutes.framework.dao.RanchucrutesDao;
 import br.com.wjaa.ranchucrutes.ws.entity.AppConfigEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

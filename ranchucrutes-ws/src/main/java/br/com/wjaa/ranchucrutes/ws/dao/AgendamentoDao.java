@@ -1,5 +1,6 @@
 package br.com.wjaa.ranchucrutes.ws.dao;
 
+import br.com.wjaa.ranchucrutes.framework.dao.GenericDao;
 import br.com.wjaa.ranchucrutes.ws.entity.AgendaCanceladaEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.AgendaEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.AgendamentoEntity;
@@ -10,7 +11,7 @@ import java.util.List;
 /**
  * Created by wagner on 16/10/15.
  */
-public interface AgendamentoDao extends GenericDao<AgendamentoEntity, Long>{
+public interface AgendamentoDao extends GenericDao<AgendamentoEntity, Long> {
 
     AgendaEntity getAgendaConfig(Long idProfissional, Long idClinica);
 

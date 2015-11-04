@@ -5,9 +5,17 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.com.wjaa</groupId>
     <artifactId>ranchucrutes-commons</artifactId>
+
+    <parent>
+        <groupId>br.com</groupId>
+        <artifactId>ranchucrutes</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>ranchucrutes-commons tudo que e comum entre os projetos</name>
+    <name>ranchucrutes-commons Comuns</name>
     <url>http://maven.apache.org</url>
 
     <dependencies>
@@ -46,8 +54,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>${project.build.jdk.version}</source>
+                    <target>${project.build.jdk.version}</target>
                 </configuration>
             </plugin>
         </plugins>

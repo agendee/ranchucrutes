@@ -1,12 +1,4 @@
-package br.com.wjaa.ranchucrutes.ws.dao;
-
-import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
+package br.com.wjaa.ranchucrutes.framework.dao;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -16,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.orm.hibernate4.HibernateTemplate;
+
+import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.util.*;
 
 /**
  * @author wagner

@@ -1,7 +1,7 @@
 package br.com.wjaa.ranchucrutes.ws.rest;
 
-import br.com.wjaa.ranchucrutes.ws.exception.RestException;
 import br.com.wjaa.ranchucrutes.ws.exception.RestRequestUnstable;
+import br.com.wjaa.ranchucrutes.ws.exception.RestException;
 import br.com.wjaa.ranchucrutes.ws.exception.RestResponseUnsatisfiedException;
 import br.com.wjaa.ranchucrutes.commons.vo.ErrorMessageVo;
 import com.fasterxml.jackson.core.JsonParseException;
