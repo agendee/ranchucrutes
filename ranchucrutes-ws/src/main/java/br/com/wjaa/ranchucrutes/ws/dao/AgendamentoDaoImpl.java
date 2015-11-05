@@ -1,5 +1,6 @@
 package br.com.wjaa.ranchucrutes.ws.dao;
 
+import br.com.wjaa.ranchucrutes.commons.utils.DateUtils;
 import br.com.wjaa.ranchucrutes.framework.dao.GenericDaoImpl;
 import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.AgendaCanceladaEntity;
@@ -170,12 +171,16 @@ public class AgendamentoDaoImpl extends GenericDaoImpl<AgendamentoEntity, Long> 
         StringBuilder sb = new StringBuilder();
         sb.append("select a from " + AgendamentoEntity.class.getName() + " a ");
         sb.append(" where a.idPaciente = :idPaciente");
-        sb.append(" and a.cancelado = false ");
+        sb.append(" and a.dataAgendamento > :limitDate ");
+
+        //mostrará apenas os agendamentos de 2 meses atras
+        Calendar c = DateUtils.nowCalendar();
+        c.add(Calendar.MONTH,-2);
 
         List<?> resultList = this.getHibernateTemplate().findByNamedParam(
                 sb.toString(),
-                new String[]{"idPaciente"},
-                new Object[]{idPaciente}
+                new String[]{"idPaciente","limitDate"},
+                new Object[]{idPaciente,c.getTime()}
         );
 
         return (List<AgendamentoEntity>) resultList;

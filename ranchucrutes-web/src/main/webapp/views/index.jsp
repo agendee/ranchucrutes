@@ -13,66 +13,32 @@
 <body id="page-top" class="index">
     <jsp:include page="/views/commons/menu_home.jsp" />
     <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="intro-text">
-                <div class="intro-lead-in">Bem-Vindos ao Agendee!</div>
-                <form action="profissional/find" method="get">
-                <div class="panel panel-default col-lg-5 col-lg-offset-3" style="background-color:#142232;">
-                    <div class="panel-body">
-                        <h3>Procure por um profissional mais próximo de você.</h3>
-                        <fieldset>
-                            <div class="col-lg-12 form-group">
-                                <label for="especialidade" class="col-lg-12 control-label">Qual profissional está procurando?</label>
-                                <div class="col-lg-12">
-                                    <select class="form-control js-example-placeholder-single" id="idEspecialidade" name="idEspecialidade" data-live-search="true">
-                                    </select>
-                                </div>    
-                            </div>
-                        </fieldset>    
-                        <fieldset>
-                            <div class="col-lg-12 form-group">
-                                <label for="especialidade" class="col-lg-12 control-label">Qual o seu plano de saúde?</label>
-                                <div class="col-lg-12">
-                                    <select class="form-control js-example-placeholder-single" id="planoSaude" name="planoSaude" data-live-search="true">
 
-                                    </select>
-                                </div>    
-                            </div>
-                        </fieldset> 
-                        <fieldset>
-                            <div class="col-lg-12 form-group">
-                                <label for="categoria" class="col-lg-12 control-label">Qual a categoria?</label>
-                                <div class="col-lg-12">
-                                    <select class="form-control js-example-placeholder-single" id="idCategoria" name="idCategoria" data-live-search="true" >
+        <div class="homepage-hero-module">
+            <div class="video-container">
+                <div class="title-container">
+                    <div class="headline">
+                        <h1>Bem-vindo ao agendee</h1>
 
-                                    </select>
-                                </div>
-                            </div>        
-                                        
-                        </fieldset>
-                        
-                        <fieldset>
-                            <div class="col-lg-12 form-group">
-                                <label for="cep" class="col-lg-12 control-label">Procurar profissionais próximo de qual cep?</label>
-                                <div class="col-lg-12">
-                                    <input class="form-control" id="cep" name="cep" type="text" placeholder="00000-000"/>
-                                </div>    
-                            </div>
-                        </fieldset>    
-                         <fieldset>
-                        <button type="submit" class="page-scroll btn btn-xl">Procurar Profissional</button>
-                    </fieldset> 
                     </div>
-                      
-                </div>
-                </form>    
+                    <div class="description">
+                        <div class="inner">Seu portal de agendamentos online. Baixe agora nosso aplicativo e viva uma nova experiência. <br/><br/><br/><br/></div>
 
-                
-                
+                        <a href="http://www.agendee.com.br/apk/agendee.apk">
+                            <img alt="Get it on Google Play"
+                                 src="https://developer.android.com/images/brand/pt-br_generic_rgb_wo_45.png" />
+                        </a>
+                    </div>
+                </div>
+                <div class="filter"></div>
+                <video autoplay loop class="fillWidth">
+                    <source src="static/img/video.mp4" type="video/mp4" />Your browser does not support the video tag. I suggest you upgrade your browser.</video>
+                <div class="poster hidden">
+                    <img src="http://www.videojs.com/img/poster.jpg" alt="">
+                </div>
             </div>
         </div>
-    </header>
+
 
 
      <!-- Portfolio Grid Section -->
@@ -563,5 +529,79 @@
     <script src="/static/js/ws/ranchucrutes-ws-client.js"></script>
 
 </body>
+<script>
 
+
+    $( document ).ready(function() {
+
+        // Resive video
+        scaleVideoContainer();
+
+        initBannerVideoSize('.video-container .poster img');
+        initBannerVideoSize('.video-container .filter');
+        initBannerVideoSize('.video-container video');
+
+        $(window).on('resize', function() {
+            scaleVideoContainer();
+            scaleBannerVideoSize('.video-container .poster img');
+            scaleBannerVideoSize('.video-container .filter');
+            scaleBannerVideoSize('.video-container video');
+        });
+
+    });
+
+    /** Reusable Functions **/
+    /********************************************************************/
+
+    function scaleVideoContainer() {
+
+        var height = $(window).height();
+        var unitHeight = parseInt(height) + 'px';
+        $('.homepage-hero-module').css('height',unitHeight);
+
+    }
+
+    function initBannerVideoSize(element){
+
+        $(element).each(function(){
+            $(this).data('height', $(this).height());
+            $(this).data('width', $(this).width());
+        });
+
+        scaleBannerVideoSize(element);
+
+    }
+
+    function scaleBannerVideoSize(element){
+
+        var windowWidth = $(window).width(),
+                windowHeight = $(window).height(),
+                videoWidth,
+                videoHeight;
+
+        console.log(windowHeight);
+
+        $(element).each(function(){
+            var videoAspectRatio = $(this).data('height')/$(this).data('width'),
+                    windowAspectRatio = windowHeight/windowWidth;
+
+            if (videoAspectRatio > windowAspectRatio) {
+                videoWidth = windowWidth;
+                videoHeight = videoWidth * videoAspectRatio;
+                $(this).css({'top' : -(videoHeight - windowHeight) / 2 + 'px', 'margin-left' : 0});
+            } else {
+                videoHeight = windowHeight;
+                videoWidth = videoHeight / videoAspectRatio;
+                $(this).css({'margin-top' : 0, 'margin-left' : -(videoWidth - windowWidth) / 2 + 'px'});
+            }
+
+            $(this).width(videoWidth).height(videoHeight);
+
+            $('.homepage-hero-module .video-container video').addClass('fadeIn animated');
+
+
+        });
+    }
+
+</script>
 </html>
