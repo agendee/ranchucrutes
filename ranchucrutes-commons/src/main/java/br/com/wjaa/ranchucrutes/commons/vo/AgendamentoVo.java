@@ -15,11 +15,17 @@ public class AgendamentoVo {
     private PacienteVo paciente;
     @JsonSerialize(using = JacksonDateSerializer.class)
     private Date dataAgendamento;
+    @JsonSerialize(using = JacksonDateSerializer.class)
     private Date dataCriacao;
+    @JsonSerialize(using = JacksonDateSerializer.class)
     private Date dataConfirmacao;
     private String codigoConfirmacao;
     private Boolean cancelado;
+    @JsonSerialize(using = JacksonDateSerializer.class)
     private Date dataConfirmacaoConsulta;
+    @JsonSerialize(using = JacksonDateSerializer.class)
+    private Date dataConfirmacaoProfissional;
+    private Boolean finalizado;
 
     public ProfissionalBasicoVo getProfissional() {
         return profissional;
@@ -91,5 +97,21 @@ public class AgendamentoVo {
 
     public void setDataConfirmacaoConsulta(Date dataConfirmacaoConsulta) {
         this.dataConfirmacaoConsulta = dataConfirmacaoConsulta;
+    }
+
+    public Date getDataConfirmacaoProfissional() {
+        return dataConfirmacaoProfissional;
+    }
+
+    public void setDataConfirmacaoProfissional(Date dataConfirmacaoProfissional) {
+        this.dataConfirmacaoProfissional = dataConfirmacaoProfissional;
+    }
+
+    public Boolean getFinalizado() {
+        return finalizado;
+    }
+
+    public void setFinalizado(Boolean finalizado) {
+        this.finalizado = finalizado;
     }
 }

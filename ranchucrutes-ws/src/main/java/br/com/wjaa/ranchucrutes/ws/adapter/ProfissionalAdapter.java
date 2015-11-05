@@ -86,6 +86,7 @@ public class ProfissionalAdapter {
 
             for (ProfissionalClinicaEntity clinicaEntity : me.getClinicas()){
                 profissionalBasicoVo.addClinica(toClinicaVo(clinicaEntity.getClinica()));
+                profissionalBasicoVo.setTemAgenda(clinicaEntity.getClinica().getAgenda() != null);
             }
 
         }

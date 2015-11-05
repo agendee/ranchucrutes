@@ -1,5 +1,6 @@
 package br.com.wjaa.ranchucrutes.ws.adapter;
 
+import br.com.wjaa.ranchucrutes.commons.utils.DateUtils;
 import br.com.wjaa.ranchucrutes.commons.vo.AgendamentoVo;
 import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.PacienteEntity;

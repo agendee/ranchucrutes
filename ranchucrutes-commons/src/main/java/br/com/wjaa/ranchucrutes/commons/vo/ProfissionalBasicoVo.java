@@ -22,6 +22,7 @@ public class ProfissionalBasicoVo {
     private String endereco;
     private String telefone;
     private List<ClinicaVo> clinicas;
+    private Boolean temAgenda;
 
     public String getNome() {
         return nome;
@@ -109,5 +110,13 @@ public class ProfissionalBasicoVo {
             this.clinicas = new ArrayList<>();
         }
         this.clinicas.add(clinica);
+    }
+
+    public Boolean getTemAgenda() {
+        return temAgenda;
+    }
+
+    public void setTemAgenda(Boolean temAgenda) {
+        this.temAgenda = temAgenda;
     }
 }

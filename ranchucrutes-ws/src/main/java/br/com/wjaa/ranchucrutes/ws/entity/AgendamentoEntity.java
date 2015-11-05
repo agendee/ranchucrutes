@@ -1,5 +1,7 @@
 package br.com.wjaa.ranchucrutes.ws.entity;
 
+import br.com.wjaa.ranchucrutes.commons.utils.DateUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -22,6 +24,7 @@ public class AgendamentoEntity implements Serializable {
     private String codigoConfirmacao;
     private Boolean cancelado;
     private Date dataConfirmacaoConsulta;
+    private Date dataConfirmacaoProfissional;
 
 
     @Id
@@ -115,6 +118,21 @@ public class AgendamentoEntity implements Serializable {
 
     public void setIdClinica(Long idClinica) {
         this.idClinica = idClinica;
+    }
+
+    @Column(name = "DATA_CONFIRMACAO_PROFISSIONAL", nullable = false)
+    public Date getDataConfirmacaoProfissional() {
+        return dataConfirmacaoProfissional;
+    }
+
+    public void setDataConfirmacaoProfissional(Date dataConfirmacaoProfissional) {
+        this.dataConfirmacaoProfissional = dataConfirmacaoProfissional;
+    }
+
+    @Transient
+    public Boolean getFinalizado(){
+        return !getCancelado() && getDataConfirmacaoProfissional() != null &&
+                        getDataAgendamento().before(DateUtils.now());
     }
 
     @Override
