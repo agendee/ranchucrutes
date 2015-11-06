@@ -3,24 +3,28 @@ package br.com.wjaa.ranchucrutes.ws.controller;
 import br.com.wjaa.ranchucrutes.commons.form.FindProfissionalForm;
 import br.com.wjaa.ranchucrutes.commons.form.ProfissionalForm;
 import br.com.wjaa.ranchucrutes.commons.form.ProfissionalFullForm;
-import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
+import br.com.wjaa.ranchucrutes.commons.utils.NumberUtils;
+import br.com.wjaa.ranchucrutes.commons.vo.*;
 import br.com.wjaa.ranchucrutes.ws.adapter.ProfissionalAdapter;
 import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalEntity;
-import br.com.wjaa.ranchucrutes.ws.exception.LocationDuplicateFoundException;
-import br.com.wjaa.ranchucrutes.ws.exception.ProfissionalServiceException;
+import br.com.wjaa.ranchucrutes.ws.exception.*;
+import br.com.wjaa.ranchucrutes.ws.service.AgendamentoService;
 import br.com.wjaa.ranchucrutes.ws.service.ProfissionalService;
-import br.com.wjaa.ranchucrutes.ws.exception.CepNotFoundException;
-import br.com.wjaa.ranchucrutes.ws.exception.LocationNotFoundException;
-import br.com.wjaa.ranchucrutes.commons.vo.ResultadoBuscaProfissionalVo;
-import br.com.wjaa.ranchucrutes.commons.vo.ErrorMessageVo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by wagner on 12/06/15.
@@ -33,6 +37,10 @@ public class ProfissionalWS extends BaseWS {
 
     @Autowired
     private ProfissionalService profissionalService;
+
+    @Autowired
+    private AgendamentoService agendamentoService;
+
 
     @RequestMapping(value = "/profissional/{id}", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
     public ProfissionalFullForm getProfissionalById(@PathVariable Long id) {
@@ -85,6 +93,15 @@ public class ProfissionalWS extends BaseWS {
         return ProfissionalAdapter.toProfissionalFullForm(profissionalUpdated);
     }
 
+    @RequestMapping(value = "/profissional/agendamentos/{idProfissional}/{idClinica}/{dateIni}/{dateFim}", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
+    public @ResponseBody
+    CalendarioAgendamentoVo getAgendamentos (@PathVariable Long idProfissional, @PathVariable Long idClinica,
+                                         @PathVariable Date dateIni, @PathVariable Date dateFim) throws AgendamentoServiceException {
+        return agendamentoService.getAgendamentosProfissional(idProfissional, idClinica, dateIni, dateFim);
+    }
+
+
+
 
     @ExceptionHandler(CepNotFoundException.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
@@ -122,5 +139,43 @@ public class ProfissionalWS extends BaseWS {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
         return new ErrorMessageVo(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
     }
+
+    @ExceptionHandler(AgendamentoServiceException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public @ResponseBody
+    ErrorMessageVo handleException(AgendamentoServiceException e, HttpServletResponse response) {
+        LOG.error("handleException",e);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
+        return new ErrorMessageVo(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+    }
+
+
+    @InitBinder
+    public void binder(WebDataBinder binder) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf,true){
+
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                try{
+                    super.setAsText(text);
+                }catch (IllegalArgumentException ex) {
+                    LOG.warn("Erro no parse da data=" + text);
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    Date d;
+                    try {
+                        d = sdf.parse(text);
+                        setValue(d);
+                    } catch (ParseException e) {
+                        LOG.warn("Erro no parse da data=" + text);
+                        throw new IllegalArgumentException("Could not parse date: " + e.getMessage(), e);
+                    }
+
+                }
+
+            }
+        });
+    }
+
 
 }

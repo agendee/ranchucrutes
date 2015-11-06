@@ -185,4 +185,23 @@ public class AgendamentoDaoImpl extends GenericDaoImpl<AgendamentoEntity, Long> 
 
         return (List<AgendamentoEntity>) resultList;
     }
+
+    @Override
+    public List<AgendamentoEntity> getAgendamentosProfissional(Long idProfissional, Long idClinica, Date iniDate, Date endDate) {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("select a from " + AgendamentoEntity.class.getName() + " a ");
+        sb.append(" where a.idProfissional = :idProfissional");
+        sb.append(" and a.idClinica = :idClinica");
+        sb.append(" and a.dataAgendamento >= :initDate ");
+        sb.append(" and a.dataAgendamento <= :endDate ");
+
+        List<?> resultList = this.getHibernateTemplate().findByNamedParam(
+                sb.toString(),
+                new String[]{"idProfissional","idClinica","initDate", "endDate"},
+                new Object[]{idProfissional,idClinica, iniDate, endDate}
+        );
+
+        return (List<AgendamentoEntity>) resultList;
+    }
 }

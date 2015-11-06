@@ -2,11 +2,10 @@ package br.com.wjaa.ranchucrutes.ws.service;
 
 import br.com.wjaa.ranchucrutes.commons.form.AgendamentoForm;
 import br.com.wjaa.ranchucrutes.commons.helper.DiaSemana;
-import br.com.wjaa.ranchucrutes.commons.vo.AgendaVo;
-import br.com.wjaa.ranchucrutes.commons.vo.AgendamentoVo;
-import br.com.wjaa.ranchucrutes.commons.vo.ConfirmarAgendamentoVo;
-import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
+import br.com.wjaa.ranchucrutes.commons.vo.*;
 import br.com.wjaa.ranchucrutes.framework.service.GenericServiceImpl;
+import br.com.wjaa.ranchucrutes.ws.adapter.ProfissionalAdapter;
+import br.com.wjaa.ranchucrutes.ws.adapter.RanchucrutesAdapter;
 import br.com.wjaa.ranchucrutes.ws.entity.*;
 import br.com.wjaa.ranchucrutes.ws.exception.AgendamentoServiceException;
 import br.com.wjaa.ranchucrutes.ws.adapter.AgendamentoAdapter;
@@ -218,6 +217,56 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         }
 
         return agendamentoVos;
+    }
+
+    @Override
+    public CalendarioAgendamentoVo getAgendamentosProfissional(Long idProfissional, Long idClinica, Date iniDate, Date endDate) throws AgendamentoServiceException {
+
+        ProfissionalEntity profissionalEntity = this.profissionalService.get(idProfissional);
+        if (profissionalEntity == null){
+            throw new AgendamentoServiceException("Profissional não encontrado!");
+        }
+
+        if ( profissionalEntity.getClinicas() == null){
+            throw new AgendamentoServiceException("Profissional não possui agenda!");
+        }
+
+        AgendaEntity agenda = null;
+        ClinicaEntity clinica = null;
+
+        for (ProfissionalClinicaEntity c : profissionalEntity.getClinicas()){
+            //verificando se a clinica do profissional tem agenda online
+            if (idClinica.equals(c.getClinica().getId()) ){
+                if (c.getClinica().getAgenda() == null ) {
+                    throw new AgendamentoServiceException("Profissional não possui agenda nessa clinica!");
+                }else{
+                    agenda = c.getClinica().getAgenda();
+                    clinica = c.getClinica();
+                }
+            }
+
+        }
+
+        CalendarioAgendamentoVo calendarioAgendamentoVo = new CalendarioAgendamentoVo();
+        calendarioAgendamentoVo.setClinicaVo(ProfissionalAdapter.toClinicaVo(clinica));
+        calendarioAgendamentoVo.setDiasAberturaAgenda(agenda.getAberturaAgenda().getDias());
+        calendarioAgendamentoVo.setHoraFuncionamentoIni(agenda.getHoraFuncionamentoIni());
+        calendarioAgendamentoVo.setHoraFuncionamentoFim(agenda.getHoraFuncionamentoFim());
+        calendarioAgendamentoVo.setIdAgenda(agenda.getId());
+        calendarioAgendamentoVo.setTempoConsultaEmMin(agenda.getTempoConsultaEmMin());
+
+        List<AgendamentoVo> agendamentoVos = new ArrayList<>();
+        calendarioAgendamentoVo.setAgendamento(agendamentoVos);
+
+        List<AgendamentoEntity> agendamentos = agendamentoDao.getAgendamentosProfissional(idProfissional, idClinica, iniDate, endDate );
+
+        //TODO MELHORAR ISSO AQUI ELE ESTÁ FAZENDO UMA QUERY PARA CADA PACIENTE...PERFORMANCE HORRIVEL!!!
+        for(AgendamentoEntity a : agendamentos){
+            PacienteEntity pacienteEntity = this.pacienteService.get(a.getIdPaciente());
+            agendamentoVos.add(AgendamentoAdapter.toAgendamentoVo(a, pacienteEntity, profissionalEntity));
+        }
+
+        return calendarioAgendamentoVo;
     }
 
     private String getCodigoConfirmacao(AgendamentoForm form) {

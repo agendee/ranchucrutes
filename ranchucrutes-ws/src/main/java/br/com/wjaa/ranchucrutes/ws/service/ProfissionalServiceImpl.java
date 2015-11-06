@@ -312,9 +312,4 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
 
     }
 
-
-
-
-
-
 }
