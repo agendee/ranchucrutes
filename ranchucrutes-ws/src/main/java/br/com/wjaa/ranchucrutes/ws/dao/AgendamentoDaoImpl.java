@@ -173,7 +173,7 @@ public class AgendamentoDaoImpl extends GenericDaoImpl<AgendamentoEntity, Long> 
         sb.append(" where a.idPaciente = :idPaciente");
         sb.append(" and a.dataAgendamento > :limitDate ");
 
-        //mostrará apenas os agendamentos de 2 meses atras
+        //mostrará apenas os agendamentos de 2 meses atrasagenda
         Calendar c = DateUtils.nowCalendar();
         c.add(Calendar.MONTH,-2);
 
