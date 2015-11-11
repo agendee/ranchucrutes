@@ -21,6 +21,9 @@ public class PacienteAdapter {
                 pacienteVo.setAuthType(pacienteEntity.getRedeSocial().getSocialType());
             }
             pacienteVo.setId(pacienteEntity.getIdLogin());
+            if (pacienteEntity.getConvenioCategoria() != null){
+                pacienteVo.setConvenioCategoria(RanchucrutesAdapter.toConvenioCategoriaVo(pacienteEntity.getConvenioCategoria()));
+            }
         }
         return pacienteVo;
     }

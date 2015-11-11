@@ -5,7 +5,6 @@ import br.com.wjaa.ranchucrutes.commons.helper.DiaSemana;
 import br.com.wjaa.ranchucrutes.commons.vo.*;
 import br.com.wjaa.ranchucrutes.framework.service.GenericServiceImpl;
 import br.com.wjaa.ranchucrutes.ws.adapter.ProfissionalAdapter;
-import br.com.wjaa.ranchucrutes.ws.adapter.RanchucrutesAdapter;
 import br.com.wjaa.ranchucrutes.ws.entity.*;
 import br.com.wjaa.ranchucrutes.ws.exception.AgendamentoServiceException;
 import br.com.wjaa.ranchucrutes.ws.adapter.AgendamentoAdapter;
@@ -220,7 +219,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
     }
 
     @Override
-    public CalendarioAgendamentoVo getAgendamentosProfissional(Long idProfissional, Long idClinica, Date iniDate, Date endDate) throws AgendamentoServiceException {
+    public CalendarioAgendamentoVo getAgendamentosProfissional(Long idProfissional, Date iniDate, Date endDate) throws AgendamentoServiceException {
 
         ProfissionalEntity profissionalEntity = this.profissionalService.get(idProfissional);
         if (profissionalEntity == null){
@@ -231,41 +230,41 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
             throw new AgendamentoServiceException("Profissional não possui agenda!");
         }
 
-        AgendaEntity agenda = null;
-        ClinicaEntity clinica = null;
-
+        List<CalendarioClinicaVo> listCalendarioClinica = new ArrayList<>();
         for (ProfissionalClinicaEntity c : profissionalEntity.getClinicas()){
             //verificando se a clinica do profissional tem agenda online
-            if (idClinica.equals(c.getClinica().getId()) ){
-                if (c.getClinica().getAgenda() == null ) {
-                    throw new AgendamentoServiceException("Profissional não possui agenda nessa clinica!");
-                }else{
-                    agenda = c.getClinica().getAgenda();
-                    clinica = c.getClinica();
-                }
+
+            AgendaEntity agenda = c.getClinica().getAgenda();
+            ClinicaEntity clinica = c.getClinica();
+            CalendarioClinicaVo calendarioClinica = new CalendarioClinicaVo();
+            calendarioClinica.setClinicaVo(ProfissionalAdapter.toClinicaVo(clinica));
+            calendarioClinica.setDiasAberturaAgenda(agenda.getAberturaAgenda().getDias());
+            calendarioClinica.setHoraFuncionamentoIni(agenda.getHoraFuncionamentoIni());
+            calendarioClinica.setHoraFuncionamentoFim(agenda.getHoraFuncionamentoFim());
+            calendarioClinica.setIdAgenda(agenda.getId());
+            calendarioClinica.setTempoConsultaEmMin(agenda.getTempoConsultaEmMin());
+
+            List<AgendamentoVo> agendamentoVos = new ArrayList<>();
+            calendarioClinica.setAgendamento(agendamentoVos);
+            List<AgendamentoEntity> agendamentos = agendamentoDao.getAgendamentosProfissional(idProfissional, clinica.getId(), iniDate, endDate );
+
+            //TODO MELHORAR ISSO AQUI ELE ESTÁ FAZENDO UMA QUERY PARA CADA PACIENTE...PERFORMANCE HORRIVEL!!!
+            for(AgendamentoEntity a : agendamentos){
+                PacienteEntity pacienteEntity = this.pacienteService.get(a.getIdPaciente());
+                AgendamentoVo agendamentoVo = AgendamentoAdapter.toAgendamentoVo(a, pacienteEntity, profissionalEntity);
+                agendamentoVo.setDataInicioConsulta(br.com.wjaa.ranchucrutes.commons.utils.DateUtils.formatyyyyMMddTHHmmss(a.getDataAgendamento()));
+                Calendar dataFimConsulta = Calendar.getInstance();
+                dataFimConsulta.setTime(a.getDataAgendamento());
+                dataFimConsulta.add(Calendar.MINUTE, agenda.getTempoConsultaEmMin());
+                agendamentoVo.setDataFimConsulta(br.com.wjaa.ranchucrutes.commons.utils.DateUtils.formatyyyyMMddTHHmmss(dataFimConsulta.getTime()));
+                agendamentoVos.add(agendamentoVo);
             }
-
+            listCalendarioClinica.add(calendarioClinica);
         }
-
         CalendarioAgendamentoVo calendarioAgendamentoVo = new CalendarioAgendamentoVo();
-        calendarioAgendamentoVo.setClinicaVo(ProfissionalAdapter.toClinicaVo(clinica));
-        calendarioAgendamentoVo.setDiasAberturaAgenda(agenda.getAberturaAgenda().getDias());
-        calendarioAgendamentoVo.setHoraFuncionamentoIni(agenda.getHoraFuncionamentoIni());
-        calendarioAgendamentoVo.setHoraFuncionamentoFim(agenda.getHoraFuncionamentoFim());
-        calendarioAgendamentoVo.setIdAgenda(agenda.getId());
-        calendarioAgendamentoVo.setTempoConsultaEmMin(agenda.getTempoConsultaEmMin());
-
-        List<AgendamentoVo> agendamentoVos = new ArrayList<>();
-        calendarioAgendamentoVo.setAgendamento(agendamentoVos);
-
-        List<AgendamentoEntity> agendamentos = agendamentoDao.getAgendamentosProfissional(idProfissional, idClinica, iniDate, endDate );
-
-        //TODO MELHORAR ISSO AQUI ELE ESTÁ FAZENDO UMA QUERY PARA CADA PACIENTE...PERFORMANCE HORRIVEL!!!
-        for(AgendamentoEntity a : agendamentos){
-            PacienteEntity pacienteEntity = this.pacienteService.get(a.getIdPaciente());
-            agendamentoVos.add(AgendamentoAdapter.toAgendamentoVo(a, pacienteEntity, profissionalEntity));
-        }
-
+        calendarioAgendamentoVo.setDataIni(br.com.wjaa.ranchucrutes.commons.utils.DateUtils.formatyyyyMMdd(iniDate));
+        calendarioAgendamentoVo.setDataFim(br.com.wjaa.ranchucrutes.commons.utils.DateUtils.formatyyyyMMdd(endDate));
+        calendarioAgendamentoVo.setCalendariosClinicas(listCalendarioClinica);
         return calendarioAgendamentoVo;
     }
 

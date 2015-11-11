@@ -1,6 +1,8 @@
 package br.com.wjaa.ranchucrutes.commons.vo;
 
+import br.com.wjaa.ranchucrutes.commons.helper.JacksonDateDeserializer;
 import br.com.wjaa.ranchucrutes.commons.helper.JacksonDateSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.util.Date;
@@ -14,18 +16,25 @@ public class AgendamentoVo {
     private ProfissionalBasicoVo profissional;
     private PacienteVo paciente;
     @JsonSerialize(using = JacksonDateSerializer.class)
+    @JsonDeserialize(using = JacksonDateDeserializer.class)
     private Date dataAgendamento;
     @JsonSerialize(using = JacksonDateSerializer.class)
+    @JsonDeserialize(using = JacksonDateDeserializer.class)
     private Date dataCriacao;
+    @JsonDeserialize(using = JacksonDateDeserializer.class)
     @JsonSerialize(using = JacksonDateSerializer.class)
     private Date dataConfirmacao;
     private String codigoConfirmacao;
     private Boolean cancelado;
+    @JsonDeserialize(using = JacksonDateDeserializer.class)
     @JsonSerialize(using = JacksonDateSerializer.class)
     private Date dataConfirmacaoConsulta;
+    @JsonDeserialize(using = JacksonDateDeserializer.class)
     @JsonSerialize(using = JacksonDateSerializer.class)
     private Date dataConfirmacaoProfissional;
     private Boolean finalizado;
+    private String dataInicioConsulta;
+    private String dataFimConsulta;
 
     public ProfissionalBasicoVo getProfissional() {
         return profissional;
@@ -113,5 +122,21 @@ public class AgendamentoVo {
 
     public void setFinalizado(Boolean finalizado) {
         this.finalizado = finalizado;
+    }
+
+    public String getDataInicioConsulta() {
+        return dataInicioConsulta;
+    }
+
+    public void setDataInicioConsulta(String dataInicioConsulta) {
+        this.dataInicioConsulta = dataInicioConsulta;
+    }
+
+    public String getDataFimConsulta() {
+        return dataFimConsulta;
+    }
+
+    public void setDataFimConsulta(String dataFimConsulta) {
+        this.dataFimConsulta = dataFimConsulta;
     }
 }

@@ -1,9 +1,11 @@
 package br.com.wjaa.ranchucrutes.web.controller;
 
 import br.com.wjaa.ranchucrutes.commons.form.*;
+import br.com.wjaa.ranchucrutes.commons.utils.DateUtils;
 import br.com.wjaa.ranchucrutes.commons.utils.NumberUtils;
 import br.com.wjaa.ranchucrutes.commons.utils.ObjectUtils;
 import br.com.wjaa.ranchucrutes.commons.vo.AppConfigVo;
+import br.com.wjaa.ranchucrutes.commons.vo.CalendarioAgendamentoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ResultadoBuscaProfissionalVo;
 import br.com.wjaa.ranchucrutes.web.exception.RestException;
@@ -277,11 +279,34 @@ public class ProfissionalController {
 
 
     @RequestMapping(value = "/profissional/agenda", method = RequestMethod.GET)
-    public ModelAndView calendario(HttpServletRequest request) {
+    public ModelAndView calendario(@ModelAttribute CalendarioAgendamentoForm calendarioForm, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("profissional/agenda");
 
         if (!AuthHelper.isAutenticado(request)){
             mav.setViewName("redirect:/profissional/login");
+            return mav;
+        }
+
+        ProfissionalBasicoVo profissionalBasicoVo = AuthHelper.getProfissional(request);
+        if (calendarioForm == null || calendarioForm.getIdProfissional() == null) {
+            calendarioForm = new CalendarioAgendamentoForm();
+            calendarioForm.setIdProfissional(profissionalBasicoVo.getId());
+            calendarioForm.setDataIni(DateUtils.getFirstDayActualWeek());
+            calendarioForm.setDataFim(DateUtils.getLastDayActualWeek());
+        }
+        try {
+            CalendarioAgendamentoVo calendario = RestUtils.getJsonWithParamPath(CalendarioAgendamentoVo.class, RanchucrutesConstantes.HOST_WS, "/profissional/agendamentos/",
+                    calendarioForm.getIdProfissional().toString(),
+                    DateUtils.formatyyyyMMdd(calendarioForm.getDataIni()),
+                    DateUtils.formatyyyyMMdd(calendarioForm.getDataFim()));
+            mav.addObject("calendario", calendario);
+            mav.addObject("calendarioJson", ObjectUtils.toJson(calendario));
+        } catch (RestResponseUnsatisfiedException | RestRequestUnstable e ) {
+            LOG.error("Erro ao buscar o calendario de agendamentos do profissional", e);
+            mav.addObject(RanchucrutesConstantes.ERROR_MESSAGE, "Erro ao buscar o calendário de agendamentos");
+        } catch (RestException e) {
+            LOG.error("Erro ao buscar o calendario de agendamentos do profissional: ErrorMessage " + e.getErrorMessage(), e);
+            mav.addObject(RanchucrutesConstantes.ERROR_MESSAGE, e.getErrorMessage().getErrorMessage());
         }
         return mav;
     }

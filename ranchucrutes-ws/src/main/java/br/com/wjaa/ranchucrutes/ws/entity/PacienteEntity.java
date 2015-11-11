@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "PACIENTE")
 @PrimaryKeyJoinColumn(name="ID_LOGIN")
-public class PacienteEntity extends LoginEntity implements Serializable{
+public class PacienteEntity extends LoginEntity implements Serializable {
 
 
     private String nome;
@@ -17,7 +17,7 @@ public class PacienteEntity extends LoginEntity implements Serializable{
     private String keySocial;
     private RedeSocialEnum redeSocial;
     private Integer idCategoria;
-
+    private ConvenioCategoriaEntity convenioCategoria;
 
 
     @Column(name = "NOME", nullable = false)
@@ -66,5 +66,15 @@ public class PacienteEntity extends LoginEntity implements Serializable{
 
     public void setIdCategoria(Integer idCategoria) {
         this.idCategoria = idCategoria;
+    }
+
+    @ManyToOne()
+    @JoinColumn(name = "ID_CATEGORIA", updatable = false, insertable = false)
+    public ConvenioCategoriaEntity getConvenioCategoria() {
+        return convenioCategoria;
+    }
+
+    public void setConvenioCategoria(ConvenioCategoriaEntity convenioCategoria) {
+        this.convenioCategoria = convenioCategoria;
     }
 }

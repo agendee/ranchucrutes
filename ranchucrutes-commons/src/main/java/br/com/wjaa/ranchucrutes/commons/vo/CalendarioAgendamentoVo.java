@@ -7,68 +7,31 @@ import java.util.List;
  */
 public class CalendarioAgendamentoVo {
 
-    private Long idAgenda;
-    private List<AgendamentoVo> agendamento;
-    private String horaFuncionamentoIni;
-    private String horaFuncionamentoFim;
-    private Integer tempoConsultaEmMin;
-    private Integer diasAberturaAgenda;
-    private ClinicaVo clinicaVo;
+    private String dataIni;
+    private String dataFim;
+    private List<CalendarioClinicaVo> calendariosClinicas;
 
-
-    public Long getIdAgenda() {
-        return idAgenda;
+    public String getDataIni() {
+        return dataIni;
     }
 
-    public void setIdAgenda(Long idAgenda) {
-        this.idAgenda = idAgenda;
+    public void setDataIni(String dataIni) {
+        this.dataIni = dataIni;
     }
 
-    public List<AgendamentoVo> getAgendamento() {
-        return agendamento;
+    public String getDataFim() {
+        return dataFim;
     }
 
-    public void setAgendamento(List<AgendamentoVo> agendamento) {
-        this.agendamento = agendamento;
+    public void setDataFim(String dataFim) {
+        this.dataFim = dataFim;
     }
 
-    public String getHoraFuncionamentoIni() {
-        return horaFuncionamentoIni;
+    public List<CalendarioClinicaVo> getCalendariosClinicas() {
+        return calendariosClinicas;
     }
 
-    public void setHoraFuncionamentoIni(String horaFuncionamentoIni) {
-        this.horaFuncionamentoIni = horaFuncionamentoIni;
-    }
-
-    public String getHoraFuncionamentoFim() {
-        return horaFuncionamentoFim;
-    }
-
-    public void setHoraFuncionamentoFim(String horaFuncionamentoFim) {
-        this.horaFuncionamentoFim = horaFuncionamentoFim;
-    }
-
-    public Integer getTempoConsultaEmMin() {
-        return tempoConsultaEmMin;
-    }
-
-    public void setTempoConsultaEmMin(Integer tempoConsultaEmMin) {
-        this.tempoConsultaEmMin = tempoConsultaEmMin;
-    }
-
-    public Integer getDiasAberturaAgenda() {
-        return diasAberturaAgenda;
-    }
-
-    public void setDiasAberturaAgenda(Integer diasAberturaAgenda) {
-        this.diasAberturaAgenda = diasAberturaAgenda;
-    }
-
-    public ClinicaVo getClinicaVo() {
-        return clinicaVo;
-    }
-
-    public void setClinicaVo(ClinicaVo clinicaVo) {
-        this.clinicaVo = clinicaVo;
+    public void setCalendariosClinicas(List<CalendarioClinicaVo> calendariosClinicas) {
+        this.calendariosClinicas = calendariosClinicas;
     }
 }

@@ -1,5 +1,6 @@
 package br.com.wjaa.ranchucrutes.commons.utils;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -10,6 +11,9 @@ import java.util.Locale;
 public class DateUtils {
 
     private static final Locale locale = new Locale("pt", "BR");
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private static SimpleDateFormat sdfyyyyMMddTHHmmss = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    private static Date lastDayActualWeek;
 
     public static Date now(){
         Calendar c = Calendar.getInstance(locale);
@@ -20,5 +24,25 @@ public class DateUtils {
     public static Calendar nowCalendar() {
         Calendar c = Calendar.getInstance(locale);
         return c;
+    }
+
+    public static String formatyyyyMMdd(Date date){
+        return sdf.format(date);
+    }
+
+    public static String formatyyyyMMddTHHmmss(Date date){
+        return sdfyyyyMMddTHHmmss.format(date);
+    }
+
+    public static Date getFirstDayActualWeek() {
+        Calendar c = nowCalendar();
+        c.set(Calendar.DAY_OF_WEEK, c.getFirstDayOfWeek());
+        return c.getTime();
+    }
+
+    public static Date getLastDayActualWeek() {
+        Calendar c = nowCalendar();
+        c.set(Calendar.DAY_OF_WEEK,c. getActualMaximum(Calendar.DAY_OF_WEEK));
+        return c.getTime();
     }
 }

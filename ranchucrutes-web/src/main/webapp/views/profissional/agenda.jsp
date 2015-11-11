@@ -15,8 +15,46 @@
     <jsp:include page="/views/commons/menu_admin.jsp" />
     <div class="col-xs-12 container">
         <section>
+            <ul class="nav nav-tabs">
+                <c:set var="primeira" value="true"></c:set>
+                <c:forEach var="calendario" items="${calendario.calendariosClinicas}">
+                    <li class="<c:if test="${primeira}">active</c:if>"><a href="#calendar${calendario.clinicaVo.id}" data-toggle="tab">${calendario.clinicaVo.nome}</a></li>
+                    <c:set var="primeira" value="false"></c:set>
+                </c:forEach>
+            </ul>
                <hr>
-               <div id="calendar"></div>
+            <div class="tab-content clearfix">
+                <c:set var="primeira" value="true"></c:set>
+                <c:forEach var="calendario" items="${calendario.calendariosClinicas}">
+                    <div class="tab-pane <c:if test="${primeira}">active</c:if>" id="calendar${calendario.clinicaVo.id}"></div>
+                    <c:set var="primeira" value="false"></c:set>
+                </c:forEach>
+            </div>
+
+
+            <div class="modal fade" id="modalDetalhes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="modalTitle">Detalhes da Consulta</h4>
+                        </div>
+                        <div class="modal-body" >
+                            <p class="dadosPaciente">Consulta agendada para: <span id="dataAgenda"></span></p>
+                            <p class="dadosPaciente">Nome do Paciente: <span id="nomePaciente"></span></p>
+                            <p class="dadosPaciente">Email: <span id="email"></span></p></h6>
+                            <p class="dadosPaciente">Telefone: <span id="telefone"></span></p></h6>
+                            <p class="dadosPaciente">Categoria do Plano: <span id="categoriaPlano"></span></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar Solicitação</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal">Confirmar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <jsp:include page="/views/commons/rodape.jsp" />
@@ -28,4 +66,8 @@
     <script src='/static/js/libs/lang-all.js'></script>
     <script src="/static/js/profissional/agenda.js"></script>
 </body>
+<script>
+    var calendario = jQuery.parseJSON('${calendarioJson}');
+    Agenda.init(calendario);
+</script>
 </html>

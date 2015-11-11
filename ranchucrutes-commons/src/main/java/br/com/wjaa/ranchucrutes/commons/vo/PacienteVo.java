@@ -15,6 +15,7 @@ public class PacienteVo {
     private String keySocial;
     private LoginForm.AuthType authType;
     private Integer idCategoria;
+    private ConvenioCategoriaVo convenioCategoria;
 
 
     public PacienteVo(){}
@@ -89,5 +90,13 @@ public class PacienteVo {
 
     public void setIdCategoria(Integer idCategoria) {
         this.idCategoria = idCategoria;
+    }
+
+    public ConvenioCategoriaVo getConvenioCategoria() {
+        return convenioCategoria;
+    }
+
+    public void setConvenioCategoria(ConvenioCategoriaVo convenioCategoria) {
+        this.convenioCategoria = convenioCategoria;
     }
 }

@@ -1,0 +1,17 @@
+.dadosPaciente{
+    margin-bottom: 20px;
+    font-size: 17px;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: bold;
+
+}
+.dadosPaciente span{
+    font-size: 14px;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    color: #012f4e;
+
+}
+.fc-event{
+    cursor: pointer !important;
+}
