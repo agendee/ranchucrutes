@@ -1,5 +1,6 @@
 package br.com.wjaa.ranchucrutes.web.config;
 
+import br.com.wjaa.ranchucrutes.web.filter.UserFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationConfig;
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
@@ -13,6 +14,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import javax.servlet.Filter;
+import javax.servlet.FilterRegistration;
 import java.text.SimpleDateFormat;
 
 /**

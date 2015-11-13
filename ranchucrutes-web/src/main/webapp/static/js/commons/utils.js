@@ -166,13 +166,16 @@ var Utils = function() {
                 success: {
                   label: "Confirmar",
                   className: "btn-success",
-                  callback: successCallback
+                  callback: function(){
+					  bootbox.hideAll();
+					  successCallback();
+				  }
                 },
                 danger: {
                   label: "Cancelar",
                   className: "btn-danger",
                   callback: function() {
-
+					  bootbox.hideAll();
                   }
                 },
               }

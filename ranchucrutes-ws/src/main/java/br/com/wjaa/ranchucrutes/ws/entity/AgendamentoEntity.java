@@ -25,6 +25,7 @@ public class AgendamentoEntity implements Serializable {
     private Boolean cancelado;
     private Date dataConfirmacaoConsulta;
     private Date dataConfirmacaoProfissional;
+    private Date dataCancelamento;
 
 
     @Id
@@ -128,6 +129,15 @@ public class AgendamentoEntity implements Serializable {
     public void setDataConfirmacaoProfissional(Date dataConfirmacaoProfissional) {
         this.dataConfirmacaoProfissional = dataConfirmacaoProfissional;
     }
+    @Column(name = "DATA_CANCELAMENTO")
+    public Date getDataCancelamento() {
+        return dataCancelamento;
+    }
+
+    public void setDataCancelamento(Date dataCancelamento) {
+        this.dataCancelamento = dataCancelamento;
+    }
+
 
     @Transient
     public Boolean getFinalizado(){

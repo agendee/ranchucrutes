@@ -129,7 +129,7 @@ public class RestUtils {
     }
 
 
-    public static ResultadoLoginVo postParam(Class<ResultadoLoginVo> clazzReturn, String targetUrl,
+    public static <T>T postParam(Class<T> clazzReturn, String targetUrl,
                                              String uri, String[] paramnames, String[] values) throws RestException,
             RestResponseUnsatisfiedException, RestRequestUnstable {
 

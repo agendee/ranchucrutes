@@ -1,5 +1,6 @@
 package br.com.wjaa.ranchucrutes.jobs.service;
 
+import br.com.wjaa.ranchucrutes.commons.utils.DateUtils;
 import br.com.wjaa.ranchucrutes.jobs.dao.AgendamentoDao;
 import br.com.wjaa.ranchucrutes.jobs.entity.AgendamentoEntity;
 import br.com.wjaa.ranchucrutes.jobs.entity.NotificacaoEntity;
@@ -32,7 +33,7 @@ public class CancelarAgendamentosExpiradosJobImpl implements CancelarAgendamento
 
 
     //delay de 30min e roda a cada 2:10 min
-    @Scheduled(initialDelay=1800000,fixedRate=756000)
+    @Scheduled(initialDelay=1800000,fixedRate=7560000)
     @Transactional(propagation = Propagation.REQUIRES_NEW )
     @Override
     public void execute() {
@@ -46,6 +47,7 @@ public class CancelarAgendamentosExpiradosJobImpl implements CancelarAgendamento
 
         for (AgendamentoEntity agendamentoEntity : agendamentosExpirados){
             agendamentoEntity.setCancelado(true);
+            agendamentoEntity.setDataCancelamento(DateUtils.now());
             agendamentoDao.save(agendamentoEntity);
             notificacaoService.criarNotificacao(NotificacaoEntity.NotificacaoType.NOTIFICACAO_CANCELAMENTO,
                     agendamentoEntity.getIdPaciente(),

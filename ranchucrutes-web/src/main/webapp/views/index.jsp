@@ -5,6 +5,7 @@
 <html lang="pt">
 
 <head>
+    <meta name="google-site-verification" content="9fRlro40UeOx7DXPoC-xzH1vS0ulV9mJAad3lLBCI6k" />
     <!-- Custom CSS -->
     <jsp:include page="/views/commons/header.jsp" />
     <jsp:include page="/views/commons/header-components.jsp" />

@@ -22,6 +22,8 @@ public class AgendamentoEntity implements Serializable {
     private String codigoConfirmacao;
     private Boolean cancelado;
     private Date dataConfirmacaoConsulta;
+    private Date dataCancelamento;
+    private Date dataSolicitacaoProfissional;
 
 
     @Id
@@ -115,6 +117,25 @@ public class AgendamentoEntity implements Serializable {
 
     public void setIdClinica(Long idClinica) {
         this.idClinica = idClinica;
+    }
+
+
+    @Column(name = "DATA_CANCELAMENTO")
+    public Date getDataCancelamento() {
+        return dataCancelamento;
+    }
+
+    public void setDataCancelamento(Date dataCancelamento) {
+        this.dataCancelamento = dataCancelamento;
+    }
+
+    @Column(name = "DATA_CONFIRMACAO_PROFISSIONAL")
+    public Date getDataSolicitacaoProfissional() {
+        return dataSolicitacaoProfissional;
+    }
+
+    public void setDataSolicitacaoProfissional(Date dataSolicitacaoProfissional) {
+        this.dataSolicitacaoProfissional = dataSolicitacaoProfissional;
     }
 
     @Override

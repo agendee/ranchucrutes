@@ -26,7 +26,7 @@
             <div class="tab-content clearfix">
                 <c:set var="primeira" value="true"></c:set>
                 <c:forEach var="calendario" items="${calendario.calendariosClinicas}">
-                    <div class="tab-pane <c:if test="${primeira}">active</c:if>" id="calendar${calendario.clinicaVo.id}"></div>
+                    <div class="tab-pane active" id="calendar${calendario.clinicaVo.id}"></div>
                     <c:set var="primeira" value="false"></c:set>
                 </c:forEach>
             </div>
@@ -47,9 +47,9 @@
                             <p class="dadosPaciente">Categoria do Plano: <span id="categoriaPlano"></span></p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar Solicitação</button>
-                            <button type="button" class="btn btn-success" data-dismiss="modal">Confirmar</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" style="float: left;">Fechar</button>
+                            <button type="button" id="btnRejeitar" class="btn btn-danger" data-dismiss="modal">Rejeitar Solicitação</button>
+                            <button type="button" id="btnAprovar" class="btn btn-success" data-dismiss="modal">Aprovar Solicitação</button>
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,9 @@
     <script src="/static/js/profissional/agenda.js"></script>
 </body>
 <script>
+    idProfissional = ${idProfissional};
     var calendario = jQuery.parseJSON('${calendarioJson}');
     Agenda.init(calendario);
+
 </script>
 </html>

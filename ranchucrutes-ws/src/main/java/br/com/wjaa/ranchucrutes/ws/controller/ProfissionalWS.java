@@ -100,6 +100,13 @@ public class ProfissionalWS extends BaseWS {
         return agendamentoService.getAgendamentosProfissional(idProfissional, dateIni, dateFim);
     }
 
+    @RequestMapping(value = "/profissional/agendamentos/{idProfissional}/{idClinica}/{dateIni}/{dateFim}", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
+    public @ResponseBody
+    CalendarioAgendamentoVo getAgendamentos (@PathVariable Long idProfissional,@PathVariable Long idClinica,
+                                             @PathVariable Date dateIni, @PathVariable Date dateFim) throws AgendamentoServiceException {
+        return agendamentoService.getAgendamentosProfissional(idProfissional,idClinica, dateIni, dateFim);
+    }
+
 
 
 

@@ -1,6 +1,7 @@
 package br.com.wjaa.ranchucrutes.ws.controller;
 
 import br.com.wjaa.ranchucrutes.commons.form.AgendamentoForm;
+import br.com.wjaa.ranchucrutes.commons.form.RejeicaoSolicitacaoForm;
 import br.com.wjaa.ranchucrutes.commons.vo.AgendaVo;
 import br.com.wjaa.ranchucrutes.commons.vo.AgendamentoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ConfirmarAgendamentoVo;
@@ -10,6 +11,7 @@ import br.com.wjaa.ranchucrutes.ws.service.AgendamentoService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +42,17 @@ public class AgendamentoWS {
 
     @RequestMapping(value = "/agendamento/confirmarSolicitacao/{idAgendamento}/{codigo}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
     public AgendamentoVo confirmarSolicitacao(@PathVariable Long idAgendamento, @PathVariable String codigo) throws AgendamentoServiceException {
-        return this.agendamentoService.confirmarAgendamento(idAgendamento, codigo);
+        return this.agendamentoService.confirmarSolicitacao(idAgendamento, codigo);
+    }
+
+    @RequestMapping(value = "/agendamento/aprovarSolicitacao/{idAgendamento}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    public AgendamentoVo aprovarSolicitacao(@PathVariable Long idAgendamento) throws AgendamentoServiceException {
+        return this.agendamentoService.aprovarSolicitacao(idAgendamento);
+    }
+
+    @RequestMapping(value = "/agendamento/rejeitarSolicitacao", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8", method = RequestMethod.POST)
+    public AgendamentoVo rejeitarSolicitacao(@RequestBody RejeicaoSolicitacaoForm rejeitacaoSolicitacao) throws AgendamentoServiceException {
+        return this.agendamentoService.rejeitarSolicitacao(rejeitacaoSolicitacao);
     }
 
     @RequestMapping(value = "/agendamento/confirmarConsulta/{idAgendamento}/{confirma}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")

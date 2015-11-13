@@ -4,10 +4,7 @@ import br.com.wjaa.ranchucrutes.commons.form.*;
 import br.com.wjaa.ranchucrutes.commons.utils.DateUtils;
 import br.com.wjaa.ranchucrutes.commons.utils.NumberUtils;
 import br.com.wjaa.ranchucrutes.commons.utils.ObjectUtils;
-import br.com.wjaa.ranchucrutes.commons.vo.AppConfigVo;
-import br.com.wjaa.ranchucrutes.commons.vo.CalendarioAgendamentoVo;
-import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
-import br.com.wjaa.ranchucrutes.commons.vo.ResultadoBuscaProfissionalVo;
+import br.com.wjaa.ranchucrutes.commons.vo.*;
 import br.com.wjaa.ranchucrutes.web.exception.RestException;
 import br.com.wjaa.ranchucrutes.web.exception.RestRequestUnstable;
 import br.com.wjaa.ranchucrutes.web.exception.RestResponseUnsatisfiedException;
@@ -20,6 +17,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.WebDataBinder;
@@ -28,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -86,11 +86,6 @@ public class ProfissionalController {
     @RequestMapping(value = "/profissional/update", method = RequestMethod.POST)
     public ModelAndView update(@ModelAttribute ProfissionalFullForm form, @RequestParam MultipartFile file, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("profissional/admin");
-
-        if (!AuthHelper.isAutenticado(request)){
-            mav.setViewName("redirect:/profissional/login");
-            return mav;
-        }
         this.ignorarIndexVazioClinica(form);
         mav.addObject("form", form);
         try {
@@ -112,35 +107,6 @@ public class ProfissionalController {
         return mav;
     }
 
-    /**
-     * Ignoreando os objetos que veem vazios do form.
-     * Se no form você pular algum index de uma lista o spring acaba criando o objeto nulo.
-     * exemplo:
-     * clinicas[2].nome
-     *
-     * clinicas[0] e clinicas[1] o spring criará objetos ClinicaForm vazios.
-     *
-     * DEVE HAVER UMA MANEIRA MELHOR DE ARRUMAR ISSO, MAS ESSA É A SOLUCAO DO MOMENTO.
-     *
-     * @param form
-     */
-    private void ignorarIndexVazioClinica(ProfissionalFullForm form) {
-        if (!CollectionUtils.isEmpty(form.getClinicas())){
-            List<ClinicaForm> clinicas = new ArrayList<>();
-            for (ClinicaForm cf : form.getClinicas()){
-                if (StringUtils.isBlank(cf.getNome()) &&
-                    cf.getEndereco() == null &&
-                        cf.getAgendaHorarios() == null &&
-                        cf.getCategorias() == null &&
-                        cf.getTempoConsultaEmMin() == null ){
-                    continue;
-                }
-                clinicas.add(cf);
-            }
-            form.setClinicas(clinicas);
-        }
-
-    }
 
 
     @RequestMapping(value = "/profissional/cadastro", method = RequestMethod.GET)
@@ -154,21 +120,12 @@ public class ProfissionalController {
     @RequestMapping(value = "/profissional/login", method = RequestMethod.GET)
     public ModelAndView login(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("profissional/login");
-
-        if (AuthHelper.isAutenticado(request)){
-            mav.setViewName("redirect:/profissional/agenda");
-        }
         return mav;
     }
 
     @RequestMapping(value = "/profissional/admin", method = RequestMethod.GET)
     public ModelAndView admin(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("profissional/admin");
-
-        if (!AuthHelper.isAutenticado(request)){
-            mav.setViewName("redirect:/profissional/login");
-            return mav;
-        }
         ProfissionalBasicoVo profissionalBasico = AuthHelper.getProfissional(request);
         try {
             ProfissionalFullForm form = RestUtils.getJsonWithParamPath(ProfissionalFullForm.class, RanchucrutesConstantes.HOST_WS,
@@ -186,15 +143,9 @@ public class ProfissionalController {
     }
 
 
-    @RequestMapping(value = "/profissional/horario" +
-            "", method = RequestMethod.GET)
+    @RequestMapping(value = "/profissional/horario", method = RequestMethod.GET)
     public ModelAndView agenda(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("profissional/horario");
-
-        if (!AuthHelper.isAutenticado(request)){
-            mav.setViewName("redirect:/profissional/login");
-            return mav;
-        }
         ProfissionalBasicoVo profissionalBasico = AuthHelper.getProfissional(request);
         try {
             ProfissionalFullForm form = RestUtils.getJsonWithParamPath(ProfissionalFullForm.class, RanchucrutesConstantes.HOST_WS,
@@ -217,11 +168,6 @@ public class ProfissionalController {
 
         //TODO VERIFICAR UM MODO MELHOR, AQUI ESTAREI IGNORANDO OS OBJETOS QUE VIERAM NULOS NAS LISTA.
         this.ignorarIndexVazioAgendaHorario(form);
-
-        if (!AuthHelper.isAutenticado(request)){
-            mav.setViewName("redirect:/profissional/login");
-            return mav;
-        }
 
         mav.addObject("form", form);
         try {
@@ -282,25 +228,11 @@ public class ProfissionalController {
     public ModelAndView calendario(@ModelAttribute CalendarioAgendamentoForm calendarioForm, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("profissional/agenda");
 
-        if (!AuthHelper.isAutenticado(request)){
-            mav.setViewName("redirect:/profissional/login");
-            return mav;
-        }
-
-        ProfissionalBasicoVo profissionalBasicoVo = AuthHelper.getProfissional(request);
-        if (calendarioForm == null || calendarioForm.getIdProfissional() == null) {
-            calendarioForm = new CalendarioAgendamentoForm();
-            calendarioForm.setIdProfissional(profissionalBasicoVo.getId());
-            calendarioForm.setDataIni(DateUtils.getFirstDayActualWeek());
-            calendarioForm.setDataFim(DateUtils.getLastDayActualWeek());
-        }
         try {
-            CalendarioAgendamentoVo calendario = RestUtils.getJsonWithParamPath(CalendarioAgendamentoVo.class, RanchucrutesConstantes.HOST_WS, "/profissional/agendamentos/",
-                    calendarioForm.getIdProfissional().toString(),
-                    DateUtils.formatyyyyMMdd(calendarioForm.getDataIni()),
-                    DateUtils.formatyyyyMMdd(calendarioForm.getDataFim()));
+            CalendarioAgendamentoVo calendario = this.getCalendarioAgendamentoVo(calendarioForm, request);
             mav.addObject("calendario", calendario);
             mav.addObject("calendarioJson", ObjectUtils.toJson(calendario));
+            mav.addObject("idProfissional",AuthHelper.getProfissional(request).getId());
         } catch (RestResponseUnsatisfiedException | RestRequestUnstable e ) {
             LOG.error("Erro ao buscar o calendario de agendamentos do profissional", e);
             mav.addObject(RanchucrutesConstantes.ERROR_MESSAGE, "Erro ao buscar o calendário de agendamentos");
@@ -311,6 +243,35 @@ public class ProfissionalController {
         return mav;
     }
 
+    @RequestMapping(value = "/profissional/agenda/json", method = RequestMethod.POST)
+    public @ResponseBody CalendarioAgendamentoVo calendarioJson(@ModelAttribute CalendarioAgendamentoForm calendarioForm, HttpServletRequest request) {
+        try {
+            return getCalendarioAgendamentoVo(calendarioForm,request);
+        } catch (RestResponseUnsatisfiedException | RestRequestUnstable e ) {
+            LOG.error("Erro ao buscar o calendario de agendamentos do profissional", e);
+            return null;
+        } catch (RestException e) {
+            LOG.error("Erro ao buscar o calendario de agendamentos do profissional: ErrorMessage " + e.getErrorMessage(), e);
+            return null;
+        }
+    }
+
+    @RequestMapping(value = "/profissional/agenda/rejeitar", method = RequestMethod.POST)
+    public @ResponseBody AgendamentoVo rejeitarSolicitacao(@ModelAttribute RejeicaoSolicitacaoForm rejeicaoSolicitacaoForm, HttpServletRequest request)
+            throws RestResponseUnsatisfiedException, RestRequestUnstable, RestException {
+        String json = ObjectUtils.toJson(rejeicaoSolicitacaoForm);
+        return RestUtils.postJson(AgendamentoVo.class, RanchucrutesConstantes.HOST_WS, "/agendamento/rejeitarSolicitacao/",
+                    json);
+
+    }
+
+    @RequestMapping(value = "/profissional/agenda/confirmar", method = RequestMethod.POST)
+    public @ResponseBody AgendamentoVo confirmarSolicitacao(@RequestParam Integer idAgendamento, HttpServletRequest request)
+            throws RestResponseUnsatisfiedException, RestRequestUnstable, RestException {
+        return RestUtils.getJsonWithParamPath(AgendamentoVo.class, RanchucrutesConstantes.HOST_WS, "/agendamento/aprovarSolicitacao/",
+                idAgendamento.toString());
+
+    }
 
     @InitBinder
     public void binder(WebDataBinder binder) {
@@ -364,11 +325,88 @@ public class ProfissionalController {
 
     }
 
-    public String getCaminhoSaveFoto() throws RestResponseUnsatisfiedException, RestRequestUnstable, RestException {
+
+    private CalendarioAgendamentoVo getCalendarioAgendamentoVo(@ModelAttribute CalendarioAgendamentoForm calendarioForm, HttpServletRequest request) throws RestResponseUnsatisfiedException, RestException, RestRequestUnstable {
+        ProfissionalBasicoVo profissionalBasicoVo = AuthHelper.getProfissional(request);
+        if (calendarioForm == null || calendarioForm.getIdProfissional() == null) {
+            calendarioForm = new CalendarioAgendamentoForm();
+            calendarioForm.setIdProfissional(profissionalBasicoVo.getId());
+            calendarioForm.setDataIni(DateUtils.getFirstDayActualWeek());
+            calendarioForm.setDataFim(DateUtils.getLastDayActualWeek());
+        }
+
+        if (calendarioForm.getIdClinica() == null){
+
+            return RestUtils.getJsonWithParamPath(CalendarioAgendamentoVo.class, RanchucrutesConstantes.HOST_WS, "/profissional/agendamentos/",
+                    calendarioForm.getIdProfissional().toString(),
+                    DateUtils.formatyyyyMMdd(calendarioForm.getDataIni()),
+                    DateUtils.formatyyyyMMdd(calendarioForm.getDataFim()));
+
+        }
+        return RestUtils.getJsonWithParamPath(CalendarioAgendamentoVo.class, RanchucrutesConstantes.HOST_WS, "/profissional/agendamentos/",
+                calendarioForm.getIdProfissional().toString(),
+                calendarioForm.getIdClinica().toString(),
+                DateUtils.formatyyyyMMdd(calendarioForm.getDataIni()),
+                DateUtils.formatyyyyMMdd(calendarioForm.getDataFim()));
+    }
+
+    private String getCaminhoSaveFoto() throws RestResponseUnsatisfiedException, RestRequestUnstable, RestException {
         AppConfigVo vo = RestUtils.getJsonWithParamPath(AppConfigVo.class, RanchucrutesConstantes.HOST_WS, "appconfig/" + "PATH_FOTO");
         if (vo != null && vo.getValor() != null){
             return vo.getValor();
         }
+        //TODO ISSO DEVERIA ESTAR NA TABELA DE CONFIG.
         return "/var/www/agendee.com.br/f/";
+    }
+
+
+    /**
+     * Ignoreando os objetos que veem vazios do form.
+     * Se no form você pular algum index de uma lista o spring acaba criando o objeto nulo.
+     * exemplo:
+     * clinicas[2].nome
+     *
+     * clinicas[0] e clinicas[1] o spring criará objetos ClinicaForm vazios.
+     *
+     * DEVE HAVER UMA MANEIRA MELHOR DE ARRUMAR ISSO, MAS ESSA É A SOLUCAO DO MOMENTO.
+     *
+     * @param form
+     */
+    private void ignorarIndexVazioClinica(ProfissionalFullForm form) {
+        if (!CollectionUtils.isEmpty(form.getClinicas())){
+            List<ClinicaForm> clinicas = new ArrayList<>();
+            for (ClinicaForm cf : form.getClinicas()){
+                if (StringUtils.isBlank(cf.getNome()) &&
+                        cf.getEndereco() == null &&
+                        cf.getAgendaHorarios() == null &&
+                        cf.getCategorias() == null &&
+                        cf.getTempoConsultaEmMin() == null ){
+                    continue;
+                }
+                clinicas.add(cf);
+            }
+            form.setClinicas(clinicas);
+        }
+
+    }
+
+
+
+    @ExceptionHandler({RestResponseUnsatisfiedException.class, RestRequestUnstable.class})
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public @ResponseBody
+    ErrorMessageVo handleException(Exception e, HttpServletResponse response) {
+        LOG.error("handleException",e);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
+        return new ErrorMessageVo(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+    }
+
+    @ExceptionHandler(RestException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public @ResponseBody
+    ErrorMessageVo handleException(RestException e, HttpServletResponse response) {
+        LOG.error("handleException",e);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
+        return e.getErrorMessage();
     }
 }

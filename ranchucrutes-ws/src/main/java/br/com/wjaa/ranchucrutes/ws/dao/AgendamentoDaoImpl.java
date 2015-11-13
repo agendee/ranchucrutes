@@ -193,6 +193,7 @@ public class AgendamentoDaoImpl extends GenericDaoImpl<AgendamentoEntity, Long> 
         sb.append("select a from " + AgendamentoEntity.class.getName() + " a ");
         sb.append(" where a.idProfissional = :idProfissional");
         sb.append(" and a.idClinica = :idClinica");
+        sb.append(" and a.cancelado = false");
         sb.append(" and a.dataAgendamento >= :initDate ");
         sb.append(" and a.dataAgendamento <= :endDate ");
 

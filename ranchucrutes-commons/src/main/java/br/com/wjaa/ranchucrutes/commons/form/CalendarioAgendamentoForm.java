@@ -8,6 +8,7 @@ import java.util.Date;
 public class CalendarioAgendamentoForm {
 
     private Long idProfissional;
+    private Long idClinica;
     private Date dataIni;
     private Date dataFim;
 
@@ -33,5 +34,13 @@ public class CalendarioAgendamentoForm {
 
     public void setDataFim(Date dataFim) {
         this.dataFim = dataFim;
+    }
+
+    public Long getIdClinica() {
+        return idClinica;
+    }
+
+    public void setIdClinica(Long idClinica) {
+        this.idClinica = idClinica;
     }
 }

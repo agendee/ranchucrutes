@@ -1,6 +1,7 @@
 package br.com.wjaa.ranchucrutes.ws.service;
 
 import br.com.wjaa.ranchucrutes.commons.form.AgendamentoForm;
+import br.com.wjaa.ranchucrutes.commons.form.RejeicaoSolicitacaoForm;
 import br.com.wjaa.ranchucrutes.commons.vo.AgendaVo;
 import br.com.wjaa.ranchucrutes.commons.vo.AgendamentoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.CalendarioAgendamentoVo;
@@ -26,11 +27,17 @@ public interface AgendamentoService extends GenericService<AgendamentoEntity, Lo
     ConfirmarAgendamentoVo criarAgendamentoNovaTransaction(AgendamentoForm form, PacienteEntity pacienteEntity,
                                                                   ProfissionalEntity profissionalEntity) throws SQLException;
 
-    AgendamentoVo confirmarAgendamento(Long idAgendamento, String codigo) throws AgendamentoServiceException;
+    AgendamentoVo confirmarSolicitacao(Long idAgendamento, String codigo) throws AgendamentoServiceException;
 
     AgendamentoVo confirmarConsulta(Long idAgendamento, Boolean confirma) throws AgendamentoServiceException;
 
     List<AgendamentoVo> getAgendamentosPaciente(Long idPaciente) throws AgendamentoServiceException;
 
     CalendarioAgendamentoVo getAgendamentosProfissional(Long idProfissional, Date dateIni, Date dateFim) throws AgendamentoServiceException;
+
+    CalendarioAgendamentoVo getAgendamentosProfissional(Long idProfissional, Long idClinica, Date dateIni, Date dateFim) throws AgendamentoServiceException;
+
+    AgendamentoVo aprovarSolicitacao(Long idAgendamento) throws AgendamentoServiceException;
+
+    AgendamentoVo rejeitarSolicitacao(RejeicaoSolicitacaoForm rejeitacaoSolicitacao);
 }
