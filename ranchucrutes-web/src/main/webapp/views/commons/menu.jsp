@@ -11,7 +11,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand page-scroll" href="/" style="padding:5px 20px;"><img id="imgLogo" src="/static/img/logo.png"></a>
+            <a class="navbar-brand page-scroll" href="/"><img id="imgLogo" src="/static/img/logo.png"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->

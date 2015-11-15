@@ -336,29 +336,39 @@ var admin = function() {
         },
         removeClinica: function(index){
             var nomeClinica = $("#clinica" + index + " > .panel-heading > .panel-title > a.nomeTitle").html();
-            Utils.confirm("Você realmente quer remover a clinica '" + nomeClinica + " ' ?", function(){
-                $('#formCadastro')
-                    .formValidation('removeField', 'clinicas[' + index + '].nome')
-                    .formValidation('removeField', 'clinicas[' + index + '].ddd')
-                    .formValidation('removeField', 'clinicas[' + index + '].telefone')
-                    .formValidation('removeField', 'clinicas[' + index + '].tempoConsultaEmMin')
-                    .formValidation('removeField', 'clinicas[' + index + '].horaFuncionamentoIni')
-                    .formValidation('removeField', 'clinicas[' + index + '].horaFuncionamentoFim')
-                    .formValidation('removeField', 'clinicas[' + index + '].aceitaParticular')
-                    .formValidation('removeField', 'clinicas[' + index + '].valorConsulta')
-                    .formValidation('removeField', 'clinicas[' + index + '].endereco.cep')
-                    .formValidation('removeField', 'clinicas[' + index + '].endereco.logradouro')
-                    .formValidation('removeField', 'clinicas[' + index + '].endereco.numero')
-                    .formValidation('removeField', 'clinicas[' + index + '].endereco.complemento')
-                    .formValidation('removeField', 'clinicas[' + index + '].endereco.bairro')
-                    .formValidation('removeField', 'clinicas[' + index + '].endereco.localidade')
-                    .formValidation('removeField', 'clinicas[' + index + '].endereco.uf')
-                    .formValidation('removeField', 'clinicas[' + index + '].idsCategoria')
-                    .formValidation('removeField', 'clinicas[' + index + '].agendaHorarios[0].horaIni')
-                    .formValidation('removeField', 'clinicas[' + index + '].agendaHorarios[0].horaFim');
+            $.confirm({
+                  title:"Remover clínica",
+                  text:"Você realmente quer remover a clinica '" + nomeClinica + " ' ?",
+                  confirm: function(button) {
+                       $('#formCadastro')
+                          .formValidation('removeField', 'clinicas[' + index + '].nome')
+                          .formValidation('removeField', 'clinicas[' + index + '].ddd')
+                          .formValidation('removeField', 'clinicas[' + index + '].telefone')
+                          .formValidation('removeField', 'clinicas[' + index + '].tempoConsultaEmMin')
+                          .formValidation('removeField', 'clinicas[' + index + '].horaFuncionamentoIni')
+                          .formValidation('removeField', 'clinicas[' + index + '].horaFuncionamentoFim')
+                          .formValidation('removeField', 'clinicas[' + index + '].aceitaParticular')
+                          .formValidation('removeField', 'clinicas[' + index + '].valorConsulta')
+                          .formValidation('removeField', 'clinicas[' + index + '].endereco.cep')
+                          .formValidation('removeField', 'clinicas[' + index + '].endereco.logradouro')
+                          .formValidation('removeField', 'clinicas[' + index + '].endereco.numero')
+                          .formValidation('removeField', 'clinicas[' + index + '].endereco.complemento')
+                          .formValidation('removeField', 'clinicas[' + index + '].endereco.bairro')
+                          .formValidation('removeField', 'clinicas[' + index + '].endereco.localidade')
+                          .formValidation('removeField', 'clinicas[' + index + '].endereco.uf')
+                          .formValidation('removeField', 'clinicas[' + index + '].idsCategoria')
+                          .formValidation('removeField', 'clinicas[' + index + '].agendaHorarios[0].horaIni')
+                          .formValidation('removeField', 'clinicas[' + index + '].agendaHorarios[0].horaFim');
 
-                $("#clinica" + index).remove();
+                       $("#clinica" + index).remove();
+                  },
+                  cancel: function(button) {
+
+                  },
+                  confirmButton: "Sim",
+                  cancelButton: "Não"
             });
+
         }
   }
 }();

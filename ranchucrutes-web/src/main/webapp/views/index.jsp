@@ -42,7 +42,7 @@
 
 
 
-     <!-- Portfolio Grid Section -->
+     <!-- Portfolio Grid Section
     <section id="logar" class="bg-light-gray">
         <div class="container">
             <div class="row">
@@ -74,7 +74,7 @@
                 
             </div>
         </div>
-    </section>
+    </section>-->
 
     <!-- Services Section -->
     <section id="services">

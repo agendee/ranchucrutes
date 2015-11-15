@@ -8,6 +8,7 @@
 <link href="/static/css/libs/social-button-3.css" rel="stylesheet">
 <link href="/static/css/ranchucrutes.css" rel="stylesheet">
 <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="/static/img/favicon.png">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>

@@ -16,7 +16,7 @@ import java.io.IOException;
 @WebFilter(filterName = "UserFilter",
         urlPatterns = {"/profissional/*"},
         initParams = {
-        @WebInitParam(name = "bypass", value = "profissional/login")})
+        @WebInitParam(name = "bypass", value = "profissional/login,profissional/cadastro")})
 public class UserFilter implements Filter {
 
     private static final Log LOG = LogFactory.getLog(UserFilter.class);
@@ -31,9 +31,12 @@ public class UserFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         String uri = ((HttpServletRequest) request).getRequestURI();
 
-        if (uri.contains(bypass)){
-            chain.doFilter(request,response);
-            return;
+        String bybassArray [] = bypass.split(",");
+        for (String bp : bybassArray){
+            if (uri.contains(bp)){
+                chain.doFilter(request,response);
+                return;
+            }
         }
 
         if ( !AuthHelper.isAutenticado((HttpServletRequest) request) ){

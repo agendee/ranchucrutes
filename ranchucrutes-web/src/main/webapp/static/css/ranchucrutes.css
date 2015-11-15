@@ -173,19 +173,15 @@ fieldset[disabled] .btn-xl.active {
 }
 
 .navbar-default {
-    border-color: transparent;
-    background-color: #222;
+
+    background-color: #d9dde0;
+    border-bottom: 1px solid #939393 !important;
 }
 
 .navbar-default .navbar-brand {
     font-family: "Kaushan Script","Helvetica Neue",Helvetica,Arial,cursive;
     color: #01507e;
-    position: absolute;
-    left: 50%;
-    text-align: center;
-    margin-top: -35px;
-    margin-left: -200px !important;
-
+    margin-top: -20px;
 }
 
 .navbar-default .navbar-brand:hover,
@@ -261,8 +257,8 @@ fieldset[disabled] .btn-xl.active {
     }
 
     .navbar-default.navbar-shrink {
-        padding: 28px 0;
-        background-color: #fff;
+        padding: 10px 0;
+        background-color: #d9dde0;
     }
 
     .navbar-default.navbar-shrink .navbar-brand {
@@ -897,17 +893,18 @@ body {
 }
 
 #rodape {
+    border-top: 1px solid #939393 !important;
     position: absolute;
 	bottom: 0;
-	background: #000;
+	background: #d9dde0;
 	width: 100%;
-	margin-left:-15px;
+
+	padding: 10px;
+    color: #000;
 }
 
-#rodape > div {
-    margin: 5px;
-    color: #fff;
-
+#rodape > img{
+    margin-top: -10px;
 }
 
 .container{
