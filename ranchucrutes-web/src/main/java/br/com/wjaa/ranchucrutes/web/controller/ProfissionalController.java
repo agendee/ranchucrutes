@@ -117,7 +117,7 @@ public class ProfissionalController {
     }
 
 
-    @RequestMapping(value = "/profissional/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/profissional/login")
     public ModelAndView login(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("profissional/login");
         return mav;
@@ -355,13 +355,12 @@ public class ProfissionalController {
         if (vo != null && vo.getValor() != null){
             return vo.getValor();
         }
-        //TODO ISSO DEVERIA ESTAR NA TABELA DE CONFIG.
         return "/var/www/agendee.com.br/f/";
     }
 
 
     /**
-     * Ignoreando os objetos que veem vazios do form.
+     * Ignorando os objetos que veem vazios do form.
      * Se no form você pular algum index de uma lista o spring acaba criando o objeto nulo.
      * exemplo:
      * clinicas[2].nome

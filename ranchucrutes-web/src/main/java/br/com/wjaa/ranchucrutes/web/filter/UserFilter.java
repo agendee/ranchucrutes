@@ -16,7 +16,7 @@ import java.io.IOException;
 @WebFilter(filterName = "UserFilter",
         urlPatterns = {"/profissional/*"},
         initParams = {
-        @WebInitParam(name = "bypass", value = "profissional/login,profissional/cadastro")})
+        @WebInitParam(name = "bypass", value = "profissional/login,profissional/cadastro,profissional/save")})
 public class UserFilter implements Filter {
 
     private static final Log LOG = LogFactory.getLog(UserFilter.class);

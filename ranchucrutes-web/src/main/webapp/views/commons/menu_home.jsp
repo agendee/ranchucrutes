@@ -22,7 +22,10 @@
                 </li>
                 <c:if test="${sessionScope.loginSession == null}">
                     <li>
-                        <a class="page-scroll" href="/profissional/login">Entrar</a>
+                        <a class="page-scroll" href="/profissional/login">Acessar</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/profissional/cadastro">Cadastro</a>
                     </li>
                 </c:if>
                 <c:if test="${sessionScope.loginSession != null}">

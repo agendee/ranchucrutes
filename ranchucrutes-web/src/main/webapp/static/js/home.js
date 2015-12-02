@@ -35,6 +35,13 @@ var home = function() {
                   home.getCategoriasByIdConvenio($("#planoSaude").select2('val'));
              });
 
+            $('#modalVideoInstitucional')
+              .on('show.bs.modal', function (e) {
+                    $("#modalVideoInstitucional .modal-body").html("<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/NZiwUl8DhFQ\" frameborder=\"0\" allowfullscreen></iframe>");
+            }).on('hide.bs.modal', function (e) {
+                    $("#modalVideoInstitucional .modal-body").html("");
+            });
+
 
         },
         getCategoriasByIdConvenio : function (idConvenio){
