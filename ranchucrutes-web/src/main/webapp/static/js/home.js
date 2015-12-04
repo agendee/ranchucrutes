@@ -2,7 +2,7 @@ var home = function() {
   return {
 	  	init: function(){
 
-
+/*
             RanchucrutesWS.listAllEspecialidade(function(especialidades){
             $('#idEspecialidade').html("<option/>");
 
@@ -28,7 +28,7 @@ var home = function() {
 
 
 
-            });
+            });*/
 
 
             $('#planoSaude').change(function(){

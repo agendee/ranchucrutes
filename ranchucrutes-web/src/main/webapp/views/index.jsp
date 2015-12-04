@@ -94,8 +94,8 @@
 </section>-->
 
 <!-- Services Section -->
-<section id="services">
-    <div class="container">
+<section id="services" style="background-color: #c7ddef">
+    <!--<div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading">Como funciona:</h2>
@@ -134,7 +134,36 @@
             </div>
 
         </div>
+    </div>-->
+
+    <div class="container">
+
+        <div class="row text-center">
+            <div class="col-md-6">
+                <img src="/static/img/mobile_home.png" class="image_responsive">
+            </div>
+            <div class="col-md-6">
+
+                <h3 class="service-heading">Baixe nosso aplicativo</h3>
+                <p class="text-muted">Use o QRcode abaixo ou se preferir acesse a playstore.</p>
+                <div class="row text-center">
+
+                    <img src="/static/img/qrcode_apk.png" class="image_responsive" style=""/>
+                </div>
+
+                <div class="row text-center" style="margin-top: 40px">
+                    <a href="http://www.agendee.com.br/apk/agendee.apk" >
+                        <img alt="Get it on Google Play"
+                             src="https://developer.android.com/images/brand/pt-br_generic_rgb_wo_45.png" />
+                    </a>
+                </div>
+
+            </div>
+
+
+        </div>
     </div>
+
 </section>
 
 
