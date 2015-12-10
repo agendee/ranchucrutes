@@ -34,19 +34,15 @@
                     </li>
                 </c:if>
                 <li>
-                    <a class="page-scroll" href="#services">Serviços</a>
+                    <a class="page-scroll" href="#download">Download</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="#about">Sobre</a>
+                    <a class="page-scroll" href="#paciente">Paciente</a>
                 </li>
-                <!--
                 <li>
-                    <a class="page-scroll" href="#team">Equipe</a>
+                    <a class="page-scroll" href="#profissional">Profissional</a>
                 </li>
-                -->
-                <li>
-                    <a class="page-scroll" href="#contact">Contatos</a>
-                </li>
+
             </ul>
         </div>
         <!-- /.navbar-collapse -->

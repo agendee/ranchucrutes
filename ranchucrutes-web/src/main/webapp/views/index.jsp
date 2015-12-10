@@ -21,120 +21,41 @@
         <div class="intro-text">
             <div class="intro-lead-in"><h1>Bem-vindo ao </h1> <br/> <img src="/static/img/logonome.png" height="110px" style="margin-top: -25px"></div>
             <div class="intro-heading">Seu portal de agendamentos online. Assista a animação abaixo e veja como funciona.</div>
-
-                <span class="fa-stack fa-4x" style="cursor: pointer" data-toggle="modal" data-target="#modalVideoInstitucional">
-                     <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                     <i class="fa fa-play fa-stack-1x fa-inverse"></i>
-                </span>
-
+            <span class="fa-stack fa-4x" style="cursor: pointer" data-toggle="modal" data-target="#modalVideoInstitucional">
+                 <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                 <i class="fa fa-play fa-stack-1x fa-inverse"></i>
+            </span>
         </div>
+        <div class="col-sm-6 portfolio-item">
+            <div class="icon-link">
+                <a href="#profissional" class="portfolio-link">
+                    <div class="caption">
+                        <div class="caption-content">
+                            Sou um profissional
+                        </div>
+                    </div>
+                    <img src="static/img/home/profissional.png" class="img-circle img-responsive" alt="">
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-6 portfolio-item">
+            <div class="icon-link">
+                <a href="#paciente" class="portfolio-link">
+                    <div class="caption">
+                        <div class="caption-content">
+                            Sou um paciente
+                        </div>
+                    </div>
+                    <img src="static/img/home/paciente.png" class="img-circle img-responsive" alt="">
+                </a>
+            </div>
+        </div>
+
     </div>
 </header>
 
-<!--
-<div class="homepage-hero-module">
-    <div class="video-container">
-        <div class="title-container">
-            <div class="headline">
-
-
-            </div>
-            <div class="description">
-                <div class="inner">Seu portal de agendamentos online. Baixe agora nosso aplicativo e viva uma nova experiência. <br/><br/><br/><br/></div>
-
-                <a href="http://www.agendee.com.br/apk/agendee.apk">
-                    <img alt="Get it on Google Play"
-                         src="https://developer.android.com/images/brand/pt-br_generic_rgb_wo_45.png" />
-                </a>
-            </div>
-        </div>
-        <div class="filter">
-            <img src="static/img/backgroud-home.jpg" alt="">
-        </div>
-        <div class="poster hidden">
-
-        </div>
-    </div>
-</div>
-
--->
-
-<!-- Portfolio Grid Section
-<section id="logar" class="bg-light-gray">
-   <div class="container">
-       <div class="row">
-           <div class="col-lg-12 text-center">
-               <h2 class="section-heading">Acesse o portal de agendamentos</h2>
-               <h3 class="section-subheading text-muted">Veja abaixo qual é o seu perfil e acesse ao portal.</h3>
-           </div>
-       </div>
-       <div class="row">
-           <div class="col-md-6 col-sm-6 portfolio-item">
-               <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
-
-                   <img src="/static/img/portfolio/patient.png" class="img-responsive center-block" alt="">
-               </a>
-               <div class="portfolio-caption">
-                   <h4>Você é paciente?</h4>
-                   <p class="text-muted">Acesse aqui</p>
-               </div>
-           </div>
-           <div class="col-md-6 col-sm-6 portfolio-item">
-               <a href="/profissional/login" class="portfolio-link" data-toggle="modal">
-                   <img src="/static/img/portfolio/doctor.png" class="img-responsive center-block" alt="">
-               </a>
-               <div class="portfolio-caption">
-                   <h4>Você é profissional?</h4>
-                   <p class="text-muted">Acesse aqui</p>
-               </div>
-           </div>
-
-       </div>
-   </div>
-</section>-->
-
 <!-- Services Section -->
-<section id="services" style="background-color: #c7ddef">
-    <!--<div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2 class="section-heading">Como funciona:</h2>
-                <h3 class="section-subheading text-muted">Veja como é facil marcar um agendamento</h3>
-            </div>
-        </div>
-        <div class="row text-center">
-            <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fa fa-android fa-stack-1x fa-inverse"></i>
-                    </span>
-                <h4 class="service-heading">Baixe o aplicato</h4>
-                <p class="text-muted">Clique no link abaixo e faça download do aplicativo.</p>
-                <a href="http://www.agendee.com.br/apk/agendee.apk">
-                    <img alt="Get it on Google Play"
-                         src="https://developer.android.com/images/brand/pt-br_generic_rgb_wo_45.png" />
-                </a>
-            </div>
-            <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fa fa-user-md fa-stack-1x fa-inverse"></i>
-                    </span>
-                <h4 class="service-heading">Procure Profissionais</h4>
-                <p class="text-muted">Procure profissionais da sua escolha mais próximo de você.</p>
-
-            </div>
-            <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fa fa-calendar fa-stack-1x fa-inverse"></i>
-                    </span>
-                <h4 class="service-heading">Faça o agendamento</h4>
-                <p class="text-muted">Depois de encontrar o profissional escolha a melhor data e agende sua consulta.</p>
-            </div>
-
-        </div>
-    </div>-->
+<section id="download" style="background-color: #c7ddef">
 
     <div class="container">
 
@@ -169,12 +90,12 @@
 
 
 <!-- About Section -->
-<section id="about">
+<section id="paciente">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading">Sobre</h2>
-                <h3 class="section-subheading text-muted">História da Empresa</h3>
+                <h2 class="section-heading">Paciente, veja como funciona</h2>
+                <h3 class="section-subheading text-muted">É muito simples</h3>
             </div>
         </div>
         <div class="row">
@@ -182,65 +103,67 @@
                 <ul class="timeline">
                     <li>
                         <div class="timeline-image">
-                            <img class="img-circle img-responsive" src="/static/img/about/1.jpg" alt="">
+                            <img class="img-circle img-responsive" src="/static/img/about/1.png" alt="">
                         </div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4>Nov-2014</h4>
-                                <h4 class="subheading">Diogenes teve uma ideia.</h4>
+                                <h4 class="subheading">1 - Encontre um profissional</h4>
                             </div>
                             <div class="timeline-body">
-                                <p class="text-muted">Diogenes teve a ideia de cria um aplicativo para agendamento médico, e começa sua busca por um parceiro.</p>
+                                <p class="text-muted">Encontre o profissional mais próximo de você </p>
                             </div>
                         </div>
                     </li>
                     <li class="timeline-inverted">
                         <div class="timeline-image">
-                            <img class="img-circle img-responsive" src="/static/img/about/2.jpg" alt="">
+                            <img class="img-circle img-responsive" src="/static/img/about/2.png" alt="">
                         </div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4>Março 2015</h4>
-                                <h4 class="subheading">Diogenes e Wagner começam a trabalhar na mesma empresa.</h4>
+                                <h4 class="subheading">2 - Veja a sua qualificação</h4>
                             </div>
                             <div class="timeline-body">
-                                <p class="text-muted">Diogenes e Wagner se reencontram na mesma empresa</p>
+                                <p class="text-muted">Antes de marcar a consulta veja a qualificação do médico.</p>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="timeline-image">
-                            <img class="img-circle img-responsive" src="/static/img/about/3.jpg" alt="">
+                            <img class="img-circle img-responsive" src="/static/img/about/3.png" alt="">
                         </div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4>December 2012</h4>
-                                <h4 class="subheading">Transition to Full Service</h4>
+                                <h4 class="subheading">3 - Escolha o melhor horário</h4>
                             </div>
                             <div class="timeline-body">
-                                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                                <p class="text-muted">Veja todos os horário disponíveis do profissional e solicite um agendemanto.</p>
                             </div>
                         </div>
                     </li>
                     <li class="timeline-inverted">
                         <div class="timeline-image">
-                            <img class="img-circle img-responsive" src="/static/img/about/4.jpg" alt="">
+                            <img class="img-circle img-responsive" src="/static/img/about/4.png" alt="">
                         </div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4>July 2014</h4>
-                                <h4 class="subheading">Phase Two Expansion</h4>
+                                <h4 class="subheading">4 - Pronto!</h4>
                             </div>
                             <div class="timeline-body">
-                                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                                <p class="text-muted">Agendamento realizado com sucesso.</p>
                             </div>
                         </div>
                     </li>
-                    <li class="timeline-inverted">
+                    <li>
                         <div class="timeline-image">
-                            <h4>Be Part
-                                <br>Of Our
-                                <br>Story!</h4>
+                            <img class="img-circle img-responsive" src="/static/img/about/5.png" alt="">
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="subheading">5 - Calcule sua rota</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p class="text-muted">Use o aplicativo integrado ao google maps para criar uma rota até seu profissional.</p>
+                            </div>
                         </div>
                     </li>
                 </ul>
@@ -249,169 +172,86 @@
     </div>
 </section>
 
-<!-- Team Section
-<section id="team" class="bg-light-gray">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2 class="section-heading">Nossa Fantastica Equipe</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="team-member">
-                    <img src="/static/img/team/1.jpg" class="img-responsive img-circle" alt="">
-                    <h4>Diogenes Dorete</h4>
-                    <p class="text-muted">Lead Marketer and Analyst</p>
-                    <ul class="list-inline social-buttons">
-                        <li><a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="team-member">
-                    <img src="/static/img/team/2.jpg" class="img-responsive img-circle" alt="">
-                    <h4>Fernanda Araujo</h4>
-                    <p class="text-muted">Lead Designer and Analyst</p>
-                    <ul class="list-inline social-buttons">
-                        <li><a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="team-member">
-                    <img src="/static/img/team/3.jpg" class="img-responsive img-circle" alt="">
-                    <h4>Wagner Jeronimo</h4>
-                    <p class="text-muted">Lead Developer</p>
-                    <ul class="list-inline social-buttons">
-                        <li><a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 text-center">
-                <p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
-            </div>
-        </div>
-    </div>
-</section>
--->
-
-<!-- Clients Aside -->
-<aside class="clients">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-sm-6">
-                <a href="#">
-                    <img src="/static/img/logos/envato.jpg" class="img-responsive img-centered" alt="">
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <a href="#">
-                    <img src="/static/img/logos/designmodo.jpg" class="img-responsive img-centered" alt="">
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <a href="#">
-                    <img src="/static/img/logos/themeforest.jpg" class="img-responsive img-centered" alt="">
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <a href="#">
-                    <img src="/static/img/logos/creative-market.jpg" class="img-responsive img-centered" alt="">
-                </a>
-            </div>
-        </div>
-    </div>
-</aside>
 
 <!-- Contact Section -->
-<section id="contact">
+<section id="profissional" style="background-color: #c7ddef">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading">Entre em contato conosco</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h2 class="section-heading">Profissional, veja como é fácil</h2>
+                <h3 class="section-subheading text-muted">Veja como é fácil</h3>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <form name="sentMessage" id="contactForm" novalidate>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Your Name *" id="name" required data-validation-required-message="Please enter your name.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" class="form-control" placeholder="Your Email *" id="email" required data-validation-required-message="Please enter your email address.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                            <div class="form-group">
-                                <input type="tel" class="form-control" placeholder="Your Phone *" id="phone" required data-validation-required-message="Please enter your phone number.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <textarea class="form-control" placeholder="Your Message *" id="message" required data-validation-required-message="Please enter a message."></textarea>
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="col-lg-12 text-center">
-                            <div id="success"></div>
-                            <button type="submit" class="btn btn-xl">Send Message</button>
-                        </div>
+                <div class="row featurette">
+                    <div class="col-md-7">
+                        <h2 class="featurette-heading">Faça um cadastro em nosso sistema.</h2>
+                        <p class="lead">O cadastro é bem simples, </p>
                     </div>
-                </form>
+                    <div class="col-md-5">
+                        <img class="featurette-image img-responsive center-block" src="static/img/about/p1.png" alt="Generic placeholder image">
+                    </div>
+                </div>
+
+                <hr class="featurette-divider">
+
+                <div class="row featurette">
+                    <div class="col-md-7 col-md-push-5">
+                        <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
+                        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                    </div>
+                    <div class="col-md-5 col-md-pull-7">
+                        <img class="featurette-image img-responsive center-block" src="static/img/about/p2.png" alt="Generic placeholder image">
+                    </div>
+                </div>
+
+                <hr class="featurette-divider">
+
+                <div class="row featurette">
+                    <div class="col-md-7">
+                        <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+                        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                    </div>
+                    <div class="col-md-5">
+                        <img class="featurette-image img-responsive center-block" src="static/img/about/p3.png" alt="Generic placeholder image">
+                    </div>
+                </div>
+
+                <hr class="featurette-divider">
+
+                <div class="row featurette">
+                    <div class="col-md-7 col-md-push-5">
+                        <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
+                        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                    </div>
+                    <div class="col-md-5 col-md-pull-7">
+                        <img class="featurette-image img-responsive center-block" src="static/img/about/p4.png" alt="Generic placeholder image">
+                    </div>
+                </div>
+
+                <hr class="featurette-divider">
+
+                <div class="row featurette">
+                    <div class="col-md-7">
+                        <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+                        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                    </div>
+                    <div class="col-md-5">
+                        <img class="featurette-image img-responsive center-block" src="static/img/about/p5.png" alt="Generic placeholder image">
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </section>
 
 <footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <span class="copyright">Copyright &copy; Your Website 2014</span>
-            </div>
-            <div class="col-md-4">
-                <ul class="list-inline social-buttons">
-                    <li><a href="#"><i class="fa fa-twitter"></i></a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <ul class="list-inline quicklinks">
-                    <li><a href="#">Privacy Policy</a>
-                    </li>
-                    <li><a href="#">Terms of Use</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <div id="rodapePrincipal" class="col-sm-12 text-center">
+
+        <img src="/static/img/logo_mini.png" />&nbsp;&nbsp;&nbsp; Seu portal de agendamento online</i>
+
     </div>
 </footer>
 <div class="modal fade" id="modalVideoInstitucional" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
