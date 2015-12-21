@@ -95,6 +95,15 @@
     <script src="/static/js/ws/ranchucrutes-ws-client.js"></script>
     <script src="/static/js/commons/utils.js"></script>
     <script src="/static/js/profissional/horario.js"></script>
+    <script src="/static/js/libs/cbpAnimatedHeader.js"></script>
+
+    <script>
+        $('li > a').filter(function(index){
+            if (this.href.indexOf("horario") > 0 ) {
+                $(this).parent().addClass('active');
+            }
+        });
+    </script>
 
 </body>
 </html>

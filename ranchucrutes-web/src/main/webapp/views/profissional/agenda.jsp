@@ -65,11 +65,17 @@
     <script src='/static/js/libs/fullcalendar.min.js'></script>
     <script src='/static/js/libs/lang-all.js'></script>
     <script src="/static/js/profissional/agenda.js"></script>
+    <script src="/static/js/libs/cbpAnimatedHeader.js"></script>
 </body>
 <script>
     idProfissional = ${idProfissional};
     var calendario = jQuery.parseJSON('${calendarioJson}');
     Agenda.init(calendario);
+    $('li > a').filter(function(index){
+        if (this.href.indexOf("agenda") > 0 ) {
+            $(this).parent().addClass('active');
+        }
+    });
 
 </script>
 </html>

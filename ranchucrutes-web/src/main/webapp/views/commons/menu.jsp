@@ -25,7 +25,7 @@
                         <a class="page-scroll" href="/profissional/login">Acessar</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="/profissional/cadastro">Cadastro</a>
+                        <a class="page-scroll" href="/profissional/cadastro" >Cadastro</a>
                     </li>
                 </c:if>
                 <c:if test="${sessionScope.loginSession != null}">
@@ -34,10 +34,13 @@
                     </li>
                 </c:if>
                 <li>
-                    <a class="page-scroll" href="/#services">Serviços</a>
+                    <a class="page-scroll" href="/#download">Download</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="/#about">Sobre</a>
+                    <a class="page-scroll" href="/#paciente">Paciente</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="/#profissional">Profissional</a>
                 </li>
                 <!--
                 <li>

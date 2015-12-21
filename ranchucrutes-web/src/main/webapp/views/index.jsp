@@ -66,7 +66,7 @@
             <div class="col-md-6">
 
                 <h3 class="service-heading">Baixe nosso aplicativo</h3>
-                <p class="text-muted">Use o QRcode abaixo ou se preferir acesse a playstore.</p>
+                <p class="text-muted">Use o QRcode abaixo ou se preferir acesse a Play Store.</p>
                 <div class="row text-center">
 
                     <img src="/static/img/qrcode_apk.png" class="image_responsive" style=""/>

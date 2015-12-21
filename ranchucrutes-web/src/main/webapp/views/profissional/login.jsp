@@ -71,5 +71,13 @@
     <jsp:include page="/views/commons/footer-components.jsp" />
     <script src="/static/js/commons/utils.js"></script>
     <script src="/static/js/profissional/login.js"></script>
+    <script src="/static/js/libs/cbpAnimatedHeader.js"></script>
+    <script>
+        $('li > a').filter(function(index){
+            if (this.href.indexOf("login") > 0 ) {
+                $(this).parent().addClass('active');
+            }
+        });
+    </script>
 </body>
 </html>

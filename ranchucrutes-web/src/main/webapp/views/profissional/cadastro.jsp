@@ -10,10 +10,11 @@
 </head>
 <body>
     <jsp:include page="/views/commons/menu.jsp" />
-    <div class="col-md-12 cadastro container">
-        <form id="formCadastro" class="form-horizontal" action="/profissional/save" method="POST">
-            <div class="col-md-offset-3 col-md-6">
-                <section id="dadosBasicos">
+    <section id="cadastro">
+        <div class="col-md-12 cadastro container">
+            <form id="formCadastro" class="form-horizontal" action="/profissional/save" method="POST">
+                <div class="col-md-offset-3 col-md-6">
+
 
                     <div class="panel panel-default">
                       <div class="panel-body">
@@ -92,22 +93,32 @@
 
                       </div>
                     </div>
-                </session>
-            </div>
-        </form>
-    <jsp:include page="/views/commons/rodape.jsp" />
-    </div>
 
+                </div>
+            </form>
+        </div>
+    </section>
+    <section id="fadffsdafasd">
+    </section>
+    <jsp:include page="/views/commons/rodape.jsp" />
     <jsp:include page="/views/commons/footer.jsp" />
     <jsp:include page="/views/commons/footer-components.jsp" />
     <script src="/static/js/ws/ranchucrutes-ws-client.js"></script>
     <script src="/static/js/commons/utils.js"></script>
     <script src="/static/js/profissional/cadastro.js"></script>
+    <script src="/static/js/libs/cbpAnimatedHeader.js"></script>
     <script>
         var especSelected = [];
         <c:forEach var="esp" items="${form.idEspecialidade}">
             especSelected.push("${esp}");
         </c:forEach>
+
+        $('li > a').filter(function(index){
+            if (this.href.indexOf("cadastro") > 0 ) {
+                $(this).parent().addClass('active');
+            }
+        });
+
     </script>
 
 </body>

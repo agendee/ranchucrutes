@@ -146,6 +146,7 @@
     <script src="/static/js/commons/utils.js"></script>
     <script src="/static/js/profissional/admin.js"></script>
     <script src="/static/js/libs/jasny-bootstrap.min.js"></script>
+    <script src="/static/js/libs/cbpAnimatedHeader.js"></script>
 
     <script>
         var especSelected = [];
@@ -153,6 +154,11 @@
             especSelected.push("${esp}");
         </c:forEach>
         var countClinica = ${countClinica};
+        $('li > a').filter(function(index){
+            if (this.href.indexOf("admin") > 0 ) {
+                $(this).parent().addClass('active');
+            }
+        });
     </script>
 
 </body>
