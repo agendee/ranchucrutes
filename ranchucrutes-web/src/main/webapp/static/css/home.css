@@ -1,0 +1,15 @@
+/*MOBILE*/
+@media(max-width:768px) {
+
+    .icon-link {
+        width: 90px;
+        height: 90px;
+        margin-top: 0px;
+    }
+
+    .portfolio-item .portfolio-link{
+        padding: 5px;
+        margin-top: 0px;
+    }
+
+}

@@ -7,11 +7,13 @@
     <jsp:include page="/views/commons/header.jsp" />
     <jsp:include page="/views/commons/header-components.jsp" />
     <link rel="stylesheet" href="/static/css/libs/chosen.css">
+    <link href="/static/css/menu.css" rel="stylesheet">
 </head>
 <body>
     <jsp:include page="/views/commons/menu.jsp" />
-    <section id="cadastro">
-        <div class="col-md-12 cadastro container">
+
+    <div class="col-md-12 cadastro container">
+        <section id="cadastro">
             <form id="formCadastro" class="form-horizontal" action="/profissional/save" method="POST">
                 <div class="col-md-offset-3 col-md-6">
 
@@ -96,11 +98,15 @@
 
                 </div>
             </form>
-        </div>
-    </section>
-    <section id="fadffsdafasd">
-    </section>
-    <jsp:include page="/views/commons/rodape.jsp" />
+        </section>
+
+        <footer>
+            <jsp:include page="/views/commons/rodape.jsp" />
+        </footer>
+    </div>
+
+
+
     <jsp:include page="/views/commons/footer.jsp" />
     <jsp:include page="/views/commons/footer-components.jsp" />
     <script src="/static/js/ws/ranchucrutes-ws-client.js"></script>

@@ -9,6 +9,8 @@
     <!-- Custom CSS -->
     <jsp:include page="/views/commons/header.jsp" />
     <jsp:include page="/views/commons/header-components.jsp" />
+    <link href="/static/css/home.css" rel="stylesheet">
+    <link href="/static/css/menu.css" rel="stylesheet">
 </head>
 
 <body id="page-top" class="index">
@@ -19,14 +21,14 @@
 <header>
     <div class="container">
         <div class="intro-text">
-            <div class="intro-lead-in"><h1>Bem-vindo ao </h1> <br/> <img src="/static/img/logonome.png" height="110px" style="margin-top: -25px"></div>
+            <div class="intro-lead-in"><h1>Bem-vindo ao </h1> <br/> <img src="/static/img/logonome.png" height="110px" style="margin-top: -25px" class="img-responsive"></div>
             <div class="intro-heading">Seu portal de agendamentos online. Assista a animação abaixo e veja como funciona.</div>
-            <span class="fa-stack fa-4x" style="cursor: pointer" data-toggle="modal" data-target="#modalVideoInstitucional">
+            <span class="fa-stack fa-4x hidden-xs" style="cursor: pointer" data-toggle="modal" data-target="#modalVideoInstitucional">
                  <i class="fa fa-circle fa-stack-2x text-primary"></i>
                  <i class="fa fa-play fa-stack-1x fa-inverse"></i>
             </span>
         </div>
-        <div class="col-sm-6 portfolio-item">
+        <div class="col-xs-6 portfolio-item">
             <div class="icon-link">
                 <a href="#profissional" class="portfolio-link">
                     <div class="caption">
@@ -38,7 +40,7 @@
                 </a>
             </div>
         </div>
-        <div class="col-sm-6 portfolio-item">
+        <div class="col-xs-6 portfolio-item">
             <div class="icon-link">
                 <a href="#paciente" class="portfolio-link">
                     <div class="caption">
@@ -61,15 +63,14 @@
 
         <div class="row text-center">
             <div class="col-md-6">
-                <img src="/static/img/mobile_home.png" class="image_responsive">
+                <img src="/static/img/mobile_home.png" class="img-responsive">
             </div>
             <div class="col-md-6">
 
                 <h3 class="service-heading">Baixe nosso aplicativo</h3>
-                <p class="text-muted">Use o QRcode abaixo ou se preferir acesse a Play Store.</p>
-                <div class="row text-center">
-
-                    <img src="/static/img/qrcode_apk.png" class="image_responsive" style=""/>
+                <p class="text-muted hidden-xs">Use o QRcode abaixo ou se preferir acesse a Play Store.</p>
+                <div class="row text-center hidden-xs">
+                    <img src="/static/img/qrcode_apk.png" class="img-responsive" />
                 </div>
 
                 <div class="row text-center" style="margin-top: 40px">

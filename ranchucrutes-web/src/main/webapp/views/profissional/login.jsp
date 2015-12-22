@@ -7,6 +7,7 @@
     <jsp:include page="/views/commons/header.jsp" />
     <jsp:include page="/views/commons/header-components.jsp" />
     <link href="/static/css/profissional/login.css" rel="stylesheet">
+    <link href="/static/css/menu.css" rel="stylesheet">
 </head>
 <body>
     <jsp:include page="/views/commons/menu.jsp" />

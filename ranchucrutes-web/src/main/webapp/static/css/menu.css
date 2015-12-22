@@ -1,0 +1,17 @@
+/*MOBILE*/
+@media(max-width:768px) {
+    .navbar-default.navbar-shrink{
+        background-color:#d9dde0;
+    }
+
+    .navbar-default{
+        padding: 0;
+    }
+
+    .navbar-default .navbar-collapse{
+        background-color:#d9dde0;
+    }
+    .navbar-toggle{
+        margin-right: 25px;
+    }
+}
