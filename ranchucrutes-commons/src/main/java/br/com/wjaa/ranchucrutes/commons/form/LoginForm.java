@@ -16,6 +16,7 @@ public class LoginForm {
     private String senha;
     private String keySocial;
     private AuthType type;
+    private String keyDevice;
 
 
     public String getLogin() {
@@ -48,5 +49,13 @@ public class LoginForm {
 
     public void setType(AuthType type) {
         this.type = type;
+    }
+
+    public String getKeyDevice() {
+        return keyDevice;
+    }
+
+    public void setKeyDevice(String keyDevice) {
+        this.keyDevice = keyDevice;
     }
 }
