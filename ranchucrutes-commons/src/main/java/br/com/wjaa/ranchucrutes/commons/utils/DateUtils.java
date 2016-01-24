@@ -12,6 +12,7 @@ public class DateUtils {
 
     private static final Locale locale = new Locale("pt", "BR");
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat sdfddMMyyyy = new SimpleDateFormat("dd/MM/yyyy");
     private static SimpleDateFormat sdfyyyyMMddTHHmmss = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     private static Date lastDayActualWeek;
 
@@ -44,5 +45,9 @@ public class DateUtils {
         Calendar c = nowCalendar();
         c.set(Calendar.DAY_OF_WEEK,c. getActualMaximum(Calendar.DAY_OF_WEEK));
         return c.getTime();
+    }
+
+    public static String formatddMMyyyy(Date dataAgendamento) {
+        return sdfddMMyyyy.format(dataAgendamento);
     }
 }

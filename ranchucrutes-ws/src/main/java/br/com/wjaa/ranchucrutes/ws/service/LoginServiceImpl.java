@@ -3,8 +3,8 @@ package br.com.wjaa.ranchucrutes.ws.service;
 import br.com.wjaa.ranchucrutes.commons.form.LoginForm;
 import br.com.wjaa.ranchucrutes.commons.utils.StringUtils;
 import br.com.wjaa.ranchucrutes.commons.vo.ConfirmaCadastroVo;
-import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.PacienteVo;
+import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
 import br.com.wjaa.ranchucrutes.framework.dao.RanchucrutesDao;
 import br.com.wjaa.ranchucrutes.ws.adapter.PacienteAdapter;
 import br.com.wjaa.ranchucrutes.ws.adapter.ProfissionalAdapter;
@@ -119,6 +119,24 @@ public class LoginServiceImpl implements LoginService {
                 throw new LoginSocialException("Usuário não cadastrado!");
             }
         }
+
+        return PacienteAdapter.toPacienteVo(pacienteEntity);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public PacienteVo registerGcm(Long idLogin, String keyDevice) {
+        PacienteEntity pacienteEntity = this.dao.get(PacienteEntity.class,idLogin);
+
+        if (org.apache.commons.lang.StringUtils.isEmpty(pacienteEntity.getKeyDeviceGcm())){
+            LOG.info("Adicionando o key device do paciente: " + idLogin);
+        }else if (pacienteEntity.getKeyDeviceGcm().equalsIgnoreCase(keyDevice)){
+            LOG.info("Substituindo o key device do paciente: " + idLogin + " de: " + pacienteEntity.getKeyDeviceGcm() +
+                    " por:" + keyDevice );
+        }
+
+        pacienteEntity.setKeyDeviceGcm(keyDevice);
+        dao.save(pacienteEntity);
 
         return PacienteAdapter.toPacienteVo(pacienteEntity);
     }

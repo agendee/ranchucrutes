@@ -16,6 +16,7 @@ public class PacienteVo {
     private LoginForm.AuthType authType;
     private Integer idCategoria;
     private ConvenioCategoriaVo convenioCategoria;
+    private String keyDeviceGcm;
 
 
     public PacienteVo(){}
@@ -98,5 +99,13 @@ public class PacienteVo {
 
     public void setConvenioCategoria(ConvenioCategoriaVo convenioCategoria) {
         this.convenioCategoria = convenioCategoria;
+    }
+
+    public String getKeyDeviceGcm() {
+        return keyDeviceGcm;
+    }
+
+    public void setKeyDeviceGcm(String keyDeviceGcm) {
+        this.keyDeviceGcm = keyDeviceGcm;
     }
 }

@@ -3,13 +3,16 @@ package br.com.wjaa.ranchucrutes.ws.service;
 import br.com.wjaa.ranchucrutes.commons.form.AgendamentoForm;
 import br.com.wjaa.ranchucrutes.commons.form.RejeicaoSolicitacaoForm;
 import br.com.wjaa.ranchucrutes.commons.helper.DiaSemana;
+import br.com.wjaa.ranchucrutes.commons.utils.ObjectUtils;
 import br.com.wjaa.ranchucrutes.commons.vo.*;
 import br.com.wjaa.ranchucrutes.framework.service.GenericServiceImpl;
 import br.com.wjaa.ranchucrutes.ws.adapter.ProfissionalAdapter;
+import br.com.wjaa.ranchucrutes.ws.builder.NotificationBuilder;
 import br.com.wjaa.ranchucrutes.ws.entity.*;
 import br.com.wjaa.ranchucrutes.ws.exception.AgendamentoServiceException;
 import br.com.wjaa.ranchucrutes.ws.adapter.AgendamentoAdapter;
 import br.com.wjaa.ranchucrutes.ws.dao.AgendamentoDao;
+import br.com.wjaa.ranchucrutes.ws.exception.GcmServiceException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -43,6 +46,9 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
 
     @Autowired
     private PacienteService pacienteService;
+
+    @Autowired
+    private GcmService gcmService;
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -290,6 +296,9 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         PacienteEntity pacienteEntity = pacienteService.get(agendamento.getIdPaciente());
         ProfissionalEntity profissionalEntity = profissionalService.get(agendamento.getIdProfissional());
 
+        LOG.info("Enviando notificação de confirmacao.");
+        this.sendConfirmationNotification(pacienteEntity,profissionalEntity,agendamento);
+
         return AgendamentoAdapter.toAgendamentoVo(agendamento,pacienteEntity,profissionalEntity);
     }
 
@@ -303,7 +312,45 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         PacienteEntity pacienteEntity = pacienteService.get(agendamento.getIdPaciente());
         ProfissionalEntity profissionalEntity = profissionalService.get(agendamento.getIdProfissional());
 
+        LOG.info("Enviando notificação de cancelamento.");
+
+        this.sendCancelationNotification(pacienteEntity, profissionalEntity, agendamento);
+
         return AgendamentoAdapter.toAgendamentoVo(agendamento,pacienteEntity,profissionalEntity);
+    }
+
+    private void sendCancelationNotification(PacienteEntity pacienteEntity, ProfissionalEntity profissionalEntity, AgendamentoEntity agendamento) {
+        NotificationVo vo = NotificationBuilder
+                .create()
+                .cancelation(true)
+                .setPaciente(pacienteEntity)
+                .setProfissional(profissionalEntity)
+                .setAgendamento(agendamento)
+                .build();
+        try {
+            gcmService.sendNotification(pacienteEntity.getIdLogin(), ObjectUtils.toJson(vo));
+        } catch (GcmServiceException e) {
+            //TODO CASO DE ALGUM ERRO PRECISA ENVIAR PARA UMA FILA OU GRAVAR NO BANCO PARA TENTAR NOVAMENTE MAIS TARDE.
+            LOG.error("Erro ao enviar notificacao de cancelamento", e);
+
+        }
+    }
+
+    private void sendConfirmationNotification(PacienteEntity pacienteEntity, ProfissionalEntity profissionalEntity, AgendamentoEntity agendamento) {
+        NotificationVo vo = NotificationBuilder
+                .create()
+                .confirmation(true)
+                .setPaciente(pacienteEntity)
+                .setProfissional(profissionalEntity)
+                .setAgendamento(agendamento)
+                .build();
+        try {
+            gcmService.sendNotification(pacienteEntity.getIdLogin(), ObjectUtils.toJson(vo));
+        } catch (GcmServiceException e) {
+            //TODO CASO DE ALGUM ERRO PRECISA ENVIAR PARA UMA FILA OU GRAVAR NO BANCO PARA TENTAR NOVAMENTE MAIS TARDE.
+            LOG.error("Erro ao enviar notificacao de cancelamento", e);
+
+        }
     }
 
 

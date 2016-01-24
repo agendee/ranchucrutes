@@ -260,7 +260,7 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
             endereco.setLatitude(location.getLatitude());
             endereco.setLongitude(location.getLongitude());
         } catch (LocationNotFoundException | LocationDuplicateFoundException e) {
-            log.error("Erro ao buscar a latitude/longitude do endereco do profissional", e);
+            LOG.error("Erro ao buscar a latitude/longitude do endereco do profissional", e);
         }
 
         endereco = this.ranchucrutesService.saveWithRequied(endereco);

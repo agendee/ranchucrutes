@@ -23,5 +23,5 @@ public interface LoginService {
 
     PacienteVo autenticarPaciente(LoginForm form) throws LoginServiceException, LoginSocialException;
 
-
+    PacienteVo registerGcm(Long idLogin, String keyDevice);
 }
