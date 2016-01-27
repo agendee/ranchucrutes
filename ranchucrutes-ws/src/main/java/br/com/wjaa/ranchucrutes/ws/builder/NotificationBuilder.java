@@ -58,7 +58,7 @@ public class NotificationBuilder {
                     "Sua consulta com o Dr(a) " + profissional.getNome() + " marcada para " +
                             DateUtils.formatddMMyyyy(agendamento.getDataAgendamento()) + ", foi cancelada!");
         }else if (confirmation){
-            return new NotificationVo(NotificationVo.StatusNotification.CANCELLATION,
+            return new NotificationVo(NotificationVo.StatusNotification.CONFIRMATION,
                     "O Dr(a) " + profissional.getNome() + " confirmou a sua consulta para " +
                             DateUtils.formatddMMyyyy(agendamento.getDataAgendamento()));
         }
