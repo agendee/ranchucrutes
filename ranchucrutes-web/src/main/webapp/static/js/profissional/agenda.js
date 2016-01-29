@@ -1,5 +1,6 @@
 
 var idProfissional = 0;
+var idAgendamentoSelecionado = 0;
 var Agenda = function() {
     return {
 
@@ -22,7 +23,7 @@ var Agenda = function() {
                     eventLimit: true, // allow "more" link when too many events
                     //events: Agenda.buildEvents(calendarioClinica),
                     eventClick: function(calEvent, jsEvent, view) {
-
+                        idAgendamentoSelecionado = calEvent.agendamento.id;
                         //alert('EventID: ' + calEvent.agendamento.id);
                         // change the border color just for fun
                         //$(this).css('border-color', 'red');
@@ -35,7 +36,7 @@ var Agenda = function() {
                             title:"Rejeitar Solicitação",
                             text:"Deseja realmente rejeitar essa consulta ?",
                             confirm: function(button) {
-                                Agenda.rejeitar(calEvent.agendamento.id);
+                                Agenda.rejeitar(idAgendamentoSelecionado);
                             },
                             cancel: function(button) {
 
@@ -52,7 +53,7 @@ var Agenda = function() {
                                 title:"Confirmar Solicitação",
                                 text:"Confirma essa consulta ?",
                                 confirm: function(button) {
-                                    Agenda.aprovar(calEvent.agendamento.id);
+                                    Agenda.aprovar(idAgendamentoSelecionado);
                                 },
                                 cancel: function(button) {
 
@@ -72,7 +73,7 @@ var Agenda = function() {
                 });
 
             }
-12
+
             $(".tab-content .tab-pane").removeClass("active");
             $(".tab-content .tab-pane").first().addClass("active");
            /* $( ".fc-next-button" ).click(function() {
