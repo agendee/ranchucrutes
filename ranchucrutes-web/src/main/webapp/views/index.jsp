@@ -21,7 +21,11 @@
 <header>
     <div class="container">
         <div class="intro-text">
-            <div class="intro-lead-in"><h1>Bem-vindo ao </h1> <br/> <img src="/static/img/logonome.png" height="110px" style="margin-top: -25px" class="img-responsive"></div>
+            <div class="intro-lead-in">
+                <h1>Bem-vindo ao </h1> <br/>
+                <img src="/static/img/logonome.png" height="110px" style="margin-top: -25px" class="hidden-xs">
+                <img src="/static/img/logonome.png" height="110px" style="margin-top: -25px" class="visible-xs img-responsive">
+            </div>
             <div class="intro-heading">Seu portal de agendamentos online. Assista a animação abaixo e veja como funciona.</div>
             <span class="fa-stack fa-4x hidden-xs" style="cursor: pointer" data-toggle="modal" data-target="#modalVideoInstitucional">
                  <i class="fa fa-circle fa-stack-2x text-primary"></i>
@@ -70,13 +74,13 @@
                 <h3 class="service-heading">Baixe nosso aplicativo</h3>
                 <p class="text-muted hidden-xs">Use o QRcode abaixo ou se preferir acesse a Play Store.</p>
                 <div class="row text-center hidden-xs">
-                    <img src="/static/img/qrcode_apk.png" class="img-responsive" />
+                    <img src="/static/img/qrcode_apk.png" />
                 </div>
 
                 <div class="row text-center" style="margin-top: 40px">
                     <a href="http://www.agendee.com.br/apk/agendee.apk" >
                         <img alt="Get it on Google Play"
-                             src="https://developer.android.com/images/brand/pt-br_generic_rgb_wo_45.png" />
+                             src="static/img/googleplay.png"  height="70px"/>
                     </a>
                 </div>
 
@@ -180,7 +184,7 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading">Profissional, veja como é fácil</h2>
-                <h3 class="section-subheading text-muted">Veja como é fácil</h3>
+                <h3 class="section-subheading text-muted">É simples</h3>
             </div>
         </div>
         <div class="row">
@@ -188,7 +192,7 @@
                 <div class="row featurette">
                     <div class="col-md-7">
                         <h2 class="featurette-heading">Faça um cadastro em nosso sistema.</h2>
-                        <p class="lead">O cadastro é bem simples, </p>
+                        <p class="lead">Um cadastro bem simples com apenas dados básicos.</p>
                     </div>
                     <div class="col-md-5">
                         <img class="featurette-image img-responsive center-block" src="static/img/about/p1.png" alt="Generic placeholder image">
@@ -199,8 +203,8 @@
 
                 <div class="row featurette">
                     <div class="col-md-7 col-md-push-5">
-                        <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-                        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                        <h2 class="featurette-heading">Acesse o portal</h2>
+                        <p class="lead">Depois de cadastrado, acesse o seu portal para gerenciar seus dados e sua agenda.</p>
                     </div>
                     <div class="col-md-5 col-md-pull-7">
                         <img class="featurette-image img-responsive center-block" src="static/img/about/p2.png" alt="Generic placeholder image">
@@ -211,8 +215,8 @@
 
                 <div class="row featurette">
                     <div class="col-md-7">
-                        <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-                        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                        <h2 class="featurette-heading">Gerencie a agenda de suas clinicas</h2>
+                        <p class="lead">É você quem configura quais horário quer abrir sua agenda online.</p>
                     </div>
                     <div class="col-md-5">
                         <img class="featurette-image img-responsive center-block" src="static/img/about/p3.png" alt="Generic placeholder image">
@@ -223,8 +227,8 @@
 
                 <div class="row featurette">
                     <div class="col-md-7 col-md-push-5">
-                        <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-                        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                        <h2 class="featurette-heading">Agenda mensal</h2>
+                        <p class="lead">Tenha uma visão mensal de como está sua agenda.</p>
                     </div>
                     <div class="col-md-5 col-md-pull-7">
                         <img class="featurette-image img-responsive center-block" src="static/img/about/p4.png" alt="Generic placeholder image">
@@ -235,8 +239,8 @@
 
                 <div class="row featurette">
                     <div class="col-md-7">
-                        <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-                        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                        <h2 class="featurette-heading">Agenda semanal</h2>
+                        <p class="lead">Tenha uma visão semanal de como anda sua agenda</p>
                     </div>
                     <div class="col-md-5">
                         <img class="featurette-image img-responsive center-block" src="static/img/about/p5.png" alt="Generic placeholder image">

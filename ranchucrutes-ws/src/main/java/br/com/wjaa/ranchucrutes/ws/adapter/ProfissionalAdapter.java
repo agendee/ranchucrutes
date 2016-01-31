@@ -69,7 +69,7 @@ public class ProfissionalAdapter {
             if (c != null){
 
                 /*************************/
-                /*TODO ESSE TREXO AQUI ESTÁ OBSOLETO RETIRAR, MAS OLHAR OS PONTOS QUE USAM
+                /*TODO ESSE PEDAÇO AQUI ESTÁ OBSOLETO RETIRAR, MAS OLHAR OS PONTOS QUE USAM
                 * O IDEAL É ESTAR O TELEFONE E ENDERECO DENTRO DE CLINICA QUE JÁ ESTA NO LOOP ABAIXO*/
                 EnderecoEntity e = c.getEndereco();
                 if (e != null){
