@@ -12,10 +12,10 @@
 <body>
     <jsp:include page="/views/commons/menu.jsp" />
 
-    <div class="col-md-12 cadastro container">
+    <div class="col-md-12 cadastro container content">
         <section id="cadastro">
             <form id="formCadastro" class="form-horizontal" action="/profissional/save" method="POST">
-                <div class="col-md-offset-3 col-md-6">
+                <div class="col-md-offset-1 col-md-10 col-lg-offset-3 col-lg-6">
 
 
                     <div class="panel panel-default">
@@ -100,12 +100,10 @@
             </form>
         </section>
 
-        <footer>
-            <jsp:include page="/views/commons/rodape.jsp" />
-        </footer>
+
+
+        <jsp:include page="/views/commons/rodape.jsp" />
     </div>
-
-
 
     <jsp:include page="/views/commons/footer.jsp" />
     <jsp:include page="/views/commons/footer-components.jsp" />

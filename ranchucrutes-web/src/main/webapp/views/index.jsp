@@ -10,7 +10,7 @@
     <jsp:include page="/views/commons/header.jsp" />
     <jsp:include page="/views/commons/header-components.jsp" />
     <link href="/static/css/home.css" rel="stylesheet">
-    <link href="/static/css/menu.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top" class="index">
@@ -19,14 +19,14 @@
 
 
 <header>
-    <div class="container">
+    <div class="container" style="margin-bottom:30px">
         <div class="intro-text">
             <div class="intro-lead-in">
                 <h1>Bem-vindo ao </h1> <br/>
                 <img src="/static/img/logonome.png" height="110px" style="margin-top: -25px" class="hidden-xs">
                 <img src="/static/img/logonome.png" height="110px" style="margin-top: -25px" class="visible-xs img-responsive">
             </div>
-            <div class="intro-heading">Seu portal de agendamentos online. Assista a animação abaixo e veja como funciona.</div>
+            <div class="intro-heading">Seu portal de agendamentos online. <span class="hidden-xs">Assista a animação abaixo e veja como funciona.</span></div>
             <span class="fa-stack fa-4x hidden-xs" style="cursor: pointer" data-toggle="modal" data-target="#modalVideoInstitucional">
                  <i class="fa fa-circle fa-stack-2x text-primary"></i>
                  <i class="fa fa-play fa-stack-1x fa-inverse"></i>
@@ -43,6 +43,7 @@
                     <img src="static/img/home/profissional.png" class="img-circle img-responsive" alt="">
                 </a>
             </div>
+            <div class="visible-xs">Você é um profissional?</div>
         </div>
         <div class="col-xs-6 portfolio-item">
             <div class="icon-link">
@@ -55,6 +56,7 @@
                     <img src="static/img/home/paciente.png" class="img-circle img-responsive" alt="">
                 </a>
             </div>
+            <div class="visible-xs">Você é um paciente?</div>
         </div>
 
     </div>
@@ -251,6 +253,38 @@
         </div>
     </div>
 </section>
+
+<section id="contatos">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 ">
+                <div>
+                     <img src="/static/img/contact.jpg" class="img-responsive"/>
+                </div>
+            </div>
+
+            <div class="col-sm-6 ">
+                <ul class="row">
+
+                        <address>
+                             <h5>Wagner Jeronimo</h5>
+                            <p><i class="fa fa-phone"></i> (11) 98377-7633</p>
+                            <p><i class="fa fa-envelope-o"></i> wagner@agendee.com.br</p>
+                        </address>
+
+                        <address>
+                            <h5>Diogenes Dorete</h5>
+                            <p><i class="fa fa-phone"></i> (11) 99954-8148</p>
+                            <p><i class="fa fa-envelope-o"></i> diogenes@agendee.com.br</p>
+                        </address>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 <footer>
     <div id="rodapePrincipal" class="col-sm-12 text-center">

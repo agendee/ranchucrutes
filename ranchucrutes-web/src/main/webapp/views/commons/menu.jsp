@@ -48,7 +48,7 @@
                 </li>
                 -->
                 <li>
-                    <a class="page-scroll" href="/#contact">Contatos</a>
+                    <a class="page-scroll" href="/#contatos">Contatos</a>
                 </li>
 
             </ul>

@@ -13,7 +13,7 @@
 </head>
 <body>
     <jsp:include page="/views/commons/menu_admin.jsp" />
-    <div class="col-xs-12 container">
+    <div class="col-xs-12 container content">
         <section>
             <ul class="nav nav-tabs">
                 <c:set var="primeira" value="true"></c:set>

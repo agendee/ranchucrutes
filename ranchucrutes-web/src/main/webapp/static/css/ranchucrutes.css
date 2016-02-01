@@ -277,7 +277,7 @@ header {
     text-align: center;
     color: #000;
     background-attachment: scroll;
-    background-image: url(../img/backgroud-home.jpg);
+
     /*background-position: center center;*/
     background-repeat: none;
     -webkit-background-size: cover;
@@ -308,6 +308,11 @@ header .intro-text .intro-heading {
 }
 
 @media(min-width:768px) {
+
+    header{
+        background-image: url(../img/backgroud-home.jpg);
+    }
+
     header .intro-text {
         padding-top: 300px;
 
@@ -729,7 +734,6 @@ section#contact .text-danger {
 }
 
 footer {
-    padding: 25px 0;
     text-align: center;
 }
 
@@ -901,22 +905,26 @@ body {
 
 #rodape {
     border-top: 1px solid #939393 !important;
-    position: absolute;
 	bottom: 0;
 	background: #d9dde0;
 	width: 100%;
-
 	padding: 10px;
     color: #000;
+    height:60px;
+	position:absolute;
+	bottom:0;
+	left:0;
+
 }
 
 #rodape > img{
     margin-top: -10px;
 }
 
-.container{
+.content{
     min-height:100%;
     position:relative;
+    padding-bottom:60px;/*altura do footer #rodape*/
 }
 
 #rodapePrincipal {

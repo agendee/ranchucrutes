@@ -42,6 +42,9 @@
                 <li>
                     <a class="page-scroll" href="#profissional">Profissional</a>
                 </li>
+                <li>
+                    <a class="page-scroll" href="#contatos">Contatos</a>
+                </li>
 
             </ul>
         </div>

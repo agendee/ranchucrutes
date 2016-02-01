@@ -11,11 +11,11 @@
 </head>
 <body>
     <jsp:include page="/views/commons/menu.jsp" />
-    <div class="col-xs-12 container">
+    <div class="col-xs-12 container content">
         <section>
             <div>
                 <div class="row">
-                    <div class="col-sm-6 col-md-3 col-md-offset-4">
+                    <div class="col-md-5 col-md-offset-3 col-lg-3 col-lg-offset-4 ">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <strong> Acesso ao portal do profissional</strong>
@@ -68,6 +68,7 @@
         </section>
         <jsp:include page="/views/commons/rodape.jsp" />
     </div>
+
     <jsp:include page="/views/commons/footer.jsp" />
     <jsp:include page="/views/commons/footer-components.jsp" />
     <script src="/static/js/commons/utils.js"></script>
