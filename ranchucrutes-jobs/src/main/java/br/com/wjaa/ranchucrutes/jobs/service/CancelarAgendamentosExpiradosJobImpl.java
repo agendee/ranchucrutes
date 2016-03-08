@@ -1,6 +1,7 @@
 package br.com.wjaa.ranchucrutes.jobs.service;
 
 import br.com.wjaa.ranchucrutes.commons.utils.DateUtils;
+import br.com.wjaa.ranchucrutes.framework.service.GcmService;
 import br.com.wjaa.ranchucrutes.jobs.dao.AgendamentoDao;
 import br.com.wjaa.ranchucrutes.jobs.entity.AgendamentoEntity;
 import br.com.wjaa.ranchucrutes.jobs.entity.NotificacaoEntity;
@@ -49,9 +50,7 @@ public class CancelarAgendamentosExpiradosJobImpl implements CancelarAgendamento
             agendamentoEntity.setCancelado(true);
             agendamentoEntity.setDataCancelamento(DateUtils.now());
             agendamentoDao.save(agendamentoEntity);
-            notificacaoService.criarNotificacao(NotificacaoEntity.NotificacaoType.NOTIFICACAO_CANCELAMENTO,
-                    agendamentoEntity.getIdPaciente(),
-                    agendamentoEntity.getId());
+            notificacaoService.enviarNotificacaoCancelamento(agendamentoEntity);
         }
         LOG.info("Fim da execucao...");
     }

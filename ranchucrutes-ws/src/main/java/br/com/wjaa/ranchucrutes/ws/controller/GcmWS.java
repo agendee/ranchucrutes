@@ -1,14 +1,13 @@
 package br.com.wjaa.ranchucrutes.ws.controller;
 
-import br.com.wjaa.ranchucrutes.commons.form.LoginForm;
 import br.com.wjaa.ranchucrutes.commons.vo.ErrorMessageVo;
 import br.com.wjaa.ranchucrutes.commons.vo.GcmResponseVo;
 import br.com.wjaa.ranchucrutes.commons.vo.PacienteVo;
-import br.com.wjaa.ranchucrutes.ws.adapter.PacienteAdapter;
+import br.com.wjaa.ranchucrutes.framework.exception.GcmServiceException;
+import br.com.wjaa.ranchucrutes.framework.service.GcmService;
 import br.com.wjaa.ranchucrutes.ws.entity.PacienteEntity;
-import br.com.wjaa.ranchucrutes.ws.exception.GcmServiceException;
-import br.com.wjaa.ranchucrutes.ws.service.GcmService;
 import br.com.wjaa.ranchucrutes.ws.service.LoginService;
+import br.com.wjaa.ranchucrutes.ws.service.PacienteService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +28,9 @@ public class GcmWS {
     private LoginService loginService;
 
     @Autowired
+    private PacienteService pacienteService;
+
+    @Autowired
     private GcmService gcmService;
 
 
@@ -43,7 +45,8 @@ public class GcmWS {
             method = RequestMethod.POST)
     public @ResponseBody
     GcmResponseVo sendNotification(@RequestParam Long idLogin, @RequestParam String jsonNotification) throws GcmServiceException {
-        return gcmService.sendNotification(idLogin,jsonNotification);
+        PacienteEntity pacienteEntity = pacienteService.get(idLogin);
+        return gcmService.sendNotification(jsonNotification,pacienteEntity.getKeyDeviceGcm());
     }
 
 

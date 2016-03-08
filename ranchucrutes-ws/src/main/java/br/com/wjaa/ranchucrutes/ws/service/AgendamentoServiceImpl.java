@@ -5,6 +5,8 @@ import br.com.wjaa.ranchucrutes.commons.form.RejeicaoSolicitacaoForm;
 import br.com.wjaa.ranchucrutes.commons.helper.DiaSemana;
 import br.com.wjaa.ranchucrutes.commons.utils.ObjectUtils;
 import br.com.wjaa.ranchucrutes.commons.vo.*;
+import br.com.wjaa.ranchucrutes.framework.exception.GcmServiceException;
+import br.com.wjaa.ranchucrutes.framework.service.GcmService;
 import br.com.wjaa.ranchucrutes.framework.service.GenericServiceImpl;
 import br.com.wjaa.ranchucrutes.ws.adapter.ProfissionalAdapter;
 import br.com.wjaa.ranchucrutes.ws.builder.NotificationBuilder;
@@ -12,7 +14,6 @@ import br.com.wjaa.ranchucrutes.ws.entity.*;
 import br.com.wjaa.ranchucrutes.ws.exception.AgendamentoServiceException;
 import br.com.wjaa.ranchucrutes.ws.adapter.AgendamentoAdapter;
 import br.com.wjaa.ranchucrutes.ws.dao.AgendamentoDao;
-import br.com.wjaa.ranchucrutes.ws.exception.GcmServiceException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -328,7 +329,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
                 .setAgendamento(agendamento)
                 .build();
         try {
-            gcmService.sendNotification(pacienteEntity.getIdLogin(), ObjectUtils.toJson(vo));
+            gcmService.sendNotification(vo, pacienteEntity.getKeyDeviceGcm());
         } catch (GcmServiceException e) {
             //TODO CASO DE ALGUM ERRO PRECISA ENVIAR PARA UMA FILA OU GRAVAR NO BANCO PARA TENTAR NOVAMENTE MAIS TARDE.
             LOG.error("Erro ao enviar notificacao de cancelamento", e);
@@ -345,7 +346,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
                 .setAgendamento(agendamento)
                 .build();
         try {
-            gcmService.sendNotification(pacienteEntity.getIdLogin(), ObjectUtils.toJson(vo));
+            gcmService.sendNotification(vo,  pacienteEntity.getKeyDeviceGcm());
         } catch (GcmServiceException e) {
             //TODO CASO DE ALGUM ERRO PRECISA ENVIAR PARA UMA FILA OU GRAVAR NO BANCO PARA TENTAR NOVAMENTE MAIS TARDE.
             LOG.error("Erro ao enviar notificacao de cancelamento", e);
