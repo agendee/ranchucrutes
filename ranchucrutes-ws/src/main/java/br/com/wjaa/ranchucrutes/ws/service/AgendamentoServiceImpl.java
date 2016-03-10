@@ -320,6 +320,19 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         return AgendamentoAdapter.toAgendamentoVo(agendamento,pacienteEntity,profissionalEntity);
     }
 
+    @Override
+    public AgendamentoVo getAgendamento(Long idAgendamento) throws AgendamentoServiceException {
+        AgendamentoEntity agendamento = get(idAgendamento);
+
+        if (agendamento == null){
+            throw new AgendamentoServiceException("Agendamento não encontrado!");
+        }
+        PacienteEntity pacienteEntity = pacienteService.get(agendamento.getIdPaciente());
+        ProfissionalEntity profissionalEntity = profissionalService.get(agendamento.getIdProfissional());
+
+        return AgendamentoAdapter.toAgendamentoVo(agendamento,pacienteEntity,profissionalEntity);
+    }
+
     private void sendCancelationNotification(PacienteEntity pacienteEntity, ProfissionalEntity profissionalEntity, AgendamentoEntity agendamento) {
         NotificationVo vo = NotificationBuilder
                 .create()
