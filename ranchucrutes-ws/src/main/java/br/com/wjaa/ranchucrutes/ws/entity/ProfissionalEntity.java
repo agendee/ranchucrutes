@@ -17,24 +17,14 @@ import java.util.List;
 public class ProfissionalEntity extends LoginEntity implements Serializable{
 
     private static final long serialVersionUID = 8235523726178515224L;
-    private Integer crm;
     private String nome;
     private Short ddd;
     private Long celular;
     private List<ProfissionalClinicaEntity> clinicas;
     private List<EspecialidadeEntity> especialidades;
     private String cpf;
-    //private Notification notificacoes de aplicativos
+    private Integer numeroRegistro;
 
-
-     @Column(name = "CRM", nullable = false)
-    public Integer getCrm() {
-        return crm;
-    }
-
-    public void setCrm(Integer crm) {
-        this.crm = crm;
-    }
 
     @Column(name = "NOME", nullable = false)
     public String getNome() {
@@ -101,6 +91,16 @@ public class ProfissionalEntity extends LoginEntity implements Serializable{
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+
+    @Column(name = "NUMERO_REGISTRO")
+    public Integer getNumeroRegistro() {
+        return numeroRegistro;
+    }
+
+    public void setNumeroRegistro(Integer numeroRegistro) {
+        this.numeroRegistro = numeroRegistro;
     }
 
 

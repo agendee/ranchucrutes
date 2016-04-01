@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+    <bean name="findClinicaQuery" class="java.lang.String">
+
+        <constructor-arg>
+            <value>
+                SELECT DISTINCT
+                C.ID,
+                C.NOME NOME_CLINICA,
+                C.DDD,
+                C.TELEFONE AS TELEFONE,
+                P.ID_LOGIN ID_PROFISSIONAL,
+                P.NOME NOME_PROFISSIONAL,
+                P.NUMERO_REGISTRO,
+                ESP.NOME NOME_ESPECIALIDADE,
+                E.LOGRADOURO,
+                E.NUMERO,
+                E.BAIRRO,
+                E.LATITUDE,
+                E.LONGITUDE
+                FROM CLINICA C
+                JOIN PROFISSIONAL_CLINICA PC ON PC.ID_CLINICA = C.ID
+                JOIN PROFISSIONAL P ON P.ID_LOGIN = PC.ID_PROFISSIONAL
+                JOIN PROFISSIONAL_ESPECIALIDADE PE ON PE.ID_PROFISSIONAL = P.ID_LOGIN
+                JOIN ENDERECO E ON E.ID = C.ID_ENDERECO
+                JOIN ESPECIALIDADE ESP ON ESP.ID = PE.ID_ESPECIALIDADE
+                JOIN CLINICA_CONVENIO_CATEGORIA CCC ON CCC.ID_CLINICA = C.ID
+                WHERE E.LATITUDE &lt; :maxLatitude and E.LATITUDE &gt; :minLatitude
+                AND E.LONGITUDE &lt; :maxLongitude and E.LONGITUDE &gt; :minLongitude
+                AND PE.ID_ESPECIALIDADE = :idEspecialidade
+            </value>
+        </constructor-arg>
+
+    </bean>
+
+
+</beans>
+
