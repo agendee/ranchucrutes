@@ -1,13 +1,10 @@
-package br.com.wjaa.ranchucrutes.ws.service;
+package br.com.wjaa.ranchucrutes.framework.service;
 
-import br.com.wjaa.ranchucrutes.commons.vo.ErrorMessageVo;
+import br.com.wjaa.ranchucrutes.commons.utils.ObjectUtils;
 import br.com.wjaa.ranchucrutes.commons.vo.GcmResponseVo;
 import br.com.wjaa.ranchucrutes.commons.vo.GcmResultVo;
-import br.com.wjaa.ranchucrutes.framework.service.RanchucrutesService;
-import br.com.wjaa.ranchucrutes.ws.entity.LoginEntity;
-import br.com.wjaa.ranchucrutes.ws.entity.PacienteEntity;
-import br.com.wjaa.ranchucrutes.ws.exception.GcmServiceException;
-import br.com.wjaa.ranchucrutes.ws.rest.RestUtils;
+import br.com.wjaa.ranchucrutes.commons.vo.NotificationVo;
+import br.com.wjaa.ranchucrutes.framework.exception.GcmServiceException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,15 +40,33 @@ public class GcmServiceImpl implements GcmService {
     private static final ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    public GcmResponseVo sendNotification(Long idSender, String jsonRequest) throws GcmServiceException {
-        PacienteEntity pacienteEntity = ranchucrutesService.get(PacienteEntity.class, idSender);
+    public GcmResponseVo sendNotification(NotificationVo notificationVo, String keyDeviceGcm) throws GcmServiceException {
 
-        if (StringUtils.isEmpty(pacienteEntity.getKeyDeviceGcm())){
+
+        if (StringUtils.isEmpty(keyDeviceGcm)){
             throw new GcmServiceException("Sender está com KeyDeviceGcm nulo, não foi possivel enviar a notificacao");
         }
 
+        if (notificationVo == null){
+            throw new GcmServiceException("NotificationVo está nulo, não foi possivel enviar a notificacao");
+        }
+
+        return sendNotification(ObjectUtils.toJson(notificationVo),keyDeviceGcm);
+
+    }
+
+    @Override
+    public GcmResponseVo sendNotification(String jsonNotification, String keyDeviceGcm) throws GcmServiceException {
+        if (StringUtils.isEmpty(keyDeviceGcm)){
+            throw new GcmServiceException("Sender está com KeyDeviceGcm nulo, não foi possivel enviar a notificacao");
+        }
+
+        if (StringUtils.isBlank(jsonNotification)){
+            throw new GcmServiceException("jsonNotification está nulo, não foi possivel enviar a notificacao");
+        }
+
         try {
-            GcmResultVo gcmResultVo = postJson(jsonRequest,pacienteEntity.getKeyDeviceGcm());
+            GcmResultVo gcmResultVo = postJson(jsonNotification,keyDeviceGcm);
             GcmResponseVo gcmResponseVo = new GcmResponseVo();
             gcmResponseVo.setSent(gcmResultVo.getSuccess() > 0);
             return gcmResponseVo;
@@ -62,7 +77,6 @@ public class GcmServiceImpl implements GcmService {
         }
 
     }
-
 
 
     private GcmResultVo postJson(String jsonData, String keyDevice) throws Exception {

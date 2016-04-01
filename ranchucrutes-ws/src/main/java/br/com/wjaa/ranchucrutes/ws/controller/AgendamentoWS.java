@@ -6,6 +6,8 @@ import br.com.wjaa.ranchucrutes.commons.vo.AgendaVo;
 import br.com.wjaa.ranchucrutes.commons.vo.AgendamentoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ConfirmarAgendamentoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ErrorMessageVo;
+import br.com.wjaa.ranchucrutes.ws.adapter.AgendamentoAdapter;
+import br.com.wjaa.ranchucrutes.ws.adapter.RanchucrutesAdapter;
 import br.com.wjaa.ranchucrutes.ws.exception.AgendamentoServiceException;
 import br.com.wjaa.ranchucrutes.ws.service.AgendamentoService;
 import org.apache.commons.logging.Log;
@@ -58,6 +60,16 @@ public class AgendamentoWS {
     @RequestMapping(value = "/agendamento/confirmarConsulta/{idAgendamento}/{confirma}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
     public AgendamentoVo confirmarConsulta(@PathVariable Long idAgendamento, @PathVariable Boolean confirma) throws AgendamentoServiceException {
         return this.agendamentoService.confirmarConsulta(idAgendamento, confirma);
+    }
+
+    @RequestMapping(value = "/agendamento/cancelarConsulta/{idAgendamento}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    public AgendamentoVo cancelarConsulta(@PathVariable Long idAgendamento) throws AgendamentoServiceException {
+        return this.agendamentoService.confirmarConsulta(idAgendamento, false);
+    }
+
+    @RequestMapping(value = "/agendamento/{idAgendamento}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    public AgendamentoVo getAgendamentoById(@PathVariable Long idAgendamento, @PathVariable Boolean confirma) throws AgendamentoServiceException {
+        return this.agendamentoService.getAgendamento(idAgendamento);
     }
 
     @RequestMapping(value = "/agendamento/list/{idPaciente}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")

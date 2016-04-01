@@ -1,4 +1,4 @@
-package br.com.wjaa.ranchucrutes.ws.exception;
+package br.com.wjaa.ranchucrutes.framework.exception;
 
 /**
  * Created by wagner on 24/01/16.
