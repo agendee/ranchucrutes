@@ -104,7 +104,7 @@ public class ClinicaServiceImpl extends GenericServiceImpl<ClinicaEntity,Long> i
             }else{
                 //se entrou aqui provavelmente é um profissional que trabalha sozinho
                 // ou o loop ainda nao achou profissionais no mesmo endereco ou clinica.
-                resultadoBuscaClinicaVo.addClinica(clinicaVo);
+                resultadoBuscaClinicaVo.addClinica(clinica);
             }
         }
 
@@ -112,9 +112,11 @@ public class ClinicaServiceImpl extends GenericServiceImpl<ClinicaEntity,Long> i
     }
 
     private ClinicaVo getResultadoBuscaInList(ClinicaVo clinica, List<ClinicaVo> clinicas) {
-        for (ClinicaVo c : clinicas) {
-            if (c.isMesmoEndereco(clinica) || c.isMesmaClinica(clinica)){
-                return c;
+        if (!CollectionUtils.isEmpty(clinicas)){
+            for (ClinicaVo c : clinicas) {
+                if (c.isMesmoEndereco(clinica) || c.isMesmaClinica(clinica)){
+                    return c;
+                }
             }
         }
         return null;

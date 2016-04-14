@@ -22,6 +22,9 @@ public class ProfissionalBasicoVo {
     private String telefone;
     private List<ClinicaVo> clinicas;
     private Boolean temAgenda;
+    private Integer idProfissao;
+    private String nomeProfissao;
+    private Integer idParceiro;
 
     public String getNome() {
         return nome;
@@ -117,5 +120,29 @@ public class ProfissionalBasicoVo {
 
     public void setTemAgenda(Boolean temAgenda) {
         this.temAgenda = temAgenda;
+    }
+
+    public Integer getIdProfissao() {
+        return idProfissao;
+    }
+
+    public void setIdProfissao(Integer idProfissao) {
+        this.idProfissao = idProfissao;
+    }
+
+    public String getNomeProfissao() {
+        return nomeProfissao;
+    }
+
+    public void setNomeProfissao(String nomeProfissao) {
+        this.nomeProfissao = nomeProfissao;
+    }
+
+    public Integer getIdParceiro() {
+        return idParceiro;
+    }
+
+    public void setIdParceiro(Integer idParceiro) {
+        this.idParceiro = idParceiro;
     }
 }

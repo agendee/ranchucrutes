@@ -2,6 +2,7 @@ package br.com.wjaa.ranchucrutes.ws.entity;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,6 +25,8 @@ public class ProfissionalEntity extends LoginEntity implements Serializable{
     private List<EspecialidadeEntity> especialidades;
     private String cpf;
     private Integer numeroRegistro;
+    private ParceiroEmpresa parceiroEmpresa;
+    private List<ParceiroEmpresa> parceiros;
 
 
     @Column(name = "NOME", nullable = false)
@@ -103,5 +106,29 @@ public class ProfissionalEntity extends LoginEntity implements Serializable{
         this.numeroRegistro = numeroRegistro;
     }
 
+    @Transient
+    public ParceiroEmpresa getParceiroEmpresa() {
+        return parceiroEmpresa;
+    }
 
+    public void setParceiroEmpresa(ParceiroEmpresa parceiroEmpresa) {
+        this.parceiroEmpresa = parceiroEmpresa;
+    }
+
+
+    @OneToMany()
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(name = "PROFISSIONAL_ORIGEM", joinColumns={@JoinColumn(name="ID_PROFISSIONAL", referencedColumnName="ID",
+            updatable = false, insertable = false)},
+            inverseJoinColumns={@JoinColumn(name="ID_PARCEIRO", referencedColumnName="ID")})
+    public List<ParceiroEmpresa> getParceiros() {
+        return parceiros;
+    }
+
+    public void setParceiros(List<ParceiroEmpresa> parceiros) {
+        this.parceiros = parceiros;
+        if (!CollectionUtils.isEmpty(parceiros)){
+            this.parceiroEmpresa = parceiros.get(0);
+        }
+    }
 }

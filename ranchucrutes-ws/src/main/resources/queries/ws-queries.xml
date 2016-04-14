@@ -12,25 +12,31 @@
                 SELECT DISTINCT
                 C.ID,
                 C.NOME NOME_CLINICA,
-                C.DDD || ' ' || C.TELEFONE AS TELEFONE,
+                CONCAT(C.DDD , ' ' , C.TELEFONE) AS TELEFONE,
+                CONCAT(P.DDD , ' ' , P.CELULAR) AS CELULAR,
                 P.ID_LOGIN ID_PROFISSIONAL,
                 P.NOME NOME_PROFISSIONAL,
                 P.NUMERO_REGISTRO,
                 ESP.NOME NOME_ESPECIALIDADE,
-                E.LOGRADOURO || ', ' || E.NUMERO || ' - ' || E.BAIRRO AS ENDERECO,
+                CONCAT(E.LOGRADOURO , ', ' , E.NUMERO , ' - ' , E.BAIRRO) AS ENDERECO,
                 E.LATITUDE,
-                E.LONGITUDE
+                E.LONGITUDE,
+                PF.ID ID_PROFISSAO,
+                PF.NOME AS NOME_PROFISSAO,
+                PO.ID_PARCEIRO
                 FROM CLINICA C
                 JOIN PROFISSIONAL_CLINICA PC ON PC.ID_CLINICA = C.ID
                 JOIN PROFISSIONAL P ON P.ID_LOGIN = PC.ID_PROFISSIONAL
                 JOIN PROFISSIONAL_ESPECIALIDADE PE ON PE.ID_PROFISSIONAL = P.ID_LOGIN
                 JOIN ENDERECO E ON E.ID = C.ID_ENDERECO
                 JOIN ESPECIALIDADE ESP ON ESP.ID = PE.ID_ESPECIALIDADE
+                JOIN PROFISSAO PF ON PF.ID = ESP.ID_PROFISSAO
                 JOIN CLINICA_CONVENIO_CATEGORIA CCC ON CCC.ID_CLINICA = C.ID
+                LEFT JOIN PROFISSIONAL_ORIGEM PO ON PO.ID_PROFISSIONAL = P.ID_LOGIN
                 WHERE E.LATITUDE &lt; :maxLatitude and E.LATITUDE &gt; :minLatitude
                 AND E.LONGITUDE &lt; :maxLongitude and E.LONGITUDE &gt; :minLongitude
                 AND PE.ID_ESPECIALIDADE = :idEspecialidade
-                AND CCC.ID_CATEGORIA = :idCategoria
+                AND CCC.ID_CATEGORIA = :idConvenio
             </value>
         </constructor-arg>
 
@@ -43,20 +49,26 @@
                 SELECT DISTINCT
                 C.ID,
                 C.NOME NOME_CLINICA,
-                C.DDD || ' ' || C.TELEFONE AS TELEFONE,
+                CONCAT(C.DDD , ' ' , C.TELEFONE) AS TELEFONE,
+                CONCAT(P.DDD , ' ' , P.CELULAR) AS CELULAR,
                 P.ID_LOGIN ID_PROFISSIONAL,
                 P.NOME NOME_PROFISSIONAL,
                 P.NUMERO_REGISTRO,
                 ESP.NOME NOME_ESPECIALIDADE,
-                E.LOGRADOURO || ', ' || E.NUMERO || ' - ' || E.BAIRRO AS ENDERECO,
+                CONCAT(E.LOGRADOURO , ', ' , E.NUMERO , ' - ' , E.BAIRRO) AS ENDERECO,
                 E.LATITUDE,
-                E.LONGITUDE
+                E.LONGITUDE,
+                PF.ID ID_PROFISSAO,
+                PF.NOME AS NOME_PROFISSAO,
+                PO.ID_PARCEIRO
                 FROM CLINICA C
                 JOIN PROFISSIONAL_CLINICA PC ON PC.ID_CLINICA = C.ID
                 JOIN PROFISSIONAL P ON P.ID_LOGIN = PC.ID_PROFISSIONAL
                 JOIN PROFISSIONAL_ESPECIALIDADE PE ON PE.ID_PROFISSIONAL = P.ID_LOGIN
                 JOIN ENDERECO E ON E.ID = C.ID_ENDERECO
                 JOIN ESPECIALIDADE ESP ON ESP.ID = PE.ID_ESPECIALIDADE
+                JOIN PROFISSAO PF ON PF.ID = ESP.ID_PROFISSAO
+                LEFT JOIN PROFISSIONAL_ORIGEM PO ON PO.ID_PROFISSIONAL = P.ID_LOGIN
                 WHERE E.LATITUDE &lt; :maxLatitude and E.LATITUDE &gt; :minLatitude
                 AND E.LONGITUDE &lt; :maxLongitude and E.LONGITUDE &gt; :minLongitude
                 AND PE.ID_ESPECIALIDADE = :idEspecialidade
