@@ -1,5 +1,6 @@
 package br.com.wjaa.ranchucrutes.ws.controller;
 
+import br.com.wjaa.ranchucrutes.commons.form.FindClinicaForm;
 import br.com.wjaa.ranchucrutes.commons.form.FindProfissionalForm;
 import br.com.wjaa.ranchucrutes.commons.form.ProfissionalForm;
 import br.com.wjaa.ranchucrutes.commons.form.ProfissionalFullForm;
@@ -9,6 +10,7 @@ import br.com.wjaa.ranchucrutes.ws.adapter.ProfissionalAdapter;
 import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalEntity;
 import br.com.wjaa.ranchucrutes.ws.exception.*;
 import br.com.wjaa.ranchucrutes.ws.service.AgendamentoService;
+import br.com.wjaa.ranchucrutes.ws.service.ClinicaService;
 import br.com.wjaa.ranchucrutes.ws.service.ProfissionalService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -39,6 +41,9 @@ public class ProfissionalWS extends BaseWS {
     private ProfissionalService profissionalService;
 
     @Autowired
+    private ClinicaService clinicaService;
+
+    @Autowired
     private AgendamentoService agendamentoService;
 
 
@@ -58,6 +63,11 @@ public class ProfissionalWS extends BaseWS {
     public ResultadoBuscaProfissionalVo findProfissional(@RequestBody FindProfissionalForm form) throws CepNotFoundException,
             LocationDuplicateFoundException, LocationNotFoundException {
        return this.profissionalService.find(form);
+    }
+
+    @RequestMapping(value = "/profissional/clinica/search", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    public ResultadoBuscaClinicaVo findProfissionalInClinica(@RequestBody FindClinicaForm form) throws ClinicaServiceException {
+        return this.clinicaService.find(form);
     }
 
 
@@ -142,6 +152,15 @@ public class ProfissionalWS extends BaseWS {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public @ResponseBody
     ErrorMessageVo handleException(ProfissionalServiceException e, HttpServletResponse response) {
+        LOG.error("handleException",e);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
+        return new ErrorMessageVo(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+    }
+
+    @ExceptionHandler(ClinicaServiceException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public @ResponseBody
+    ErrorMessageVo handleException(ClinicaServiceException e, HttpServletResponse response) {
         LOG.error("handleException",e);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
         return new ErrorMessageVo(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());

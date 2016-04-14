@@ -58,7 +58,7 @@ public class ProfissionalAdapter {
         ProfissionalBasicoVo profissionalBasicoVo = new ProfissionalBasicoVo();
         profissionalBasicoVo.setId(me.getIdLogin());
         profissionalBasicoVo.setNome(me.getNome());
-        profissionalBasicoVo.setCrm(me.getCrm());
+        profissionalBasicoVo.setNumeroRegistro(me.getNumeroRegistro());
         if (!CollectionUtils.isEmpty(me.getEspecialidades())){
             profissionalBasicoVo.setEspec(me.getEspecialidades().get(0).getNome());
         }

@@ -28,6 +28,7 @@ public class ClinicaEntity implements Serializable{
     private AgendaEntity agenda;
     private EnderecoEntity endereco;
     private List<ConvenioCategoriaEntity> convenios;
+    private ProfissionalEntity profissionalEntity;
 
 
     @Id
@@ -136,5 +137,14 @@ public class ClinicaEntity implements Serializable{
     @Override
     public int hashCode() {
         return getId().hashCode();
+    }
+
+    @Transient
+    public ProfissionalEntity getProfissionalEntity() {
+        return profissionalEntity;
+    }
+
+    public void setProfissionalEntity(ProfissionalEntity profissionalEntity) {
+        this.profissionalEntity = profissionalEntity;
     }
 }

@@ -72,4 +72,7 @@ public class LocationVo {
         return this.longitude - this.getLimitInAngle(raioKm);
     }
 
+    public boolean isNull() {
+        return this.latitude == null || this.longitude == null;
+    }
 }

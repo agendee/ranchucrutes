@@ -5,22 +5,19 @@
        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 
-    <bean name="findClinicaQuery" class="java.lang.String">
+    <bean name="findClinicaByConvenioQuery" class="java.lang.String">
 
         <constructor-arg>
             <value>
                 SELECT DISTINCT
                 C.ID,
                 C.NOME NOME_CLINICA,
-                C.DDD,
-                C.TELEFONE AS TELEFONE,
+                C.DDD || ' ' || C.TELEFONE AS TELEFONE,
                 P.ID_LOGIN ID_PROFISSIONAL,
                 P.NOME NOME_PROFISSIONAL,
                 P.NUMERO_REGISTRO,
                 ESP.NOME NOME_ESPECIALIDADE,
-                E.LOGRADOURO,
-                E.NUMERO,
-                E.BAIRRO,
+                E.LOGRADOURO || ', ' || E.NUMERO || ' - ' || E.BAIRRO AS ENDERECO,
                 E.LATITUDE,
                 E.LONGITUDE
                 FROM CLINICA C
@@ -33,11 +30,41 @@
                 WHERE E.LATITUDE &lt; :maxLatitude and E.LATITUDE &gt; :minLatitude
                 AND E.LONGITUDE &lt; :maxLongitude and E.LONGITUDE &gt; :minLongitude
                 AND PE.ID_ESPECIALIDADE = :idEspecialidade
+                AND CCC.ID_CATEGORIA = :idCategoria
             </value>
         </constructor-arg>
 
     </bean>
 
+    <bean name="findClinicaQuery" class="java.lang.String">
+
+        <constructor-arg>
+            <value>
+                SELECT DISTINCT
+                C.ID,
+                C.NOME NOME_CLINICA,
+                C.DDD || ' ' || C.TELEFONE AS TELEFONE,
+                P.ID_LOGIN ID_PROFISSIONAL,
+                P.NOME NOME_PROFISSIONAL,
+                P.NUMERO_REGISTRO,
+                ESP.NOME NOME_ESPECIALIDADE,
+                E.LOGRADOURO || ', ' || E.NUMERO || ' - ' || E.BAIRRO AS ENDERECO,
+                E.LATITUDE,
+                E.LONGITUDE
+                FROM CLINICA C
+                JOIN PROFISSIONAL_CLINICA PC ON PC.ID_CLINICA = C.ID
+                JOIN PROFISSIONAL P ON P.ID_LOGIN = PC.ID_PROFISSIONAL
+                JOIN PROFISSIONAL_ESPECIALIDADE PE ON PE.ID_PROFISSIONAL = P.ID_LOGIN
+                JOIN ENDERECO E ON E.ID = C.ID_ENDERECO
+                JOIN ESPECIALIDADE ESP ON ESP.ID = PE.ID_ESPECIALIDADE
+                WHERE E.LATITUDE &lt; :maxLatitude and E.LATITUDE &gt; :minLatitude
+                AND E.LONGITUDE &lt; :maxLongitude and E.LONGITUDE &gt; :minLongitude
+                AND PE.ID_ESPECIALIDADE = :idEspecialidade
+                AND PC.ACEITA_PARTICULAR = :aceitaParticular
+            </value>
+        </constructor-arg>
+
+    </bean>
 
 </beans>
 

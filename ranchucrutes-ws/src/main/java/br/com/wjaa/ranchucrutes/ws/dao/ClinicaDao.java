@@ -1,5 +1,6 @@
 package br.com.wjaa.ranchucrutes.ws.dao;
 
+import br.com.wjaa.ranchucrutes.commons.vo.ClinicaVo;
 import br.com.wjaa.ranchucrutes.commons.vo.LocationVo;
 import br.com.wjaa.ranchucrutes.framework.dao.GenericDao;
 import br.com.wjaa.ranchucrutes.ws.entity.ClinicaEntity;
@@ -10,7 +11,7 @@ import java.util.List;
 /**
  * Created by wagner on 17/06/15.
  */
-public interface ClinicaDao extends GenericDao<ClinicaEntity,Long> {
+public interface ClinicaDao extends GenericDao<ClinicaEntity, Long> {
 
     /**
      *
@@ -20,7 +21,7 @@ public interface ClinicaDao extends GenericDao<ClinicaEntity,Long> {
      * @param raioPrecisao
      * @return
      */
-    List<ClinicaEntity> findClinica(Integer idEspecialidade, Integer idConvenio, LocationVo location, double raioPrecisao);
+    List<ClinicaVo> findClinicaByConvenio(Integer idEspecialidade, Integer idConvenio, LocationVo location, double raioPrecisao);
 
     /**
      *
@@ -29,7 +30,7 @@ public interface ClinicaDao extends GenericDao<ClinicaEntity,Long> {
      * @param raioPrecisao
      * @return
      */
-    List<ClinicaEntity> findClinicaByEspecialidade(Integer idEspecialidade, LocationVo location,
+    List<ClinicaVo> findClinicaParticular(Integer idEspecialidade, LocationVo location,
                                                              double raioPrecisao);
 
 

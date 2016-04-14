@@ -14,11 +14,10 @@ public class ProfissionalBasicoVo {
 
     private Long id;
     private String nome;
-    private Integer crm;
+    private Integer numeroRegistro;
     private String espec;
     private Double latitude;
     private Double longitude;
-    @Deprecated
     private String endereco;
     private String telefone;
     private List<ClinicaVo> clinicas;
@@ -32,12 +31,12 @@ public class ProfissionalBasicoVo {
         this.nome = nome;
     }
 
-    public Integer getCrm() {
-        return crm;
+    public Integer getNumeroRegistro() {
+        return numeroRegistro;
     }
 
-    public void setCrm(Integer crm) {
-        this.crm = crm;
+    public void setNumeroRegistro(Integer numeroRegistro) {
+        this.numeroRegistro = numeroRegistro;
     }
 
     public String getEspec() {

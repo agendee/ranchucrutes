@@ -183,7 +183,7 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
         profissional.setDataUltimoAcesso(new Date());
         profissional.setAtivo(false);
         try {
-            profissional.setCodeConfirmacao(loginService.createCodeConfirmation(profissional.getEmail(),profissional.getCrm()));
+            profissional.setCodeConfirmacao(loginService.createCodeConfirmation(profissional.getEmail(),profissional.getNumeroRegistro()));
             profissional.setSenha(loginService.createHashPass(profissional.getSenha()));
         } catch (Exception e) {
             throw new ProfissionalServiceException("Erro ao gerar senha|codigo de confirmacao do cliente");
@@ -274,15 +274,20 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
     }
 
 
-
+    /**
+     *
+     * @param profissional
+     * @throws ProfissionalServiceException
+     */
     private void validate(ProfissionalEntity profissional) throws ProfissionalServiceException {
-        if (profissional.getCrm() == null){
+        //TODO VERIFICAR ESSA CONSISTENCIA PQ AGORA TEREMOS VARIOS TIPO DE REGISTRO
+        if (profissional.getNumeroRegistro() == null){
             LOG.error("Profissional sem crm...");
             throw new ProfissionalServiceException("CRM não pode ser null");
         }
-        ProfissionalEntity profissionalExists = this.profissionalDao.getProfissionalByCrm(profissional.getCrm());
+        ProfissionalEntity profissionalExists = this.profissionalDao.getProfissionalByCrm(profissional.getNumeroRegistro());
         if (profissionalExists != null){
-            throw new ProfissionalServiceException("Já existe um profissional cadastrado com esse CRM [" + profissional.getCrm() + "]");
+            throw new ProfissionalServiceException("Já existe um profissional cadastrado com esse CRM [" + profissional.getNumeroRegistro() + "]");
         }
 
         profissionalExists = this.profissionalDao.getProfissionalByEmail(profissional.getEmail());
