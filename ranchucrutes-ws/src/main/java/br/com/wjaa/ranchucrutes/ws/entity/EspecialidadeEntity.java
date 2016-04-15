@@ -15,6 +15,7 @@ public class EspecialidadeEntity implements Serializable {
     private String nome;
     private Boolean popular;
     private Boolean ativo;
+    private ProfissaoEntity profissao;
 
 
     public EspecialidadeEntity(){}
@@ -62,4 +63,16 @@ public class EspecialidadeEntity implements Serializable {
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
     }
+
+
+    @ManyToOne()
+    @JoinColumn(name="ID_PROFISSAO")
+    public ProfissaoEntity getProfissao() {
+        return profissao;
+    }
+
+    public void setProfissao(ProfissaoEntity profissao) {
+        this.profissao = profissao;
+    }
+
 }

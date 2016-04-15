@@ -14,11 +14,13 @@ import br.com.wjaa.ranchucrutes.ws.entity.*;
 import br.com.wjaa.ranchucrutes.ws.exception.AgendamentoServiceException;
 import br.com.wjaa.ranchucrutes.ws.adapter.AgendamentoAdapter;
 import br.com.wjaa.ranchucrutes.ws.dao.AgendamentoDao;
+import br.com.wjaa.ranchucrutes.ws.exception.ParceiroIntegracaoServiceException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -128,9 +130,14 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         try {
             return agendamentoService.criarAgendamentoNovaTransaction(form,pacienteEntity,profissionalEntity);
         } catch (SQLException e) {
+            LOG.error("Horario nao está disponivel:", e);
             throw new AgendamentoServiceException("Desculpe, horário não está mais disponível!");
         } catch (Exception e){
+            LOG.error("Erro no agendamento:", e);
             throw new AgendamentoServiceException("Ocorreu um erro no agendamento, tente novamente mais tarde!");
+        } catch (ParceiroIntegracaoServiceException e) {
+            LOG.error("Erro na integracao:", e);
+            throw new AgendamentoServiceException("Ocorreu um erro na integração com nosso parceiro.");
         }
     }
 
@@ -142,7 +149,21 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ConfirmarAgendamentoVo criarAgendamentoNovaTransaction(AgendamentoForm form, PacienteEntity pacienteEntity,
-                                                                   ProfissionalEntity profissionalEntity) throws SQLException{
+                                                                   ProfissionalEntity profissionalEntity) throws SQLException
+            , ParceiroIntegracaoServiceException {
+        LOG.info("Antes de criar agenda, verificando se profissional é de um parceiro para iniciar a integracao.");
+        ParceiroEmpresaEntity parceiroEmpresa = profissionalEntity.getParceiroEmpresa();
+        if (parceiroEmpresa != null && parceiroEmpresa.getParceiroIntegracao() != null){
+            LOG.info("Profissional é de um parceiro, iniciando chamada dos servicos...");
+            ParceiroIntegracaoEntity parceiroIntegracao = parceiroEmpresa.getParceiroIntegracao();
+            ParceiroIntegracaoService parceiroIntegracaoService = (ParceiroIntegracaoService) applicationContext
+                    .getBean(parceiroIntegracao.getBean());
+
+            //TODO AQUI COMEÇA A INTEGRACAO
+            throw new ParceiroIntegracaoServiceException("Integracao nao implementada");
+        }
+
+
         AgendamentoEntity ae = new AgendamentoEntity();
         ae.setCancelado(false);
         ae.setCodigoConfirmacao(this.getCodigoConfirmacao(form));

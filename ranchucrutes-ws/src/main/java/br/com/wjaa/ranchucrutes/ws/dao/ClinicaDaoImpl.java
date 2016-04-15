@@ -110,7 +110,7 @@ public class ClinicaDaoImpl extends GenericDaoImpl<ClinicaEntity, Long> implemen
                     clinicaVo.setNome(tuple[i].toString());
                 }else if ( "TELEFONE".equalsIgnoreCase(aliases[i])){
                     clinicaVo.setTelefone(tuple[i].toString());
-                }else if ( "ID_LOGIN".equalsIgnoreCase(aliases[i])){
+                }else if ( "ID_PROFISSIONAL".equalsIgnoreCase(aliases[i])){
                     p.setId(java.lang.Long.valueOf(tuple[i].toString()));
                 }else if ( "NOME_PROFISSIONAL".equalsIgnoreCase(aliases[i])){
                     p.setNome(tuple[i].toString());

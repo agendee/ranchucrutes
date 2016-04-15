@@ -59,9 +59,18 @@ public class ProfissionalAdapter {
         profissionalBasicoVo.setId(me.getIdLogin());
         profissionalBasicoVo.setNome(me.getNome());
         profissionalBasicoVo.setNumeroRegistro(me.getNumeroRegistro());
+
         if (!CollectionUtils.isEmpty(me.getEspecialidades())){
-            profissionalBasicoVo.setEspec(me.getEspecialidades().get(0).getNome());
+            EspecialidadeEntity e = me.getEspecialidades().get(0);
+            profissionalBasicoVo.setEspec(e.getNome());
+            profissionalBasicoVo.setIdProfissao(e.getProfissao().getId());
+            profissionalBasicoVo.setNomeProfissao(e.getProfissao().getNome());
         }
+
+        if (me.getParceiroEmpresa() != null){
+            profissionalBasicoVo.setIdParceiro(me.getParceiroEmpresa().getId());
+        }
+
         if (!CollectionUtils.isEmpty(me.getClinicas())){
             ClinicaEntity c = me.getClinicas().get(0).getClinica();
 

@@ -11,6 +11,7 @@ import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.PacienteEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.AgendamentoEntity;
 import br.com.wjaa.ranchucrutes.ws.exception.AgendamentoServiceException;
+import br.com.wjaa.ranchucrutes.ws.exception.ParceiroIntegracaoServiceException;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -25,7 +26,7 @@ public interface AgendamentoService extends GenericService<AgendamentoEntity, Lo
     AgendaVo getAgendaProfissional(Long idProfissional, Long idClinica) throws AgendamentoServiceException;
 
     ConfirmarAgendamentoVo criarAgendamentoNovaTransaction(AgendamentoForm form, PacienteEntity pacienteEntity,
-                                                                  ProfissionalEntity profissionalEntity) throws SQLException;
+                                                                  ProfissionalEntity profissionalEntity) throws SQLException, ParceiroIntegracaoServiceException;
 
     AgendamentoVo confirmarSolicitacao(Long idAgendamento, String codigo) throws AgendamentoServiceException;
 
