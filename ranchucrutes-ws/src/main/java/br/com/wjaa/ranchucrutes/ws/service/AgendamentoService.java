@@ -23,14 +23,14 @@ import java.util.List;
 public interface AgendamentoService extends GenericService<AgendamentoEntity, Long> {
     ConfirmarAgendamentoVo criarAgendamento(AgendamentoForm form) throws AgendamentoServiceException;
 
-    AgendaVo getAgendaProfissional(Long idProfissional, Long idClinica) throws AgendamentoServiceException;
+    AgendaVo getAgendaProfissional(Long idProfissional, Long idClinica) throws AgendamentoServiceException, ParceiroIntegracaoServiceException;
 
     ConfirmarAgendamentoVo criarAgendamentoNovaTransaction(AgendamentoForm form, PacienteEntity pacienteEntity,
                                                                   ProfissionalEntity profissionalEntity) throws SQLException, ParceiroIntegracaoServiceException;
 
     AgendamentoVo confirmarSolicitacao(Long idAgendamento, String codigo) throws AgendamentoServiceException;
 
-    AgendamentoVo confirmarConsulta(Long idAgendamento, Boolean confirma) throws AgendamentoServiceException;
+    AgendamentoVo confirmarConsulta(Long idAgendamento, Boolean confirma) throws AgendamentoServiceException, ParceiroIntegracaoServiceException;
 
     List<AgendamentoVo> getAgendamentosPaciente(Long idPaciente) throws AgendamentoServiceException;
 

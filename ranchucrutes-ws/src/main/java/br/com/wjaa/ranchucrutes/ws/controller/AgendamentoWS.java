@@ -9,6 +9,7 @@ import br.com.wjaa.ranchucrutes.commons.vo.ErrorMessageVo;
 import br.com.wjaa.ranchucrutes.ws.adapter.AgendamentoAdapter;
 import br.com.wjaa.ranchucrutes.ws.adapter.RanchucrutesAdapter;
 import br.com.wjaa.ranchucrutes.ws.exception.AgendamentoServiceException;
+import br.com.wjaa.ranchucrutes.ws.exception.ParceiroIntegracaoServiceException;
 import br.com.wjaa.ranchucrutes.ws.service.AgendamentoService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,7 +34,7 @@ public class AgendamentoWS {
     private AgendamentoService agendamentoService;
 
     @RequestMapping(value = "/agendamento/{idProfissional}/{idClinica}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
-    public AgendaVo getAgendaProfissional(@PathVariable Long idProfissional, @PathVariable Long idClinica) throws AgendamentoServiceException {
+    public AgendaVo getAgendaProfissional(@PathVariable Long idProfissional, @PathVariable Long idClinica) throws AgendamentoServiceException, ParceiroIntegracaoServiceException {
         return this.agendamentoService.getAgendaProfissional(idProfissional, idClinica);
     }
 
@@ -58,12 +59,12 @@ public class AgendamentoWS {
     }
 
     @RequestMapping(value = "/agendamento/confirmarConsulta/{idAgendamento}/{confirma}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
-    public AgendamentoVo confirmarConsulta(@PathVariable Long idAgendamento, @PathVariable Boolean confirma) throws AgendamentoServiceException {
+    public AgendamentoVo confirmarConsulta(@PathVariable Long idAgendamento, @PathVariable Boolean confirma) throws AgendamentoServiceException, ParceiroIntegracaoServiceException {
         return this.agendamentoService.confirmarConsulta(idAgendamento, confirma);
     }
 
     @RequestMapping(value = "/agendamento/cancelarConsulta/{idAgendamento}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
-    public AgendamentoVo cancelarConsulta(@PathVariable Long idAgendamento) throws AgendamentoServiceException {
+    public AgendamentoVo cancelarConsulta(@PathVariable Long idAgendamento) throws AgendamentoServiceException, ParceiroIntegracaoServiceException {
         return this.agendamentoService.confirmarConsulta(idAgendamento, false);
     }
 
@@ -82,6 +83,15 @@ public class AgendamentoWS {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public @ResponseBody
     ErrorMessageVo handleException(AgendamentoServiceException e, HttpServletResponse response) {
+        LOG.error("handleException",e);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
+        return new ErrorMessageVo(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
+    }
+
+    @ExceptionHandler(ParceiroIntegracaoServiceException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public @ResponseBody
+    ErrorMessageVo handleException(ParceiroIntegracaoServiceException e, HttpServletResponse response) {
         LOG.error("handleException",e);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
         return new ErrorMessageVo(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());

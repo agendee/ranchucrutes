@@ -131,4 +131,10 @@ public class ProfissionalEntity extends LoginEntity implements Serializable{
             this.parceiroEmpresa = parceiros.get(0);
         }
     }
+
+    @Transient
+    public boolean isParceiro(){
+        return this.parceiroEmpresa != null;
+    }
+
 }
