@@ -3,7 +3,6 @@ package br.com.wjaa.ranchucrutes.ws.service;
 import br.com.wjaa.ranchucrutes.commons.form.AgendamentoForm;
 import br.com.wjaa.ranchucrutes.commons.form.RejeicaoSolicitacaoForm;
 import br.com.wjaa.ranchucrutes.commons.helper.DiaSemana;
-import br.com.wjaa.ranchucrutes.commons.utils.ObjectUtils;
 import br.com.wjaa.ranchucrutes.commons.vo.*;
 import br.com.wjaa.ranchucrutes.framework.exception.GcmServiceException;
 import br.com.wjaa.ranchucrutes.framework.service.GcmService;
@@ -15,12 +14,12 @@ import br.com.wjaa.ranchucrutes.ws.exception.AgendamentoServiceException;
 import br.com.wjaa.ranchucrutes.ws.adapter.AgendamentoAdapter;
 import br.com.wjaa.ranchucrutes.ws.dao.AgendamentoDao;
 import br.com.wjaa.ranchucrutes.ws.exception.ParceiroIntegracaoServiceException;
+import br.com.wjaa.ranchucrutes.ws.integracao.service.ParceiroIntegracaoService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -68,6 +67,208 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
     }
 
 
+    /**
+     * LISTAGEM DE AGENDAMENTOS
+     * ###############################################################################3
+     */
+
+
+    /**
+     * Lista os agendamentos do profissional em um determinado periodo de tempo
+     * @param idProfissional
+     * @param iniDate
+     * @param endDate
+     * @return
+     * @throws AgendamentoServiceException
+     */
+    @Override
+    public CalendarioAgendamentoVo getAgendamentosProfissional(Long idProfissional, Date iniDate, Date endDate) throws AgendamentoServiceException {
+
+        ProfissionalEntity profissionalEntity = this.profissionalService.get(idProfissional);
+        if (profissionalEntity == null){
+            throw new AgendamentoServiceException("Profissional não encontrado!");
+        }
+
+        if ( profissionalEntity.getClinicas() == null){
+            throw new AgendamentoServiceException("Profissional não possui agenda!");
+        }
+
+        List<CalendarioClinicaVo> listCalendarioClinica = new ArrayList<>();
+        for (ProfissionalClinicaEntity c : profissionalEntity.getClinicas()){
+            //verificando se a clinica do profissional tem agenda online
+            AgendaEntity agenda = c.getClinica().getAgenda();
+            if (agenda == null){
+                continue;
+            }
+            ClinicaEntity clinica = c.getClinica();
+            CalendarioClinicaVo calendarioClinica = this.getCalendarioClinicaVo(iniDate, endDate, profissionalEntity, agenda, clinica);
+            listCalendarioClinica.add(calendarioClinica);
+        }
+        CalendarioAgendamentoVo calendarioAgendamentoVo = new CalendarioAgendamentoVo();
+        calendarioAgendamentoVo.setDataIni(br.com.wjaa.ranchucrutes.commons.utils.DateUtils.formatyyyyMMdd(iniDate));
+        calendarioAgendamentoVo.setDataFim(br.com.wjaa.ranchucrutes.commons.utils.DateUtils.formatyyyyMMdd(endDate));
+        calendarioAgendamentoVo.setCalendariosClinicas(listCalendarioClinica);
+        return calendarioAgendamentoVo;
+    }
+
+
+    /**
+     * Lista os agendamento de um profissional em uma determinada clinica dentro de um periodo.
+     * @param idProfissional
+     * @param idClinica
+     * @param dateIni
+     * @param dateFim
+     * @return
+     * @throws AgendamentoServiceException
+     */
+    @Override
+    public CalendarioAgendamentoVo getAgendamentosProfissional(Long idProfissional, Long idClinica, Date dateIni, Date dateFim) throws AgendamentoServiceException {
+        ProfissionalEntity profissionalEntity = this.profissionalService.get(idProfissional);
+        if (profissionalEntity == null){
+            throw new AgendamentoServiceException("Profissional não encontrado!");
+        }
+
+        if ( profissionalEntity.getClinicas() == null){
+            throw new AgendamentoServiceException("Profissional não possui agenda!");
+        }
+
+        List<CalendarioClinicaVo> listCalendarioClinica = new ArrayList<>();
+
+        for (ProfissionalClinicaEntity c : profissionalEntity.getClinicas()){
+            //adicionando apenas a clinica solicitada.
+            if (idClinica.equals(c.getClinica().getId())){
+                AgendaEntity agenda = c.getClinica().getAgenda();
+                if (agenda == null){
+                    continue;
+                }
+                ClinicaEntity clinica = c.getClinica();
+                CalendarioClinicaVo calendarioClinica = this.getCalendarioClinicaVo(dateIni, dateFim, profissionalEntity, agenda, clinica);
+                listCalendarioClinica.add(calendarioClinica);
+            }
+        }
+        CalendarioAgendamentoVo calendarioAgendamentoVo = new CalendarioAgendamentoVo();
+        calendarioAgendamentoVo.setDataIni(br.com.wjaa.ranchucrutes.commons.utils.DateUtils.formatyyyyMMdd(dateIni));
+        calendarioAgendamentoVo.setDataFim(br.com.wjaa.ranchucrutes.commons.utils.DateUtils.formatyyyyMMdd(dateFim));
+        calendarioAgendamentoVo.setCalendariosClinicas(listCalendarioClinica);
+        return calendarioAgendamentoVo;
+    }
+
+    /**
+     * Lista os agendamentos de um paciente.
+     * @param idPaciente
+     * @return
+     * @throws AgendamentoServiceException
+     */
+    @Override
+    public List<AgendamentoVo> getAgendamentosPaciente(Long idPaciente) throws AgendamentoServiceException {
+        PacienteEntity pacienteEntity = pacienteService.get(idPaciente);
+        if (pacienteEntity == null){
+            throw new AgendamentoServiceException("Paciente não encontrado!");
+        }
+
+        List<AgendamentoVo> agendamentoVos = new ArrayList<>();
+
+        List<AgendamentoEntity> agendamentos = agendamentoDao.getAgendamentosPaciente(idPaciente);
+
+        for(AgendamentoEntity a : agendamentos){
+            ProfissionalEntity profissionalEntity = profissionalService.get(a.getIdProfissional());
+            agendamentoVos.add(AgendamentoAdapter.toAgendamentoVo(a, pacienteEntity, profissionalEntity));
+        }
+
+        return agendamentoVos;
+    }
+
+    /**
+     * Retorna um agendamento pelo seu ID
+     * @param idAgendamento
+     * @return
+     * @throws AgendamentoServiceException
+     */
+    @Override
+    public AgendamentoVo getAgendamento(Long idAgendamento) throws AgendamentoServiceException {
+        AgendamentoEntity agendamento = get(idAgendamento);
+
+        if (agendamento == null){
+            throw new AgendamentoServiceException("Agendamento não encontrado!");
+        }
+        PacienteEntity pacienteEntity = pacienteService.get(agendamento.getIdPaciente());
+        ProfissionalEntity profissionalEntity = profissionalService.get(agendamento.getIdProfissional());
+
+        return AgendamentoAdapter.toAgendamentoVo(agendamento,pacienteEntity,profissionalEntity);
+    }
+
+    /**
+     * Lista a Agenda com horarios livres de um profissional em uma deteminada clinica, no agendee ou no parceiro.
+     *
+     * @param idProfissional
+     * @param idClinica
+     * @return
+     * @throws AgendamentoServiceException
+     * @throws ParceiroIntegracaoServiceException
+     */
+    @Override
+    public AgendaVo getAgendaProfissional(Long idProfissional, Long idClinica) throws AgendamentoServiceException, ParceiroIntegracaoServiceException {
+
+        log.info("m=getAgendaProfissional");
+        if (idProfissional == null || idClinica == null){
+            throw new AgendamentoServiceException("Profissional ou Clínica não encontrado!");
+        }
+
+
+        log.info("Buscando agenda de um profissional = " + idProfissional + " na clinica = " + idClinica);
+        //CASO O PROFISSIONAL SEJA UM PARCEIRO IREMOS BUSCAR ELE NA BASE DA EMPRESA
+        ProfissionalEntity profissionalEntity = profissionalService.get(idProfissional);
+        if ( profissionalEntity.isParceiro() ){
+
+            log.info("Profissional é de um parceiro, iniciando integracao...");
+            ParceiroIntegracaoEntity parceiroIntegracao = profissionalEntity.getParceiroEmpresa().getParceiroIntegracao();
+            if (parceiroIntegracao == null){
+                throw new ParceiroIntegracaoServiceException("Integracao não configurada para o parceiro: "
+                        + profissionalEntity.getParceiroEmpresa().getNome());
+            }
+
+
+            ParceiroIntegracaoService integracaoService = (ParceiroIntegracaoService) applicationContext
+                    .getBean(profissionalEntity.getParceiroEmpresa().getParceiroIntegracao().getBean());
+
+            log.info("Buscando agenda do profissional...");
+            return integracaoService.getAgenda(profissionalEntity);
+
+        }
+
+        log.info("Profissional é do agendee!");
+
+        //SE O PROFISSIONAL FOR NOSSO COMEÇA AQUI
+        AgendaEntity agendaConfig = this.agendamentoDao.getAgendaConfig(idProfissional,idClinica);
+
+        if (agendaConfig == null){
+            throw new AgendamentoServiceException("Profissional não possuí agenda cadastrada!");
+        }
+        Date agora = br.com.wjaa.ranchucrutes.commons.utils.DateUtils.now();
+        List<AgendaCanceladaEntity> listAgendaCancelada = this.agendamentoDao
+                .getAgendaCanceladaPosterior(idProfissional, idClinica, agora);
+
+        List<AgendamentoEntity> listAgendamentos = this.agendamentoDao.getAgendamentos(idProfissional, idClinica, agora );
+
+        ProfissionalBasicoVo profissionalBasico = profissionalService.getProfissionalBasico(idProfissional);
+
+        AgendaVo agendaVo = this.createAgenda(agendaConfig, listAgendaCancelada, listAgendamentos, profissionalBasico);
+
+        return agendaVo;
+    }
+
+    /**
+     * FIM DAS LISTAGEM DE AGENDAMENTOS
+     * ########################################################################################
+     */
+
+
+    /**
+     * Cria um agendamento no agendee ou em um parceiro.
+     * @param form
+     * @return
+     * @throws AgendamentoServiceException
+     */
     @Override
     public ConfirmarAgendamentoVo criarAgendamento(AgendamentoForm form) throws AgendamentoServiceException {
 
@@ -141,29 +342,41 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         }
     }
 
-    @PostConstruct
-    private void init() {
-        agendamentoService = (AgendamentoService) applicationContext.getBean("AgendamentoServiceImpl");
-    }
+
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ConfirmarAgendamentoVo criarAgendamentoNovaTransaction(AgendamentoForm form, PacienteEntity pacienteEntity,
-                                                                   ProfissionalEntity profissionalEntity) throws SQLException
-            , ParceiroIntegracaoServiceException {
+                                                                   ProfissionalEntity profissionalEntity)
+            throws SQLException, ParceiroIntegracaoServiceException {
+
+        LOG.info("m=criarAgendamentoNovaTransaction");
+
         LOG.info("Antes de criar agenda, verificando se profissional é de um parceiro para iniciar a integracao.");
-        ParceiroEmpresaEntity parceiroEmpresa = profissionalEntity.getParceiroEmpresa();
-        if (parceiroEmpresa != null && parceiroEmpresa.getParceiroIntegracao() != null){
-            LOG.info("Profissional é de um parceiro, iniciando chamada dos servicos...");
+        ParceiroAgendamentoVo parceiroAgendamentoVo = null;
+        if (profissionalEntity.isParceiro()){
+            LOG.info("Profissional é de um parceiro, iniciando integracao para criar agendamento");
+
+            ParceiroEmpresaEntity parceiroEmpresa = profissionalEntity.getParceiroEmpresa();
+
             ParceiroIntegracaoEntity parceiroIntegracao = parceiroEmpresa.getParceiroIntegracao();
+
+            if (parceiroIntegracao == null){
+                throw new ParceiroIntegracaoServiceException("Integracao não configurada!");
+            }
+
             ParceiroIntegracaoService parceiroIntegracaoService = (ParceiroIntegracaoService) applicationContext
                     .getBean(parceiroIntegracao.getBean());
 
-            //TODO AQUI COMEÇA A INTEGRACAO
-            throw new ParceiroIntegracaoServiceException("Integracao nao implementada");
+
+            LOG.info("Criando agendamento no parceiro....");
+            parceiroAgendamentoVo = parceiroIntegracaoService.criarAgendamento(form, profissionalEntity, pacienteEntity);
+            LOG.info("Agendamento no parceiro realizado com sucesso!!!!");
         }
 
 
+
+        LOG.info("Gravando agendamento no Agendee...");
         AgendamentoEntity ae = new AgendamentoEntity();
         ae.setCancelado(false);
         ae.setCodigoConfirmacao(this.getCodigoConfirmacao(form));
@@ -174,9 +387,15 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         ae.setIdProfissional(form.getIdProfissional());
         ae = agendamentoDao.save(ae);
 
+        //verificando se houve um agendamento em algum parceiro
+        if (parceiroAgendamentoVo != null){
+            log.info("Vinculando o agendamento com o parceiro ao nosso agendamento...");
+        }
+
         ConfirmarAgendamentoVo confirmarAgendamentoVo = new ConfirmarAgendamentoVo();
         confirmarAgendamentoVo.setCodigoConfirmacao(ae.getCodigoConfirmacao());
         confirmarAgendamentoVo.setAgendamentoVo(AgendamentoAdapter.toAgendamentoVo(ae, pacienteEntity, profissionalEntity));
+        LOG.info("Agendamento realizado com sucesso!!!");
         return confirmarAgendamentoVo;
 
     }
@@ -203,13 +422,40 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         return AgendamentoAdapter.toAgendamentoVo(agendamento,pacienteEntity,profissionalEntity);
     }
 
+    /**
+     * Confirma ou Cancela uma consulta no agendee ou em algum parceiro.
+     * @param idAgendamento
+     * @param confirma
+     * @return
+     * @throws AgendamentoServiceException
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public AgendamentoVo confirmarConsulta(Long idAgendamento, Boolean confirma) throws AgendamentoServiceException {
+    public AgendamentoVo confirmarConsulta(Long idAgendamento, Boolean confirma) throws AgendamentoServiceException,
+            ParceiroIntegracaoServiceException {
+        log.info("m=confirmarConsulta idAgendamento=" + idAgendamento + " confirma="+confirma);
         AgendamentoEntity agendamento = agendamentoDao.get(idAgendamento);
         if (agendamento == null){
             throw new AgendamentoServiceException("Agendamento não encontrado!");
         }
+
+        ProfissionalEntity profissionalEntity = profissionalService.get(agendamento.getIdProfissional());
+
+        log.info("Verificando se agendamento é de um parceiro");
+        if ( profissionalEntity.isParceiro() ){
+            log.info("Agendamento é de um parceiro!");
+            ParceiroIntegracaoEntity parceiroIntegracao = profissionalEntity.getParceiroEmpresa().getParceiroIntegracao();
+
+            if (parceiroIntegracao == null){
+                throw new ParceiroIntegracaoServiceException("Integraçao não foi configurada.");
+            }
+
+            ParceiroIntegracaoService integracaoService = (ParceiroIntegracaoService) applicationContext.getBean(parceiroIntegracao.getBean());
+            log.info("Notificando parceiro da confirmacaoConsulta.confirma = " + confirma);
+            integracaoService.confirmarAgendamento(agendamento,confirma);
+            log.info("Confirmação realizada com sucesso!");
+        }
+
 
         if (confirma != null && confirma){
             LOG.info("Confirmando agendamento " + agendamento);
@@ -221,92 +467,11 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         agendamentoDao.save(agendamento);
 
         PacienteEntity pacienteEntity = pacienteService.get(agendamento.getIdPaciente());
-        ProfissionalEntity profissionalEntity = profissionalService.get(agendamento.getIdProfissional());
+
 
         return AgendamentoAdapter.toAgendamentoVo(agendamento,pacienteEntity,profissionalEntity);
 
 
-    }
-
-    @Override
-    public List<AgendamentoVo> getAgendamentosPaciente(Long idPaciente) throws AgendamentoServiceException {
-        PacienteEntity pacienteEntity = pacienteService.get(idPaciente);
-        if (pacienteEntity == null){
-            throw new AgendamentoServiceException("Paciente não encontrado!");
-        }
-
-        List<AgendamentoVo> agendamentoVos = new ArrayList<>();
-
-        List<AgendamentoEntity> agendamentos = agendamentoDao.getAgendamentosPaciente(idPaciente);
-
-        for(AgendamentoEntity a : agendamentos){
-            ProfissionalEntity profissionalEntity = profissionalService.get(a.getIdProfissional());
-            agendamentoVos.add(AgendamentoAdapter.toAgendamentoVo(a, pacienteEntity, profissionalEntity));
-        }
-
-        return agendamentoVos;
-    }
-
-    @Override
-    public CalendarioAgendamentoVo getAgendamentosProfissional(Long idProfissional, Date iniDate, Date endDate) throws AgendamentoServiceException {
-
-        ProfissionalEntity profissionalEntity = this.profissionalService.get(idProfissional);
-        if (profissionalEntity == null){
-            throw new AgendamentoServiceException("Profissional não encontrado!");
-        }
-
-        if ( profissionalEntity.getClinicas() == null){
-            throw new AgendamentoServiceException("Profissional não possui agenda!");
-        }
-
-        List<CalendarioClinicaVo> listCalendarioClinica = new ArrayList<>();
-        for (ProfissionalClinicaEntity c : profissionalEntity.getClinicas()){
-            //verificando se a clinica do profissional tem agenda online
-            AgendaEntity agenda = c.getClinica().getAgenda();
-            if (agenda == null){
-                continue;
-            }
-            ClinicaEntity clinica = c.getClinica();
-            CalendarioClinicaVo calendarioClinica = this.getCalendarioClinicaVo(iniDate, endDate, profissionalEntity, agenda, clinica);
-            listCalendarioClinica.add(calendarioClinica);
-        }
-        CalendarioAgendamentoVo calendarioAgendamentoVo = new CalendarioAgendamentoVo();
-        calendarioAgendamentoVo.setDataIni(br.com.wjaa.ranchucrutes.commons.utils.DateUtils.formatyyyyMMdd(iniDate));
-        calendarioAgendamentoVo.setDataFim(br.com.wjaa.ranchucrutes.commons.utils.DateUtils.formatyyyyMMdd(endDate));
-        calendarioAgendamentoVo.setCalendariosClinicas(listCalendarioClinica);
-        return calendarioAgendamentoVo;
-    }
-
-    @Override
-    public CalendarioAgendamentoVo getAgendamentosProfissional(Long idProfissional, Long idClinica, Date dateIni, Date dateFim) throws AgendamentoServiceException {
-        ProfissionalEntity profissionalEntity = this.profissionalService.get(idProfissional);
-        if (profissionalEntity == null){
-            throw new AgendamentoServiceException("Profissional não encontrado!");
-        }
-
-        if ( profissionalEntity.getClinicas() == null){
-            throw new AgendamentoServiceException("Profissional não possui agenda!");
-        }
-
-        List<CalendarioClinicaVo> listCalendarioClinica = new ArrayList<>();
-
-        for (ProfissionalClinicaEntity c : profissionalEntity.getClinicas()){
-            //adicionando apenas a clinica solicitada.
-            if (idClinica.equals(c.getClinica().getId())){
-                AgendaEntity agenda = c.getClinica().getAgenda();
-                if (agenda == null){
-                    continue;
-                }
-                ClinicaEntity clinica = c.getClinica();
-                CalendarioClinicaVo calendarioClinica = this.getCalendarioClinicaVo(dateIni, dateFim, profissionalEntity, agenda, clinica);
-                listCalendarioClinica.add(calendarioClinica);
-            }
-        }
-        CalendarioAgendamentoVo calendarioAgendamentoVo = new CalendarioAgendamentoVo();
-        calendarioAgendamentoVo.setDataIni(br.com.wjaa.ranchucrutes.commons.utils.DateUtils.formatyyyyMMdd(dateIni));
-        calendarioAgendamentoVo.setDataFim(br.com.wjaa.ranchucrutes.commons.utils.DateUtils.formatyyyyMMdd(dateFim));
-        calendarioAgendamentoVo.setCalendariosClinicas(listCalendarioClinica);
-        return calendarioAgendamentoVo;
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -341,19 +506,6 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         return AgendamentoAdapter.toAgendamentoVo(agendamento,pacienteEntity,profissionalEntity);
     }
 
-    @Override
-    public AgendamentoVo getAgendamento(Long idAgendamento) throws AgendamentoServiceException {
-        AgendamentoEntity agendamento = get(idAgendamento);
-
-        if (agendamento == null){
-            throw new AgendamentoServiceException("Agendamento não encontrado!");
-        }
-        PacienteEntity pacienteEntity = pacienteService.get(agendamento.getIdPaciente());
-        ProfissionalEntity profissionalEntity = profissionalService.get(agendamento.getIdProfissional());
-
-        return AgendamentoAdapter.toAgendamentoVo(agendamento,pacienteEntity,profissionalEntity);
-    }
-
     private void sendCancelationNotification(PacienteEntity pacienteEntity, ProfissionalEntity profissionalEntity, AgendamentoEntity agendamento) {
         NotificationVo vo = NotificationBuilder
                 .create()
@@ -371,6 +523,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         }
     }
 
+
     private void sendConfirmationNotification(PacienteEntity pacienteEntity, ProfissionalEntity profissionalEntity, AgendamentoEntity agendamento) {
         NotificationVo vo = NotificationBuilder
                 .create()
@@ -387,7 +540,6 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
 
         }
     }
-
 
     private CalendarioClinicaVo getCalendarioClinicaVo(Date iniDate, Date endDate, ProfissionalEntity profissionalEntity, AgendaEntity agenda, ClinicaEntity clinica) {
         CalendarioClinicaVo calendarioClinica = new CalendarioClinicaVo();
@@ -430,33 +582,6 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
                 idProfissional,dataAgendamento);
 
         return listAgendaCancelada.size() > 0;
-    }
-
-    @Override
-    public AgendaVo getAgendaProfissional(Long idProfissional, Long idClinica) throws AgendamentoServiceException {
-
-        if (idProfissional == null || idClinica == null){
-            throw new AgendamentoServiceException("Profissional ou Clínica não encontrado!");
-        }
-
-        AgendaEntity agendaConfig = this.agendamentoDao.getAgendaConfig(idProfissional,idClinica);
-
-        if (agendaConfig == null){
-            throw new AgendamentoServiceException("Profissional não possuí agenda cadastrada!");
-        }
-        Date agora = br.com.wjaa.ranchucrutes.commons.utils.DateUtils.now();
-        List<AgendaCanceladaEntity> listAgendaCancelada = this.agendamentoDao
-                .getAgendaCanceladaPosterior(idProfissional, idClinica, agora);
-
-        List<AgendamentoEntity> listAgendamentos = this.agendamentoDao.getAgendamentos(idProfissional, idClinica, agora );
-
-        ProfissionalBasicoVo profissionalBasico = profissionalService.getProfissionalBasico(idProfissional);
-
-        AgendaVo agendaVo = this.createAgenda(agendaConfig, listAgendaCancelada, listAgendamentos, profissionalBasico);
-
-
-
-        return agendaVo;
     }
 
     private AgendaVo createAgenda(AgendaEntity agendaConfig, List<AgendaCanceladaEntity> listAgendaCancelada,
@@ -609,6 +734,12 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
             }
         }
         return true;
+    }
+
+
+    @PostConstruct
+    private void init() {
+        agendamentoService = (AgendamentoService) applicationContext.getBean("AgendamentoServiceImpl");
     }
 }
 

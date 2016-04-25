@@ -80,10 +80,8 @@
                 </div>
 
                 <div class="row text-center" style="margin-top: 40px">
-                    <a href="http://www.agendee.com.br/apk/agendee.apk" >
-                        <img alt="Get it on Google Play"
-                             src="static/img/googleplay.png"  height="70px"/>
-                    </a>
+                    <img alt="Get it on Google Play"
+                         src="static/img/googleplay.png"  height="70px"/>
                 </div>
 
             </div>
