@@ -25,6 +25,7 @@ public class ProfissionalBasicoVo {
     private Integer idProfissao;
     private String nomeProfissao;
     private Integer idParceiro;
+    private Long idClinicaAtual;
 
     public String getNome() {
         return nome;
@@ -144,5 +145,13 @@ public class ProfissionalBasicoVo {
 
     public void setIdParceiro(Integer idParceiro) {
         this.idParceiro = idParceiro;
+    }
+
+    public Long getIdClinicaAtual() {
+        return idClinicaAtual;
+    }
+
+    public void setIdClinicaAtual(Long idClinicaAtual) {
+        this.idClinicaAtual = idClinicaAtual;
     }
 }
