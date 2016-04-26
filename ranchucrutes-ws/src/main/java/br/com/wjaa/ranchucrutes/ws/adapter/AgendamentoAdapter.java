@@ -1,6 +1,5 @@
 package br.com.wjaa.ranchucrutes.ws.adapter;
 
-import br.com.wjaa.ranchucrutes.commons.utils.DateUtils;
 import br.com.wjaa.ranchucrutes.commons.vo.AgendamentoVo;
 import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.PacienteEntity;
@@ -12,11 +11,12 @@ import org.springframework.beans.BeanUtils;
  */
 public class AgendamentoAdapter {
     public static AgendamentoVo toAgendamentoVo(AgendamentoEntity ae, PacienteEntity pacienteEntity,
-                                                ProfissionalEntity profissionalEntity) {
+                                                ProfissionalEntity profissionalEntity, Long idClinica) {
         AgendamentoVo agendamentoVo = new AgendamentoVo();
         BeanUtils.copyProperties(ae,agendamentoVo);
         agendamentoVo.setPaciente(PacienteAdapter.toPacienteVo(pacienteEntity));
         agendamentoVo.setProfissional(ProfissionalAdapter.toProfissionalBasico(profissionalEntity));
+        agendamentoVo.getProfissional().setIdClinicaAtual(idClinica);
         return agendamentoVo;
     }
 }
