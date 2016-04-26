@@ -34,6 +34,15 @@
             </plugin>
 
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>9.2.10.v20150310</version>
@@ -54,6 +63,7 @@
                 <configuration>
                     <source>${project.build.jdk.version}</source>
                     <target>${project.build.jdk.version}</target>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
 

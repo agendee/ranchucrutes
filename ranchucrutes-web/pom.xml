@@ -173,7 +173,7 @@
             <server.container.bin>sudo service jetty</server.container.bin>
             <server.tmp>${server.container}/deploy</server.tmp>
             <server.user>ubuntu</server.user>
-            <server.keyFile>/home/wagner/aws-fmma-key.pem</server.keyFile>
+            <server.keyFile>/home/wagner/agendee.pem</server.keyFile>
         </properties>
 
         <build>

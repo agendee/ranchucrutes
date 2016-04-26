@@ -132,6 +132,12 @@ public class ClinicaDaoImpl extends GenericDaoImpl<ClinicaEntity, Long> implemen
                     p.setNomeProfissao(tuple[i].toString());
                 }else if ( "ID_PARCEIRO".equalsIgnoreCase(aliases[i])){
                     p.setIdParceiro(Integer.valueOf(tuple[i].toString()));
+                }else if ( "ACEITA_PARTICULAR".equalsIgnoreCase(aliases[i])){
+                    p.setAceitaParticular(Integer.valueOf(tuple[i].toString()) == 1);
+                }else if ( "TEM_AGENDA".equalsIgnoreCase(aliases[i])){
+                    p.setTemAgenda(Integer.valueOf(tuple[i].toString()) == 1);
+                }else if ( "ACEITA_PLANO".equalsIgnoreCase(aliases[i])){
+                    p.setAceitaPlano(Integer.valueOf(tuple[i].toString()) == 1);
                 }
             }
             return clinicaVo;

@@ -42,7 +42,6 @@ public class GcmServiceImpl implements GcmService {
     @Override
     public GcmResponseVo sendNotification(NotificationVo notificationVo, String keyDeviceGcm) throws GcmServiceException {
 
-
         if (StringUtils.isEmpty(keyDeviceGcm)){
             throw new GcmServiceException("Sender está com KeyDeviceGcm nulo, não foi possivel enviar a notificacao");
         }
@@ -58,7 +57,7 @@ public class GcmServiceImpl implements GcmService {
     @Override
     public GcmResponseVo sendNotification(String jsonNotification, String keyDeviceGcm) throws GcmServiceException {
         if (StringUtils.isEmpty(keyDeviceGcm)){
-            throw new GcmServiceException("Sender está com KeyDeviceGcm nulo, não foi possivel enviar a notificacao");
+            throw new GcmServiceException("Sender esta com KeyDeviceGcm nulo, não foi possivel enviar a notificacao");
         }
 
         if (StringUtils.isBlank(jsonNotification)){

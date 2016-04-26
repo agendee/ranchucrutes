@@ -77,6 +77,8 @@ public class ClinicaServiceImpl extends GenericServiceImpl<ClinicaEntity,Long> i
 
         //se nao encontrar nada procuramos por qualquer profissional que atenda no particular.
         if (CollectionUtils.isEmpty(listResult)){
+            /*TODO AQUI TERA UM BUG, CASO O RESULTADO DE CIMA TRAGA ALGUM PROFISSIONAL QUE TAMBEM ACEITE PARTICULAR.
+            ELE FICARA DUPLICADO AQUI*/
             listResult = dao.findClinicaParticular(form.getIdEspecialidade(),location, MAX_RAIO);
         }
         ResultadoBuscaClinicaVo rb = this.groupResult(listResult);

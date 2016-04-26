@@ -25,6 +25,9 @@ public class ProfissionalBasicoVo {
     private Integer idProfissao;
     private String nomeProfissao;
     private Integer idParceiro;
+    private Boolean aceitaParticular;
+    private Boolean aceitaPlano;
+
 
     public String getNome() {
         return nome;
@@ -144,5 +147,21 @@ public class ProfissionalBasicoVo {
 
     public void setIdParceiro(Integer idParceiro) {
         this.idParceiro = idParceiro;
+    }
+
+    public Boolean getAceitaParticular() {
+        return aceitaParticular;
+    }
+
+    public void setAceitaParticular(Boolean aceitaParticular) {
+        this.aceitaParticular = aceitaParticular;
+    }
+
+    public Boolean getAceitaPlano() {
+        return aceitaPlano;
+    }
+
+    public void setAceitaPlano(Boolean aceitaPlano) {
+        this.aceitaPlano = aceitaPlano;
     }
 }
