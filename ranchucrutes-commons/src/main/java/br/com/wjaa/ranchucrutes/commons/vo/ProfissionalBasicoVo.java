@@ -27,7 +27,7 @@ public class ProfissionalBasicoVo {
     private Integer idParceiro;
     private Boolean aceitaParticular;
     private Boolean aceitaPlano;
-
+    private Long idClinicaAtual;
 
     public String getNome() {
         return nome;
@@ -163,5 +163,14 @@ public class ProfissionalBasicoVo {
 
     public void setAceitaPlano(Boolean aceitaPlano) {
         this.aceitaPlano = aceitaPlano;
+    }
+    
+    public Long getIdClinicaAtual() {
+        return idClinicaAtual;
+    }
+
+    public void setIdClinicaAtual(Long idClinicaAtual) {
+        this.idClinicaAtual = idClinicaAtual;
+
     }
 }
