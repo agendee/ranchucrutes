@@ -69,7 +69,7 @@ public class AgendamentoWS {
     }
 
     @RequestMapping(value = "/agendamento/{idAgendamento}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
-    public AgendamentoVo getAgendamentoById(@PathVariable Long idAgendamento, @PathVariable Boolean confirma) throws AgendamentoServiceException {
+    public AgendamentoVo getAgendamentoById(@PathVariable Long idAgendamento) throws AgendamentoServiceException {
         return this.agendamentoService.getAgendamento(idAgendamento);
     }
 
