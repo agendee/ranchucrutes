@@ -17,6 +17,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * Created by wagner on 16/06/15.
@@ -31,10 +32,21 @@ public class RestUtils {
     public static <T>T getJsonWithParamPath(Class<T> clazzReturn, String targetUrl, String ... params) throws
             RestResponseUnsatisfiedException, RestException, RestRequestUnstable {
 
+        HttpGet httpGet = new HttpGet("http://" + targetUrl + "/" + RestUtils.createParamsPath(params));
+        return executeGet(clazzReturn,httpGet);
+    }
 
+    public static <T>T getJsonWithParamPathAndParam(Class<T> clazzReturn, String targetUrl, Map<String,String> params,
+                                                    String ... paramsPath) throws
+            RestResponseUnsatisfiedException, RestException, RestRequestUnstable {
+        HttpGet httpGet = new HttpGet("http://" + targetUrl + "/" + RestUtils.createParamsPath(paramsPath) + "/" +
+                RestUtils.createParams(params));
+        return executeGet(clazzReturn, httpGet);
+    }
+
+    private static <T> T executeGet(Class<T> clazzReturn, HttpGet httpGet) throws RestResponseUnsatisfiedException, RestRequestUnstable, RestException {
         CloseableHttpResponse response = null;
         try {
-            HttpGet httpGet = new HttpGet("http://" + targetUrl + "/" + RestUtils.createParamsPath(params));
             httpGet.setConfig( RequestConfig.custom().setConnectionRequestTimeout(TIMEOUT)
                     .setConnectTimeout(TIMEOUT)
                     .setSocketTimeout(TIMEOUT)
@@ -56,7 +68,7 @@ public class RestUtils {
 
         }catch (JsonMappingException | JsonParseException e) {
             throw new RestResponseUnsatisfiedException(e.getMessage(), e);
-        } catch (IOException  e) {
+        } catch (IOException e) {
             throw new RestRequestUnstable(e.getMessage(), e);
         }  catch (Exception e) {
             throw new RestException(e.getMessage(),e);
@@ -72,6 +84,7 @@ public class RestUtils {
         }
     }
 
+
     private static String createParamsPath(String[] params) {
         String result = "";
         for(String p : params){
@@ -81,7 +94,13 @@ public class RestUtils {
 
     }
 
+    private static String createParams(Map<String,String> params) {
+        String result = "?";
+        for(String p : params.keySet()){
+            result +=  p + "=" + params.get(p) + "&";
+        }
+        return result;
 
-
+    }
 
 }

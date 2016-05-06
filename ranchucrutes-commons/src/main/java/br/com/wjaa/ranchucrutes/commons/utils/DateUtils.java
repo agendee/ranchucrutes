@@ -14,6 +14,7 @@ public class DateUtils {
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     private static final SimpleDateFormat sdfddMMyyyy = new SimpleDateFormat("dd/MM/yyyy");
     private static SimpleDateFormat sdfyyyyMMddTHHmmss = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    private static SimpleDateFormat sdfyyyymmdd = new SimpleDateFormat("yyyy-MM-dd");
     private static Date lastDayActualWeek;
 
     public static Date now(){
@@ -49,5 +50,9 @@ public class DateUtils {
 
     public static String formatddMMyyyy(Date dataAgendamento) {
         return sdfddMMyyyy.format(dataAgendamento);
+    }
+
+    public static String formatISO8601(Date date) {
+        return sdfyyyymmdd.format(date);
     }
 }
