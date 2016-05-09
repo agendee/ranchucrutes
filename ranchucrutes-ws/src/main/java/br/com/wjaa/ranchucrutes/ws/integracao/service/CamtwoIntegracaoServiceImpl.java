@@ -76,11 +76,12 @@ public class CamtwoIntegracaoServiceImpl implements ParceiroIntegracaoService{
     @Override
     public ParceiroAgendamentoVo criarAgendamento(AgendamentoForm form, ProfissionalEntity profissionalEntity,
                                                   PacienteEntity pacienteEntity) throws ParceiroIntegracaoServiceException {
-        return null;
+        throw new ParceiroIntegracaoServiceException("Integracao nao implementada!");
+        //return null;
     }
 
     @Override
     public void confirmarAgendamento(AgendamentoEntity agendamento, Boolean confirma) throws ParceiroIntegracaoServiceException {
-
+        throw new ParceiroIntegracaoServiceException("Integracao nao implementada!");
     }
 }
