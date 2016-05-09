@@ -174,7 +174,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
             ProfissionalEntity profissionalEntity = profissionalService.get(a.getIdProfissional());
             ProfissionalOrigemEntity po = profissionalService.getParceiro(a.getIdProfissional(),a.getIdClinica());
             agendamentoVos.add(AgendamentoAdapter.toAgendamentoVo(a, pacienteEntity, profissionalEntity,
-                    a.getIdClinica(), po.getIdParceiro()));
+                    a.getIdClinica(), po != null ? po.getIdParceiro() : null));
         }
 
         return agendamentoVos;
@@ -197,7 +197,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         ProfissionalEntity profissionalEntity = profissionalService.get(agendamento.getIdProfissional());
         ProfissionalOrigemEntity po = profissionalService.getParceiro(agendamento.getIdProfissional(),agendamento.getIdClinica());
         return AgendamentoAdapter.toAgendamentoVo(agendamento,pacienteEntity,profissionalEntity,
-                agendamento.getIdClinica(), po.getIdParceiro());
+                agendamento.getIdClinica(), po != null ? po.getIdParceiro() : null);
     }
 
     /**
@@ -400,7 +400,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         ConfirmarAgendamentoVo confirmarAgendamentoVo = new ConfirmarAgendamentoVo();
         confirmarAgendamentoVo.setCodigoConfirmacao(ae.getCodigoConfirmacao());
         confirmarAgendamentoVo.setAgendamentoVo(AgendamentoAdapter.toAgendamentoVo(ae, pacienteEntity, profissionalEntity,
-                ae.getIdClinica(),po.getIdParceiro()));
+                ae.getIdClinica(),po != null ? po.getIdParceiro() : null));
         LOG.info("Agendamento realizado com sucesso!!!");
         return confirmarAgendamentoVo;
 
@@ -426,7 +426,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         ProfissionalEntity profissionalEntity = profissionalService.get(agendamento.getIdProfissional());
         ProfissionalOrigemEntity po = profissionalService.getParceiro(agendamento.getIdProfissional(),agendamento.getIdClinica());
         return AgendamentoAdapter.toAgendamentoVo(agendamento,pacienteEntity,profissionalEntity, agendamento.getIdClinica(),
-                po.getIdParceiro());
+                po != null ? po.getIdParceiro() : null);
     }
 
     /**
@@ -476,7 +476,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
 
         ProfissionalEntity profissionalEntity = profissionalService.get(agendamento.getIdProfissional());
         return AgendamentoAdapter.toAgendamentoVo(agendamento,pacienteEntity,profissionalEntity, agendamento.getIdClinica(),
-                po.getIdParceiro());
+                po != null ? po.getIdParceiro() : null);
 
 
     }
@@ -494,7 +494,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         this.sendConfirmationNotification(pacienteEntity,profissionalEntity,agendamento);
         ProfissionalOrigemEntity po = profissionalService.getParceiro(agendamento.getIdProfissional(),agendamento.getIdClinica());
         return AgendamentoAdapter.toAgendamentoVo(agendamento,pacienteEntity,profissionalEntity,
-                agendamento.getIdClinica(), po.getIdParceiro());
+                agendamento.getIdClinica(), po != null ? po.getIdParceiro() : null);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -512,7 +512,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         this.sendCancelationNotification(pacienteEntity, profissionalEntity, agendamento);
         ProfissionalOrigemEntity po = profissionalService.getParceiro(agendamento.getIdProfissional(),agendamento.getIdClinica());
         return AgendamentoAdapter.toAgendamentoVo(agendamento,pacienteEntity,profissionalEntity,
-                agendamento.getIdClinica(), po.getIdParceiro());
+                agendamento.getIdClinica(), po != null ? po.getIdParceiro() : null);
     }
 
     private void sendCancelationNotification(PacienteEntity pacienteEntity, ProfissionalEntity profissionalEntity, AgendamentoEntity agendamento) {
@@ -568,7 +568,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
             PacienteEntity pacienteEntity = this.pacienteService.get(a.getIdPaciente());
             ProfissionalOrigemEntity po = profissionalService.getParceiro(a.getIdProfissional(),a.getIdClinica());
             AgendamentoVo agendamentoVo = AgendamentoAdapter.toAgendamentoVo(a, pacienteEntity, profissionalEntity,
-                    a.getIdClinica(),po.getIdParceiro());
+                    a.getIdClinica(),po != null ? po.getIdParceiro() : null);
             agendamentoVo.setDataInicioConsulta(br.com.wjaa.ranchucrutes.commons.utils.DateUtils.formatyyyyMMddTHHmmss(a.getDataAgendamento()));
             Calendar dataFimConsulta = Calendar.getInstance();
             dataFimConsulta.setTime(a.getDataAgendamento());
