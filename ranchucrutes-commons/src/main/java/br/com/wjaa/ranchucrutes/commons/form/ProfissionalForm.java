@@ -10,7 +10,7 @@ public class ProfissionalForm {
 
     private Long idLogin;
     private String nome;
-    private Integer crm;
+    private Integer numeroRegistro;
     private Integer [] idEspecialidade;
     private Short ddd;
     private Long celular;
@@ -28,13 +28,6 @@ public class ProfissionalForm {
         this.nome = nome;
     }
 
-    public Integer getCrm() {
-        return crm;
-    }
-
-    public void setCrm(Integer crm) {
-        this.crm = crm;
-    }
 
     public Integer[] getIdEspecialidade() {
         return idEspecialidade;
@@ -98,5 +91,13 @@ public class ProfissionalForm {
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public Integer getNumeroRegistro() {
+        return numeroRegistro;
+    }
+
+    public void setNumeroRegistro(Integer numeroRegistro) {
+        this.numeroRegistro = numeroRegistro;
     }
 }

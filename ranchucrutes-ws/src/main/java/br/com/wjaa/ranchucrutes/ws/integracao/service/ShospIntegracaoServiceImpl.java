@@ -12,10 +12,11 @@ import org.springframework.stereotype.Service;
 /**
  * Created by wagner on 22/04/16.
  */
-@Service
+@Service("shospIntegracaoService")
 public class ShospIntegracaoServiceImpl  implements ParceiroIntegracaoService{
+
     @Override
-    public AgendaVo getAgenda(ProfissionalEntity profissionalEntity) throws ParceiroIntegracaoServiceException {
+    public AgendaVo getAgenda(Long idProfissional, Long idClinica) throws ParceiroIntegracaoServiceException {
         return null;
     }
 

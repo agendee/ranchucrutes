@@ -14,7 +14,7 @@ import br.com.wjaa.ranchucrutes.ws.exception.ParceiroIntegracaoServiceException;
 public interface ParceiroIntegracaoService {
 
 
-    AgendaVo getAgenda(ProfissionalEntity profissionalEntity) throws ParceiroIntegracaoServiceException;
+    AgendaVo getAgenda(Long idProfissional, Long idClinica) throws ParceiroIntegracaoServiceException;
 
 
     ParceiroAgendamentoVo criarAgendamento(AgendamentoForm form, ProfissionalEntity profissionalEntity, PacienteEntity pacienteEntity)

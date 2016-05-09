@@ -25,8 +25,6 @@ public class ProfissionalEntity extends LoginEntity implements Serializable{
     private List<EspecialidadeEntity> especialidades;
     private String cpf;
     private Integer numeroRegistro;
-    private ParceiroEmpresaEntity parceiroEmpresa;
-    private List<ParceiroEmpresaEntity> parceiros;
 
 
     @Column(name = "NOME", nullable = false)
@@ -104,37 +102,6 @@ public class ProfissionalEntity extends LoginEntity implements Serializable{
 
     public void setNumeroRegistro(Integer numeroRegistro) {
         this.numeroRegistro = numeroRegistro;
-    }
-
-    @Transient
-    public ParceiroEmpresaEntity getParceiroEmpresa() {
-        return parceiroEmpresa;
-    }
-
-    public void setParceiroEmpresa(ParceiroEmpresaEntity parceiroEmpresa) {
-        this.parceiroEmpresa = parceiroEmpresa;
-    }
-
-
-    @OneToMany()
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @JoinTable(name = "PROFISSIONAL_ORIGEM", joinColumns={@JoinColumn(name="ID_PROFISSIONAL", referencedColumnName="ID",
-            updatable = false, insertable = false)},
-            inverseJoinColumns={@JoinColumn(name="ID_PARCEIRO", referencedColumnName="ID")})
-    public List<ParceiroEmpresaEntity> getParceiros() {
-        return parceiros;
-    }
-
-    public void setParceiros(List<ParceiroEmpresaEntity> parceiros) {
-        this.parceiros = parceiros;
-        if (!CollectionUtils.isEmpty(parceiros)){
-            this.parceiroEmpresa = parceiros.get(0);
-        }
-    }
-
-    @Transient
-    public boolean isParceiro(){
-        return this.parceiroEmpresa != null;
     }
 
 }

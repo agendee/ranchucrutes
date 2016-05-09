@@ -2,6 +2,7 @@ package br.com.wjaa.ranchucrutes.ws.dao;
 
 import br.com.wjaa.ranchucrutes.commons.vo.LocationVo;
 import br.com.wjaa.ranchucrutes.framework.dao.GenericDaoImpl;
+import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalOrigemEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
@@ -125,6 +126,25 @@ public class ProfissionalDaoImpl extends GenericDaoImpl<ProfissionalEntity, Long
                 new Object[]{idProfissional,idCategoria});
         if (resultList.size() > 0){
             return (ProfissionalEntity) resultList.get(0);
+        }
+
+        return null;
+    }
+
+
+    @Override
+    public ProfissionalOrigemEntity findProfissionalOrigem(Long idProfissional, Long idClinica) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(" select p from " + ProfissionalOrigemEntity.class.getSimpleName() + " p ");
+        sb.append(" where p.idProfissional = :idProfissional ");
+        sb.append(" and p.idClinica = :idClinica ");
+
+        String [] nameParams = new String[]{"idProfissional","idClinica"};
+
+        List<?> resultList = this.getHibernateTemplate().findByNamedParam(sb.toString(), nameParams,
+                new Object[]{idProfissional,idClinica});
+        if (resultList.size() > 0){
+            return (ProfissionalOrigemEntity) resultList.get(0);
         }
 
         return null;

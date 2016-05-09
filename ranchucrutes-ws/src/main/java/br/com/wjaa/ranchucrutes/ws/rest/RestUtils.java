@@ -39,7 +39,7 @@ public class RestUtils {
     public static <T>T getJsonWithParamPathAndParam(Class<T> clazzReturn, String targetUrl, Map<String,String> params,
                                                     String ... paramsPath) throws
             RestResponseUnsatisfiedException, RestException, RestRequestUnstable {
-        HttpGet httpGet = new HttpGet("http://" + targetUrl + "/" + RestUtils.createParamsPath(paramsPath) + "/" +
+        HttpGet httpGet = new HttpGet("http://" + targetUrl + RestUtils.createParamsPath(paramsPath) +
                 RestUtils.createParams(params));
         return executeGet(clazzReturn, httpGet);
     }

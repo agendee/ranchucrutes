@@ -157,13 +157,18 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
 
     @Override
     public ProfissionalBasicoVo getProfissionalBasico(Long idProfissional) {
-        return ProfissionalAdapter.toProfissionalBasico(get(idProfissional));
+        return ProfissionalAdapter.toProfissionalBasico(get(idProfissional),null);
     }
 
     @Override
     public boolean profissionalAceitaCategoria(Long idProfissional, Integer idCategoria) {
         ProfissionalEntity profissionalEntity = this.profissionalDao.getProfissionalByIdAndCategoria(idProfissional,idCategoria);
         return profissionalEntity != null;
+    }
+
+    @Override
+    public ProfissionalOrigemEntity getParceiro(Long idProfissional, Long idClinica) {
+        return profissionalDao.findProfissionalOrigem(idProfissional,idClinica);
     }
 
     private ProfissionalEntity mergeProfissional(ProfissionalEntity profissionalPersisted, ProfissionalEntity profissional) {

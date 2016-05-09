@@ -49,12 +49,12 @@ public class ProfissionalAdapter {
     public static List<ProfissionalBasicoVo> toListProfissionalBasico(List<ProfissionalEntity> profissionalsProximos) {
         List<ProfissionalBasicoVo> profissionalsVos = new ArrayList<>(profissionalsProximos.size());
         for(ProfissionalEntity me : profissionalsProximos){
-            profissionalsVos.add(toProfissionalBasico(me));
+            profissionalsVos.add(toProfissionalBasico(me,null));
         }
         return profissionalsVos;
     }
 
-    public static ProfissionalBasicoVo toProfissionalBasico(ProfissionalEntity me){
+    public static ProfissionalBasicoVo toProfissionalBasico(ProfissionalEntity me, Integer idParceiro){
         ProfissionalBasicoVo profissionalBasicoVo = new ProfissionalBasicoVo();
         profissionalBasicoVo.setId(me.getIdLogin());
         profissionalBasicoVo.setNome(me.getNome());
@@ -66,14 +66,10 @@ public class ProfissionalAdapter {
             profissionalBasicoVo.setIdProfissao(e.getProfissao().getId());
             profissionalBasicoVo.setNomeProfissao(e.getProfissao().getNome());
         }
-
-        if (me.getParceiroEmpresa() != null){
-            profissionalBasicoVo.setIdParceiro(me.getParceiroEmpresa().getId());
-        }
+        profissionalBasicoVo.setIdParceiro(idParceiro);
 
         if (!CollectionUtils.isEmpty(me.getClinicas())){
             ClinicaEntity c = me.getClinicas().get(0).getClinica();
-
 
             if (c != null){
 

@@ -1,5 +1,9 @@
 package br.com.wjaa.ranchucrutes.commons.utils;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,10 +14,12 @@ import java.util.Locale;
  */
 public class DateUtils {
 
+    private static final Log LOG = LogFactory.getLog(DateUtils.class);
     private static final Locale locale = new Locale("pt", "BR");
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     private static final SimpleDateFormat sdfddMMyyyy = new SimpleDateFormat("dd/MM/yyyy");
     private static SimpleDateFormat sdfyyyyMMddTHHmmss = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    private static SimpleDateFormat sdfyyyyMMddHHmm = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     private static SimpleDateFormat sdfyyyymmdd = new SimpleDateFormat("yyyy-MM-dd");
     private static Date lastDayActualWeek;
 
@@ -54,5 +60,14 @@ public class DateUtils {
 
     public static String formatISO8601(Date date) {
         return sdfyyyymmdd.format(date);
+    }
+
+    public static Date getDateyyyymmddhhmm(String s) {
+        try {
+            return sdfyyyyMMddHHmm.parse(s);
+        } catch (ParseException e) {
+            LOG.error("Erro no parse da data", e);
+        }
+        return null;
     }
 }

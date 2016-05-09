@@ -1,10 +1,10 @@
 package br.com.wjaa.ranchucrutes.ws.service;
 
 import br.com.wjaa.ranchucrutes.commons.form.FindProfissionalForm;
-import br.com.wjaa.ranchucrutes.commons.vo.AgendamentoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ResultadoBuscaProfissionalVo;
 import br.com.wjaa.ranchucrutes.framework.service.GenericService;
+import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalOrigemEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalEntity;
 import br.com.wjaa.ranchucrutes.ws.exception.LocationDuplicateFoundException;
 import br.com.wjaa.ranchucrutes.ws.exception.ProfissionalServiceException;
@@ -12,7 +12,6 @@ import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalClinicaEntity;
 import br.com.wjaa.ranchucrutes.ws.exception.CepNotFoundException;
 import br.com.wjaa.ranchucrutes.ws.exception.LocationNotFoundException;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,4 +35,5 @@ public interface ProfissionalService extends GenericService<ProfissionalEntity, 
 
     boolean profissionalAceitaCategoria(Long idProfissional, Integer idCategoria);
 
+    ProfissionalOrigemEntity getParceiro(Long idProfissional, Long idClinica);
 }

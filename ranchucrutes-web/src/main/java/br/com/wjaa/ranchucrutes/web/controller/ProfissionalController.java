@@ -315,7 +315,7 @@ public class ProfissionalController {
             }else{
                 ext = originalName.substring(originalName.length()-3,originalName.length());
             }
-            String name = form.getProfissional().getCrm() + ext.toLowerCase();
+            String name = form.getProfissional().getNumeroRegistro() + ext.toLowerCase();
             OutputStream out = new FileOutputStream(new File(path + File.separator + name));
 
             IOUtils.write(in,out);

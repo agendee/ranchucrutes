@@ -91,7 +91,7 @@ public class LoginServiceImpl implements LoginService {
             throw new LoginServiceException("Seu acesso está inativado, contate o nosso suporte técnico.");
         }
 
-        return ProfissionalAdapter.toProfissionalBasico(profissionalEntity);
+        return ProfissionalAdapter.toProfissionalBasico(profissionalEntity,null);
     }
 
     @Override

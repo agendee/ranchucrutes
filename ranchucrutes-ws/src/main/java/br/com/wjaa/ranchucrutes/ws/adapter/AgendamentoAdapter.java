@@ -11,11 +11,11 @@ import org.springframework.beans.BeanUtils;
  */
 public class AgendamentoAdapter {
     public static AgendamentoVo toAgendamentoVo(AgendamentoEntity ae, PacienteEntity pacienteEntity,
-                                                ProfissionalEntity profissionalEntity, Long idClinica) {
+                                                ProfissionalEntity profissionalEntity, Long idClinica, Integer idParceiro) {
         AgendamentoVo agendamentoVo = new AgendamentoVo();
         BeanUtils.copyProperties(ae,agendamentoVo);
         agendamentoVo.setPaciente(PacienteAdapter.toPacienteVo(pacienteEntity));
-        agendamentoVo.setProfissional(ProfissionalAdapter.toProfissionalBasico(profissionalEntity));
+        agendamentoVo.setProfissional(ProfissionalAdapter.toProfissionalBasico(profissionalEntity, idParceiro));
         agendamentoVo.getProfissional().setIdClinicaAtual(idClinica);
         return agendamentoVo;
     }

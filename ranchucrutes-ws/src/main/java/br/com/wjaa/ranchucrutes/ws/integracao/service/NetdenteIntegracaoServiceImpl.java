@@ -12,10 +12,12 @@ import org.springframework.stereotype.Service;
 /**
  * Created by wagner on 22/04/16.
  */
-@Service
+@Service("netdenteIntegracaoService")
 public class NetdenteIntegracaoServiceImpl  implements ParceiroIntegracaoService {
+
+
     @Override
-    public AgendaVo getAgenda(ProfissionalEntity profissionalEntity) throws ParceiroIntegracaoServiceException {
+    public AgendaVo getAgenda(Long idProfissional, Long idClinica) throws ParceiroIntegracaoServiceException {
         return null;
     }
 

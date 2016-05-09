@@ -68,9 +68,9 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">CRM:<font style="color: rgb(169, 68, 66);">*</font></label>
+                                        <label class="col-md-3 control-label">Número Registro:<font style="color: rgb(169, 68, 66);">*</font></label>
                                         <div class="col-md-6">
-                                            <input type="number" class="form-control" name="profissional.crm" placeholder="CRM" maxlength="10" value="${form.profissional.crm}" required/>
+                                            <input type="number" class="form-control" name="profissional.numeroRegistro" placeholder="0000" maxlength="10" value="${form.profissional.numeroRegistro}" required/>
                                         </div>
                                     </div>
 

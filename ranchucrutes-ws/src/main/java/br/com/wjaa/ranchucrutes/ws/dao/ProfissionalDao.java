@@ -2,6 +2,7 @@ package br.com.wjaa.ranchucrutes.ws.dao;
 
 import br.com.wjaa.ranchucrutes.commons.vo.LocationVo;
 import br.com.wjaa.ranchucrutes.framework.dao.GenericDao;
+import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalOrigemEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalEntity;
 
 import java.util.List;
@@ -47,4 +48,12 @@ public interface ProfissionalDao extends GenericDao<ProfissionalEntity,Long> {
 
 
     ProfissionalEntity getProfissionalByIdAndCategoria(Long idProfissional, Integer idCategoria);
+
+    /**
+     *
+     * @param idProfissional
+     * @param idClinica
+     * @return
+     */
+    ProfissionalOrigemEntity findProfissionalOrigem(Long idProfissional, Long idClinica);
 }
