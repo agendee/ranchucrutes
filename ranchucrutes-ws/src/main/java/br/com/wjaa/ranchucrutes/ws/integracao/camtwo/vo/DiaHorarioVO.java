@@ -8,10 +8,10 @@ import java.util.Map;
 import javax.annotation.Generated;
 
 @Generated("org.jsonschema2pojo")
-public class DiaHorario {
+public class DiaHorarioVO {
 
     private String dia;
-    private List<HorariosDisponivei> horariosDisponiveis = new ArrayList<HorariosDisponivei>();
+    private List<HorariosDisponiveisVO> horariosDisponiveis = new ArrayList<HorariosDisponiveisVO>();
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
@@ -37,7 +37,7 @@ public class DiaHorario {
      * @return
      *     The horariosDisponiveis
      */
-    public List<HorariosDisponivei> getHorariosDisponiveis() {
+    public List<HorariosDisponiveisVO> getHorariosDisponiveis() {
         return horariosDisponiveis;
     }
 
@@ -46,7 +46,7 @@ public class DiaHorario {
      * @param horariosDisponiveis
      *     The horariosDisponiveis
      */
-    public void setHorariosDisponiveis(List<HorariosDisponivei> horariosDisponiveis) {
+    public void setHorariosDisponiveis(List<HorariosDisponiveisVO> horariosDisponiveis) {
         this.horariosDisponiveis = horariosDisponiveis;
     }
 

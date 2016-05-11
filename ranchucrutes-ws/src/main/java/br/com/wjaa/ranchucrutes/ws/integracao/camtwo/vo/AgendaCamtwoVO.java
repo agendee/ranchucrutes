@@ -11,8 +11,8 @@ import javax.annotation.Generated;
 @Generated("org.jsonschema2pojo")
 public class AgendaCamtwoVO {
 
-    private Clinica clinica;
-    private List<DiaHorario> diaHorarios = new ArrayList<DiaHorario>();
+    private ClinicaVO clinica;
+    private List<DiaHorarioVO> diaHorarios = new ArrayList<DiaHorarioVO>();
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
@@ -20,7 +20,7 @@ public class AgendaCamtwoVO {
      * @return
      *     The clinica
      */
-    public Clinica getClinica() {
+    public ClinicaVO getClinica() {
         return clinica;
     }
 
@@ -29,7 +29,7 @@ public class AgendaCamtwoVO {
      * @param clinica
      *     The clinica
      */
-    public void setClinica(Clinica clinica) {
+    public void setClinica(ClinicaVO clinica) {
         this.clinica = clinica;
     }
 
@@ -38,7 +38,7 @@ public class AgendaCamtwoVO {
      * @return
      *     The diaHorarios
      */
-    public List<DiaHorario> getDiaHorarios() {
+    public List<DiaHorarioVO> getDiaHorarios() {
         return diaHorarios;
     }
 
@@ -47,7 +47,7 @@ public class AgendaCamtwoVO {
      * @param diaHorarios
      *     The diaHorarios
      */
-    public void setDiaHorarios(List<DiaHorario> diaHorarios) {
+    public void setDiaHorarios(List<DiaHorarioVO> diaHorarios) {
         this.diaHorarios = diaHorarios;
     }
 
@@ -63,9 +63,9 @@ public class AgendaCamtwoVO {
 
         AgendaVo agendaVo = new AgendaVo();
         Date[] horariosDisponiveis = new Date[]{};
-        for ( DiaHorario dh : this.getDiaHorarios() ){
+        for ( DiaHorarioVO dh : this.getDiaHorarios() ){
 
-            for (HorariosDisponivei h : dh.getHorariosDisponiveis()){
+            for (HorariosDisponiveisVO h : dh.getHorariosDisponiveis()){
 
                 Date dataHora = DateUtils.getDateyyyymmddhhmm(dh.getDia() + " " + h.getHora());
                 horariosDisponiveis = (Date[]) ArrayUtils.add(horariosDisponiveis,dataHora);

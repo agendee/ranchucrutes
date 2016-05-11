@@ -75,4 +75,5 @@ public class LocationVo {
     public boolean isNull() {
         return this.latitude == null || this.longitude == null;
     }
+
 }

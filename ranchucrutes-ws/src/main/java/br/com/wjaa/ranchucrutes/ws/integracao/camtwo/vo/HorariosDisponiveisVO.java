@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.annotation.Generated;
 
 @Generated("org.jsonschema2pojo")
-public class HorariosDisponivei {
+public class HorariosDisponiveisVO {
 
     private String hora;
     private String profissional;
