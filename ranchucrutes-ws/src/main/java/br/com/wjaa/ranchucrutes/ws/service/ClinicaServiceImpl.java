@@ -1,7 +1,9 @@
 package br.com.wjaa.ranchucrutes.ws.service;
 
 import br.com.wjaa.ranchucrutes.commons.form.FindClinicaForm;
+import br.com.wjaa.ranchucrutes.commons.utils.LocationUtils;
 import br.com.wjaa.ranchucrutes.commons.vo.ClinicaVo;
+import br.com.wjaa.ranchucrutes.commons.vo.DistanceVo;
 import br.com.wjaa.ranchucrutes.commons.vo.LocationVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ResultadoBuscaClinicaVo;
 import br.com.wjaa.ranchucrutes.framework.service.GenericServiceImpl;
@@ -77,15 +79,31 @@ public class ClinicaServiceImpl extends GenericServiceImpl<ClinicaEntity,Long> i
 
         //se nao encontrar nada procuramos por qualquer profissional que atenda no particular.
         if (CollectionUtils.isEmpty(listResult)){
-            /*TODO AQUI TERA UM BUG, CASO O RESULTADO DE CIMA TRAGA ALGUM PROFISSIONAL QUE TAMBEM ACEITE PARTICULAR.
-            ELE FICARA DUPLICADO AQUI*/
             listResult = dao.findClinicaParticular(form.getIdEspecialidade(),location, MAX_RAIO);
         }
         ResultadoBuscaClinicaVo rb = this.groupResult(listResult);
         rb.setLongitude(location.getLongitude());
         rb.setLatitude(location.getLatitude());
+        this.procurarProfissionalMaisProximo(rb);
 
         return rb;
+    }
+
+    private void procurarProfissionalMaisProximo(ResultadoBuscaClinicaVo rb) {
+        double distanceMaisProximo = 1000000.0;
+        ClinicaVo clinicaMaisProxima = null;
+        for (ClinicaVo clinicaVo: rb.getClinicas()){
+            double distance = LocationUtils.getDistanceInKm(new LocationVo(rb.getLatitude(),rb.getLongitude()),
+                    new LocationVo(clinicaVo.getLatitude(),clinicaVo.getLongitude()));
+
+            if (distance < distanceMaisProximo){
+                distanceMaisProximo = distance;
+                clinicaMaisProxima = clinicaVo;
+            }
+        }
+
+        rb.setClinicaMaisProxima(clinicaMaisProxima);
+        rb.setDistanceInKm(distanceMaisProximo);
     }
 
 

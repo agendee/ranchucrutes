@@ -20,4 +20,9 @@ public class RestException extends Exception {
     public ErrorMessageVo getErrorMessageVo() {
         return errorMessageVo;
     }
+
+    @Override
+    public String getMessage() {
+        return errorMessageVo != null ? errorMessageVo.getErrorMessage() : getMessage();
+    }
 }

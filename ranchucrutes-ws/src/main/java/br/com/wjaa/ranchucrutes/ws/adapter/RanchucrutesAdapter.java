@@ -74,4 +74,12 @@ public class RanchucrutesAdapter {
         return vo;
 
     }
+
+    public static List<ConvenioCategoriaVo> toConveniosCategoriasVo(List<ConvenioCategoriaEntity> convenios) {
+        List<ConvenioCategoriaVo> result = new ArrayList<>(convenios.size());
+        for (ConvenioCategoriaEntity c : convenios){
+            result.add(RanchucrutesAdapter.toConvenioCategoriaVo(c));
+        }
+        return result;
+    }
 }

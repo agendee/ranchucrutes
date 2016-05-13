@@ -2,6 +2,7 @@ package br.com.wjaa.ranchucrutes.jobs.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by wagner on 12/06/15.
@@ -17,7 +18,6 @@ public class PacienteEntity extends LoginEntity implements Serializable {
     private String keySocial;
     private RedeSocialEnum redeSocial;
     private Integer idCategoria;
-
 
     @Column(name = "NOME", nullable = false)
     public String getNome() {

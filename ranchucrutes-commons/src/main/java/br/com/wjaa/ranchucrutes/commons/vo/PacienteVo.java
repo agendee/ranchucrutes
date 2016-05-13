@@ -2,6 +2,8 @@ package br.com.wjaa.ranchucrutes.commons.vo;
 
 import br.com.wjaa.ranchucrutes.commons.form.LoginForm;
 
+import java.util.List;
+
 /**
  * Created by wagner on 11/09/15.
  */
@@ -15,7 +17,7 @@ public class PacienteVo {
     private String keySocial;
     private LoginForm.AuthType authType;
     private Integer idCategoria;
-    private ConvenioCategoriaVo convenioCategoria;
+    private List<ConvenioCategoriaVo> conveniosCategorias;
     private String keyDeviceGcm;
 
 
@@ -93,19 +95,19 @@ public class PacienteVo {
         this.idCategoria = idCategoria;
     }
 
-    public ConvenioCategoriaVo getConvenioCategoria() {
-        return convenioCategoria;
-    }
-
-    public void setConvenioCategoria(ConvenioCategoriaVo convenioCategoria) {
-        this.convenioCategoria = convenioCategoria;
-    }
-
     public String getKeyDeviceGcm() {
         return keyDeviceGcm;
     }
 
     public void setKeyDeviceGcm(String keyDeviceGcm) {
         this.keyDeviceGcm = keyDeviceGcm;
+    }
+
+    public List<ConvenioCategoriaVo> getConveniosCategorias() {
+        return conveniosCategorias;
+    }
+
+    public void setConveniosCategorias(List<ConvenioCategoriaVo> conveniosCategorias) {
+        this.conveniosCategorias = conveniosCategorias;
     }
 }

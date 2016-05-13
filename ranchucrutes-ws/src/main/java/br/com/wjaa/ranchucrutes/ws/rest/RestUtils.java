@@ -12,6 +12,9 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
@@ -33,7 +36,7 @@ public class RestUtils {
             RestResponseUnsatisfiedException, RestException, RestRequestUnstable {
 
         HttpGet httpGet = new HttpGet("http://" + targetUrl + "/" + RestUtils.createParamsPath(params));
-        return executeGet(clazzReturn,httpGet);
+        return executeMethod(clazzReturn,httpGet, ErrorMessageVo.class);
     }
 
     public static <T>T getJsonWithParamPathAndParam(Class<T> clazzReturn, String targetUrl, Map<String,String> params,
@@ -41,10 +44,20 @@ public class RestUtils {
             RestResponseUnsatisfiedException, RestException, RestRequestUnstable {
         HttpGet httpGet = new HttpGet("http://" + targetUrl + RestUtils.createParamsPath(paramsPath) +
                 RestUtils.createParams(params));
-        return executeGet(clazzReturn, httpGet);
+        return executeMethod(clazzReturn, httpGet, ErrorMessageVo.class);
     }
 
-    private static <T> T executeGet(Class<T> clazzReturn, HttpGet httpGet) throws RestResponseUnsatisfiedException, RestRequestUnstable, RestException {
+    public static <T>T postJson(Class<T> clazzReturn, Class<? extends ErrorMessageVo> clazzError, String targetUrl, String uri, String json) throws
+            RestResponseUnsatisfiedException, RestException, RestRequestUnstable {
+        HttpPost httpPost = new HttpPost("http://" + targetUrl + uri);
+        httpPost.setEntity(new StringEntity(json,"UTF-8"));
+
+        return executeMethod(clazzReturn, httpPost, clazzError);
+
+    }
+
+
+    private static <T> T executeMethod(Class<T> clazzReturn, HttpRequestBase httpGet, Class<? extends ErrorMessageVo> clazzError) throws RestResponseUnsatisfiedException, RestRequestUnstable, RestException {
         CloseableHttpResponse response = null;
         try {
             httpGet.setConfig( RequestConfig.custom().setConnectionRequestTimeout(TIMEOUT)
@@ -54,12 +67,16 @@ public class RestUtils {
             response = httpclient.execute(httpGet);
             int statusCode = response.getStatusLine().getStatusCode();
 
-            if ( statusCode >= 400 && statusCode < 500){
+            if ( statusCode >= 404 && statusCode < 500){
                 throw new RestRequestUnstable("Servico está fora do ar.");
             }
 
+            if (statusCode == 400 && statusCode < 404){
+                throw new RestException(mapper.readValue(EntityUtils.toString(response.getEntity()), clazzError));
+            }
+
             if (statusCode >= 500 && statusCode < 600){
-                throw new RestException(mapper.readValue(EntityUtils.toString(response.getEntity()), ErrorMessageVo.class));
+                throw new RestException(mapper.readValue(EntityUtils.toString(response.getEntity()), clazzError));
             }
 
             LOG.debug("m=getJsonWithParamPath Response: " + response.getStatusLine());
@@ -102,5 +119,8 @@ public class RestUtils {
         return result;
 
     }
+
+
+
 
 }

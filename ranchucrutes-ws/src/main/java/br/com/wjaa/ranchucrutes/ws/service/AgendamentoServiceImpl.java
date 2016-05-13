@@ -15,6 +15,7 @@ import br.com.wjaa.ranchucrutes.ws.adapter.AgendamentoAdapter;
 import br.com.wjaa.ranchucrutes.ws.dao.AgendamentoDao;
 import br.com.wjaa.ranchucrutes.ws.exception.ParceiroIntegracaoServiceException;
 import br.com.wjaa.ranchucrutes.ws.integracao.service.ParceiroIntegracaoService;
+import br.com.wjaa.ranchucrutes.ws.integracao.vo.ParceiroAgendamentoVo;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -321,7 +322,9 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         //se consulta nao for no particular, verificamos se o profissional aceita o plano de saude do paciente.
         if (!form.getConsultaParticular()){
 
-            if ( !profissionalService.profissionalAceitaCategoria(form.getIdProfissional(),pacienteEntity.getIdCategoria()) ){
+            if ( !profissionalService.profissionalAceitaCategoria(form.getIdProfissional(),
+                    form.getIdClinica(),
+                    pacienteEntity.getIdsCategoriaConvenio()) ){
                 throw new AgendamentoServiceException("Profissional não aceita a categoria do seu plano de saúde, tente marcar no particular.");
             }
 

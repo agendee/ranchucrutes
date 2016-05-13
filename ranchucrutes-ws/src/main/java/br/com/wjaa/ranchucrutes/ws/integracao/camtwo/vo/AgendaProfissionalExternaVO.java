@@ -1,18 +1,15 @@
 package br.com.wjaa.ranchucrutes.ws.integracao.camtwo.vo;
 
 /**
- * Created by wagner on 5/10/16.
+ * Created by wagner on 5/12/16.
  */
 public class AgendaProfissionalExternaVO {
 
     private TokenVO token;
-    private String nome;
-    private String cpf;
-    private String telefone;
-    private String email;
-    private String dataNascimento;
-    private String sexo;
-    private Long idPaciente;
+    private String data;
+    private String horaInicio;
+    private PacienteAgendaExternaVO paciente;
+    private Long idAgenda;
 
     public TokenVO getToken() {
         return token;
@@ -22,59 +19,35 @@ public class AgendaProfissionalExternaVO {
         this.token = token;
     }
 
-    public String getNome() {
-        return nome;
+    public String getData() {
+        return data;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setData(String data) {
+        this.data = data;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getHoraInicio() {
+        return horaInicio;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setHoraInicio(String horaInicio) {
+        this.horaInicio = horaInicio;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public PacienteAgendaExternaVO getPaciente() {
+        return paciente;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setPaciente(PacienteAgendaExternaVO paciente) {
+        this.paciente = paciente;
     }
 
-    public String getEmail() {
-        return email;
+    public Long getIdAgenda() {
+        return idAgenda;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(String dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-
-    public Long getIdPaciente() {
-        return idPaciente;
-    }
-
-    public void setIdPaciente(Long idPaciente) {
-        this.idPaciente = idPaciente;
+    public void setIdAgenda(Long idAgenda) {
+        this.idAgenda = idAgenda;
     }
 }

@@ -2,7 +2,7 @@ package br.com.wjaa.ranchucrutes.ws.integracao.service;
 
 import br.com.wjaa.ranchucrutes.commons.form.AgendamentoForm;
 import br.com.wjaa.ranchucrutes.commons.vo.AgendaVo;
-import br.com.wjaa.ranchucrutes.commons.vo.ParceiroAgendamentoVo;
+import br.com.wjaa.ranchucrutes.ws.integracao.vo.ParceiroAgendamentoVo;
 import br.com.wjaa.ranchucrutes.ws.entity.AgendamentoEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.PacienteEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalEntity;

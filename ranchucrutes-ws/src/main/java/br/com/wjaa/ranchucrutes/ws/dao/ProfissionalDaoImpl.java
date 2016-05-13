@@ -109,7 +109,7 @@ public class ProfissionalDaoImpl extends GenericDaoImpl<ProfissionalEntity, Long
     }
 
     @Override
-    public ProfissionalEntity getProfissionalByIdAndCategoria(Long idProfissional, Integer idCategoria) {
+    public ProfissionalEntity getProfissionalByIdAndCategoria(Long idProfissional, Long idClinica, Integer[] idsCategoria) {
         StringBuilder sb = new StringBuilder();
         sb.append(" select distinct m from " + ProfissionalEntity.class.getSimpleName() + " m ");
         sb.append(" join m.clinicas cs ");
@@ -118,12 +118,15 @@ public class ProfissionalDaoImpl extends GenericDaoImpl<ProfissionalEntity, Long
         sb.append(" join c.convenio cv ");
         sb.append(" join cv.categorias ct ");
         sb.append(" where m.id = :idProfissional ");
-        sb.append(" and ct.id = :idConvenio ");
+        sb.append(" and cl.id = :idClinica ");
+        sb.append(" and ct.id in :idsCategorias ");
 
-        String [] nameParams = new String[]{"idProfissional","idConvenio"};
+        List<?> resultList = this.getSession().createQuery(sb.toString())
+                .setParameter("idProfissional", idProfissional)
+                .setParameter("idClinica", idClinica)
+                .setParameterList("idsCategorias",idsCategoria)
+                .list();
 
-        List<?> resultList = this.getHibernateTemplate().findByNamedParam(sb.toString(), nameParams,
-                new Object[]{idProfissional,idCategoria});
         if (resultList.size() > 0){
             return (ProfissionalEntity) resultList.get(0);
         }

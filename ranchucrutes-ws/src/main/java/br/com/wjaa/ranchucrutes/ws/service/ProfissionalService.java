@@ -33,7 +33,7 @@ public interface ProfissionalService extends GenericService<ProfissionalEntity, 
 
     ProfissionalBasicoVo getProfissionalBasico(Long idProfissional);
 
-    boolean profissionalAceitaCategoria(Long idProfissional, Integer idCategoria);
+    boolean profissionalAceitaCategoria(Long idProfissional, Long idClinica, Integer ... idsCategoria);
 
     ProfissionalOrigemEntity getParceiro(Long idProfissional, Long idClinica);
 }

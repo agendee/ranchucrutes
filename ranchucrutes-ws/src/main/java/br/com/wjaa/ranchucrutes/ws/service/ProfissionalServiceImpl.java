@@ -161,8 +161,8 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
     }
 
     @Override
-    public boolean profissionalAceitaCategoria(Long idProfissional, Integer idCategoria) {
-        ProfissionalEntity profissionalEntity = this.profissionalDao.getProfissionalByIdAndCategoria(idProfissional,idCategoria);
+    public boolean profissionalAceitaCategoria(Long idProfissional, Long idClinica,  Integer ... idsCategoria) {
+        ProfissionalEntity profissionalEntity = this.profissionalDao.getProfissionalByIdAndCategoria(idProfissional,idClinica,idsCategoria);
         return profissionalEntity != null;
     }
 
