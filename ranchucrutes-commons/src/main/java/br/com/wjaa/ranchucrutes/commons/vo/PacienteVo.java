@@ -2,6 +2,7 @@ package br.com.wjaa.ranchucrutes.commons.vo;
 
 import br.com.wjaa.ranchucrutes.commons.form.LoginForm;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,6 +20,9 @@ public class PacienteVo {
     private Integer idCategoria;
     private List<ConvenioCategoriaVo> conveniosCategorias;
     private String keyDeviceGcm;
+    private Date dataNascimento;
+    private String cpf;
+    private String sexo;
 
 
     public PacienteVo(){}
@@ -109,5 +113,29 @@ public class PacienteVo {
 
     public void setConveniosCategorias(List<ConvenioCategoriaVo> conveniosCategorias) {
         this.conveniosCategorias = conveniosCategorias;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 }

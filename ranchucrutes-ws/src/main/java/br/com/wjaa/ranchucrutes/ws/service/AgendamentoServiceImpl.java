@@ -584,10 +584,13 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
 
     private String getCodigoConfirmacao(AgendamentoForm form) {
         /*GERANDO UM MD5 COM AS 6 PRIMEIRAS POSICOES EM LOWERCASE*/
-        return br.com.wjaa.ranchucrutes.commons.utils.StringUtils.createMD5(
+        /*return br.com.wjaa.ranchucrutes.commons.utils.StringUtils.createMD5(
                 (form.getIdProfissional() + "|" + form.getIdPaciente() + "|" + new Date().getTime()))
                 .substring(0,6)
-                .toLowerCase();
+                .toLowerCase();*/
+        /*GERANDO UM RANDOM NUMERO O CODIGO ACIMA GERAVA LETRAS DIFICIL DE DIGITAR NO ANDROID*/
+        Random r = new Random();
+        return String.format("%05d", r.nextInt(10000000)).substring(0,5);
     }
 
     private boolean diaEstaCancelado(Long idClinica, Long idProfissional, Date dataAgendamento) {

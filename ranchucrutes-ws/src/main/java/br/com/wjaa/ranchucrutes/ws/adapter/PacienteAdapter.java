@@ -5,6 +5,8 @@ import br.com.wjaa.ranchucrutes.commons.vo.PacienteVo;
 import br.com.wjaa.ranchucrutes.ws.entity.ConvenioCategoriaEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.RedeSocialEnum;
 import br.com.wjaa.ranchucrutes.ws.entity.PacienteEntity;
+import br.com.wjaa.ranchucrutes.ws.entity.SexoEnum;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 
 /**
@@ -18,13 +20,16 @@ public class PacienteAdapter {
         PacienteVo pacienteVo = new PacienteVo();
 
         if (pacienteEntity != null){
-            BeanUtils.copyProperties(pacienteEntity,pacienteVo,"senha");
+            BeanUtils.copyProperties(pacienteEntity,pacienteVo,"senha","sexo");
             if (pacienteEntity.getRedeSocial() != null){
                 pacienteVo.setAuthType(pacienteEntity.getRedeSocial().getSocialType());
             }
             pacienteVo.setId(pacienteEntity.getIdLogin());
             if (pacienteEntity.getConvenios() != null){
                 pacienteVo.setConveniosCategorias(RanchucrutesAdapter.toConveniosCategoriasVo(pacienteEntity.getConvenios()));
+            }
+            if (pacienteEntity.getSexo() != null){
+                pacienteVo.setSexo(pacienteEntity.getSexo().toString());
             }
         }
         return pacienteVo;
@@ -34,7 +39,7 @@ public class PacienteAdapter {
         PacienteEntity entity = new PacienteEntity();
 
         if (pacienteVo != null){
-            BeanUtils.copyProperties(pacienteVo,entity);
+            BeanUtils.copyProperties(pacienteVo,entity,"sexo");
             entity.setIdLogin(pacienteVo.getId());
             if (pacienteVo.getAuthType() != null){
                 entity.setRedeSocial(RedeSocialEnum.adapterSocialType(pacienteVo.getAuthType()));
@@ -45,6 +50,9 @@ public class PacienteAdapter {
                     c.setId(ccVo.getId());
                     entity.addConvenioCategoria(c);
                 }
+            }
+            if (StringUtils.isNotBlank(pacienteVo.getSexo())){
+                entity.setSexo(SexoEnum.valueOf(pacienteVo.getSexo()));
             }
 
         }
