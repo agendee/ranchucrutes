@@ -161,7 +161,11 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
     }
 
     @Override
-    public boolean profissionalAceitaCategoria(Long idProfissional, Long idClinica,  Integer ... idsCategoria) {
+    public boolean profissionalAceitaCategoria(Long idProfissional, Long idClinica,  Integer ... idsCategoria) throws ProfissionalServiceException {
+        if (idsCategoria == null || idsCategoria.length == 0){
+            throw new ProfissionalServiceException("Paciente não configurou plano de saúde.");
+        }
+
         ProfissionalEntity profissionalEntity = this.profissionalDao.getProfissionalByIdAndCategoria(idProfissional,idClinica,idsCategoria);
         return profissionalEntity != null;
     }
