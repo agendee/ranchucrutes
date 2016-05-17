@@ -8,6 +8,11 @@ import br.com.wjaa.ranchucrutes.commons.vo.LocationVo;
 public class LocationUtils {
 
     public static Double getDistanceInKm(LocationVo source, LocationVo dest){
+
+        if (source == null || dest == null){
+            return 0.0;
+        }
+
         double xa = source.getLatitude();
         double ya = source.getLongitude();
         double xb = dest.getLatitude();

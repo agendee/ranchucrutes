@@ -17,8 +17,8 @@ public class LocationVo {
     public LocationVo(){}
 
     public LocationVo(Double latitude, Double longitude){
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.latitude = latitude == null ? 0.0 : latitude ;
+        this.longitude = longitude == null ? 0.0 : longitude;
     }
 
     public Double getLatitude() {

@@ -96,7 +96,7 @@ public class ClinicaServiceImpl extends GenericServiceImpl<ClinicaEntity,Long> i
             double distance = LocationUtils.getDistanceInKm(new LocationVo(rb.getLatitude(),rb.getLongitude()),
                     new LocationVo(clinicaVo.getLatitude(),clinicaVo.getLongitude()));
 
-            if (distance < distanceMaisProximo){
+            if (distance < distanceMaisProximo && distance > 0.0){
                 distanceMaisProximo = distance;
                 clinicaMaisProxima = clinicaVo;
             }
