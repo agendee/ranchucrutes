@@ -123,8 +123,10 @@ public class ClinicaDaoImpl extends GenericDaoImpl<ClinicaEntity, Long> implemen
                     p.setEndereco(tuple[i].toString());
                 }else if ( "LATITUDE".equalsIgnoreCase(aliases[i])){
                     p.setLatitude(Double.valueOf(tuple[i].toString()));
+                    clinicaVo.setLatitude(p.getLatitude());
                 }else if ( "LONGITUDE".equalsIgnoreCase(aliases[i])){
                     p.setLongitude(Double.valueOf(tuple[i].toString()));
+                    clinicaVo.setLongitude(p.getLongitude());
                 }else if ( "CELULAR".equalsIgnoreCase(aliases[i])){
                     p.setTelefone(tuple[i].toString());
                 }else if ( "ID_PROFISSAO".equalsIgnoreCase(aliases[i])){

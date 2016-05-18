@@ -5,7 +5,6 @@ package br.com.wjaa.ranchucrutes.ws.integracao.camtwo.vo;
  */
 public class PacienteAgendaExternaVO {
 
-    private TokenVO token;
     private String nome;
     private String cpf;
     private String telefone;
@@ -13,14 +12,6 @@ public class PacienteAgendaExternaVO {
     private String dataNascimento;
     private String sexo;
     private Long idPaciente;
-
-    public TokenVO getToken() {
-        return token;
-    }
-
-    public void setToken(TokenVO token) {
-        this.token = token;
-    }
 
     public String getNome() {
         return nome;

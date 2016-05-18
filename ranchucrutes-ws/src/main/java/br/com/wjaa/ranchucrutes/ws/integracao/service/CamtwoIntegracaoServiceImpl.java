@@ -121,17 +121,12 @@ public class CamtwoIntegracaoServiceImpl implements ParceiroIntegracaoService{
                                                                         ProfissionalOrigemEntity po)
             throws ParceiroIntegracaoServiceException {
         AgendaProfissionalExternaVO agendaProfissional = new AgendaProfissionalExternaVO();
-        TokenVO tokenProfissional = new TokenVO();
-        tokenProfissional.setToken(po.getTokenProfissional());
-        agendaProfissional.setToken(tokenProfissional);
+        agendaProfissional.setTokenProfissional(po.getTokenProfissional());
 
         agendaProfissional.setData(DateUtils.formatDateISO8601(form.getDataAgendamento()));
         agendaProfissional.setHoraInicio(DateUtils.formatHourISO8601(form.getDataAgendamento()));
 
         PacienteAgendaExternaVO pacienteAgenda = new PacienteAgendaExternaVO();
-        TokenVO tokenClinica = new TokenVO();
-        tokenClinica.setToken(po.getTokenClinica());
-        pacienteAgenda.setToken(tokenClinica);
 
         this.validatePaciente(pacienteEntity);
 

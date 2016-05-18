@@ -5,19 +5,12 @@ package br.com.wjaa.ranchucrutes.ws.integracao.camtwo.vo;
  */
 public class AgendaProfissionalExternaVO {
 
-    private TokenVO token;
+    private String tokenProfissional;
     private String data;
     private String horaInicio;
     private PacienteAgendaExternaVO paciente;
     private Long idAgenda;
 
-    public TokenVO getToken() {
-        return token;
-    }
-
-    public void setToken(TokenVO token) {
-        this.token = token;
-    }
 
     public String getData() {
         return data;
@@ -49,5 +42,13 @@ public class AgendaProfissionalExternaVO {
 
     public void setIdAgenda(Long idAgenda) {
         this.idAgenda = idAgenda;
+    }
+
+    public String getTokenProfissional() {
+        return tokenProfissional;
+    }
+
+    public void setTokenProfissional(String tokenProfissional) {
+        this.tokenProfissional = tokenProfissional;
     }
 }
