@@ -1,6 +1,10 @@
 package br.com.wjaa.ranchucrutes.commons.vo;
 
 import br.com.wjaa.ranchucrutes.commons.form.LoginForm;
+import br.com.wjaa.ranchucrutes.commons.helper.JacksonDateDeserializer;
+import br.com.wjaa.ranchucrutes.commons.helper.JacksonDateSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.util.Date;
 import java.util.List;
@@ -20,6 +24,8 @@ public class PacienteVo {
     private Integer idCategoria;
     private List<ConvenioCategoriaVo> conveniosCategorias;
     private String keyDeviceGcm;
+    @JsonSerialize(using = JacksonDateSerializer.class)
+    @JsonDeserialize(using = JacksonDateDeserializer.class)
     private Date dataNascimento;
     private String cpf;
     private String sexo;

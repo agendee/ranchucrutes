@@ -13,8 +13,11 @@ public class RestException extends Exception {
         super(message,e);
     }
 
+    public RestException(ErrorMessageVo ... errorMessageVo) {
+       this.errorMessageVo = (ErrorMessageVo) errorMessageVo[0];
+    }
     public RestException(ErrorMessageVo errorMessageVo) {
-        this.errorMessageVo = errorMessageVo;
+       this.errorMessageVo = (ErrorMessageVo) errorMessageVo;
     }
 
     public ErrorMessageVo getErrorMessageVo() {
@@ -23,6 +26,8 @@ public class RestException extends Exception {
 
     @Override
     public String getMessage() {
-        return errorMessageVo != null ? errorMessageVo.getErrorMessage() : getMessage();
+        return errorMessageVo != null ?
+                errorMessageVo.getErrorMessage() :
+                super.getMessage();
     }
 }

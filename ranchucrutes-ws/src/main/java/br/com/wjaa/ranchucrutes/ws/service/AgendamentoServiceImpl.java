@@ -259,7 +259,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         AgendaVo agendaVo = this.createAgenda(agendaConfig, listAgendaCancelada, listAgendamentos, profissionalBasico);
 
         return agendaVo;
-    }
+    }paci
 
     /**
      * FIM DAS LISTAGEM DE AGENDAMENTOS
@@ -348,7 +348,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
             throw new AgendamentoServiceException("Ocorreu um erro no agendamento, tente novamente mais tarde!");
         } catch (ParceiroIntegracaoServiceException e) {
             LOG.error("Erro na integracao:", e);
-            throw new AgendamentoServiceException("Ocorreu um erro na integração com nosso parceiro.");
+            throw new AgendamentoServiceException(e.getMessage());
         }
     }
 

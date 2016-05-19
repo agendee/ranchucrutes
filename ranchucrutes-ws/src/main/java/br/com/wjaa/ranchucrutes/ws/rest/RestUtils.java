@@ -47,6 +47,7 @@ public class RestUtils {
         return executeMethod(clazzReturn, httpGet, ErrorMessageVo.class);
     }
 
+
     public static <T>T postJson(Class<T> clazzReturn, Class<? extends ErrorMessageVo> clazzError, String targetUrl, String uri, String json) throws
             RestResponseUnsatisfiedException, RestException, RestRequestUnstable {
         HttpPost httpPost = new HttpPost("http://" + targetUrl + uri);
@@ -56,8 +57,61 @@ public class RestUtils {
 
     }
 
+    public static <T>T postJsonCamtwo(Class<T> clazzReturn, Class<? extends ErrorMessageVo[]> clazzError, String targetUrl, String uri, String json) throws
+            RestResponseUnsatisfiedException, RestException, RestRequestUnstable {
+        HttpPost httpPost = new HttpPost("http://" + targetUrl + uri);
+        httpPost.setEntity(new StringEntity(json,"UTF-8"));
+
+        return executeMethodCamtwo(clazzReturn, httpPost, clazzError);
+
+    }
+
 
     private static <T> T executeMethod(Class<T> clazzReturn, HttpRequestBase httpGet, Class<? extends ErrorMessageVo> clazzError) throws RestResponseUnsatisfiedException, RestRequestUnstable, RestException {
+        CloseableHttpResponse response = null;
+        try {
+            httpGet.setConfig( RequestConfig.custom().setConnectionRequestTimeout(TIMEOUT)
+                    .setConnectTimeout(TIMEOUT)
+                    .setSocketTimeout(TIMEOUT)
+                    .build());
+            response = httpclient.execute(httpGet);
+            int statusCode = response.getStatusLine().getStatusCode();
+
+            if ( statusCode >= 404 && statusCode < 500){
+                throw new RestRequestUnstable("Servico está fora do ar.");
+            }
+
+            if (statusCode == 400 && statusCode < 404){
+                throw new RestException(mapper.readValue(EntityUtils.toString(response.getEntity()), clazzError));
+            }
+
+            if (statusCode >= 500 && statusCode < 600){
+                throw new RestException(mapper.readValue(EntityUtils.toString(response.getEntity()), clazzError));
+            }
+
+            LOG.debug("m=getJsonWithParamPath Response: " + response.getStatusLine());
+
+            return mapper.readValue(EntityUtils.toString(response.getEntity()), clazzReturn);
+
+        }catch (JsonMappingException | JsonParseException e) {
+            throw new RestResponseUnsatisfiedException(e.getMessage(), e);
+        } catch (IOException e) {
+            throw new RestRequestUnstable(e.getMessage(), e);
+        }  catch (Exception e) {
+            throw new RestException(e.getMessage(),e);
+        } finally {
+            try{
+                if (response != null){
+                    response.close();
+                }
+            }catch(Exception ex){
+                LOG.error("Erro ao fechar a conexao.", ex);
+            }
+
+        }
+    }
+
+    private static <T> T executeMethodCamtwo(Class<T> clazzReturn, HttpRequestBase httpGet, Class<? extends ErrorMessageVo[]> clazzError) throws RestResponseUnsatisfiedException, RestRequestUnstable, RestException {
         CloseableHttpResponse response = null;
         try {
             httpGet.setConfig( RequestConfig.custom().setConnectionRequestTimeout(TIMEOUT)

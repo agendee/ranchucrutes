@@ -93,7 +93,7 @@ public class CamtwoIntegracaoServiceImpl implements ParceiroIntegracaoService{
 
         try {
             LOG.info("Iniciando a comunicação com o servidor");
-            AgendaProfissionalExternaVO agendaProfissionalRetorno = RestUtils.postJson(AgendaProfissionalExternaVO.class, ErrorCamtwoVO.class
+            AgendaProfissionalExternaVO agendaProfissionalRetorno = RestUtils.postJsonCamtwo(AgendaProfissionalExternaVO.class, ErrorCamtwoVO[].class
                     ,host,END_POINT_GET_AGENDAR + po.getTokenClinica(),json);
 
             LOG.info("AGENDAMENTO NO PARCEIRO REALIZADO COM SUCESSO!");
