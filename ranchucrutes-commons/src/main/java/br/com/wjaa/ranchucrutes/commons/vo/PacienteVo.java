@@ -29,6 +29,7 @@ public class PacienteVo {
     private Date dataNascimento;
     private String cpf;
     private String sexo;
+    private String urlFoto;
 
 
     public PacienteVo(){}
@@ -143,5 +144,13 @@ public class PacienteVo {
 
     public void setSexo(String sexo) {
         this.sexo = sexo;
+    }
+
+    public String getUrlFoto() {
+        return urlFoto;
+    }
+
+    public void setUrlFoto(String urlFoto) {
+        this.urlFoto = urlFoto;
     }
 }

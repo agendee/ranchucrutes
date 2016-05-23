@@ -26,6 +26,7 @@ public class PacienteEntity extends LoginEntity implements Serializable {
     private Date dataNascimento;
     private String cpf;
     private SexoEnum sexo;
+    private String urlFoto;
 
 
     @Column(name = "NOME", nullable = false)
@@ -131,5 +132,15 @@ public class PacienteEntity extends LoginEntity implements Serializable {
             convenios = new ArrayList<ConvenioCategoriaEntity>();
         }
         convenios.add(c);
+    }
+
+
+    @Column(name = "URL_FOTO" , length = 1000)
+    public String getUrlFoto() {
+        return urlFoto;
+    }
+
+    public void setUrlFoto(String urlFoto) {
+        this.urlFoto = urlFoto;
     }
 }
