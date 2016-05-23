@@ -259,7 +259,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         AgendaVo agendaVo = this.createAgenda(agendaConfig, listAgendaCancelada, listAgendamentos, profissionalBasico);
 
         return agendaVo;
-    }paci
+    }
 
     /**
      * FIM DAS LISTAGEM DE AGENDAMENTOS
