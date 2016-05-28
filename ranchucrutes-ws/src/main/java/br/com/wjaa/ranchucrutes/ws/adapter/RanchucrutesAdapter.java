@@ -22,8 +22,7 @@ public class RanchucrutesAdapter {
         List<ConvenioCategoriaVo> categoriaVos = new ArrayList<>();
         if (!CollectionUtils.isEmpty(categorias)){
             for (ConvenioCategoriaEntity categoria : categorias){
-                categoriaVos.add(new ConvenioCategoriaVo(categoria.getId(),
-                        categoria.getConvenio().getNome() + " - " + categoria.getNome()));
+                categoriaVos.add(toConvenioCategoriaVo(categoria));
             }
         }
         return categoriaVos;
