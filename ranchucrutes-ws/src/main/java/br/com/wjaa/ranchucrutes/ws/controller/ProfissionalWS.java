@@ -65,6 +65,12 @@ public class ProfissionalWS extends BaseWS {
        return this.profissionalService.find(form);
     }
 
+    @RequestMapping(value = "/profissional/name/search", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    public List<ProfissionalBasicoVo> findProfissional(@RequestParam String startName) throws CepNotFoundException,
+            LocationDuplicateFoundException, LocationNotFoundException {
+        return this.profissionalService.findByStartName(startName);
+    }
+
     @RequestMapping(value = "/profissional/clinica/search", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public ResultadoBuscaClinicaVo findProfissionalInClinica(@RequestBody FindClinicaForm form) throws ClinicaServiceException {
         return this.clinicaService.find(form);

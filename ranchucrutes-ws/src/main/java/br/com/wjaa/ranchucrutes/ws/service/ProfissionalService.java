@@ -36,4 +36,6 @@ public interface ProfissionalService extends GenericService<ProfissionalEntity, 
     boolean profissionalAceitaCategoria(Long idProfissional, Long idClinica, Integer ... idsCategoria) throws ProfissionalServiceException;
 
     ProfissionalOrigemEntity getParceiro(Long idProfissional, Long idClinica);
+
+    List<ProfissionalBasicoVo> findByStartName(String startName);
 }

@@ -175,6 +175,19 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
         return profissionalDao.findProfissionalOrigem(idProfissional,idClinica);
     }
 
+    @Override
+    public List<ProfissionalBasicoVo> findByStartName(String startName) {
+        if (StringUtils.isEmpty(startName)){
+            return null;
+        }
+        if (startName.length() < 5){
+            return null;
+        }
+
+        List<ProfissionalEntity> profissionais = profissionalDao.findProfissionalByStartName(startName);
+        return ProfissionalAdapter.toListProfissionalBasico(profissionais);
+    }
+
     private ProfissionalEntity mergeProfissional(ProfissionalEntity profissionalPersisted, ProfissionalEntity profissional) {
         BeanUtils.copyProperties(profissional,profissionalPersisted,"idLogin",
                 "dataUltimoAcesso",
@@ -291,7 +304,7 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
     private void validate(ProfissionalEntity profissional) throws ProfissionalServiceException {
         //TODO VERIFICAR ESSA CONSISTENCIA PQ AGORA TEREMOS VARIOS TIPO DE REGISTRO
         if (profissional.getNumeroRegistro() == null){
-            LOG.error("Profissional sem crm...");
+            LOG.error("Profissional sem numero de registro...");
             throw new ProfissionalServiceException("CRM não pode ser null");
         }
         ProfissionalEntity profissionalExists = this.profissionalDao.getProfissionalByCrm(profissional.getNumeroRegistro());

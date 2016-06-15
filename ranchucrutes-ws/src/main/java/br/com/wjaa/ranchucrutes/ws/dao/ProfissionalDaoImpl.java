@@ -152,4 +152,19 @@ public class ProfissionalDaoImpl extends GenericDaoImpl<ProfissionalEntity, Long
 
         return null;
     }
+
+    @Override
+    public List<ProfissionalEntity> findProfissionalByStartName(String startName) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("select m from " + ProfissionalEntity.class.getSimpleName() + " m ");
+        sql.append(" where upper(m.nome) like :name ");
+
+        return this.getSession()
+                .createQuery(sql.toString())
+                .setParameter("name", "%" + startName.toUpperCase() + "%")
+                .setMaxResults(5)
+                .list();
+
+
+    }
 }

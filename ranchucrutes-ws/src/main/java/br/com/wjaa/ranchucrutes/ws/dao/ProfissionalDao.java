@@ -56,4 +56,11 @@ public interface ProfissionalDao extends GenericDao<ProfissionalEntity,Long> {
      * @return
      */
     ProfissionalOrigemEntity findProfissionalOrigem(Long idProfissional, Long idClinica);
+
+    /**
+     *
+     * @param startName
+     * @return
+     */
+    List<ProfissionalEntity> findProfissionalByStartName(String startName);
 }
