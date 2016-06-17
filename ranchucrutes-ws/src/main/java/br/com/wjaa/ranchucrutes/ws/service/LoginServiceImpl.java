@@ -45,9 +45,9 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public String createCodeConfirmation(String email, Integer crm){
+    public String createCodeConfirmation(String email, String numeroRegistro){
         //criando um md5 com base no email + crm e milisegundo atual.
-        return StringUtils.createMD5(email + "|" + crm + "|" + new Date().getTime());
+        return StringUtils.createMD5(email + "|" + numeroRegistro + "|" + new Date().getTime());
     }
 
     @Override

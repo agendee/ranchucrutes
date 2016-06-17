@@ -14,7 +14,7 @@ public class ProfissionalBasicoVo {
 
     private Long id;
     private String nome;
-    private Integer numeroRegistro;
+    private String numeroRegistro;
     private String espec;
     private Double latitude;
     private Double longitude;
@@ -28,6 +28,7 @@ public class ProfissionalBasicoVo {
     private Boolean aceitaParticular;
     private Boolean aceitaPlano;
     private Long idClinicaAtual;
+    private String foto;
 
     public String getNome() {
         return nome;
@@ -37,11 +38,11 @@ public class ProfissionalBasicoVo {
         this.nome = nome;
     }
 
-    public Integer getNumeroRegistro() {
+    public String getNumeroRegistro() {
         return numeroRegistro;
     }
 
-    public void setNumeroRegistro(Integer numeroRegistro) {
+    public void setNumeroRegistro(String numeroRegistro) {
         this.numeroRegistro = numeroRegistro;
     }
 
@@ -172,5 +173,13 @@ public class ProfissionalBasicoVo {
     public void setIdClinicaAtual(Long idClinicaAtual) {
         this.idClinicaAtual = idClinicaAtual;
 
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }

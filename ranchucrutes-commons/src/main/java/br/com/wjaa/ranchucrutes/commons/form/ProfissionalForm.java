@@ -1,8 +1,5 @@
 package br.com.wjaa.ranchucrutes.commons.form;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.web.multipart.MultipartFile;
-
 /**
  * Created by wagner on 12/08/15.
  */
@@ -10,7 +7,7 @@ public class ProfissionalForm {
 
     private Long idLogin;
     private String nome;
-    private Integer numeroRegistro;
+    private String numeroRegistro;
     private Integer [] idEspecialidade;
     private Short ddd;
     private Long celular;
@@ -93,11 +90,11 @@ public class ProfissionalForm {
         this.foto = foto;
     }
 
-    public Integer getNumeroRegistro() {
+    public String getNumeroRegistro() {
         return numeroRegistro;
     }
 
-    public void setNumeroRegistro(Integer numeroRegistro) {
+    public void setNumeroRegistro(String numeroRegistro) {
         this.numeroRegistro = numeroRegistro;
     }
 }

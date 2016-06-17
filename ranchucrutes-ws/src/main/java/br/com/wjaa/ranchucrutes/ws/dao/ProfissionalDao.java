@@ -34,10 +34,10 @@ public interface ProfissionalDao extends GenericDao<ProfissionalEntity,Long> {
 
     /**
      *
-     * @param crm
+     * @param numeroRegistro
      * @return
      */
-    ProfissionalEntity getProfissionalByCrm(Integer crm);
+    ProfissionalEntity getProfissionalByNumeroRegistro(String numeroRegistro);
 
     /**
      *

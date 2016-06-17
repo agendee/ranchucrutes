@@ -81,12 +81,12 @@ public class ProfissionalDaoImpl extends GenericDaoImpl<ProfissionalEntity, Long
     }
 
     @Override
-    public ProfissionalEntity getProfissionalByCrm(Integer crm) {
+    public ProfissionalEntity getProfissionalByNumeroRegistro(String numeroRegistro) {
         StringBuilder sql = new StringBuilder();
         sql.append("select m from " + ProfissionalEntity.class.getSimpleName() + " m ");
-        sql.append(" where m.crm = :crm ");
+        sql.append(" where m.numeroRegistro = :numeroRegistro ");
         List<ProfissionalEntity> listProfissionals = (List<ProfissionalEntity>) this.getHibernateTemplate()
-                .findByNamedParam(sql.toString(), "crm", crm);
+                .findByNamedParam(sql.toString(), "numeroRegistro", numeroRegistro);
 
         if (!CollectionUtils.isEmpty(listProfissionals)){
             return listProfissionals.get(0);

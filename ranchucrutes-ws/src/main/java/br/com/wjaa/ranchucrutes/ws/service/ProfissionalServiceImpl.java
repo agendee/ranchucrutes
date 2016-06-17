@@ -212,7 +212,8 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
         }
         profissional = profissionalDao.save(profissional);
         LOG.info("Enviando email de confirmacao para " + profissional.getEmail());
-        emailService.sendEmailNovoProfissional(profissional.getEmail(), profissional.getNome(), profissional.getCodeConfirmacao());
+        //TODO DESLIGADO O ENVIO DE EMAIL PARA A IMPORTACAO.
+        //emailService.sendEmailNovoProfissional(profissional.getEmail(), profissional.getNome(), profissional.getCodeConfirmacao());
         return profissional;
 
     }
@@ -303,19 +304,26 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
      */
     private void validate(ProfissionalEntity profissional) throws ProfissionalServiceException {
         //TODO VERIFICAR ESSA CONSISTENCIA PQ AGORA TEREMOS VARIOS TIPO DE REGISTRO
-        if (profissional.getNumeroRegistro() == null){
+        /*if (profissional.getNumeroRegistro() == null){
             LOG.error("Profissional sem numero de registro...");
             throw new ProfissionalServiceException("CRM não pode ser null");
-        }
-        ProfissionalEntity profissionalExists = this.profissionalDao.getProfissionalByCrm(profissional.getNumeroRegistro());
-        if (profissionalExists != null){
-            throw new ProfissionalServiceException("Já existe um profissional cadastrado com esse CRM [" + profissional.getNumeroRegistro() + "]");
+        }*/
+        ProfissionalEntity profissionalExists = null;
+
+        if ( StringUtils.isNotBlank(profissional.getNumeroRegistro()) ){
+            profissionalExists = this.profissionalDao.getProfissionalByNumeroRegistro(profissional.getNumeroRegistro());
+            if (profissionalExists != null){
+                throw new ProfissionalServiceException("Já existe um profissional cadastrado com esse CRM [" + profissional.getNumeroRegistro() + "]");
+            }
         }
 
-        profissionalExists = this.profissionalDao.getProfissionalByEmail(profissional.getEmail());
-        if (profissionalExists != null){
-            throw new ProfissionalServiceException("Já existe um profissional cadastrado com esse Email [" + profissional.getEmail() + "]");
-        }
+        /*if ( StringUtils.isNotBlank(profissional.getEmail()) ){
+            profissionalExists = this.profissionalDao.getProfissionalByEmail(profissional.getEmail());
+            if (profissionalExists != null){
+                throw new ProfissionalServiceException("Já existe um profissional cadastrado com esse Email [" + profissional.getEmail() + "]");
+            }
+        }*/
+
     }
 
     private void saveAgendaHorarios(Long idAgenda, List<AgendaHorarioEntity> agendaHorarios) {

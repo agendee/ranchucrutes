@@ -24,7 +24,7 @@ public class ProfissionalEntity extends LoginEntity implements Serializable{
     private List<ProfissionalClinicaEntity> clinicas;
     private List<EspecialidadeEntity> especialidades;
     private String cpf;
-    private Integer numeroRegistro;
+    private String numeroRegistro;
 
 
     @Column(name = "NOME", nullable = false)
@@ -96,11 +96,11 @@ public class ProfissionalEntity extends LoginEntity implements Serializable{
 
 
     @Column(name = "NUMERO_REGISTRO")
-    public Integer getNumeroRegistro() {
+    public String getNumeroRegistro() {
         return numeroRegistro;
     }
 
-    public void setNumeroRegistro(Integer numeroRegistro) {
+    public void setNumeroRegistro(String numeroRegistro) {
         this.numeroRegistro = numeroRegistro;
     }
 

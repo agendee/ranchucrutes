@@ -1,12 +1,7 @@
 package br.com.wjaa.ranchucrutes.jobs.entity;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by wagner on 12/06/15.
@@ -17,7 +12,7 @@ import java.util.List;
 public class ProfissionalEntity extends LoginEntity implements Serializable{
 
     private static final long serialVersionUID = 8235523726178515224L;
-    private Integer crm;
+    private String numeroRegistro;
     private String nome;
     private Short ddd;
     private Long celular;
@@ -26,12 +21,12 @@ public class ProfissionalEntity extends LoginEntity implements Serializable{
 
 
      @Column(name = "CRM", nullable = false)
-    public Integer getCrm() {
-        return crm;
+    public String getNumeroRegistro() {
+        return numeroRegistro;
     }
 
-    public void setCrm(Integer crm) {
-        this.crm = crm;
+    public void setNumeroRegistro(String numeroRegistro) {
+        this.numeroRegistro = numeroRegistro;
     }
 
     @Column(name = "NOME", nullable = false)

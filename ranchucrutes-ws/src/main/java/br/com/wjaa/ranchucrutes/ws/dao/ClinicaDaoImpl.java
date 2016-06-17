@@ -116,7 +116,7 @@ public class ClinicaDaoImpl extends GenericDaoImpl<ClinicaEntity, Long> implemen
                 }else if ( "NOME_PROFISSIONAL".equalsIgnoreCase(aliases[i])){
                     p.setNome(tuple[i].toString());
                 }else if ( "NUMERO_REGISTRO".equalsIgnoreCase(aliases[i])){
-                    p.setNumeroRegistro(Integer.valueOf(tuple[i].toString()));
+                    p.setNumeroRegistro(tuple[i].toString());
                 }else if ( "NOME_ESPECIALIDADE".equalsIgnoreCase(aliases[i])){
                     p.setEspec(tuple[i].toString());
                 }else if ( "ENDERECO".equalsIgnoreCase(aliases[i])){
@@ -141,6 +141,8 @@ public class ClinicaDaoImpl extends GenericDaoImpl<ClinicaEntity, Long> implemen
                     p.setTemAgenda(Integer.valueOf(tuple[i].toString()) == 1);
                 }else if ( "ACEITA_PLANO".equalsIgnoreCase(aliases[i])){
                     p.setAceitaPlano(Integer.valueOf(tuple[i].toString()) == 1);
+                }else if ( "FOTO".equalsIgnoreCase(aliases[i])){
+                    p.setFoto(tuple[i].toString());
                 }
             }
             return clinicaVo;

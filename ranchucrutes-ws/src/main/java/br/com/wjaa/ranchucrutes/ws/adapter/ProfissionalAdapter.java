@@ -59,6 +59,7 @@ public class ProfissionalAdapter {
         profissionalBasicoVo.setId(me.getIdLogin());
         profissionalBasicoVo.setNome(me.getNome());
         profissionalBasicoVo.setNumeroRegistro(me.getNumeroRegistro());
+        profissionalBasicoVo.setFoto(me.getFoto());
 
         if (!CollectionUtils.isEmpty(me.getEspecialidades())){
             EspecialidadeEntity e = me.getEspecialidades().get(0);
@@ -214,6 +215,8 @@ public class ProfissionalAdapter {
                 agenda.setId(form.getIdAgenda());
                 if (StringUtils.isNotBlank(form.getAberturaAgenda())){
                     agenda.setAberturaAgenda(AberturaAgendaEnum.valueOf(form.getAberturaAgenda()));
+                }else{
+                    agenda.setAberturaAgenda(AberturaAgendaEnum.SEMANAL);
                 }
 
                 if (form.getAgendaHorarios()!= null){

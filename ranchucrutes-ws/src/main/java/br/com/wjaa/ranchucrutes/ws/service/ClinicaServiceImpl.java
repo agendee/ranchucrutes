@@ -92,18 +92,20 @@ public class ClinicaServiceImpl extends GenericServiceImpl<ClinicaEntity,Long> i
     private void procurarProfissionalMaisProximo(ResultadoBuscaClinicaVo rb) {
         double distanceMaisProximo = 1000000.0;
         ClinicaVo clinicaMaisProxima = null;
-        for (ClinicaVo clinicaVo: rb.getClinicas()){
-            double distance = LocationUtils.getDistanceInKm(new LocationVo(rb.getLatitude(),rb.getLongitude()),
-                    new LocationVo(clinicaVo.getLatitude(),clinicaVo.getLongitude()));
+        if (rb.getClinicas() != null){
+            for (ClinicaVo clinicaVo: rb.getClinicas()){
+                double distance = LocationUtils.getDistanceInKm(new LocationVo(rb.getLatitude(),rb.getLongitude()),
+                        new LocationVo(clinicaVo.getLatitude(),clinicaVo.getLongitude()));
 
-            if (distance < distanceMaisProximo && distance > 0.0){
-                distanceMaisProximo = distance;
-                clinicaMaisProxima = clinicaVo;
+                if (distance < distanceMaisProximo && distance > 0.0){
+                    distanceMaisProximo = distance;
+                    clinicaMaisProxima = clinicaVo;
+                }
             }
-        }
 
-        rb.setClinicaMaisProxima(clinicaMaisProxima);
-        rb.setDistanceInKm(distanceMaisProximo);
+            rb.setClinicaMaisProxima(clinicaMaisProxima);
+            rb.setDistanceInKm(distanceMaisProximo);
+        }
     }
 
 

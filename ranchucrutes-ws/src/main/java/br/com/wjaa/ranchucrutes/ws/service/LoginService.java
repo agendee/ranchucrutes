@@ -15,7 +15,7 @@ public interface LoginService {
 
     String createHashPass(String pass);
 
-    String createCodeConfirmation(String email, Integer crm);
+    String createCodeConfirmation(String email, String numeroRegistro);
 
     ConfirmaCadastroVo confirmaCadastro(String code);
 
