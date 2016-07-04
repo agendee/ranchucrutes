@@ -7,9 +7,15 @@
 <head>
     <meta name="google-site-verification" content="9fRlro40UeOx7DXPoC-xzH1vS0ulV9mJAad3lLBCI6k" />
     <!-- Custom CSS -->
+
+	<link rel="stylesheet" href="static/css/font-awesome.min.css">
+	<link rel="stylesheet" href="static/css/animate.min.css">
+	<link rel="stylesheet" href="static/css/et-line-font.css">
+
     <jsp:include page="/views/commons/header.jsp" />
     <jsp:include page="/views/commons/header-components.jsp" />
-    <link href="/static/css/home.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+
 
 </head>
 
@@ -18,81 +24,74 @@
 <!-- Header -->
 
 
-<header>
-    <div class="container" style="margin-bottom:30px">
-        <div class="intro-text">
-            <div class="intro-lead-in">
-                <h1>Bem-vindo ao </h1> <br/>
-                <img src="/static/img/logonome.png" height="110px" style="margin-top: -25px" class="hidden-xs">
-                <img src="/static/img/logonome.png" height="110px" style="margin-top: -25px" class="visible-xs img-responsive">
+<header id="home">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+
+
+                <h1> BEM VINDO AO <span style="color:#00A4E6">AGENDEE<span> </h1>
+
+                <h1> ONDE PROFISSIONAIS E PACIENTES SE ENCONTRAM </h1>
+                <hr>
+
+
+                <a href="#profissional" class="smoothScroll btn btn-default">PROFISSIONAL</a>
+                <a href="#paciente" class="smoothScroll btn btn-default">PACIENTE</a>
+
             </div>
-            <div class="intro-heading">Seu portal de agendamentos online. <span class="hidden-xs">Assista a animação abaixo e veja como funciona.</span></div>
-            <span class="fa-stack fa-4x hidden-xs" style="cursor: pointer" data-toggle="modal" data-target="#modalVideoInstitucional">
-                 <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                 <i class="fa fa-play fa-stack-1x fa-inverse"></i>
-            </span>
-        </div>
-        <div class="col-xs-6 portfolio-item">
-            <div class="icon-link">
-                <a href="#profissional" class="portfolio-link">
-                    <div class="caption">
-                        <div class="caption-content">
-                            Sou um profissional
-                        </div>
-                    </div>
-                    <img src="static/img/home/profissional.png" class="img-circle img-responsive" alt="">
-                </a>
-            </div>
-            <div class="visible-xs">Você é um profissional?</div>
-        </div>
-        <div class="col-xs-6 portfolio-item">
-            <div class="icon-link">
-                <a href="#paciente" class="portfolio-link">
-                    <div class="caption">
-                        <div class="caption-content">
-                            Sou um paciente
-                        </div>
-                    </div>
-                    <img src="static/img/home/paciente.png" class="img-circle img-responsive" alt="">
-                </a>
-            </div>
-            <div class="visible-xs">Você é um paciente?</div>
+
         </div>
 
     </div>
+
 </header>
 
-<!-- Services Section -->
-<section id="download" style="background-color: #c7ddef">
-
+<section id="profissional" >
     <div class="container">
-
-        <div class="row text-center">
-            <div class="col-md-6">
-                <img src="/static/img/mobile_home.png" class="img-responsive">
-            </div>
-            <div class="col-md-6">
-
-                <h3 class="service-heading">Baixe nosso aplicativo</h3>
-                <p class="text-muted hidden-xs">Use o QRcode abaixo ou se preferir acesse a Play Store.</p>
-                <div class="row text-center hidden-xs">
-                    <img src="/static/img/qrcode_apk.png" />
+    		<div class="row">
+    		    <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">PROFISSIONAL</h2>
                 </div>
-
-                <div class="row text-center" style="margin-top: 40px">
-                    <img alt="Get it on Google Play"
-                         src="static/img/googleplay.png"  height="70px"/>
-                </div>
-
-            </div>
-
-
-        </div>
-    </div>
-
+    			<div class="col-lg-4 col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="0.6s">
+    				<i class="icon-cloud medium-icon"></i>
+    					<h3>Faça um cadastro em nosso sistema</h3>
+    					<hr>
+    					<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteu sunt in culpa qui officia.</p>
+    			</div>
+    			<div class="col-lg-4 col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="0.9s">
+    				<i class="icon-mobile medium-icon"></i>
+    					<h3>Acesse o portal</h3>
+    					<hr>
+    					<p>Digital Team is free responsive Bootstrap v3.3.5 layout from <a rel="nofollow" href="http://www.tooplate.com" target="_parent">Tooplate</a>. Images are from <a rel="nofollow" href="http://pixabay.com" target="_parent">Pixabay</a> free photo website.</p>
+    			</div>
+    			<div class="col-lg-4 col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="1s">
+    				<i class="icon-laptop medium-icon"></i>
+    					<h3>Gerencie a agenda de suas clinicas</h3>
+    					<hr>
+    					<p>You can edit and use this template for your websites. Please tell your friends about Tooplate. Thank you for visiting our website.</p>
+    			</div>
+    			<div class="col-lg-4 col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="1s">
+    				<i class="icon-compass medium-icon"></i>
+    					<h3>Agenda mensal</h3>
+    					<hr>
+    					<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteu sunt in culpa qui officia.</p>
+    			</div>
+    			<div class="col-lg-4 col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="1s">
+    				<i class="icon-chat medium-icon"></i>
+    					<h3>Agenda semanal</h3>
+    					<hr>
+    					<p>Tenha uma visão semanal de como anda sua agenda </p>
+    			</div>
+    			<div class="col-lg-4 col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="1s">
+    				<i class="icon-browser medium-icon"></i>
+    					<h3>Integrado aos melhores sistemas do mercado</h3>
+    					<hr>
+    					<p>Clinica nas nuvens e NetDente.</p>
+    			</div>
+    		</div>
+    	</div>
 </section>
-
-
 
 <!-- About Section -->
 <section id="paciente">
@@ -179,78 +178,6 @@
 
 
 <!-- Contact Section -->
-<section id="profissional" style="background-color: #c7ddef">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2 class="section-heading">Profissional, veja como é fácil</h2>
-                <h3 class="section-subheading text-muted">É simples</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="row featurette">
-                    <div class="col-md-7">
-                        <h2 class="featurette-heading">Faça um cadastro em nosso sistema.</h2>
-                        <p class="lead">Um cadastro bem simples com apenas dados básicos.</p>
-                    </div>
-                    <div class="col-md-5">
-                        <img class="featurette-image img-responsive center-block" src="static/img/about/p1.png" alt="Generic placeholder image">
-                    </div>
-                </div>
-
-                <hr class="featurette-divider">
-
-                <div class="row featurette">
-                    <div class="col-md-7 col-md-push-5">
-                        <h2 class="featurette-heading">Acesse o portal</h2>
-                        <p class="lead">Depois de cadastrado, acesse o seu portal para gerenciar seus dados e sua agenda.</p>
-                    </div>
-                    <div class="col-md-5 col-md-pull-7">
-                        <img class="featurette-image img-responsive center-block" src="static/img/about/p2.png" alt="Generic placeholder image">
-                    </div>
-                </div>
-
-                <hr class="featurette-divider">
-
-                <div class="row featurette">
-                    <div class="col-md-7">
-                        <h2 class="featurette-heading">Gerencie a agenda de suas clinicas</h2>
-                        <p class="lead">É você quem configura quais horário quer abrir sua agenda online.</p>
-                    </div>
-                    <div class="col-md-5">
-                        <img class="featurette-image img-responsive center-block" src="static/img/about/p3.png" alt="Generic placeholder image">
-                    </div>
-                </div>
-
-                <hr class="featurette-divider">
-
-                <div class="row featurette">
-                    <div class="col-md-7 col-md-push-5">
-                        <h2 class="featurette-heading">Agenda mensal</h2>
-                        <p class="lead">Tenha uma visão mensal de como está sua agenda.</p>
-                    </div>
-                    <div class="col-md-5 col-md-pull-7">
-                        <img class="featurette-image img-responsive center-block" src="static/img/about/p4.png" alt="Generic placeholder image">
-                    </div>
-                </div>
-
-                <hr class="featurette-divider">
-
-                <div class="row featurette">
-                    <div class="col-md-7">
-                        <h2 class="featurette-heading">Agenda semanal</h2>
-                        <p class="lead">Tenha uma visão semanal de como anda sua agenda</p>
-                    </div>
-                    <div class="col-md-5">
-                        <img class="featurette-image img-responsive center-block" src="static/img/about/p5.png" alt="Generic placeholder image">
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</section>
 
 <section id="contatos">
     <div class="container">
@@ -313,8 +240,11 @@
 <jsp:include page="/views/commons/footer.jsp" />
 <jsp:include page="/views/commons/footer-components.jsp" />
 <script src="/static/js/libs/cbpAnimatedHeader.js"></script>
+<script src="/static/js/smoothscroll.js"></script>
+<script src="/static/js/jquery.backstretch.min.js"></script>
 <script src="/static/js/home.js"></script>
-<script src="/static/js/ws/ranchucrutes-ws-client.js"></script>
+
+
 
 </body>
 </html>

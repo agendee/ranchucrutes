@@ -4,9 +4,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <title>agendee.com.br</title>
-<link href="/static/css/libs/bootstrap.css" rel="stylesheet">
-<link href="/static/css/libs/social-button-3.css" rel="stylesheet">
-<link href="/static/css/ranchucrutes.css" rel="stylesheet">
+<link href="/static/css/libs/bootstrap.min.css" rel="stylesheet">
 <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="shortcut icon" href="/static/img/favicon.png">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

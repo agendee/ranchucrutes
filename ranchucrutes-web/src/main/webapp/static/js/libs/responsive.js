@@ -2,7 +2,7 @@
 
     var responsive = function() {
 
-        if( viewport.is("<sm") ) {
+       /* if( viewport.is("<sm") ) {
             $("#imgLogo").attr("src","/static/img/logo_mini.png")
 
         }
@@ -13,7 +13,7 @@
 
         if( viewport.is(">md") ) {
             $("#imgLogo").attr("src","/static/img/logo.png")
-        }
+        }*/
     }
 
   // Executes once whole document has been loaded
