@@ -16,10 +16,10 @@ var home = function() {
           $(function(){
             jQuery(document).ready(function() {
             $('#home').backstretch([
-               "static/img/home/home1a.jpg",
-               "static/img/home/home2a.jpg",
-               "static/img/home/home3a.jpg",
-               "static/img/home/home4a.jpg",
+               "static/img/home/home1.jpg",
+               "static/img/home/home2.jpg",
+               "static/img/home/home3.jpg",
+               "static/img/home/home4.jpg",
                 ],  {duration: 2000, fade: 750});
             });
           });
