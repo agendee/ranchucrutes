@@ -172,7 +172,7 @@ public class AgendamentoDaoImpl extends GenericDaoImpl<AgendamentoEntity, Long> 
         sb.append("select a from " + AgendamentoEntity.class.getName() + " a ");
         sb.append(" where a.idPaciente = :idPaciente");
         sb.append(" and a.dataAgendamento > :limitDate ");
-        sb.append(" order by a.dataAgendamento desc , a.dataAgendamento");
+        sb.append(" order by a.cancelado desc, a.dataAgendamento desc");
 
         //mostrará apenas os agendamentos de 2 meses atrasagenda
         Calendar c = DateUtils.nowCalendar();
