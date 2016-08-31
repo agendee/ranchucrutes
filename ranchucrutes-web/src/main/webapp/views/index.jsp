@@ -53,41 +53,41 @@
     		    <div class="col-lg-12 text-center">
                     <h2 class="section-heading">PROFISSIONAL</h2>
                 </div>
-    			<div class="col-lg-4 col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="0.6s">
-    				<i class="icon-cloud medium-icon"></i>
-    					<h3>Faça um cadastro em nosso sistema</h3>
+    			<div class="col-lg-4 col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="1s">
+    				<i class="fa fa-calendar medium-icon"></i>
+    					<h3>Agenda online</h3>
     					<hr>
-    					<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteu sunt in culpa qui officia.</p>
+    					<p>Gerencie a agenda do seu consultório de maneira simples e rápida.</p>
+    			</div>
+    			<div class="col-lg-4 col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="1s">
+    				<i class="fa fa-plug medium-icon"></i>
+    					<h3>Integrado</h3>
+    					<hr>
+    					<p>Agendee é integrado com os melhores sistemas do mercado, <a href="#parceiros">veja nossos parceiros aqui</a> </p>
+    			</div>
+    			<div class="col-lg-4 col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="1s">
+    				<i class="fa fa-eye medium-icon"></i>
+    					<h3>Visibilidade</h3>
+    					<hr>
+    					<p>Faça sua clínica aparecer para milhares de pacientes em todo o Brasil.</p>
+    			</div>
+    			<div class="col-lg-4 col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="1s">
+    				<i class="fa fa-line-chart medium-icon"></i>
+    					<h3>Maximize</h3>
+    					<hr>
+    					<p>Aumente seus lucros atraindo mais pacientes para sua clínica.</p>
+    			</div>
+    			<div class="col-lg-4 col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="0.6s">
+    				<i class="fa fa-pencil-square-o medium-icon"></i>
+    					<h3>Cadastre-se</h3>
+    					<hr>
+    					<p><a href="/profissional/cadastro">Faça um cadastro em nosso sistema</a> e fique disponível para milhares de pacientes</p>
     			</div>
     			<div class="col-lg-4 col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="0.9s">
-    				<i class="icon-mobile medium-icon"></i>
-    					<h3>Acesse o portal</h3>
+    				<i class="fa fa-question-circle medium-icon"></i>
+    					<h3>Dúvidas?</h3>
     					<hr>
-    					<p>Digital Team is free responsive Bootstrap v3.3.5 layout from <a rel="nofollow" href="http://www.tooplate.com" target="_parent">Tooplate</a>. Images are from <a rel="nofollow" href="http://pixabay.com" target="_parent">Pixabay</a> free photo website.</p>
-    			</div>
-    			<div class="col-lg-4 col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="1s">
-    				<i class="icon-laptop medium-icon"></i>
-    					<h3>Gerencie a agenda de suas clinicas</h3>
-    					<hr>
-    					<p>You can edit and use this template for your websites. Please tell your friends about Tooplate. Thank you for visiting our website.</p>
-    			</div>
-    			<div class="col-lg-4 col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="1s">
-    				<i class="icon-compass medium-icon"></i>
-    					<h3>Agenda mensal</h3>
-    					<hr>
-    					<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteu sunt in culpa qui officia.</p>
-    			</div>
-    			<div class="col-lg-4 col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="1s">
-    				<i class="icon-chat medium-icon"></i>
-    					<h3>Agenda semanal</h3>
-    					<hr>
-    					<p>Tenha uma visão semanal de como anda sua agenda </p>
-    			</div>
-    			<div class="col-lg-4 col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="1s">
-    				<i class="icon-browser medium-icon"></i>
-    					<h3>Integrado aos melhores sistemas do mercado</h3>
-    					<hr>
-    					<p>Clinica nas nuvens e NetDente.</p>
+    					<p> <a href="#contatos">Clique aqui</a> e fale conosco, teremos prazer em tirar todas as suas dúvidas.</p>
     			</div>
     		</div>
     	</div>
@@ -98,78 +98,60 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading">Paciente, veja como funciona</h2>
-                <h3 class="section-subheading text-muted">É muito simples</h3>
+                <h2 class="section-heading">PACIENTE</h2>
+                <h3 class="section-subheading text-muted">Veja como é facil agendar uma consulta</h3>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12 text-center">
                 <ul class="timeline">
+                     <li>&nbsp;</li>
+                     <li>&nbsp;</li>
+                     <li>&nbsp;</li>
+                    <li>
+                        <div class="timeline-panel">
+                            <div class="timeline-body">
+                                <p class="text-muted">Escolha o especialista e sua localidade</p>
+                            </div>
+                        </div>
+                    </li>
                     <li>
                         <div class="timeline-image">
-                            <img class="img-circle img-responsive" src="/static/img/about/1.png" alt="">
+                            <img class="img-responsive center-block" src="/static/img/home/passo1.png" alt="">
                         </div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4 class="subheading">1 - Encontre um profissional</h4>
+                                <h4 class="subheading">Agendee localizará os profissionais mais próximos da sua região</h4>
                             </div>
                             <div class="timeline-body">
-                                <p class="text-muted">Encontre o profissional mais próximo de você </p>
+                                <p class="text-muted">Escolha o profissional e o horário da consulta</p>
                             </div>
                         </div>
                     </li>
                     <li class="timeline-inverted">
                         <div class="timeline-image">
-                            <img class="img-circle img-responsive" src="/static/img/about/2.png" alt="">
+                            <img class="center-block img-responsive" src="/static/img/home/passo2.png" alt="">
                         </div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4 class="subheading">2 - Veja a sua qualificação</h4>
+                                <h4 class="subheading">Ou se preferir, clique no telefone para ligar para o profissional.</h4>
                             </div>
                             <div class="timeline-body">
-                                <p class="text-muted">Antes de marcar a consulta veja a qualificação do médico.</p>
+                                <p class="text-muted">Acesse com suas redes sociais.</p>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="timeline-image">
-                            <img class="img-circle img-responsive" src="/static/img/about/3.png" alt="">
+                            <img class="center-block img-responsive" src="/static/img/home/passo3.png" alt="">
                         </div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4 class="subheading">3 - Escolha o melhor horário</h4>
-                            </div>
-                            <div class="timeline-body">
-                                <p class="text-muted">Veja todos os horário disponíveis do profissional e solicite um agendemanto.</p>
+                                <h4 class="subheading">Entre com seu login do Facebook ou Google Plus e pronto sua solicitação de consulta foi feita com sucesso!</h4>
                             </div>
                         </div>
                     </li>
-                    <li class="timeline-inverted">
-                        <div class="timeline-image">
-                            <img class="img-circle img-responsive" src="/static/img/about/4.png" alt="">
-                        </div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h4 class="subheading">4 - Pronto!</h4>
-                            </div>
-                            <div class="timeline-body">
-                                <p class="text-muted">Agendamento realizado com sucesso.</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="timeline-image">
-                            <img class="img-circle img-responsive" src="/static/img/about/5.png" alt="">
-                        </div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h4 class="subheading">5 - Calcule sua rota</h4>
-                            </div>
-                            <div class="timeline-body">
-                                <p class="text-muted">Use o aplicativo integrado ao google maps para criar uma rota até seu profissional.</p>
-                            </div>
-                        </div>
-                    </li>
+
                 </ul>
             </div>
         </div>
@@ -177,14 +159,68 @@
 </section>
 
 
-<!-- Contact Section -->
+<!-- Parceiros Section -->
+<section id="parceiros">
+    <div class="container">
+        <div class="col-lg-12 text-center">
+            <h2 class="section-heading">Conheça abaixo nossos parceiros</h2>
+        </div>
+        <ul class="timeline">
+             <li>&nbsp;</li>
+             <li>&nbsp;</li>
+             <li>&nbsp;</li>
+        </ul>
+        <div class="row">
+          <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+              <img class="img-responsive center-block" src="/static/img/home/parceiro1.png"  width="150px" alt="Clínica nas Nuvens">
+              <div class="caption text-center">
+                <p>Sistema online completo para clínicas e consultórios</p>
 
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+              <div class="thumbnail">
+                <img class="img-responsive center-block" src="/static/img/home/parceiro2.png" width="150px" alt="shosp">
+                <div class="caption text-center">
+                  <p>GESTÃO DE SUA CLÍNICA para você focar na estratégia</p>
+                </div>
+              </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+              <div class="thumbnail">
+                <img class="img-responsive center-block" src="/static/img/home/parceiro4.png" width="150px" alt="">
+                <div class="caption">
+
+                  <p>Sistema Completo de Gestão Odontológica</p>
+
+                </div>
+              </div>
+            </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+              <img class="img-responsive center-block" src="/static/img/home/parceiro3.png" width="150px" alt="MicroPlant">
+              <div class="caption text-center">
+
+                <p>Melhores soluções e melhores resultados em sitemas de implantes ondontológicos</p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</section>
+<!-- Parceiros Section -->
+
+
+<!-- Contact Section -->
 <section id="contatos">
     <div class="container">
         <div class="row">
             <div class="col-sm-6 ">
                 <div>
-                     <img src="/static/img/contact.jpg" class="img-responsive"/>
+                     <img src="/static/img/contato.png" class="img-responsive"/>
                 </div>
             </div>
 
@@ -192,7 +228,7 @@
                 <ul class="row">
 
                         <address>
-                             <h5>Wagner Jeronimo</h5>
+                           <h5>Wagner Jeronimo</h5>
                             <p><i class="fa fa-phone"></i> (11) 98377-7633</p>
                             <p><i class="fa fa-envelope-o"></i> wagner@agendee.com.br</p>
                         </address>

@@ -12,8 +12,8 @@
 <body>
     <jsp:include page="/views/commons/menu.jsp" />
 
-    <div class="col-md-12 cadastro container content">
-        <section id="cadastro">
+    <div class="col-md-12 cadastro container content" >
+        <section id="cadastro" style="margin-top:80px;">
             <form id="formCadastro" class="form-horizontal" action="/profissional/save" method="POST">
                 <div class="col-md-offset-1 col-md-10 col-lg-offset-3 col-lg-6">
 

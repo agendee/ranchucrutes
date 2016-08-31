@@ -11,7 +11,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand page-scroll" href="/"><img id="imgLogo" src="/static/img/logo.png"></a>
+            <a href="../" class="navbar-brand" style="margin-top:-10px"><img src="../static/img/logo_mini_white.png" class="img-responsive" alt="Agendee"> </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -19,6 +19,9 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="hidden">
                     <a href="#page-top"></a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="../">Home</a>
                 </li>
                 <c:if test="${sessionScope.loginSession == null}">
                     <li>
@@ -34,9 +37,6 @@
                     </li>
                 </c:if>
                 <li>
-                    <a class="page-scroll" href="/#download">Download</a>
-                </li>
-                <li>
                     <a class="page-scroll" href="/#paciente">Paciente</a>
                 </li>
                 <li>
@@ -44,7 +44,7 @@
                 </li>
                 <!--
                 <li>
-                    <a class="page-scroll" href="/#team">Equipe</a>
+                    <a class="page-scroll" href="/#parceiros">Parceiros</a>
                 </li>
                 -->
                 <li>
