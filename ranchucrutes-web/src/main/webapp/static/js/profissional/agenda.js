@@ -31,7 +31,13 @@ var Agenda = function() {
                         $("#nomePaciente").html(calEvent.agendamento.paciente.nome);
                         $("#email").html(calEvent.agendamento.paciente.email);
                         $("#telefone").html(calEvent.agendamento.paciente.telefone);
-                        $("#categoriaPlano").html(calEvent.agendamento.paciente.convenioCategoria.nome);
+console.log(calEvent.agendamento.paciente.conveniosCategorias);
+
+                        calEvent.agendamento.paciente.conveniosCategorias.forEach(function(item,index){
+                          $("#categoriaPlano").append(item.nome + "<br>");
+                        });
+
+
                         $("#btnRejeitar").confirm({
                             title:"Rejeitar Solicitação",
                             text:"Deseja realmente rejeitar essa consulta ?",
