@@ -11,7 +11,7 @@
 <body>
     <jsp:include page="/views/commons/menu.jsp" />
     <div class="col-xs-12 container">
-        <section id="resultado">
+        <section id="resultado" style="margin-top:80px;">
             <h:info-panel title="Obrigado por se cadastrar!"
             msg="Em poucos instantantes você receberá um email.<br/>Clique no link do email para confirmar o cadastro."/>
         </section>

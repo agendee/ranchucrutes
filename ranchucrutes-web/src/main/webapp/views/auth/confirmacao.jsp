@@ -11,7 +11,7 @@
 <body>
     <jsp:include page="/views/commons/menu.jsp" />
     <div class="col-xs-12 container">
-        <section id="resultado">
+        <section id="resultado" style="margin-top:80px;">
 
             <c:if test="${confirmaCadastro.isError()}">
                 <h:info-panel title="Ops!" msg="${confirmaCadastro.status.msg}"/>

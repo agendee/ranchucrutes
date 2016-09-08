@@ -17,7 +17,7 @@
 
         <form:form id="formCadastro" class="form-horizontal" action="/profissional/update" method="POST" role="form" modelAtribute="form" enctype="multipart/form-data" acceptcharset="UTF-8">
             <div class="col-md-offset-3 col-md-6">
-                <section class="form">
+                <section class="form" style="margin-top:80px;">
 
                     <!-- transformar isso aqui em uma tag -->
                     <c:if test="${errorMessage != null}">
@@ -32,15 +32,15 @@
                     <h4>Meu cadastro</h4>
                     <div class="panel-group" id="accordionDadosPessoais">
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
+                            <div class="panel-body">
+                                <h4 class="panel-body">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionDadosPessoais" href="#collapseDadosPessoais">Dados Pessoais</a>
                                     <input type="hidden" name="profissional.idLogin" value="${form.profissional.idLogin}"/>
                                     <input type="hidden" name="profissional.foto" value="${form.profissional.foto}"/>
                                 </h4>
                             </div>
                             <div class="panel-collapse collapse in" id="collapseDadosPessoais">
-                                <div class="panel-body">
+                                <div class="panel-footer">
 
 
                                     <div class="row">

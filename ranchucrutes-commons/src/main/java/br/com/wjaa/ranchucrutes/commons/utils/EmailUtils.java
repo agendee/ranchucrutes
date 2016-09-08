@@ -14,10 +14,10 @@ public class EmailUtils {
     public static EmailServerConfigVo scContato = new EmailServerConfigVo();
     public static EmailServerConfigVo scNotificacao = new EmailServerConfigVo();
     static{
-        scContato = ObjectUtils.fromJSON("{\"smtp\":\"smtp.gmail.com\",\"port\":465,\"user\":\"wagner@wjaa.com.br\",\"pass\":\"*456852*\",\"ssl\":true}"
+        scContato = ObjectUtils.fromJSON("{\"smtp\":\"smtp.zoho.com\",\"port\":465,\"user\":\"noreply@agendee.com.br\",\"pass\":\"*753951*\",\"ssl\":true}"
                 , EmailServerConfigVo.class);
 
-        scNotificacao = ObjectUtils.fromJSON("{\"smtp\":\"smtp.gmail.com\",\"port\":465,\"user\":\"wagner@wjaa.com.br\",\"pass\":\"*456852*\",\"ssl\":true}"
+        scNotificacao = ObjectUtils.fromJSON("{\"smtp\":\"smtp.zoho.com\",\"port\":465,\"user\":\"noreply@agendee.com.br\",\"pass\":\"*753951*\",\"ssl\":true}"
                 , EmailServerConfigVo.class);
     }
 

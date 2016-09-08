@@ -212,8 +212,7 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
         }
         profissional = profissionalDao.save(profissional);
         LOG.info("Enviando email de confirmacao para " + profissional.getEmail());
-        //TODO DESLIGADO O ENVIO DE EMAIL PARA A IMPORTACAO.
-        //emailService.sendEmailNovoProfissional(profissional.getEmail(), profissional.getNome(), profissional.getCodeConfirmacao());
+        emailService.sendEmailNovoProfissional(profissional.getEmail(), profissional.getNome(), profissional.getCodeConfirmacao());
         return profissional;
 
     }

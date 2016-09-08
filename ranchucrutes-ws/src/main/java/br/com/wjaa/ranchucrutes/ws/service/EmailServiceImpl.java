@@ -18,7 +18,7 @@ public class EmailServiceImpl implements EmailService {
         EmailParamVo emailParamVo = new EmailParamVo();
         emailParamVo.setEmail(email);
         emailParamVo.setTitle("Confirme seu cadastro");
-        emailParamVo.setFrom("notificacoes@agendee.com.br");
+        emailParamVo.setFrom("noreply@agendee.com.br");
         emailParamVo.setName("Agendee - Notificação");
         emailParamVo.setBody(EmailTemplate.NOVO_PROFISSIONAL.getBody(params));
         try {

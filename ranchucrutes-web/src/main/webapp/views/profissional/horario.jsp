@@ -17,7 +17,7 @@
         <form:form id="formCadastro" class="form-horizontal" action="/profissional/horario/save" method="POST" role="form" modelAtribute="form">
             <input type="hidden" name="profissional.idLogin" value="${form.profissional.idLogin}"/>
             <div class="col-md-offset-3 col-md-6">
-                <section class="form">
+                <section class="form" style="margin-top:80px;">
                     <!-- transformar isso aqui em uma tag -->
                     <c:if test="${errorMessage != null}">
                         <div class="alert alert-danger" role="alert">${errorMessage}</div>
@@ -38,14 +38,14 @@
                         <input type="hidden" name="clinicas[${countClinica}].idAgenda" value="${clinica.idAgenda}"/>
                         <div id="accordionHorario" class="panel-group">
                              <div id="horario${countClinica}${countHorario}" class="panel panel-default" >
-                                 <div class="panel-heading">
-                                     <h4 class="panel-title">
+                                 <div class="panel-body">
+                                     <h4 class="panel-body">
                                          <a data-toggle="collapse" data-parent="#accordionHorario" href="#collapseHorario${countClinica}" aria-expanded="true" class="collapsed nomeTitle">
                                              ${clinica.nome}
                                          </a>
                                      </h4>
                                  </div>
-                                 <div id="collapseHorario${countClinica}" class="form-group collapse in" style="margin-top:15px;" <c:if test="${oculto}"> style="display:none;" </c:if>>
+                                 <div id="collapseHorario${countClinica}" class="panel-footer form-group collapse in" style="margin-top:15px;" <c:if test="${oculto}"> style="display:none;" </c:if>>
                                      <div class="form-group">
                                         <label class="col-md-8 control-label">Quais horários você quer abrir? <a id="btnAddHorario${countClinica}" class="btn btn-success" ><i class="fa fa-plus"></i></a></label>
                                      </div>

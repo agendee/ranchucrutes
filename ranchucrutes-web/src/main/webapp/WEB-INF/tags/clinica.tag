@@ -6,8 +6,8 @@
 <%@ attribute name="oculto" required="false" rtexprvalue="true" type="java.lang.Boolean"%>
 
 <div id="clinica${index}" class="panel panel-default" <c:if test="${oculto}"> style="display:none;" </c:if> >
-    <div class="panel-heading">
-        <h4 class="panel-title">
+    <div class="panel-body">
+        <h4 class="panel-body">
             <a data-toggle="collapse" data-parent="#accordionClinica" href="#collapse${index}" aria-expanded="true" class="collapsed nomeTitle">
                 <c:if test="${clinica.nome != null}">
                     ${clinica.nome}
@@ -24,7 +24,7 @@
     </div>
     <div id="collapse${index}" class="panel-collapse collapse in clinicaCollapse" aria-expanded="true">
 
-        <div class="panel-body">
+        <div class="panel-footer">
             <div class="form-group">
                 <label class="col-md-3 control-label">Nome:<font style="color: rgb(169, 68, 66);">*</font> </label>
                 <div class="col-md-9">
@@ -109,7 +109,7 @@
                     <h3 class="panel-title">Endereço</h3>
                     <input type="hidden" name="clinicas[${index}].endereco.id" value="${clinica.endereco.id}"/>
                 </div>
-                <div class="panel-body">
+                <div class="panel-footer">
                     <div class="form-group">
                         <label class="col-md-3 control-label">CEP:<font style="color: rgb(169, 68, 66);">*</font> </label>
                         <div class="col-md-4">
@@ -160,7 +160,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Planos de Saúde</h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-footer">
                     <div class="form-group">
                         <label>Selecione um Convênio:</label>
                         <select class="form-control planoSaude" id="planoSaude${index}" data-live-search="true"></select>
