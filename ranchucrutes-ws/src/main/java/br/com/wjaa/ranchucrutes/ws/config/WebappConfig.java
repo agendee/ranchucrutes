@@ -1,5 +1,6 @@
 package br.com.wjaa.ranchucrutes.ws.config;
 
+import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
@@ -44,11 +45,13 @@ public class WebappConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public DataSource getDataSource(){
-        DriverManagerDataSource dmd = new DriverManagerDataSource();
+        BasicDataSource dmd = new BasicDataSource();
         dmd.setDriverClassName(this.driverClass);
         dmd.setUrl(this.url);
         dmd.setUsername(this.username);
         dmd.setPassword(this.password);
+        dmd.setInitialSize(10);
+        dmd.setMaxActive(50);
         return dmd;
     }
 

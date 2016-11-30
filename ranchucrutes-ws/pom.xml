@@ -228,6 +228,15 @@
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+
+
     </dependencies>
 
 
@@ -243,7 +252,6 @@
                 <server.user>ubuntu</server.user>
                 <server.keyFile>/home/wagner/agendee.pem</server.keyFile>
             </properties>
-
             <build>
                 <plugins>
                     <plugin>
