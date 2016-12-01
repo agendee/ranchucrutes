@@ -3,7 +3,6 @@ package br.com.wjaa.ranchucrutes.ws.service;
 import br.com.wjaa.ranchucrutes.commons.form.FindClinicaForm;
 import br.com.wjaa.ranchucrutes.commons.utils.LocationUtils;
 import br.com.wjaa.ranchucrutes.commons.vo.ClinicaVo;
-import br.com.wjaa.ranchucrutes.commons.vo.DistanceVo;
 import br.com.wjaa.ranchucrutes.commons.vo.LocationVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ResultadoBuscaClinicaVo;
 import br.com.wjaa.ranchucrutes.framework.service.GenericServiceImpl;
@@ -24,6 +23,15 @@ import java.util.List;
 public class ClinicaServiceImpl extends GenericServiceImpl<ClinicaEntity,Long> implements ClinicaService {
 
     private static final int MAX_RAIO = 50;
+    private static final int FIRST_RAIO = 5;
+    private static final int SECOND_RAIO = 15;
+    private static final int THIRD_RAIO = 30;
+    //sem parametro de pesquisa, estou considerando que 10 profissionais ao redor está otimo para um retorno.
+    private static final int MAX_RESULT = 10;
+    private enum FindBy{
+        CONVENIO,
+        PARTICULAR
+    }
 
     private ClinicaDao dao;
 
@@ -73,13 +81,12 @@ public class ClinicaServiceImpl extends GenericServiceImpl<ClinicaEntity,Long> i
         }
 
 
-
         //pesquisando primeiro por plano de saude
-        List<ClinicaVo> listResult = dao.findClinicaByConvenio(form.getIdEspecialidade(),form.getIdCategoria(),location, MAX_RAIO);
+        List<ClinicaVo> listResult = this.procurarExpandindoRaio(form, location, FindBy.CONVENIO);
 
         //se nao encontrar nada procuramos por qualquer profissional que atenda no particular.
         if (CollectionUtils.isEmpty(listResult)){
-            listResult = dao.findClinicaParticular(form.getIdEspecialidade(),location, MAX_RAIO);
+            listResult = this.procurarExpandindoRaio(form, location, FindBy.PARTICULAR);
         }
         ResultadoBuscaClinicaVo rb = this.groupResult(listResult);
         rb.setLongitude(location.getLongitude());
@@ -87,6 +94,46 @@ public class ClinicaServiceImpl extends GenericServiceImpl<ClinicaEntity,Long> i
         this.procurarProfissionalMaisProximo(rb);
 
         return rb;
+    }
+
+
+
+    private List<ClinicaVo> procurarExpandindoRaio(FindClinicaForm form, LocationVo location, FindBy findBy) {
+        //procurando em 4 etapas Raio de 10km, 20km , 30km e 50 no maximo
+
+        List<ClinicaVo> clinicaVos =
+                FindBy.CONVENIO.equals(findBy)
+                ? dao.findClinicaByConvenio(form.getIdEspecialidade(),form.getIdCategoria(),location, FIRST_RAIO)
+                : dao.findClinicaParticular(form.getIdEspecialidade(),location, FIRST_RAIO);
+
+        if (clinicaVos.size() >= MAX_RESULT){
+            return clinicaVos;
+        }
+
+        clinicaVos = FindBy.CONVENIO.equals(findBy)
+                ? dao.findClinicaByConvenio(form.getIdEspecialidade(),form.getIdCategoria(),location, SECOND_RAIO)
+                : dao.findClinicaParticular(form.getIdEspecialidade(),location, SECOND_RAIO);
+
+        if (clinicaVos.size() >= MAX_RESULT){
+            return clinicaVos;
+        }
+
+        clinicaVos = FindBy.CONVENIO.equals(findBy)
+                ? dao.findClinicaByConvenio(form.getIdEspecialidade(),form.getIdCategoria(),location, THIRD_RAIO)
+                : dao.findClinicaParticular(form.getIdEspecialidade(),location, THIRD_RAIO);
+
+        if (clinicaVos.size() >= MAX_RESULT){
+            return clinicaVos;
+        }
+
+        clinicaVos = FindBy.CONVENIO.equals(findBy)
+                ? dao.findClinicaByConvenio(form.getIdEspecialidade(),form.getIdCategoria(),location, MAX_RAIO)
+                : dao.findClinicaParticular(form.getIdEspecialidade(),location, MAX_RAIO);
+
+
+        return clinicaVos;
+
+
     }
 
     private void procurarProfissionalMaisProximo(ResultadoBuscaClinicaVo rb) {

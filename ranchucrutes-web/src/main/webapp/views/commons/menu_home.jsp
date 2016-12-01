@@ -18,7 +18,7 @@
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
-			    <li><a href="#" class="navbar-brand" style="margin-top:-10px"><img src="static/img/home/googleplay.png" class="img-responsive" alt="about img"> </a></li>
+			    <li><a href="https://play.google.com/store/apps/details?id=br.com.agendee" class="navbar-brand" style="margin-top:-10px" target="_blank"><img src="static/img/home/googleplay.png" class="img-responsive" alt="about img"> </a></li>
 				<li><a href="#home" class="smoothScroll">HOME</a></li>
 				<c:if test="${sessionScope.loginSession == null}">
                     <li>
