@@ -20,7 +20,7 @@ public class ProfissionalEntity extends LoginEntity implements Serializable{
     //private Notification notificacoes de aplicativos
 
 
-     @Column(name = "CRM", nullable = false)
+     @Column(name = "NUMERO_REGISTRO", nullable = false)
     public String getNumeroRegistro() {
         return numeroRegistro;
     }
