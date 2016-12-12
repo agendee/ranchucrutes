@@ -43,8 +43,8 @@ public class RanchucrutesDaoImpl implements RanchucrutesDao {
         Assert.notNull(value,"value nao pode estar nulo");
         StringBuilder sb = new StringBuilder();
         sb.append(" from " + clazz.getSimpleName());
-        sb.append( String.format(" c where c.%s = :%s",paramName,paramName));
-        return (List<T>) this.hibernateTemplate.findByNamedParam(sb.toString(), paramName, value);
+        sb.append( String.format(" c where c.%s = :arg1",paramName));
+        return (List<T>) this.hibernateTemplate.findByNamedParam(sb.toString(), "arg1", value);
     }
 
     @Override
@@ -54,10 +54,15 @@ public class RanchucrutesDaoImpl implements RanchucrutesDao {
         StringBuilder sb = new StringBuilder();
         sb.append(" from " + clazz.getSimpleName());
         sb.append(" c where 1 = 1 ");
+        String [] args = new String[paramsName.length];
+        int index = 0;
         for(String param : paramsName){
-            sb.append(String.format(" and c.%s = :%s",param,param));
+            String arg = "args" + index;
+            sb.append(String.format(" and c.%s = :%s",param,arg));
+            args[index] = arg;
+            index++;
         }
-        return (List<T>) this.hibernateTemplate.findByNamedParam(sb.toString(), paramsName, values);
+        return (List<T>) this.hibernateTemplate.findByNamedParam(sb.toString(), args, values);
     }
 
     @Override

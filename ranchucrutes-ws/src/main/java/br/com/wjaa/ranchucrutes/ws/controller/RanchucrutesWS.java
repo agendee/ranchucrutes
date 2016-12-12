@@ -3,10 +3,7 @@ package br.com.wjaa.ranchucrutes.ws.controller;
 import br.com.wjaa.ranchucrutes.commons.vo.ConvenioCategoriaVo;
 import br.com.wjaa.ranchucrutes.framework.service.RanchucrutesService;
 import br.com.wjaa.ranchucrutes.ws.adapter.RanchucrutesAdapter;
-import br.com.wjaa.ranchucrutes.ws.entity.ConvenioCategoriaEntity;
-import br.com.wjaa.ranchucrutes.ws.entity.ConvenioEntity;
-import br.com.wjaa.ranchucrutes.ws.entity.EnderecoEntity;
-import br.com.wjaa.ranchucrutes.ws.entity.EspecialidadeEntity;
+import br.com.wjaa.ranchucrutes.ws.entity.*;
 import br.com.wjaa.ranchucrutes.ws.exception.CepNotFoundException;
 import br.com.wjaa.ranchucrutes.ws.service.CepService;
 import br.com.wjaa.ranchucrutes.commons.vo.EnderecoVo;
@@ -68,6 +65,18 @@ public class RanchucrutesWS extends BaseWS {
     public
     List<EspecialidadeEntity> listAllEspecialidade() {
         return this.ranchucrutesService.getByProperties(EspecialidadeEntity.class,"ativo",true);
+    }
+
+    @RequestMapping(value = "/especialidade/{idProfissao}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    public
+    List<EspecialidadeEntity> listEspecialidadeByProfissao(@PathVariable Integer idProfissao) {
+        return this.ranchucrutesService.getByProperties(EspecialidadeEntity.class,"profissao.id",idProfissao);
+    }
+
+    @RequestMapping(value = "/profissao/all", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    public
+    List<ProfissaoEntity> listAllProfissao() {
+        return this.ranchucrutesService.listAll(ProfissaoEntity.class);
     }
 
     @RequestMapping(value = "/cep/{cep}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
