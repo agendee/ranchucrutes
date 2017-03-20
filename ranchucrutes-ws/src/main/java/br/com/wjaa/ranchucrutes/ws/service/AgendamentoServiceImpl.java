@@ -85,7 +85,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
      */
     @Override
     public CalendarioAgendamentoVo getAgendamentosProfissional(Long idProfissional, Date iniDate, Date endDate) throws AgendamentoServiceException {
-
+        LOG.debug("m=getAgendamentosProfissional idProfissional=" + idProfissional + " iniDate=" + iniDate + " endDate=" + endDate);
         ProfissionalEntity profissionalEntity = this.profissionalService.get(idProfissional);
         if (profissionalEntity == null){
             throw new AgendamentoServiceException("Profissional não encontrado!");
@@ -124,7 +124,10 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
      * @throws AgendamentoServiceException
      */
     @Override
-    public CalendarioAgendamentoVo getAgendamentosProfissional(Long idProfissional, Long idClinica, Date dateIni, Date dateFim) throws AgendamentoServiceException {
+    public CalendarioAgendamentoVo getAgendamentosProfissional(Long idProfissional, Long idClinica,
+                                                               Date dateIni, Date dateFim) throws AgendamentoServiceException {
+        LOG.debug("m=getAgendamentosProfissional idProfissional=" + idProfissional + "idClinica=" + idClinica +
+                " dateIni=" + dateIni + " dateFim=" + dateFim);
         ProfissionalEntity profissionalEntity = this.profissionalService.get(idProfissional);
         if (profissionalEntity == null){
             throw new AgendamentoServiceException("Profissional não encontrado!");
@@ -163,6 +166,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
      */
     @Override
     public List<AgendamentoVo> getAgendamentosPaciente(Long idPaciente) throws AgendamentoServiceException {
+        LOG.debug("m=getAgendamentosPaciente idPaciente=" + idPaciente );
         PacienteEntity pacienteEntity = pacienteService.get(idPaciente);
         if (pacienteEntity == null){
             throw new AgendamentoServiceException("Paciente não encontrado!");
@@ -190,6 +194,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
      */
     @Override
     public AgendamentoVo getAgendamento(Long idAgendamento) throws AgendamentoServiceException {
+        LOG.debug("m=getAgendamento idAgendamento=" + idAgendamento );
         AgendamentoEntity agendamento = get(idAgendamento);
 
         if (agendamento == null){
@@ -213,8 +218,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
      */
     @Override
     public AgendaVo getAgendaProfissional(Long idProfissional, Long idClinica) throws AgendamentoServiceException, ParceiroIntegracaoServiceException {
-
-        log.info("m=getAgendaProfissional");
+        LOG.debug("m=getAgendaProfissional idProfissional=" + idProfissional + " idClinica" + idClinica );
         if (idProfissional == null || idClinica == null){
             throw new AgendamentoServiceException("Profissional ou Clínica não encontrado!");
         }
@@ -275,7 +279,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
      */
     @Override
     public ConfirmarAgendamentoVo criarAgendamento(AgendamentoForm form) throws AgendamentoServiceException {
-
+        LOG.debug("m=criarAgendamento form=" + form );
         if (form.getIdPaciente() == null || form.getIdProfissional() == null || form.getIdClinica() == null ||
                 form.getDataAgendamento() == null){
             throw new AgendamentoServiceException("Faltam informações para completar o agendamento.");
@@ -360,7 +364,8 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
                                                                    ProfissionalEntity profissionalEntity)
             throws SQLException, ParceiroIntegracaoServiceException {
 
-        LOG.info("m=criarAgendamentoNovaTransaction");
+        LOG.info("m=criarAgendamentoNovaTransaction, form=" + form + ", pacienteEntity=" + pacienteEntity +
+                ", profissionalEntity=" + profissionalEntity);
 
         LOG.info("Antes de criar agenda, verificando se profissional é de um parceiro para iniciar a integracao.");
         ParceiroAgendamentoVo parceiroAgendamentoVo = null;
@@ -417,7 +422,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public AgendamentoVo confirmarSolicitacao(Long idAgendamento, String codigo) throws AgendamentoServiceException {
-
+        LOG.info("m=confirmarSolicitacao, idAgendamento=" + idAgendamento + ", codigo=" + codigo );
         AgendamentoEntity agendamento = agendamentoDao.get(idAgendamento);
         if (agendamento == null){
             throw new AgendamentoServiceException("Agendamento não encontrado!");
@@ -492,6 +497,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public AgendamentoVo aprovarSolicitacao(Long idAgendamento) throws AgendamentoServiceException {
+        LOG.info("m=aprovarSolicitacao, idAgendamento=" + idAgendamento );
         AgendamentoEntity agendamento = this.get(idAgendamento);
         agendamento.setDataConfirmacaoProfissional(br.com.wjaa.ranchucrutes.commons.utils.DateUtils.now());
         agendamento = agendamentoDao.save(agendamento);
@@ -508,6 +514,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public AgendamentoVo rejeitarSolicitacao(RejeicaoSolicitacaoForm rejeitacaoSolicitacao) {
+        LOG.info("m=rejeitarSolicitacao, rejeitacaoSolicitacao=" + rejeitacaoSolicitacao );
         AgendamentoEntity agendamento = this.get(rejeitacaoSolicitacao.getIdAgendamento());
         agendamento.setCancelado(true);
         agendamento.setDataCancelamento(br.com.wjaa.ranchucrutes.commons.utils.DateUtils.now());
@@ -524,6 +531,8 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
     }
 
     private void sendCancelationNotification(PacienteEntity pacienteEntity, ProfissionalEntity profissionalEntity, AgendamentoEntity agendamento) {
+        LOG.debug("m=sendCancelationNotification, pacienteEntity=" + pacienteEntity + " profissionalEntity=" + profissionalEntity +
+                " agendamento=" + agendamento );
         NotificationVo vo = NotificationBuilder
                 .create()
                 .cancelation(true)
@@ -542,6 +551,8 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
 
 
     private void sendConfirmationNotification(PacienteEntity pacienteEntity, ProfissionalEntity profissionalEntity, AgendamentoEntity agendamento) {
+        LOG.debug("m=sendConfirmationNotification, pacienteEntity=" + pacienteEntity + " profissionalEntity=" + profissionalEntity +
+                " agendamento=" + agendamento );
         NotificationVo vo = NotificationBuilder
                 .create()
                 .confirmation(true)
@@ -558,7 +569,10 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         }
     }
 
-    private CalendarioClinicaVo getCalendarioClinicaVo(Date iniDate, Date endDate, ProfissionalEntity profissionalEntity, AgendaEntity agenda, ClinicaEntity clinica) {
+    private CalendarioClinicaVo getCalendarioClinicaVo(Date iniDate, Date endDate, ProfissionalEntity profissionalEntity,
+                                                       AgendaEntity agenda, ClinicaEntity clinica) {
+        LOG.debug("m=getCalendarioClinicaVo, iniDate=" + iniDate + " endDate=" + endDate +
+                " profissionalEntity=" + profissionalEntity + " agenda=" + agenda + " clinica=" + clinica );
         CalendarioClinicaVo calendarioClinica = new CalendarioClinicaVo();
         calendarioClinica.setClinicaVo(ProfissionalAdapter.toClinicaVo(clinica));
         calendarioClinica.setDiasAberturaAgenda(agenda.getAberturaAgenda().getDias());
@@ -594,12 +608,14 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
                 .substring(0,6)
                 .toLowerCase();*/
         /*GERANDO UM RANDOM NUMERO O CODIGO ACIMA GERAVA LETRAS DIFICIL DE DIGITAR NO ANDROID*/
+        LOG.debug("m=getCodigoConfirmacao, form=" + form);
         Random r = new Random();
         return String.format("%05d", r.nextInt(10000000)).substring(0,5);
     }
 
     private boolean diaEstaCancelado(Long idClinica, Long idProfissional, Date dataAgendamento) {
-
+        LOG.debug("m=diaEstaCancelado, idClinica=" + idClinica + "idProfissional" + idProfissional +
+                " dataAgendamento=" + dataAgendamento);
         List<AgendaCanceladaEntity> listAgendaCancelada = this.agendamentoDao.getAgendaCancelada(idClinica,
                 idProfissional,dataAgendamento);
 
@@ -608,7 +624,8 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
 
     private AgendaVo createAgenda(AgendaEntity agendaConfig, List<AgendaCanceladaEntity> listAgendaCancelada,
                                   List<AgendamentoEntity> listAgendamentos, ProfissionalBasicoVo profissionalBasico) throws AgendamentoServiceException {
-
+        LOG.debug("m=createAgenda, agendaConfig=" + agendaConfig + "listAgendaCancelada" + listAgendaCancelada +
+                " listAgendamentos=" + listAgendamentos + " profissionalBasico" + profissionalBasico);
         AgendaVo agenda = new AgendaVo();
         agenda.setProfissional(profissionalBasico);
 
@@ -634,6 +651,8 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
     private List<Date> getHorariosDisponiveis(AgendaEntity agendaConfig, List<AgendaCanceladaEntity> listAgendaCancelada,
                                               List<AgendamentoEntity> listAgendamentos, Calendar day) throws AgendamentoServiceException {
 
+        LOG.debug("m=getHorariosDisponiveis, agendaConfig=" + agendaConfig + "listAgendaCancelada" + listAgendaCancelada +
+                " listAgendamentos=" + listAgendamentos + " day" + day);
         Integer consultaMin = agendaConfig.getTempoConsultaEmMin();
 
         if (CollectionUtils.isEmpty(agendaConfig.getAgendaHorarios())){
@@ -684,6 +703,8 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
     private List<Date> getHorariosDisponiveis(AgendaHorarioEntity agendaHorario, List<AgendamentoEntity> listAgendamentos,
                                               Calendar day, Integer consultaMin) throws AgendamentoServiceException {
 
+        LOG.debug("m=getHorariosDisponiveis, agendaHorario=" + agendaHorario +
+                " listAgendamentos=" + listAgendamentos + " day" + day + " consultaMin = " + consultaMin);
         List<Date> horarios = new ArrayList<>();
         String horaIni = agendaHorario.getHoraIni();
         String horaFim = agendaHorario.getHoraFim();

@@ -10,6 +10,8 @@ import br.com.wjaa.ranchucrutes.ws.dao.ClinicaDao;
 import br.com.wjaa.ranchucrutes.ws.entity.ClinicaEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.EnderecoEntity;
 import br.com.wjaa.ranchucrutes.ws.exception.ClinicaServiceException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -28,6 +30,8 @@ public class ClinicaServiceImpl extends GenericServiceImpl<ClinicaEntity,Long> i
     private static final int THIRD_RAIO = 30;
     //sem parametro de pesquisa, estou considerando que 10 profissionais ao redor está otimo para um retorno.
     private static final int MAX_RESULT = 10;
+    private static Log LOG = LogFactory.getLog(ClinicaServiceImpl.class);
+
     private enum FindBy{
         CONVENIO,
         PARTICULAR
@@ -55,7 +59,7 @@ public class ClinicaServiceImpl extends GenericServiceImpl<ClinicaEntity,Long> i
 
     @Override
     public ResultadoBuscaClinicaVo find(FindClinicaForm form) throws ClinicaServiceException {
-
+        LOG.debug("m=getHorariosDisponiveis, form=" + form );
         if (form.getIdEspecialidade() == null){
             throw new ClinicaServiceException("Especialidade é obrigatória para essa busca");
         }
@@ -100,7 +104,7 @@ public class ClinicaServiceImpl extends GenericServiceImpl<ClinicaEntity,Long> i
 
     private List<ClinicaVo> procurarExpandindoRaio(FindClinicaForm form, LocationVo location, FindBy findBy) {
         //procurando em 4 etapas Raio de 10km, 20km , 30km e 50 no maximo
-
+        LOG.debug("m=procurarExpandindoRaio, form=" + form + ", location=" + location + ", findBy=" + findBy );
         List<ClinicaVo> clinicaVos =
                 FindBy.CONVENIO.equals(findBy)
                 ? dao.findClinicaByConvenio(form.getIdEspecialidade(),form.getIdCategoria(),location, FIRST_RAIO)
@@ -137,6 +141,7 @@ public class ClinicaServiceImpl extends GenericServiceImpl<ClinicaEntity,Long> i
     }
 
     private void procurarProfissionalMaisProximo(ResultadoBuscaClinicaVo rb) {
+        LOG.debug("m=procurarProfissionalMaisProximo, rb=" + rb );
         double distanceMaisProximo = 1000000.0;
         ClinicaVo clinicaMaisProxima = null;
         if (rb.getClinicas() != null){
@@ -162,8 +167,9 @@ public class ClinicaServiceImpl extends GenericServiceImpl<ClinicaEntity,Long> i
      * @return
      */
     private ResultadoBuscaClinicaVo groupResult(List<ClinicaVo> listResult) {
+        LOG.debug("m=groupResult" );
         ResultadoBuscaClinicaVo resultadoBuscaClinicaVo = new ResultadoBuscaClinicaVo();
-
+        LOG.debug("m=groupResult, totalBusca=" + listResult.size() );
         for (ClinicaVo clinica : listResult){
             ClinicaVo clinicaVo = this.getResultadoBuscaInList(clinica,resultadoBuscaClinicaVo.getClinicas());
             if (clinicaVo != null){

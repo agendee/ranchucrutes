@@ -64,6 +64,7 @@ public class CepServiceImpl implements CepService {
 
     @Override
     public LocationVo getLocationByCep(String cep) {
+        LOG.debug("m=getLocationByCep cep=" +cep);
         List<CacheCep> resultList = dao.getByProperties(CacheCep.class,"cep",cep);
         if (!CollectionUtils.isEmpty(resultList)){
             CacheCep cache = resultList.get(0);
@@ -75,6 +76,7 @@ public class CepServiceImpl implements CepService {
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void saveLocation(LocationVo location, String cep) {
+        LOG.debug("m=saveLocation location=" + location + "cep=" +cep);
         CacheCep cacheCep = new CacheCep();
         List<CacheCep> resultList = dao.getByProperties(CacheCep.class,"cep",cep);
         if (!CollectionUtils.isEmpty(resultList)){
@@ -88,6 +90,7 @@ public class CepServiceImpl implements CepService {
     }
 
     private EnderecoVo findWithoutTryCatch(CepApiUrl api) throws RestResponseUnsatisfiedException, RestRequestUnstable, RestException {
+        LOG.debug("m=findWithoutTryCatch api=" + api);
         return RestUtils.getJsonWithParamPath(EnderecoVo.class, api.url, api.uri);
     }
 

@@ -13,7 +13,7 @@
         <param name="append" value="false" />
         <param name="maxFileSize" value="10MB" />
         <param name="maxBackupIndex" value="10" />
-        <param name="file" value="${jetty.base}/logs/ws.log" />
+        <param name="file" value="${jetty.base}/logs/web.log" />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="[%p] [%d{yyyy-MM-dd HH:mm:ss}] [%F:%L]: %m%n" />
         </layout>

@@ -44,6 +44,7 @@ public class GoogleMapsServiceImpl implements GoogleMapsService {
 
 
     public LocationVo getLatLngByAddress (String address) throws LocationNotFoundException, LocationDuplicateFoundException {
+        LOG.debug("m=getLatLngByAddress, address=" + address);
         LOG.info("Procurando location para endereco: " + address);
         try{
 
@@ -67,6 +68,7 @@ public class GoogleMapsServiceImpl implements GoogleMapsService {
     @Override
     public List<DistanceVo> getDistance(LocationVo origin, LocationVo ... dests) throws DistanceNotFoundException {
         try{
+            LOG.debug("m=getDistance, origin=" + origin + ", dests=" + dests);
             LatLng latLngOrigin = new LatLng(origin.getLatitude(),origin.getLongitude());
             LatLng [] latLngDest = this.getDestinations(dests);
             DistanceMatrix matrix = DistanceMatrixApi.newRequest(context)
@@ -110,6 +112,7 @@ public class GoogleMapsServiceImpl implements GoogleMapsService {
 
     @Override
     public String patternAddress(EnderecoEntity enderecoEntity) {
+        LOG.debug("m=patternAddress, enderecoEntity=" + enderecoEntity);
         String [] params = new String[]{"{STREET}","{NUMBER}","{NEIGHBORHOOD}","{CITY}" ,"{STATE}"};
         String [] values = new String[]{enderecoEntity.getLogradouro(),
                 enderecoEntity.getNumero() != null ? enderecoEntity.getNumero().toString() : "" ,

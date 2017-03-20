@@ -1,6 +1,8 @@
 package br.com.wjaa.ranchucrutes.ws.config;
 
 import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
@@ -26,6 +28,8 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 public class WebappConfig extends WebMvcConfigurerAdapter {
 
+    private static Log LOG = LogFactory.getLog(WebappConfig.class);
+
     @Value("${hibernate.connection.url}")
     private String url;
 
@@ -45,6 +49,7 @@ public class WebappConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public DataSource getDataSource(){
+        LOG.debug("m: getDataSource.init ");
         BasicDataSource dmd = new BasicDataSource();
         dmd.setDriverClassName(this.driverClass);
         dmd.setUrl(this.url);
@@ -52,23 +57,26 @@ public class WebappConfig extends WebMvcConfigurerAdapter {
         dmd.setPassword(this.password);
         dmd.setInitialSize(10);
         dmd.setMaxActive(50);
+        dmd.setMaxIdle(10);
+        LOG.debug("m: getDataSource.end ");
         return dmd;
     }
 
     @Bean
     public SessionFactory getSessionFactory(){
+        LOG.debug("m: getSessionFactory.init ");
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(this.getDataSource());
 
-        System.out.println("############### hibernatecfg" + this.hibernateCfg);
+        LOG.debug("m: getSessionFactory.hibernateCfg: " + this.hibernateCfg);
         sessionFactory.setConfigLocation(this.hibernateCfg);
         sessionFactory.setPackagesToScan("br.com.wjaa.ranchucrutes.ws.entity");
         try {
             sessionFactory.afterPropertiesSet();
         } catch (Exception e) {
-            System.out.println("###############= " + e.getMessage());
+            LOG.error("m: getSessionFactory.error:", e);
         }
-        System.out.println("###############=" + sessionFactory.getObject());
+        LOG.debug("m: getSessionFactory.sessionFactory.getObject: " + sessionFactory.getObject());
         return sessionFactory.getObject();
     }
 
@@ -79,7 +87,9 @@ public class WebappConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public HibernateTransactionManager getTransactionManager(){
-        return new HibernateTransactionManager(this.getSessionFactory());
+        HibernateTransactionManager htm = new HibernateTransactionManager(this.getSessionFactory());
+
+        return htm;
     }
 
 }

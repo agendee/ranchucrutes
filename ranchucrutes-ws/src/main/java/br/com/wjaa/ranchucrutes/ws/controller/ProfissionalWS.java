@@ -130,7 +130,7 @@ public class ProfissionalWS extends BaseWS {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public @ResponseBody
     ErrorMessageVo handleException(CepNotFoundException e, HttpServletResponse response) {
-        LOG.error("handleException",e);
+        LOG.error("handleException, error=" + e.getMessage());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
         return new ErrorMessageVo(HttpStatus.INTERNAL_SERVER_ERROR.value(),"Cep não encontrado.");
     }
@@ -139,7 +139,7 @@ public class ProfissionalWS extends BaseWS {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public @ResponseBody
     ErrorMessageVo handleException(LocationDuplicateFoundException e, HttpServletResponse response) {
-        LOG.error("handleException",e);
+        LOG.error("handleException, error=" + e.getMessage());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
         return new ErrorMessageVo(HttpStatus.INTERNAL_SERVER_ERROR.value(),"Encontrado mais de uma localidade para o cep.");
     }
@@ -148,7 +148,7 @@ public class ProfissionalWS extends BaseWS {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public @ResponseBody
     ErrorMessageVo handleException(LocationNotFoundException e, HttpServletResponse response) {
-        LOG.error("handleException",e);
+        LOG.error("handleException, error=" + e.getMessage());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
         return new ErrorMessageVo(HttpStatus.INTERNAL_SERVER_ERROR.value(),"Não encontrou nenhuma localidade para o cep.");
     }
@@ -158,7 +158,7 @@ public class ProfissionalWS extends BaseWS {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public @ResponseBody
     ErrorMessageVo handleException(ProfissionalServiceException e, HttpServletResponse response) {
-        LOG.error("handleException",e);
+        LOG.error("handleException, error=" + e.getMessage());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
         return new ErrorMessageVo(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
     }
@@ -167,7 +167,7 @@ public class ProfissionalWS extends BaseWS {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public @ResponseBody
     ErrorMessageVo handleException(ClinicaServiceException e, HttpServletResponse response) {
-        LOG.error("handleException",e);
+        LOG.error("handleException, error=" + e.getMessage());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
         return new ErrorMessageVo(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
     }
@@ -176,7 +176,7 @@ public class ProfissionalWS extends BaseWS {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public @ResponseBody
     ErrorMessageVo handleException(AgendamentoServiceException e, HttpServletResponse response) {
-        LOG.error("handleException",e);
+        LOG.error("handleException, error=" + e.getMessage());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
         return new ErrorMessageVo(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
     }

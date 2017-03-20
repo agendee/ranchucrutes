@@ -46,6 +46,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public String createCodeConfirmation(String email, String numeroRegistro){
+        LOG.debug("m=createCodeConfirmation, email=" + email + ", numeroRegistro=" + numeroRegistro);
         //criando um md5 com base no email + crm e milisegundo atual.
         return StringUtils.createMD5(email + "|" + numeroRegistro + "|" + new Date().getTime());
     }
@@ -53,7 +54,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ConfirmaCadastroVo confirmaCadastro(String code) {
-
+        LOG.debug("m=confirmaCadastro, code=" + code);
         ProfissionalEntity profissionalEntity = dao.getSingleRecordByProperties(ProfissionalEntity.class, "codeConfirmacao", code);
         if (profissionalEntity == null){
             return new ConfirmaCadastroVo(ConfirmaCadastroVo.StatusConfirmacaoCadastro.CODIGO_INVALIDO);
@@ -72,6 +73,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public ProfissionalBasicoVo autenticarProfissional(String emailOuCrm, String pass) throws LoginServiceException, LoginNotConfirmationException {
+        LOG.debug("m=autenticarProfissional, emailOuCrm=" + emailOuCrm );
         ProfissionalEntity profissionalEntity;
         if (org.apache.commons.lang.StringUtils.isNumeric(emailOuCrm)){
             profissionalEntity = this.loginDao.autenticarProfissional(Integer.valueOf(emailOuCrm), this.createHashPass(pass));
@@ -96,7 +98,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public PacienteVo autenticarPaciente(LoginForm form) throws LoginServiceException, LoginSocialException {
-
+        LOG.debug("m=autenticarPaciente, form=" + form );
         if (form.getType() == null){
             throw new LoginServiceException("Rede Social não encontrada!");
         }
@@ -126,6 +128,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public PacienteVo registerGcm(Long idLogin, String keyDevice) {
+        LOG.debug("m=registerGcm, idLogin=" + idLogin + ", keyDevice=" + keyDevice );
         PacienteEntity pacienteEntity = this.dao.get(PacienteEntity.class,idLogin);
 
         if (org.apache.commons.lang.StringUtils.isEmpty(pacienteEntity.getKeyDeviceGcm())){

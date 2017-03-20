@@ -5,6 +5,8 @@ import br.com.wjaa.ranchucrutes.framework.service.GenericServiceImpl;
 import br.com.wjaa.ranchucrutes.ws.dao.PacienteDao;
 import br.com.wjaa.ranchucrutes.ws.exception.PacienteServiceException;
 import br.com.wjaa.ranchucrutes.ws.entity.PacienteEntity;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,8 @@ import java.util.Date;
 @Service
 public class PacienteServiceImpl extends GenericServiceImpl<PacienteEntity,Long> implements PacienteService {
 
+    private static Log LOG = LogFactory.getLog(PacienteServiceImpl.class);
+
     private PacienteDao pacienteDao;
 
     @Autowired
@@ -30,7 +34,7 @@ public class PacienteServiceImpl extends GenericServiceImpl<PacienteEntity,Long>
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public PacienteEntity savePaciente(PacienteEntity pacienteEntity) throws PacienteServiceException {
-
+        LOG.debug("m=savePaciente, pacienteEntity=" + pacienteEntity);
         if (pacienteEntity.getRedeSocial() != null){
 
             PacienteEntity pacienteFound = pacienteDao.getPacienteByKeySocial(pacienteEntity.getRedeSocial(), pacienteEntity.getKeySocial());
@@ -56,7 +60,7 @@ public class PacienteServiceImpl extends GenericServiceImpl<PacienteEntity,Long>
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public PacienteEntity updatePaciente(PacienteEntity pacienteEntity) throws PacienteServiceException {
-
+        LOG.debug("m=updatePaciente, pacienteEntity=" + pacienteEntity);
         PacienteEntity pacientePersisted = pacienteDao.get(pacienteEntity.getIdLogin());
 
         if (pacientePersisted != null){

@@ -61,6 +61,7 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
     @Override
     public ResultadoBuscaProfissionalVo find(FindProfissionalForm form) throws CepNotFoundException,
             LocationDuplicateFoundException, LocationNotFoundException {
+        LOG.debug("m=find, form=" + form);
         ResultadoBuscaProfissionalVo resultado = new ResultadoBuscaProfissionalVo();
 
         //pegando o do form caso o usuário usou a sua localizacao
@@ -136,6 +137,7 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ProfissionalEntity saveProfissional(ProfissionalEntity profissional) throws ProfissionalServiceException {
         this.validate(profissional);
+        LOG.debug("m=saveProfissional, profissional=" + profissional);
         LOG.info("Novo profissional, criando....");
         return this.insertProfissional(profissional);
     }
@@ -143,7 +145,7 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ProfissionalEntity update(ProfissionalEntity profissional) throws ProfissionalServiceException {
-
+        LOG.debug("m=update, profissional=" + profissional);
         if (profissional.getIdLogin() == null){
             throw new ProfissionalServiceException("Impossivel atualizar um profissional sem ID");
         }
@@ -162,6 +164,8 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
 
     @Override
     public boolean profissionalAceitaCategoria(Long idProfissional, Long idClinica,  Integer ... idsCategoria) throws ProfissionalServiceException {
+        LOG.debug("m=profissionalAceitaCategoria, idProfissional=" + idProfissional +
+                ", idClinica=" + idClinica + ", idsCategoria=" + idsCategoria);
         if (idsCategoria == null || idsCategoria.length == 0){
             throw new ProfissionalServiceException("Paciente não configurou plano de saúde.");
         }
@@ -172,11 +176,14 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
 
     @Override
     public ProfissionalOrigemEntity getParceiro(Long idProfissional, Long idClinica) {
+        LOG.debug("m=getParceiro, idProfissional=" + idProfissional +
+                ", idClinica=" + idClinica );
         return profissionalDao.findProfissionalOrigem(idProfissional,idClinica);
     }
 
     @Override
     public List<ProfissionalBasicoVo> findByStartName(String startName) {
+        LOG.debug("m=findByStartName, startName=" + startName);
         if (StringUtils.isEmpty(startName)){
             return null;
         }
@@ -189,6 +196,7 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
     }
 
     private ProfissionalEntity mergeProfissional(ProfissionalEntity profissionalPersisted, ProfissionalEntity profissional) {
+        LOG.debug("m=mergeProfissional, profissionalPersisted=" + profissionalPersisted + ", profissional" + profissional);
         BeanUtils.copyProperties(profissional,profissionalPersisted,"idLogin",
                 "dataUltimoAcesso",
                 "codeConfirmacao",
@@ -200,7 +208,7 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
     }
 
     private ProfissionalEntity insertProfissional(ProfissionalEntity profissional) throws ProfissionalServiceException {
-
+        LOG.debug("m=insertProfissional, profissional" + profissional);
         profissional.setDataCriacao(new Date());
         profissional.setDataUltimoAcesso(new Date());
         profissional.setAtivo(false);
@@ -218,7 +226,9 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
     }
 
     @Override
-    public void saveClinicas(ProfissionalEntity profissionalPersisted, List<ProfissionalClinicaEntity> clinicas) throws ProfissionalServiceException {
+    public void saveClinicas(ProfissionalEntity profissionalPersisted, List<ProfissionalClinicaEntity> clinicas)
+            throws ProfissionalServiceException {
+        LOG.debug("m=saveClinicas, profissionalPersisted" + profissionalPersisted + ", clinicas=" + clinicas);
         for (ProfissionalClinicaEntity profissionalClinica : clinicas){
             ClinicaEntity clinica = profissionalClinica.getClinica();
             EnderecoEntity endereco = clinica.getEndereco();
@@ -254,6 +264,7 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void saveAgendaHorarios(List<ProfissionalClinicaEntity> clinicas){
+        LOG.debug("m=saveAgendaHorarios, clinicas=" + clinicas);
         for (ProfissionalClinicaEntity profissionalClinica: clinicas){
             AgendaEntity agenda = profissionalClinica.getClinica().getAgenda();
             if (agenda != null){
@@ -265,10 +276,12 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void removeClinica(Long idProfissionalClinica) throws ProfissionalServiceException {
+        LOG.debug("m=removeClinica, idProfissionalClinica=" + idProfissionalClinica);
         this.ranchucrutesService.removeByProperties(ProfissionalClinicaEntity.class, "id", idProfissionalClinica);
     }
 
     private EnderecoEntity saveEndereco(EnderecoEntity endereco) throws ProfissionalServiceException {
+        LOG.debug("m=saveEndereco, endereco=" + endereco);
         try {
             //validando os dados do cep
             this.validateEndereco(endereco);
@@ -302,6 +315,7 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
      * @throws ProfissionalServiceException
      */
     private void validate(ProfissionalEntity profissional) throws ProfissionalServiceException {
+        LOG.debug("m=validate, profissional=" + profissional);
         //TODO VERIFICAR ESSA CONSISTENCIA PQ AGORA TEREMOS VARIOS TIPO DE REGISTRO
         /*if (profissional.getNumeroRegistro() == null){
             LOG.error("Profissional sem numero de registro...");
@@ -326,6 +340,7 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
     }
 
     private void saveAgendaHorarios(Long idAgenda, List<AgendaHorarioEntity> agendaHorarios) {
+        LOG.debug("m=saveAgendaHorarios, idAgenda=" + idAgenda + ", agendaHorarios=" + agendaHorarios);
         AgendaEntity agenda = this.ranchucrutesService.get(AgendaEntity.class,idAgenda);
         if (!CollectionUtils.isEmpty(agendaHorarios)){
             for(AgendaHorarioEntity ah : agendaHorarios){

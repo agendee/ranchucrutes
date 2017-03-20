@@ -83,7 +83,7 @@ public class AgendamentoWS {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public @ResponseBody
     ErrorMessageVo handleException(AgendamentoServiceException e, HttpServletResponse response) {
-        LOG.error("handleException",e);
+        LOG.error("handleException, error=" + e.getMessage());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
         return new ErrorMessageVo(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
     }
@@ -92,7 +92,7 @@ public class AgendamentoWS {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public @ResponseBody
     ErrorMessageVo handleException(ParceiroIntegracaoServiceException e, HttpServletResponse response) {
-        LOG.error("handleException",e);
+        LOG.error("handleException, error=" + e.getMessage());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
         return new ErrorMessageVo(HttpStatus.INTERNAL_SERVER_ERROR.value(),e.getMessage());
     }

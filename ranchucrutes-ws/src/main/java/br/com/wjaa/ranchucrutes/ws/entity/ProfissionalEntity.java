@@ -104,4 +104,6 @@ public class ProfissionalEntity extends LoginEntity implements Serializable{
         this.numeroRegistro = numeroRegistro;
     }
 
+
+
 }

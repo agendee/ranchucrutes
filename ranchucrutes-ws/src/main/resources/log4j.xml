@@ -9,17 +9,28 @@
         </layout>
     </appender>
 
+    <appender name="file" class="org.apache.log4j.RollingFileAppender">
+        <param name="append" value="false" />
+        <param name="maxFileSize" value="10MB" />
+        <param name="maxBackupIndex" value="10" />
+        <param name="file" value="${jetty.base}/logs/ws.log" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%p] [%d{yyyy-MM-dd HH:mm:ss}] [%F:%L]: %m%n" />
+        </layout>
+    </appender>
+
     <logger name="org.apache.commons">
         <level value="ERROR" />
     </logger>
 
-    <logger name="br.com.braspress">
-        <level value="ERROR" />
+    <logger name="br.com.wjaa">
+        <level value="DEBUG" />
     </logger>
 
     <root>
-        <priority value="ERROR" />
+        <level value="INFO" />
         <appender-ref ref="console" />
+        <appender-ref ref="file" />
     </root>
 
 </log4j:configuration>
