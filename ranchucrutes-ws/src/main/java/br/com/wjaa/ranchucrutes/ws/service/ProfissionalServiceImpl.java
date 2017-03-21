@@ -341,7 +341,7 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
     }
 
     private void saveAgendaHorarios(Long idAgenda, List<AgendaHorarioEntity> agendaHorarios) {
-        LOG.debug("m=saveAgendaHorarios, idAgenda=" + idAgenda + ", agendaHorarios=" + agendaHorarios);
+        LOG.debug("m=saveAgendaHorarios, idAgenda=" + idAgenda);
         AgendaEntity agenda = this.ranchucrutesService.get(AgendaEntity.class,idAgenda);
         if (!CollectionUtils.isEmpty(agendaHorarios)){
             for(AgendaHorarioEntity ah : agendaHorarios){

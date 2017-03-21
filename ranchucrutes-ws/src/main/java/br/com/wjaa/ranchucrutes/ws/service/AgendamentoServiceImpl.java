@@ -625,8 +625,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
 
     private AgendaVo createAgenda(AgendaEntity agendaConfig, List<AgendaCanceladaEntity> listAgendaCancelada,
                                   List<AgendamentoEntity> listAgendamentos, ProfissionalBasicoVo profissionalBasico) throws AgendamentoServiceException {
-        LOG.debug("m=createAgenda, agendaConfig=" + agendaConfig + "listAgendaCancelada" + listAgendaCancelada +
-                " listAgendamentos=" + listAgendamentos + " profissionalBasico" + profissionalBasico);
+        LOG.debug("m=createAgenda, agendaConfig=" + agendaConfig + " profissionalBasico" + profissionalBasico);
         AgendaVo agenda = new AgendaVo();
         agenda.setProfissional(profissionalBasico);
 
@@ -652,8 +651,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
     private List<Date> getHorariosDisponiveis(AgendaEntity agendaConfig, List<AgendaCanceladaEntity> listAgendaCancelada,
                                               List<AgendamentoEntity> listAgendamentos, Calendar day) throws AgendamentoServiceException {
 
-        LOG.debug("m=getHorariosDisponiveis, agendaConfig=" + agendaConfig + "listAgendaCancelada" + listAgendaCancelada +
-                " listAgendamentos=" + listAgendamentos + " day" + day);
+        LOG.debug("m=getHorariosDisponiveis, agendaConfig=" + agendaConfig + " day" + day);
         Integer consultaMin = agendaConfig.getTempoConsultaEmMin();
 
         if (CollectionUtils.isEmpty(agendaConfig.getAgendaHorarios())){
@@ -705,7 +703,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
                                               Calendar day, Integer consultaMin) throws AgendamentoServiceException {
 
         LOG.debug("m=getHorariosDisponiveis, agendaHorario=" + agendaHorario +
-                " listAgendamentos=" + listAgendamentos + " day" + day + " consultaMin = " + consultaMin);
+                " day" + day + " consultaMin = " + consultaMin);
         List<Date> horarios = new ArrayList<>();
         String horaIni = agendaHorario.getHoraIni();
         String horaFim = agendaHorario.getHoraFim();
