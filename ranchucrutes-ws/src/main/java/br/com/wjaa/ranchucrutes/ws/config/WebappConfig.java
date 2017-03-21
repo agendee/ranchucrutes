@@ -62,9 +62,8 @@ public class WebappConfig extends WebMvcConfigurerAdapter {
         dataSource.setUser(this.username);
         dataSource.setPassword(this.password);
         dataSource.setInitialPoolSize(5);
-        dataSource.setMaxPoolSize(20);
-        dataSource.setCheckoutTimeout(1000);
-        dataSource.setMaxStatements(50);
+        dataSource.setMinPoolSize(5);
+        dataSource.setMaxPoolSize(10);
 	    dataSource.setAutomaticTestTable("C3P0_TEST_TABLE");
         dataSource.setTestConnectionOnCheckin(true);
 	    dataSource.setIdleConnectionTestPeriod(60);

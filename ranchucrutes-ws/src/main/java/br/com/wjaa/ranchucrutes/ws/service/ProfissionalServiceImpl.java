@@ -29,6 +29,7 @@ import java.util.List;
  * Created by wagner on 12/06/15.
  */
 @Service
+@Transactional(readOnly = true, timeout = 10000)
 public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEntity, Long> implements ProfissionalService {
 
     private static final int MAX_RAIO = 50;

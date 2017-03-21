@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
  * Created by wagner on 11/08/15.
  */
 @Service
+
 public class EmailServiceImpl implements EmailService {
 
     private static final Log LOG = LogFactory.getLog(EmailServiceImpl.class);

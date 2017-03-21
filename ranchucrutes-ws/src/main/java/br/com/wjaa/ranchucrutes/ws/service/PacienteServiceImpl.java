@@ -19,6 +19,7 @@ import java.util.Date;
  * Created by wagner on 11/09/15.
  */
 @Service
+@Transactional(readOnly = true, timeout = 10000)
 public class PacienteServiceImpl extends GenericServiceImpl<PacienteEntity,Long> implements PacienteService {
 
     private static Log LOG = LogFactory.getLog(PacienteServiceImpl.class);

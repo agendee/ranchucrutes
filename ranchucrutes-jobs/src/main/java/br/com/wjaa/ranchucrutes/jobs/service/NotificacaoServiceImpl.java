@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Created by wagner on 04/11/15.
  */
 @Service
+@Transactional(readOnly = true, timeout = 10000)
 public class NotificacaoServiceImpl extends GenericServiceImpl<NotificacaoEntity, Long> implements NotificacaoService {
 
 

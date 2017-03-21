@@ -2,6 +2,8 @@ package br.com.wjaa.ranchucrutes.framework.dao;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.FlushMode;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +48,22 @@ public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T,
     }
 
     public Session getSession() {
-        return this.sessionFactory.openSession();
+
+        Session session = null;
+        boolean isNew = false;
+
+        try {
+            session = this.getSessionFactory().getCurrentSession();
+        } catch (HibernateException var12) {
+            log.debug("Could not retrieve pre-bound Hibernate session", var12);
+        }
+
+        if(session == null) {
+            session = this.getSessionFactory().openSession();
+            session.setFlushMode(FlushMode.MANUAL);
+        }
+
+        return session;
     }
 
     @Autowired

@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * Created by wagner on 06/09/15.
  */
 @Service
+@Transactional(readOnly = true, timeout = 10000)
 public class AppConfigServiceImpl implements AppConfigService {
 
     private static Log LOG = LogFactory.getLog(AppConfigServiceImpl.class);

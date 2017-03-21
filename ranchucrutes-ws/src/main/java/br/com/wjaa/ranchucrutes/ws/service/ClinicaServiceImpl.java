@@ -14,6 +14,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -22,6 +24,7 @@ import java.util.List;
  * Created by wagner on 4/12/16.
  */
 @Service
+@Transactional(readOnly = true, timeout = 10000, propagation = Propagation.NOT_SUPPORTED)
 public class ClinicaServiceImpl extends GenericServiceImpl<ClinicaEntity,Long> implements ClinicaService {
 
     private static final int MAX_RAIO = 50;

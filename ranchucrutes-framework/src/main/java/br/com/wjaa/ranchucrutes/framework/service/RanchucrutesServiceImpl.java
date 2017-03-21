@@ -1,6 +1,8 @@
 package br.com.wjaa.ranchucrutes.framework.service;
 
 import br.com.wjaa.ranchucrutes.framework.dao.RanchucrutesDao;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -14,6 +16,7 @@ import java.util.List;
  */
 @Service
 public class RanchucrutesServiceImpl implements RanchucrutesService {
+    private static Log LOG = LogFactory.getLog(RanchucrutesServiceImpl.class);
 
     @Autowired
     private RanchucrutesDao ranchucrutesDao;
@@ -42,6 +45,7 @@ public class RanchucrutesServiceImpl implements RanchucrutesService {
 
     @Override
     public <T> List<T> getByProperties(Class<T> clazz, String property, Object value) {
+        LOG.debug("m=getByProperties, clazz=" + clazz + ", property="+ property + ", value=" + value);
         return this.ranchucrutesDao.getByProperties(clazz,property, value);
     }
 

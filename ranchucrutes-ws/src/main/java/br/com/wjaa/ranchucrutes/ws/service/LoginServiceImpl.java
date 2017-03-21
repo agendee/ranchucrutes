@@ -28,6 +28,7 @@ import java.util.Date;
  * Created by wagner on 10/08/15.
  */
 @Service
+@Transactional(readOnly = true, timeout = 10000)
 public class LoginServiceImpl implements LoginService {
     private static final Log LOG = LogFactory.getLog(LoginServiceImpl.class);
 
@@ -52,7 +53,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     public ConfirmaCadastroVo confirmaCadastro(String code) {
         LOG.debug("m=confirmaCadastro, code=" + code);
         ProfissionalEntity profissionalEntity = dao.getSingleRecordByProperties(ProfissionalEntity.class, "codeConfirmacao", code);
@@ -126,7 +127,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     public PacienteVo registerGcm(Long idLogin, String keyDevice) {
         LOG.debug("m=registerGcm, idLogin=" + idLogin + ", keyDevice=" + keyDevice );
         PacienteEntity pacienteEntity = this.dao.get(PacienteEntity.class,idLogin);

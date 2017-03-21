@@ -20,6 +20,7 @@ import java.util.List;
  * Created by wagner on 04/11/15.
  */
 @Service
+@Transactional(readOnly = true, timeout = 10000)
 public class CancelarAgendamentosExpiradosJobImpl implements CancelarAgendamentosExpiradosJob {
 
     private static Log LOG = LogFactory.getLog(CancelarAgendamentosExpiradosJobImpl.class);

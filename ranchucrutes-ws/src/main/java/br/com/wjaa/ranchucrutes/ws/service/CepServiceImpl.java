@@ -26,6 +26,7 @@ import java.util.List;
  * Created by wagner on 16/06/15.
  */
 @Service
+@Transactional(readOnly = true, timeout = 10000)
 public class CepServiceImpl implements CepService {
 
     private static final Log LOG = LogFactory.getLog(CepService.class);
