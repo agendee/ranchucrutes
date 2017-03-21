@@ -37,6 +37,7 @@ import java.util.*;
  * Created by wagner on 15/10/15.
  */
 @Service("AgendamentoServiceImpl")
+@Transactional(propagation = Propagation.NOT_SUPPORTED)
 public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity, Long> implements  AgendamentoService{
 
     private static final Log LOG = LogFactory.getLog(AgendamentoServiceImpl.class);

@@ -1,5 +1,6 @@
 package br.com.wjaa.ranchucrutes.ws.config;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.sql.DataSource;
+import java.beans.PropertyVetoException;
 
 /**
  * Created by wagner on 12/06/15.
@@ -50,16 +52,24 @@ public class WebappConfig extends WebMvcConfigurerAdapter {
     @Bean
     public DataSource getDataSource(){
         LOG.debug("m: getDataSource.init ");
-        BasicDataSource dmd = new BasicDataSource();
-        dmd.setDriverClassName(this.driverClass);
-        dmd.setUrl(this.url);
-        dmd.setUsername(this.username);
-        dmd.setPassword(this.password);
-        dmd.setInitialSize(10);
-        dmd.setMaxActive(50);
-        dmd.setMaxIdle(10);
+        ComboPooledDataSource dataSource = new ComboPooledDataSource();
+        try {
+            dataSource.setDriverClass(this.driverClass);
+        } catch (PropertyVetoException e) {
+            LOG.error("Erro ao pegar o driver class do datasource", e);
+        }
+        dataSource.setJdbcUrl(this.url);
+        dataSource.setUser(this.username);
+        dataSource.setPassword(this.password);
+        dataSource.setInitialPoolSize(5);
+        dataSource.setMaxPoolSize(20);
+        dataSource.setCheckoutTimeout(1000);
+        dataSource.setMaxStatements(50);
+	    dataSource.setAutomaticTestTable("C3P0_TEST_TABLE");
+        dataSource.setTestConnectionOnCheckin(true);
+	    dataSource.setIdleConnectionTestPeriod(60);
         LOG.debug("m: getDataSource.end ");
-        return dmd;
+        return dataSource;
     }
 
     @Bean
