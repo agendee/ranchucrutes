@@ -176,8 +176,8 @@
                     </div>
 
                     <div class="form-group" style="margin-top:30px;">
-                        <label>Convênios Aceitos:<font style="color: rgb(169, 68, 66);">*</font> </label>
-                        <select id="categoriasSelecionadas${index}" name="clinicas[${index}].idsCategoria" data-placeholder="Selecione os convênios atendidos" multiple class="form-control chosen-select categoriasSelecionadas" required>
+                        <label>Convênios Aceitos:</label>
+                        <select id="categoriasSelecionadas${index}" name="clinicas[${index}].idsCategoria" data-placeholder="Selecione os convênios atendidos" multiple class="form-control chosen-select categoriasSelecionadas">
                             <c:forEach var="e" items="${clinica.categorias}">
                                 <option value="${e.id}" selected>${e.nome}</option>
                             </c:forEach>

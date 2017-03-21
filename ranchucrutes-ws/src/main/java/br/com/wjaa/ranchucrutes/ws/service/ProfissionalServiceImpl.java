@@ -229,7 +229,7 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
     @Override
     public void saveClinicas(ProfissionalEntity profissionalPersisted, List<ProfissionalClinicaEntity> clinicas)
             throws ProfissionalServiceException {
-        LOG.debug("m=saveClinicas, profissionalPersisted" + profissionalPersisted + ", clinicas=" + clinicas);
+        LOG.debug("m=saveClinicas, profissionalPersisted" + profissionalPersisted);
         for (ProfissionalClinicaEntity profissionalClinica : clinicas){
             ClinicaEntity clinica = profissionalClinica.getClinica();
             EnderecoEntity endereco = clinica.getEndereco();
@@ -265,7 +265,7 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void saveAgendaHorarios(List<ProfissionalClinicaEntity> clinicas){
-        LOG.debug("m=saveAgendaHorarios, clinicas=" + clinicas);
+        LOG.debug("m=saveAgendaHorarios");
         for (ProfissionalClinicaEntity profissionalClinica: clinicas){
             AgendaEntity agenda = profissionalClinica.getClinica().getAgenda();
             if (agenda != null){
