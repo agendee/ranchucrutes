@@ -47,13 +47,13 @@ public class ProfissionalWS extends BaseWS {
     private AgendamentoService agendamentoService;
 
 
-    @RequestMapping(value = "/profissional/{id}", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
+    @RequestMapping(value = "/profissional/{id}", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8", method = {RequestMethod.GET, RequestMethod.POST})
     public ProfissionalFullForm getProfissionalById(@PathVariable Long id) {
         ProfissionalEntity entity = this.profissionalService.get(id);
         return ProfissionalAdapter.toProfissionalFullForm(entity);
     }
 
-    @RequestMapping(value = "/profissional/basico/{id}", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
+    @RequestMapping(value = "/profissional/basico/{id}", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8", method = {RequestMethod.GET, RequestMethod.POST})
     public ProfissionalBasicoVo getProfissionalBasico(@PathVariable Long id) {
         return this.profissionalService.getProfissionalBasico(id);
 
@@ -109,14 +109,16 @@ public class ProfissionalWS extends BaseWS {
         return ProfissionalAdapter.toProfissionalFullForm(profissionalUpdated);
     }
 
-    @RequestMapping(value = "/profissional/agendamentos/{idProfissional}/{dateIni}/{dateFim}", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
+    @RequestMapping(value = "/profissional/agendamentos/{idProfissional}/{dateIni}/{dateFim}", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"
+            ,method = {RequestMethod.GET, RequestMethod.POST})
     public @ResponseBody
     CalendarioAgendamentoVo getAgendamentos (@PathVariable Long idProfissional,
                                              @PathVariable Date dateIni, @PathVariable Date dateFim) throws AgendamentoServiceException {
         return agendamentoService.getAgendamentosProfissional(idProfissional, dateIni, dateFim);
     }
 
-    @RequestMapping(value = "/profissional/agendamentos/{idProfissional}/{idClinica}/{dateIni}/{dateFim}", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
+    @RequestMapping(value = "/profissional/agendamentos/{idProfissional}/{idClinica}/{dateIni}/{dateFim}", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8",
+            method = {RequestMethod.GET, RequestMethod.POST})
     public @ResponseBody
     CalendarioAgendamentoVo getAgendamentos (@PathVariable Long idProfissional,@PathVariable Long idClinica,
                                              @PathVariable Date dateIni, @PathVariable Date dateFim) throws AgendamentoServiceException {

@@ -30,14 +30,16 @@ public class RanchucrutesWS extends BaseWS {
     @Autowired
     private CepService cepService;
 
-    @RequestMapping(value = "/convenio/all", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    @RequestMapping(value = "/convenio/all", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8",
+            method = {RequestMethod.GET, RequestMethod.POST})
     public
     List<ConvenioEntity> listAllConvenio() {
         List<ConvenioEntity> result = this.ranchucrutesService.getByProperties(ConvenioEntity.class,"ativo",true);
         return result;
     }
 
-    @RequestMapping(value = "/convenio/categoria/all", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    @RequestMapping(value = "/convenio/categoria/all", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8",
+            method = {RequestMethod.GET, RequestMethod.POST})
     public
     List<ConvenioCategoriaVo> listAllConvenioCategorias() {
         List<ConvenioCategoriaEntity> categorias = this.ranchucrutesService.getByProperties(ConvenioCategoriaEntity.class,"ativo",true);
@@ -45,7 +47,8 @@ public class RanchucrutesWS extends BaseWS {
     }
 
 
-    @RequestMapping(value = "/convenio/categoria/{idConvenio}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    @RequestMapping(value = "/convenio/categoria/{idConvenio}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8",
+            method = {RequestMethod.GET, RequestMethod.POST})
     public
     List<ConvenioCategoriaVo> getCategoriasByIdConvenio(@PathVariable Integer idConvenio) {
         List<ConvenioCategoriaEntity> categorias = this.ranchucrutesService.getByProperties(ConvenioCategoriaEntity.class,
@@ -53,7 +56,8 @@ public class RanchucrutesWS extends BaseWS {
         return RanchucrutesAdapter.toConvenioCategoriaVo(categorias);
     }
 
-    @RequestMapping(value = "/categoria/{idCategoria}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    @RequestMapping(value = "/categoria/{idCategoria}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8",
+            method = {RequestMethod.GET, RequestMethod.POST})
     public
     ConvenioCategoriaVo getCategoriaById(@PathVariable Integer idCategoria) {
         ConvenioCategoriaEntity categoria = this.ranchucrutesService.get(ConvenioCategoriaEntity.class,
@@ -61,19 +65,22 @@ public class RanchucrutesWS extends BaseWS {
         return RanchucrutesAdapter.toConvenioCategoriaVo(categoria);
     }
 
-    @RequestMapping(value = "/especialidade/all", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    @RequestMapping(value = "/especialidade/all", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8",
+            method = {RequestMethod.GET, RequestMethod.POST})
     public
     List<EspecialidadeEntity> listAllEspecialidade() {
         return this.ranchucrutesService.getByProperties(EspecialidadeEntity.class,"ativo",true);
     }
 
-    @RequestMapping(value = "/especialidade/{idProfissao}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    @RequestMapping(value = "/especialidade/{idProfissao}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8",
+            method = {RequestMethod.GET, RequestMethod.POST})
     public
     List<EspecialidadeEntity> listEspecialidadeByProfissao(@PathVariable Integer idProfissao) {
         return this.ranchucrutesService.getByProperties(EspecialidadeEntity.class,"profissao.id",idProfissao);
     }
 
-    @RequestMapping(value = "/profissao/all", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    @RequestMapping(value = "/profissao/all", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8",
+            method = {RequestMethod.GET, RequestMethod.POST})
     public
     List<ProfissaoEntity> listAllProfissao() {
         return this.ranchucrutesService.listAll(ProfissaoEntity.class);

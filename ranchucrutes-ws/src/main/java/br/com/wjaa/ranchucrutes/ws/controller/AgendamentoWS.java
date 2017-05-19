@@ -33,22 +33,26 @@ public class AgendamentoWS {
     @Autowired
     private AgendamentoService agendamentoService;
 
-    @RequestMapping(value = "/agendamento/{idProfissional}/{idClinica}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    @RequestMapping(value = "/agendamento/{idProfissional}/{idClinica}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8",
+            method = {RequestMethod.GET, RequestMethod.POST})
     public AgendaVo getAgendaProfissional(@PathVariable Long idProfissional, @PathVariable Long idClinica) throws AgendamentoServiceException, ParceiroIntegracaoServiceException {
         return this.agendamentoService.getAgendaProfissional(idProfissional, idClinica);
     }
 
-    @RequestMapping(value = "/agendamento/criar", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    @RequestMapping(value = "/agendamento/criar", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8",
+            method = {RequestMethod.GET, RequestMethod.POST})
     public ConfirmarAgendamentoVo criarAgendamento(@RequestBody AgendamentoForm agendamentoForm) throws AgendamentoServiceException {
         return this.agendamentoService.criarAgendamento(agendamentoForm);
     }
 
-    @RequestMapping(value = "/agendamento/confirmarSolicitacao/{idAgendamento}/{codigo}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    @RequestMapping(value = "/agendamento/confirmarSolicitacao/{idAgendamento}/{codigo}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8",
+            method = {RequestMethod.GET, RequestMethod.POST})
     public AgendamentoVo confirmarSolicitacao(@PathVariable Long idAgendamento, @PathVariable String codigo) throws AgendamentoServiceException {
         return this.agendamentoService.confirmarSolicitacao(idAgendamento, codigo);
     }
 
-    @RequestMapping(value = "/agendamento/aprovarSolicitacao/{idAgendamento}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    @RequestMapping(value = "/agendamento/aprovarSolicitacao/{idAgendamento}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8",
+            method = {RequestMethod.GET, RequestMethod.POST})
     public AgendamentoVo aprovarSolicitacao(@PathVariable Long idAgendamento) throws AgendamentoServiceException {
         return this.agendamentoService.aprovarSolicitacao(idAgendamento);
     }
@@ -58,22 +62,26 @@ public class AgendamentoWS {
         return this.agendamentoService.rejeitarSolicitacao(rejeitacaoSolicitacao);
     }
 
-    @RequestMapping(value = "/agendamento/confirmarConsulta/{idAgendamento}/{confirma}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    @RequestMapping(value = "/agendamento/confirmarConsulta/{idAgendamento}/{confirma}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8",
+            method = {RequestMethod.GET, RequestMethod.POST})
     public AgendamentoVo confirmarConsulta(@PathVariable Long idAgendamento, @PathVariable Boolean confirma) throws AgendamentoServiceException, ParceiroIntegracaoServiceException {
         return this.agendamentoService.confirmarConsulta(idAgendamento, confirma);
     }
 
-    @RequestMapping(value = "/agendamento/cancelarConsulta/{idAgendamento}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    @RequestMapping(value = "/agendamento/cancelarConsulta/{idAgendamento}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8",
+            method = {RequestMethod.GET, RequestMethod.POST})
     public AgendamentoVo cancelarConsulta(@PathVariable Long idAgendamento) throws AgendamentoServiceException, ParceiroIntegracaoServiceException {
         return this.agendamentoService.confirmarConsulta(idAgendamento, false);
     }
 
-    @RequestMapping(value = "/agendamento/{idAgendamento}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    @RequestMapping(value = "/agendamento/{idAgendamento}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8",
+            method = {RequestMethod.GET, RequestMethod.POST})
     public AgendamentoVo getAgendamentoById(@PathVariable Long idAgendamento) throws AgendamentoServiceException {
         return this.agendamentoService.getAgendamento(idAgendamento);
     }
 
-    @RequestMapping(value = "/agendamento/list/{idPaciente}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    @RequestMapping(value = "/agendamento/list/{idPaciente}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8",
+            method = {RequestMethod.GET, RequestMethod.POST})
     public List<AgendamentoVo> getAgendamentos(@PathVariable Long idPaciente) throws AgendamentoServiceException {
         return this.agendamentoService.getAgendamentosPaciente(idPaciente);
     }

@@ -27,7 +27,8 @@ public class PacienteWS {
     private PacienteService pacienteService;
 
 
-    @RequestMapping(value = "/paciente/{id}", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
+    @RequestMapping(value = "/paciente/{id}", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8",
+            method = {RequestMethod.GET, RequestMethod.POST})
     public PacienteVo getPacienteById(@PathVariable Long id) {
         PacienteEntity entity = this.pacienteService.get(id);
         return PacienteAdapter.toPacienteVo(entity);

@@ -19,7 +19,7 @@ public class Initializer implements WebApplicationInitializer{
         // AnnotationConfigWebApplicationContext to avoid using beans xml files.
         AnnotationConfigWebApplicationContext ctx =
                 new AnnotationConfigWebApplicationContext();
-        ctx.register(WebappConfig.class);
+        ctx.register(WebappConfig.class,SwaggerConfig.class);
 
         // Add the servlet mapping manually and make it initialize automatically
         ServletRegistration.Dynamic servlet =

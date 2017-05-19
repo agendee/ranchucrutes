@@ -25,7 +25,8 @@ public class AuthWS {
     private LoginService loginService;
 
 
-    @RequestMapping(value = "/auth/confirme/{code}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8")
+    @RequestMapping(value = "/auth/confirme/{code}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8",
+            method = {RequestMethod.GET, RequestMethod.POST})
     public ConfirmaCadastroVo confirma(@PathVariable String code){
         return loginService.confirmaCadastro(code);
     }
