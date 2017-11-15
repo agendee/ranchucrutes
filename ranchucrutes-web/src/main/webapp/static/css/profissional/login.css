@@ -1,3 +1,24 @@
+html{background:url(../../img/home/home2.jpg) no-repeat center center fixed #000; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;}
+.login-bg .navbar{border:none !important;}
+.login .panel{max-width:500px; margin:auto; background:rgba(33,33,33,0.7) !important; padding:20px !important; border:none !important; -webkit-box-shadow: 0px 2px 36px 0px rgba(0,0,0,0.35);
+-moz-box-shadow: 0px 2px 36px 0px rgba(0,0,0,0.35); box-shadow: 0px 2px 36px 0px rgba(0,0,0,0.35); margin-top:40px;}
+.login .panel .btn{border-radius:0px !important;}
+.login .form-control{border:2px #fff solid; padding:10px !important; background:none !important; border-radius:0px !important; height:inherit !important; color:#fff; width:100% !important;}
+.login .input-group .input-group-addon{background:#fff; border-radius:0px !important; width:40px !important;}
+.login .input-group .input-group-addon i{width:20px;}
+.login .input-group{width:100% !important;}
+.login-bg #rodape{padding-bottom:20px;}
+.login-bg #rodape{color:#fff !important;}
+.login-bg #rodape img{width:100px;}
+.login-bg{background:none !important;}
+.login .panel-footer{background:none !important; color:#fff !important; text-align:center !important; border:none !important;}
+.login .has-success .control-label{color:#85c5ea!important;}
+.login .has-error .control-label{color:#e16969 !important;}
+.login .has-error .form-control{box-shadow:none !important; border-color:#e16969 !important;}
+.login .has-success .form-control{box-shadow:none !important; border-color:#85c5ea !important;}
+.login .has-success .form-control-feedback{color:#85c5ea!important;}
+.login .help-block{color:#e16969 !important;}
+.space{height:20px;}
 .panel-heading {
     padding: 5px 15px;
 }

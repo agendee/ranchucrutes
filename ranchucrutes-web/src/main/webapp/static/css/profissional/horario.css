@@ -2,3 +2,11 @@
   margin-left: 5px !important;
   margin-right: 5px !important;
 }
+#accordionHorario .form-group{padding:10px;}
+.head-days{background:#333; color:#fff; text-align:center; padding:10px; border-radius:10px;}
+.head-days .btn{color:#333;}
+.head-days .btn-danger{color:#fff;}
+.head-days .btn-success{color:#fff; background:#00a8ea !important; box-shadow:none !important;}
+@media screen and (max-width: 768px) {
+.head-days .btn{color:#333;margin-bottom: 10px;}
+}

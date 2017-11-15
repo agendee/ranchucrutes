@@ -9,16 +9,21 @@
     <jsp:include page="/views/commons/header.jsp" />
     <jsp:include page="/views/commons/header-components.jsp" />
     <link href="/static/css/profissional/admin.css" rel="stylesheet"/>
+	<link href="/static/css/profissional/painel.css" rel="stylesheet"/>
     <link href="/static/css/libs/jasny-bootstrap.css" rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <jsp:include page="/views/commons/menu_admin.jsp" />
-    <div class="col-xs-12 container">
+    <jsp:include page="/views/commons/menu_admin_custom.jsp" />
+    <div class="fluid-container">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="/profissional/agenda">Painel</a></li>
+			<li class="breadcrumb-item active">Meu cadastro</li>
+		</ol>
 
         <form:form id="formCadastro" class="form-horizontal" action="/profissional/update" method="POST" role="form" modelAtribute="form" enctype="multipart/form-data" acceptcharset="UTF-8">
-            <div class="col-md-offset-3 col-md-6">
-                <section class="form" style="margin-top:80px;">
-
+            <div class="">
+                <section class="form">
                     <!-- transformar isso aqui em uma tag -->
                     <c:if test="${errorMessage != null}">
                         <div class="alert alert-danger" role="alert">${errorMessage}</div>
@@ -27,13 +32,12 @@
                     <c:if test="${successMessage != null}">
                          <div class="alert alert-success" role="alert">${successMessage}</div>
                     </c:if>
-
+					
                     <!-- DADOS DO PROFISSIONAL -->
-                    <h4>Meu cadastro</h4>
                     <div class="panel-group" id="accordionDadosPessoais">
                         <div class="panel panel-default">
                             <div class="panel-body">
-                                <h4 class="panel-body">
+                                <h4>
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionDadosPessoais" href="#collapseDadosPessoais">Dados Pessoais</a>
                                     <input type="hidden" name="profissional.idLogin" value="${form.profissional.idLogin}"/>
                                     <input type="hidden" name="profissional.foto" value="${form.profissional.foto}"/>
@@ -54,66 +58,80 @@
                                             <span class="btn btn-default btn-file"><span class="fileinput-new">Adicionar Foto</span><span class="fileinput-exists">Alterar Foto</span><input type="file" name="file"></span>
                                             <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
                                             </center>
+											<div class="space"></div>
                                           </div>
                                         </div>
                                     </div>
 
 
-
+								<div class="row">
+									
+									<div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Nome:<font style="color: rgb(169, 68, 66);">*</font> </label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-12">Nome:<font style="color: rgb(169, 68, 66);">*</font> </label>
+                                        <div class="col-md-12">
                                             <input type="text" class="form-control" name="profissional.nome" placeholder="Nome Completo" maxlength="80" value="${form.profissional.nome}" required/>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Número Registro:<font style="color: rgb(169, 68, 66);">*</font></label>
-                                        <div class="col-md-6">
+                                        <label class="col-md-12">Número Registro:<font style="color: rgb(169, 68, 66);">*</font></label>
+                                        <div class="col-md-12">
                                             <input type="number" class="form-control" name="profissional.numeroRegistro" placeholder="0000" maxlength="10" value="${form.profissional.numeroRegistro}" required/>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">CPF:<font style="color: rgb(169, 68, 66);">*</font></label>
-                                        <div class="col-md-6">
+                                        <label class="col-md-12">CPF:<font style="color: rgb(169, 68, 66);">*</font></label>
+                                        <div class="col-md-12">
                                             <input type="number" class="form-control" name="profissional.cpf" placeholder="CPF" maxlength="11" value="${form.profissional.cpf}" required/>
                                         </div>
                                     </div>
+									</div>
 
+									<div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Especialidade:<font style="color: rgb(169, 68, 66);">*</font></label>
-                                        <div class="col-md-8">
+                                        <label class="col-md-12">Especialidade:<font style="color: rgb(169, 68, 66);">*</font></label>
+                                        <div class="col-md-12">
                                             <select id="idEspecialidade" name="profissional.idEspecialidade" data-placeholder="Selecione suas especialidades" multiple class="form-control chosen-select" required></select>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Celular:</label>
-                                        <div class="col-md-3">
+                                        <label class="col-md-12">Celular:</label>
+                                        <div class="col-md-2">
                                             <input type="number" class="form-control" name="profissional.ddd" placeholder="DDD" maxlength="2" value="${form.profissional.ddd}" />
                                         </div>
-                                        <div class="col-md-5">
+                                        <div class="col-md-10">
                                             <input type="number" class="form-control" name="profissional.celular" placeholder="Celular" maxlength="9" value="${form.profissional.celular}" />
                                         </div>
                                     </div>
 
                                    <div class="form-group">
-                                       <label class="col-md-3 control-label">Email:<font style="color: rgb(169, 68, 66);">*</font></label>
-                                       <div class="col-md-9">
+                                       <label class="col-md-12">Email:<font style="color: rgb(169, 68, 66);">*</font></label>
+                                       <div class="col-md-6">
                                            <input type="text" class="form-control" name="profissional.email" placeholder="Email" maxlength="100" value="${form.profissional.email}" required/>
                                        </div>
                                    </div>
+								   </div>
+								   
+								</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- FIM DADOS DO PROFISSIONAL -->
-
+				<div class="text-right" style="margin-bottom:50px;">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Salvar</button>
+                </div>
 
 
                     <!-- CLINICAS -->
-                    <h4>Minhas Clinicas <a id="btnAddClinica" class="btn btn-success" ><i class="fa fa-plus"></i></a></h4>
+                    <div class="add-clinica">	
+						<h4>Minhas Clinicas <a id="btnAddClinica" class="btn btn-success btn-plus" ><i class="fa fa-plus"></i></a></h4>
+					</div>
+					
+					<div class="space"></div>
 
                     <div id="accordionClinica" class="panel-group">
                         <c:set var="countClinica" value="0"/>
@@ -124,14 +142,11 @@
                     </div>
                     <!-- FIM DADOS DA CLINICA -->
 
-
-                    <div class="form-group" style="margin-bottom:100px;">
-                        <div class="col-md-9 col-sm-offset-3">
-                            <button type="submit" class="btn btn-primary">Enviar</button>
-                        </div>
-                    </div>
-
                 </section>
+				
+				<div class="text-right" style="margin-bottom:50px;">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Salvar</button>
+                </div>
             </div>
         </form:form>
 
@@ -147,7 +162,16 @@
     <script src="/static/js/profissional/admin.js"></script>
     <script src="/static/js/libs/jasny-bootstrap.min.js"></script>
     <script src="/static/js/libs/cbpAnimatedHeader.js"></script>
-
+<script>
+$(document).ready(function() {
+    var viewport = document.querySelector("meta[name=viewport]");
+    if($(window).width() < 480){
+        viewport.setAttribute('content', 'width=480, maximum-scale=1.0, user-scalable=no');
+    }else{
+        viewport.setAttribute('content', 'width=device-width, maximum-scale=1, user-scalable=no');
+    }
+});
+</script>
     <script>
         var especSelected = [];
         <c:forEach var="esp" items="${form.profissional.idEspecialidade}">

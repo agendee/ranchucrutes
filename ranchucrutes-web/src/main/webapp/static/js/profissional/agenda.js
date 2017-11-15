@@ -7,6 +7,10 @@ var Agenda = function() {
         init: function (calendario) {
             for (var i = 0; i < calendario.calendariosClinicas.length; i++){
                 var calendarioClinica = calendario.calendariosClinicas[i];
+                 var horaIni = calendarioClinica.horaFuncionamentoIni;
+                if(horaIni.length < 2){horaIni = "00:00";}
+                var horaFim = calendarioClinica.horaFuncionamentoFim;
+                if(horaFim.length < 2){horaFim = "23:30";}
                 $('#calendar' + calendario.calendariosClinicas[i].clinicaVo.id).fullCalendar({
                     header: {
                         left: 'prev,next,today',
@@ -19,9 +23,15 @@ var Agenda = function() {
                     buttonIcons: false, // show the prev/next text
                     weekNumbers: true,
                     editable: false,
-                    slotDuration:"00:" + calendarioClinica.tempoConsultaEmMin,
+                    slotDuration:"00:" + calendarioClinica.tempoConsultaEmMin + ":00",
+					slotLabelInterval: calendarioClinica.tempoConsultaEmMin,
+					slotLabelFormat: 'HH:mm',
+					slotMinutes: calendarioClinica.tempoConsultaEmMin,
                     eventLimit: true, // allow "more" link when too many events
                     //events: Agenda.buildEvents(calendarioClinica),
+					timeFormat: 'H(:mm)',
+					minTime: horaIni,
+					maxTime: horaFim,
                     eventClick: function(calEvent, jsEvent, view) {
                         idAgendamentoSelecionado = calEvent.agendamento.id;
                         //alert('EventID: ' + calEvent.agendamento.id);
@@ -99,18 +109,22 @@ console.log(calEvent.agendamento.paciente.conveniosCategorias);
 
                 for (var j = 0; j < calendarioClinica.agendamento.length; j++){
                     var agendamento = calendarioClinica.agendamento[j];
-                    var backgroudColor = "#0079bf";
-                    var textColor = "#fff";
+                    var backgroudColor = "#CCC";
+                    var textColor = "#333";
+					var className = "";
 
                     if (agendamento.dataConfirmacao == null){
-                        backgroudColor = "#e02f2f";
+                        backgroudColor = "#f7926b";
                         textColor = "#fff";
+						className = "not-confirmed"
                     }else if (agendamento.dataConfirmacaoProfissional == null){
-                        backgroudColor = "#dbd11a";
-                        textColor = "#000";
+                        backgroudColor = "#ffd323";
+                        textColor = "#fff";
+						className = "waiting"
                     }else if (agendamento.dataConfirmacaoProfissional != null){
-                        backgroudColor = "#1fa214";
-                        textColor = "#000";
+                        backgroudColor = "#00a8ea";
+                        textColor = "#fff";
+						className = "confirmed";
                     }
                     events.push({
                         agendamento:agendamento,
@@ -118,7 +132,8 @@ console.log(calEvent.agendamento.paciente.conveniosCategorias);
                         start: agendamento.dataInicioConsulta,
                         end: agendamento.dataFimConsulta,
                         backgroundColor:backgroudColor,
-                        textColor:textColor
+                        textColor:textColor,
+						className:className,
                     });
                 }
             }
@@ -146,6 +161,7 @@ console.log(calEvent.agendamento.paciente.conveniosCategorias);
                 type: 'post',
                 data: "idProfissional="+idProfissional+"&idClinica="+idClinica+"&dataIni="+dataIni+"&dataFim="+dataFim,
                 success: function(data){
+
                     Agenda.cleanEvents();
                     Agenda.getCalendar().fullCalendar('addEventSource',  Agenda.buildEvents(data.calendariosClinicas[0]));
                     Utils.waitingClose();

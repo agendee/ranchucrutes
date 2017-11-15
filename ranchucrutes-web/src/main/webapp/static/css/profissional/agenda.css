@@ -1,9 +1,11 @@
 .dadosPaciente{
-    margin-bottom: 20px;
-    font-size: 17px;
+    margin-bottom: 5px;
+    font-size: 14px;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: bold;
-
+    background: #f3f3f3;
+    padding: 10px;
+    color: #00a8ea;
 }
 .dadosPaciente span{
     font-size: 14px;
@@ -14,4 +16,211 @@
 }
 .fc-event{
     cursor: pointer !important;
+}
+.nav-tabs>li.active>a{
+	background-color: #00a8ea;
+	color:#fff;
+}
+.nav-tabs{
+	border:none;
+	background:#f3f3f3;
+}
+.fc-toolbar{
+	padding:20px;
+	color:#fff;
+	background:#333;
+}
+.fc-toolbar h2{
+	font-size:24px;
+}
+.fc .fc-button-group .fc-button{
+	background:#666;
+	color:#fff;
+	text-shadow:none;
+}
+.fc .fc-button-group .fc-state-disabled{
+	
+}
+.fc .fc-button-group .fc-state-active{
+	background:#00a8ea;
+	opacity:1;
+}
+.fc-view-container thead td{
+	padding:10px 0px;
+	background:#f3f3f3;
+}
+th.fc-day-header.fc-widget-header.fc-wed.fc-today{
+	background:none !important;
+}
+.fc-view-container thead .fc-axis, .fc-view-container thead .fc-week-number{
+	font-size:0px;
+}
+.fc-month-view thead .fc-week-number{
+	width:0px !important;
+}
+td.fc-week-number.fc-widget-content{
+	width:0px !important;
+}
+
+.fc-day{
+	background:#f3f3f3;
+}
+.fc-day-number{
+	background:#999 !important;
+	color:#fff;
+}
+.fc-today{
+	background:#95d9f4 !important;
+	border-color:#c5e2ee;
+}
+hr.fc-divider.fc-widget-header{
+	border:none;
+	height:0px !important;
+	display:none !important;
+}
+.fc-day-grid + hr.fc-divider.fc-widget-header{
+	height:10px !important;
+	background:#ccc !important;
+	border:none;
+	display:block !important;
+}
+.fc-row.fc-week.fc-widget-content{
+	background:#666;
+	color:#fff;
+}
+.fc-row.fc-week.fc-widget-content .fc-day{
+	background:#d8d8d8 !important;
+	border-color:#c0bebe;
+}
+.fc-row.fc-week.fc-widget-content .fc-today{
+	background:#77b8d2 !important;
+}
+td.fc-axis.fc-time.fc-widget-content{
+	border-color:#79cbeb;
+	background:#00a8ea;
+	color:#fff;
+	text-align:center;
+}
+.fc-day-grid-event{
+	border-radius:0px !important;
+	color:#fff !important;
+	border:2px dashed rgba(255,255,255,0.5)!important;
+	margin-bottom:2px;
+	padding:10px !important;
+}
+.fc-time-grid-event{
+	border-radius:0px !important;
+	border:2px dashed rgba(255,255,255,0.5) !important;
+	padding:10px !important;	
+}
+.fc-day-number{
+    display: inline-block !important;
+    padding: 5px 0px!important;
+    margin-top: -10px !important;
+	width:25px;
+	text-align:center!important;
+}
+.confirmed:after{
+	content:'\f00c';
+	font-family:'FontAwesome';
+	font-size:14px;
+	color:#fff;
+	position:absolute;
+	top:2px;
+	right:2px;
+}
+.not-confirmed:after{
+	content:'\f05e';
+	font-family:'FontAwesome';
+	font-size:14px;
+	color:#fff;
+	position:absolute;
+	top:2px;
+	right:2px;
+}
+.waiting:after{
+	content:'\f017';
+	font-family:'FontAwesome';
+	font-size:14px;
+	color:#fff;
+	position:absolute;
+	top:2px;
+	right:2px;
+}
+.fc-time-grid tr{
+	height:60px;
+}
+#modalDetalhes .modal-header{
+	background:#333;
+	color:#fff;
+	border-bottom:0px;
+}
+#modalDetalhes .modal-header .close{
+	color:#fff;
+	opacity:0.8 !important;
+}
+#modalDetalhes .date{
+    padding: 10px;
+    background: #00a8ea;
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-top: -15px;
+    color: #fff;
+    margin-bottom: 10px;
+}
+#modalDetalhes .date i{
+	margin-right:10px;
+	font-size:20px;
+}
+@media screen and (max-width: 768px) {
+.fc-right {
+    float: inherit !important;
+    display: inline-block;
+    margin-bottom:10px;
+    width: 100%;
+    text-align: center;
+}
+.fc-left {
+    float: inherit !important;
+    display: inline-block;
+    margin-bottom:10px;
+    width: 100%;
+    text-align: center;
+}
+.fc-toolbar .fc-center {
+	display: inline-block;
+	width: 100%;
+	text-align: center !important;
+}
+.fc-toolbar .fc-center h2 {
+    font-size: 18px;
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+}
+.fc-ltr .fc-axis{
+	width: 40px !important;
+	font-size: 12px !important;
+}
+.fc-view-container thead .fc-axis, .fc-view-container thead .fc-week-number{
+	font-size:0px !important;
+}
+.fc .fc-toolbar > * { 
+	float: inherit !important;
+}
+.fc-scroller.fc-time-grid-container {
+    height: 400px !important;
+}
+.fc-agendaWeek-view .fc-day-grid, .fc-agendaDay-view .fc-day-grid{
+	display: none;
+}
+.fc-scroller.fc-day-grid-container {
+    height: 400px !important;
+}
+.fc .fc-toolbar > * > *{
+	float: inherit !important;
+}
+.fc-row.fc-widget-header {
+    font-size: 16px;
+}
 }

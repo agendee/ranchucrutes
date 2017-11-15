@@ -6,15 +6,21 @@
 <head>
     <jsp:include page="/views/commons/header.jsp" />
     <jsp:include page="/views/commons/header-components.jsp" />
+	<link href="/static/css/profissional/painel.css" rel="stylesheet"/>
     <link href='/static/css/profissional/agenda.css' rel='stylesheet' />
     <link href='/static/css/libs/jquery-ui.min.css' rel='stylesheet' />
     <link href='/static/css/libs/fullcalendar.css' rel='stylesheet' />
     <link href='/static/css/libs/fullcalendar.print.css' rel='stylesheet' media='print' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <jsp:include page="/views/commons/menu_admin.jsp" />
-    <div class="col-xs-12 container content">
-        <section style="margin-top:80px;">
+    <jsp:include page="/views/commons/menu_admin_custom.jsp" />
+    <div class="fluid-container">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="/profissional/agenda">Painel</a></li>
+			<li class="breadcrumb-item active">Agenda</li>
+		</ol>
+        <section>
             <ul class="nav nav-tabs">
                 <c:set var="primeira" value="true"></c:set>
                 <c:forEach var="calendario" items="${calendario.calendariosClinicas}">
@@ -22,7 +28,7 @@
                     <c:set var="primeira" value="false"></c:set>
                 </c:forEach>
             </ul>
-               <hr>
+			<div class="space"></div>
             <div class="tab-content clearfix">
                 <c:set var="primeira" value="true"></c:set>
                 <c:forEach var="calendario" items="${calendario.calendariosClinicas}">
@@ -40,7 +46,7 @@
                             <h4 class="modal-title" id="modalTitle">Detalhes da Consulta</h4>
                         </div>
                         <div class="modal-body" >
-                            <p class="dadosPaciente">Consulta agendada para: <span id="dataAgenda"></span></p>
+                            <div class="date"><i class="fa fa-calendar-o" aria-hidden="true"></i><span id="dataAgenda"></span></div>
                             <p class="dadosPaciente">Nome do Paciente: <span id="nomePaciente"></span></p>
                             <p class="dadosPaciente">Email: <span id="email"></span></p></h6>
                             <p class="dadosPaciente">Telefone: <span id="telefone"></span></p></h6>
@@ -63,10 +69,20 @@
     <jsp:include page="/views/commons/footer-components.jsp" />
     <script src='/static/js/libs/moment.min.js'></script>
     <script src='/static/js/libs/fullcalendar.min.js'></script>
-    <script src='/static/js/libs/lang-all.js'></script>
+	<script src='/static/js/libs/locale/pt-br.js'></script>
     <script src="/static/js/profissional/agenda.js"></script>
     <script src="/static/js/libs/cbpAnimatedHeader.js"></script>
 </body>
+<script>
+$(document).ready(function() {
+    var viewport = document.querySelector("meta[name=viewport]");
+    if($(window).width() < 480){
+        viewport.setAttribute('content', 'width=480, maximum-scale=1.0, user-scalable=no');
+    }else{
+        viewport.setAttribute('content', 'width=device-width, maximum-scale=1, user-scalable=no');
+    }
+});
+</script>
 <script>
     idProfissional = ${idProfissional};
     var calendario = jQuery.parseJSON('${calendarioJson}');
@@ -76,6 +92,13 @@
             $(this).parent().addClass('active');
         }
     });
-
+	$.ajax({
+		url: "http://rest.agendee.com.br/profissional/" + idProfissional,
+		jsonp: "callback",
+		dataType: "jsonp",
+		success: function( response ) {
+			$('.picture img').attr('src','http://agendee.com.br/f/' + response.profissional.foto);
+		}
+	});
 </script>
 </html>

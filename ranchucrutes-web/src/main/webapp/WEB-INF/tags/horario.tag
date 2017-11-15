@@ -5,12 +5,12 @@
 <%@ attribute name="horario" required="false" rtexprvalue="true" type="br.com.wjaa.ranchucrutes.commons.form.HorarioForm"%>
 <%@ attribute name="oculto" required="false" rtexprvalue="true" type="java.lang.Boolean"%>
 
-<div id="horario${indexClinica}${indexHorario}">
-    <div class="col-md-12" >
+<div id="horario${indexClinica}${indexHorario}" >
+    <div class="head-days" >
          <input type="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].id" value="${horario.id}"/>
          <a class="btn btn-danger" style="float:right; padding: 4px 10px;" onclick="$('#horario${indexClinica}${indexHorario}').remove();" ><i class="fa fa-trash-o"></i></a>
          <span class="button-checkbox button-checkbox${indexClinica}${indexHorario}">
-             <button type="button" class="btn" data-color="success">Seg</button>
+             <button type="button" class="btn btn-success active" data-color="success">Seg</button>
              <input type="checkbox" class="hidden" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].diasSemana" value="1" <c:if test="${horario.temSegunda()}"> checked </c:if> />
          </span>
          <span class="button-checkbox button-checkbox${indexClinica}${indexHorario}">
@@ -40,11 +40,11 @@
      </div>
      <div class="form-group">
          <div class="col-md-6">
-            <label>Das: </label>
+            <label><i class="fa fa-clock-o" aria-hidden="true"></i> Das: </label>
             <input type="time" class="form-control" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].horaIni" placeholder="Hora inicial" maxlength="5" value="${horario.horaIni}"/>
          </div>
          <div class="col-md-6">
-            <label>Até:</label>
+            <label><i class="fa fa-clock-o" aria-hidden="true"></i> Até:</label>
             <input type="time" class="form-control" name="clinicas[${indexClinica}].agendaHorarios[${indexHorario}].horaFim" placeholder="Hora final" maxlength="5" value="${horario.horaFim}"/>
          </div>
      </div>

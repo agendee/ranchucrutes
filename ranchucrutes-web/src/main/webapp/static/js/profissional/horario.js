@@ -32,7 +32,7 @@ var horario = function() {
         },
         initBntAddHorario:function(index){
             $("#btnAddHorario" + index).click(function(){
-
+                 $("html, body").animate({ scrollTop: $(document).height() - 100 }, 1000);
                 var htmlDivHorarioBase = $("#templateDivHorario").html();
                 var divHorario = $(htmlDivHorarioBase.replace(/__INDEX/g,index).replace(/__2INDEX/g,countHorario));
                 $("#collapseHorario" + index).append(divHorario);

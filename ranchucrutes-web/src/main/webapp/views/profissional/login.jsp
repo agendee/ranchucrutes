@@ -11,26 +11,28 @@
 
     <jsp:include page="/views/commons/header.jsp" />
     <jsp:include page="/views/commons/header-components.jsp" />
+	<link href="/static/css/style.css" rel="stylesheet">
     <link href="/static/css/profissional/login.css" rel="stylesheet">
     <link href="/static/css/menu.css" rel="stylesheet">
+	
 </head>
-<body>
-    <jsp:include page="/views/commons/menu.jsp" />
+<body class="login-bg">
+    <jsp:include page="/views/commons/menu_interna.jsp" />
     <div class="col-xs-12 container content">
         <section>
             <div>
                 <div class="row">
-                    <div class="col-md-5 col-md-offset-3 col-lg-3 col-lg-offset-4 login">
+                    <div class="col-md-12 login">
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <strong> Acesso ao portal do profissional</strong>
-                            </div>
                             <div class="panel-body">
                                 <form id="formLogin" role="form" action="/auth/profissional" method="POST">
                                     <fieldset>
                                         <div class="row">
                                             <div class="center-block img-login">
-                                                <img class="profile-img" src="/static/img/doctor.png" alt="">
+												<div class="text-center">
+													<img src="/static/img/password.png" alt="">
+												</div>
+                                                <div class="space"></div>
                                                 <c:if test="${errorMessage != null}">
                                                     <div class="alert alert-danger" role="alert" style="margin:10px;">${errorMessage}</div>
                                                 </c:if>
@@ -71,7 +73,12 @@
                 </div>
             </div>
         </section>
-        <jsp:include page="/views/commons/rodape.jsp" />
+        <footer>
+		<div class="space"></div>
+		<div id="rodape" class="text-center">
+			<img src="/static/img/logo_mini_white.png" />&nbsp;&nbsp;&nbsp; Seu portal de agendamento online</i>
+		</div>
+	</footer>
     </div>
 
     <jsp:include page="/views/commons/footer.jsp" />

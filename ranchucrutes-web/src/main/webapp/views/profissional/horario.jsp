@@ -8,16 +8,22 @@
 <head>
     <jsp:include page="/views/commons/header.jsp" />
     <jsp:include page="/views/commons/header-components.jsp" />
+	<link href="/static/css/profissional/painel.css" rel="stylesheet"/>
     <link href="/static/css/profissional/horario.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <jsp:include page="/views/commons/menu_admin.jsp" />
-    <div class="col-xs-12 container">
+    <jsp:include page="/views/commons/menu_admin_custom.jsp" />
+    <div class="fluid-container">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="/profissional/agenda">Painel</a></li>
+			<li class="breadcrumb-item active">Horários</li>
+		</ol>
 
         <form:form id="formCadastro" class="form-horizontal" action="/profissional/horario/save" method="POST" role="form" modelAtribute="form">
             <input type="hidden" name="profissional.idLogin" value="${form.profissional.idLogin}"/>
-            <div class="col-md-offset-3 col-md-6">
-                <section class="form" style="margin-top:80px;">
+            <div class="">
+                <section class="form">
                     <!-- transformar isso aqui em uma tag -->
                     <c:if test="${errorMessage != null}">
                         <div class="alert alert-danger" role="alert">${errorMessage}</div>
@@ -39,16 +45,17 @@
                         <div id="accordionHorario" class="panel-group">
                              <div id="horario${countClinica}${countHorario}" class="panel panel-default" >
                                  <div class="panel-body">
-                                     <h4 class="panel-body">
-                                         <a data-toggle="collapse" data-parent="#accordionHorario" href="#collapseHorario${countClinica}" aria-expanded="true" class="collapsed nomeTitle">
+                                     <h4>
+                                         <a data-toggle="collapse" data-parent="#accordionHorario" href="#collapseHorario${countClinica}" aria-expanded="true" class="nomeTitle accordion-toggle">
                                              ${clinica.nome}
                                          </a>
                                      </h4>
                                  </div>
-                                 <div id="collapseHorario${countClinica}" class="panel-footer form-group collapse in" style="margin-top:15px;" <c:if test="${oculto}"> style="display:none;" </c:if>>
-                                     <div class="form-group">
-                                        <label class="col-md-8 control-label">Quais horários você quer abrir? <a id="btnAddHorario${countClinica}" class="btn btn-success" ><i class="fa fa-plus"></i></a></label>
+                                 <div id="collapseHorario${countClinica}" class="panel-footer collapse in" style="margin-top:15px;" <c:if test="${oculto}"> style="display:none;" </c:if>>
+                                     <div class="add-btn">
+                                        <label>Quais horários você quer abrir? <a id="btnAddHorario${countClinica}" class="btn btn-success btn-plus" ><i class="fa fa-plus"></i></a></label>
                                      </div>
+									 <div class="space"></div>
 
                                      <c:forEach var="h" items="${clinica.agendaHorarios}">
                                          <h:horario indexClinica="${countClinica}" indexHorario="${countHorario}" horario="${h}"/>
@@ -66,15 +73,9 @@
                         </div>
                      </c:forEach>
 
-
-
-
-
-                    <div class="form-group">
-                        <div class="col-md-9 col-sm-offset-3">
-                            <button type="submit" class="btn btn-primary">Enviar</button>
-                        </div>
-                    </div>
+					<div class="text-right" style="margin-bottom:50px;">
+						<button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Salvar</button>
+					</div>
                 </section>
             </div>
         </form:form>
@@ -96,7 +97,16 @@
     <script src="/static/js/commons/utils.js"></script>
     <script src="/static/js/profissional/horario.js"></script>
     <script src="/static/js/libs/cbpAnimatedHeader.js"></script>
-
+<script>
+$(document).ready(function() {
+    var viewport = document.querySelector("meta[name=viewport]");
+    if($(window).width() < 480){
+        viewport.setAttribute('content', 'width=480, maximum-scale=1.0, user-scalable=no');
+    }else{
+        viewport.setAttribute('content', 'width=device-width, maximum-scale=1, user-scalable=no');
+    }
+});
+</script>
     <script>
         $('li > a').filter(function(index){
             if (this.href.indexOf("horario") > 0 ) {
