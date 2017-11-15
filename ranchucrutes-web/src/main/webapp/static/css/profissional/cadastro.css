@@ -1,0 +1,25 @@
+/* ==========================================================================
+fixes section
+========================================================================== */
+.timeline{padding-left:0px !important;}
+.cadastro{padding:0px !important;} 
+.cadastro label{text-align:left !important; margin-bottom:8px !important; color:#fff;}
+.cadastro #cadastro .has-success .control-label{color:#85c5ea!important;}
+.cadastro #cadastro .has-error .control-label{color:#e16969 !important;}
+.cadastro #cadastro .has-error .form-control{box-shadow:none !important; border-color:#e16969 !important;}
+.cadastro #cadastro .has-success .form-control{box-shadow:none !important; border-color:#85c5ea !important;}
+.cadastro #cadastro .has-success .form-control-feedback{color:#85c5ea!important;}
+.cadastro #cadastro .help-block{color:#e16969 !important;}
+.cadastro h2{color:#fff !important;}
+html{background:url(../../img/home/home3.jpg) no-repeat center center fixed #000; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;}
+.cadastro-bg{background:none !important;}
+.cadastro .panel{background:none !important; border:none !important;}
+.cadastro .panel-footer{background:rgba(33,33,33,0.7) !important; padding:20px !important; border:none !important; -webkit-box-shadow: 0px 2px 36px 0px rgba(0,0,0,0.35);
+-moz-box-shadow: 0px 2px 36px 0px rgba(0,0,0,0.35); box-shadow: 0px 2px 36px 0px rgba(0,0,0,0.35);}
+.cadastro .form-control{border:2px #fff solid; padding:10px !important; background:none !important; border-radius:0px !important; height:inherit !important; color:#fff;}
+.cadastro .btn{padding:10px 40px !important; border-radius:0px !important;}
+.cadastro-bg .navbar{border:none !important;}
+.cadastro #rodape{padding-bottom:20px; text-align:left;}
+.cadastro #rodape{color:#fff !important;}
+.cadastro #rodape img{width:100px;}
+.cadastro .select2-container--default .select2-selection--multiple{background: none !important; border:2px solid #fff !important; border-radius:0px !important; height:44px !important;}
