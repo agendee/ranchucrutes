@@ -326,7 +326,8 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         PacienteEntity pacienteEntity = pacienteService.get(form.getIdPaciente());
 
         //se consulta nao for no particular, verificamos se o profissional aceita o plano de saude do paciente.
-        if (!form.getConsultaParticular()){
+        //DESATIVANDO REGRA PARA DIOGENES PODER APRESENTAR PRODUTO.
+        /*if (!form.getConsultaParticular()){
 
             try {
                 if ( !profissionalService.profissionalAceitaCategoria(form.getIdProfissional(),
@@ -338,7 +339,7 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
                 throw new AgendamentoServiceException(e.getMessage());
             }
 
-        }
+        }*/
 
         ProfissionalEntity profissionalEntity = profissionalService.get(form.getIdProfissional());
         //usando uma nova instancia para tentar pegar o erro de UniqueKey, caso no mesmo instante algum paciente
