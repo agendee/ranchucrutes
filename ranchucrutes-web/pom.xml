@@ -167,13 +167,13 @@
     <profile>
         <id>web1</id>
         <properties>
-            <server.ip>agendee.com.br</server.ip>
+            <server.ip>54.94.198.141</server.ip>
             <server.container>/opt/jetty</server.container>
             <server.container.webapps>${server.container}/webapps</server.container.webapps>
-            <server.container.bin>sudo service jetty</server.container.bin>
+            <server.container.bin>sudo /opt/jetty/./jetty.sh</server.container.bin>
             <server.tmp>${server.container}/deploy</server.tmp>
             <server.user>ubuntu</server.user>
-            <server.keyFile>/home/wagner/agendee-server.pem</server.keyFile>
+            <server.keyFile>/home/wagner/fernanda-agendee-key.pem</server.keyFile>
         </properties>
 
         <build>
