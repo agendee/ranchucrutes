@@ -31,4 +31,24 @@ public class EmailServiceImpl implements EmailService {
             e.printStackTrace();
         }
     }
+	@Override
+	public void sendEmailRecuperarSenhaProfissional(String email, String... params) {
+		  LOG.debug("m=sendEmailRecuperarSenhaProfissional, email=" + email + ", params="+ params);
+	        EmailParamVo emailParamVo = new EmailParamVo();
+	        emailParamVo.setEmail(email);
+	        emailParamVo.setTitle("Recupere sua senha");
+	        emailParamVo.setFrom("noreply@agendee.com.br");
+	        emailParamVo.setName("Agendee - Notificação");
+	        emailParamVo.setBody(EmailTemplate.RECUPERAR_SENHA_PROFISSIONAL.getBody(params));
+	        try {
+	            EmailUtils.send(emailParamVo,EmailUtils.scNotificacao);
+	        } catch (EmailException e) {
+	            e.printStackTrace();
+	        }
+		
+	}
+    
+    
+    
+    
 }

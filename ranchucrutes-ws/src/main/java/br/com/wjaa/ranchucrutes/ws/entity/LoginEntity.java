@@ -20,6 +20,8 @@ public abstract class LoginEntity implements Serializable {
     private Date dataUltimoAcesso;
     private Date dataConfirmacao;
     private String codeConfirmacao;
+    private Date dataRecuperacaoSenha;
+    private String codeRecuperacaoSenha;
     private Boolean ativo;
     private String foto;
     private String keyDeviceGcm;
@@ -89,7 +91,25 @@ public abstract class LoginEntity implements Serializable {
     public void setCodeConfirmacao(String codeConfirmacao) {
         this.codeConfirmacao = codeConfirmacao;
     }
+    
+    @Column(name = "DATA_RECUPERACAO_SENHA", nullable = true)
+    public Date getDataRecuperacaoSenha() {
+		return dataRecuperacaoSenha;
+	}
 
+	public void setDataRecuperacaoSenha(Date dataRecuperacaoSenha) {
+		this.dataRecuperacaoSenha = dataRecuperacaoSenha;
+	}
+
+    @Column(name = "CODE_RECUPERACAO_SENHA", nullable = true)
+	public String getCodeRecuperacaoSenha() {
+		return codeRecuperacaoSenha;
+	}
+
+	public void setCodeRecuperacaoSenha(String codeRecuperacaoSenha) {
+		this.codeRecuperacaoSenha = codeRecuperacaoSenha;
+	}
+    
 
     @Column(name = "ATIVO", nullable = false)
     public Boolean getAtivo() {
@@ -117,4 +137,6 @@ public abstract class LoginEntity implements Serializable {
     public void setKeyDeviceGcm(String keyDeviceGcm) {
         this.keyDeviceGcm = keyDeviceGcm;
     }
+
+
 }

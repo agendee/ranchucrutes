@@ -1,6 +1,7 @@
 package br.com.wjaa.ranchucrutes.web.controller;
 
 import br.com.wjaa.ranchucrutes.commons.form.LoginForm;
+import br.com.wjaa.ranchucrutes.commons.form.ProfissionalForm;
 import br.com.wjaa.ranchucrutes.commons.utils.ObjectUtils;
 import br.com.wjaa.ranchucrutes.commons.vo.ConfirmaCadastroVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ResultadoLoginVo;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.security.auth.login.LoginException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -42,6 +44,22 @@ public class AuthController {
         return mav;
     }
 
+    
+    @RequestMapping(value = "/auth/recuperarsenha/{code}", method = RequestMethod.GET)
+    public ModelAndView confirmarRecuperarSenha(@PathVariable String code){
+        ModelAndView mav = new ModelAndView("profissional/alterarsenha");
+        try {
+        	ProfissionalForm form = RestUtils.getJsonWithParamPath(ProfissionalForm.class, RanchucrutesConstantes.HOST_WS,
+                    "auth/confirmerecuperarsenha", code);
+            mav.addObject("form",form);
+        } catch (RestResponseUnsatisfiedException | RestException | RestRequestUnstable e) {
+            LOG.error("Erro na requisicao", e);
+            mav.addObject(RanchucrutesConstantes.ERROR_MESSAGE, "Ocorreu um erro interno, tente novamente mais tarde.");
+        }
+        return mav;
+    }
+    
+    
     @RequestMapping(value = "/auth/profissional", method = RequestMethod.POST)
     public ModelAndView loginProfissional(@ModelAttribute LoginForm loginForm, HttpServletRequest request){
         ModelAndView mav = new ModelAndView("redirect:/profissional/agenda");
@@ -81,6 +99,8 @@ public class AuthController {
         return mav;
     }
 
+    
+    
 
     @RequestMapping(value = "/auth/sair", method = RequestMethod.GET)
     public ModelAndView sair(HttpServletRequest request){

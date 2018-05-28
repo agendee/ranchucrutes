@@ -6,6 +6,7 @@ import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
 import br.com.wjaa.ranchucrutes.commons.vo.PacienteVo;
 import br.com.wjaa.ranchucrutes.ws.exception.LoginServiceException;
 import br.com.wjaa.ranchucrutes.ws.exception.LoginSocialException;
+import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalEntity;
 import br.com.wjaa.ranchucrutes.ws.exception.LoginNotConfirmationException;
 
 /**
@@ -24,4 +25,11 @@ public interface LoginService {
     PacienteVo autenticarPaciente(LoginForm form) throws LoginServiceException, LoginSocialException;
 
     PacienteVo registerGcm(Long idLogin, String keyDevice);
+
+
+	ConfirmaCadastroVo recuperaSenha(String code);
+
+	String createCodeRecovery(String email, String numeroRegistro);
+
+	ProfissionalEntity confirmeRecuperarSenha(String code) throws LoginServiceException;
 }

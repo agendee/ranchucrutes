@@ -1,5 +1,15 @@
 package br.com.wjaa.ranchucrutes.ws.service;
 
+import java.util.Calendar;
+import java.util.Date;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import br.com.wjaa.ranchucrutes.commons.form.LoginForm;
 import br.com.wjaa.ranchucrutes.commons.utils.StringUtils;
 import br.com.wjaa.ranchucrutes.commons.vo.ConfirmaCadastroVo;
@@ -15,14 +25,6 @@ import br.com.wjaa.ranchucrutes.ws.entity.RedeSocialEnum;
 import br.com.wjaa.ranchucrutes.ws.exception.LoginNotConfirmationException;
 import br.com.wjaa.ranchucrutes.ws.exception.LoginServiceException;
 import br.com.wjaa.ranchucrutes.ws.exception.LoginSocialException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Date;
 
 /**
  * Created by wagner on 10/08/15.
@@ -71,6 +73,57 @@ public class LoginServiceImpl implements LoginService {
 
         return new ConfirmaCadastroVo(ConfirmaCadastroVo.StatusConfirmacaoCadastro.SUCESSO);
     }
+    
+    
+    
+    @Override
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+    public ProfissionalEntity confirmeRecuperarSenha(String code) throws LoginServiceException {
+        LOG.debug("m=confirmaCadastro, code=" + code);
+        ProfissionalEntity profissionalEntity = dao.getSingleRecordByProperties(ProfissionalEntity.class, "codeRecuperacaoSenha", code);
+        if (profissionalEntity == null){
+            throw new LoginServiceException("Codigo invalido.");
+        }
+        Calendar c = Calendar.getInstance();
+        if (profissionalEntity.getDataConfirmacao() != null && (c.getTime().getDay() - profissionalEntity.getDataRecuperacaoSenha().getDay()) > 1){
+            throw new LoginServiceException("Codigo vencido.");
+        }
+        return profissionalEntity;
+    }
+    
+    
+    
+    
+    
+    @Override
+    public String createCodeRecovery(String email, String numeroRegistro){
+        LOG.debug("m=createCodeRecovery, email=" + email + ", numeroRegistro=" + numeroRegistro);
+        //criando um md5 com base no email + crm e milisegundo atual.
+        return StringUtils.createMD5(email + "|" + numeroRegistro + "|" + new Date().getTime());
+    }
+
+    @Override
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+    public ConfirmaCadastroVo recuperaSenha(String code) {
+        LOG.debug("m=confirmaCadastro, code=" + code);
+        ProfissionalEntity profissionalEntity = dao.getSingleRecordByProperties(ProfissionalEntity.class, "codeConfirmacao", code);
+        if (profissionalEntity == null){
+            return new ConfirmaCadastroVo(ConfirmaCadastroVo.StatusConfirmacaoCadastro.CODIGO_INVALIDO);
+        }
+
+        if (profissionalEntity.getDataConfirmacao() != null){
+            return new ConfirmaCadastroVo(ConfirmaCadastroVo.StatusConfirmacaoCadastro.CADASTRO_JA_CONFIRMADO);
+        }
+        profissionalEntity.setDataConfirmacao(new Date());
+        profissionalEntity.setAtivo(true);
+        dao.save(profissionalEntity);
+
+        return new ConfirmaCadastroVo(ConfirmaCadastroVo.StatusConfirmacaoCadastro.SUCESSO);
+    }
+    
+    
+    
+    
 
     @Override
     public ProfissionalBasicoVo autenticarProfissional(String emailOuCrm, String pass) throws LoginServiceException, LoginNotConfirmationException {

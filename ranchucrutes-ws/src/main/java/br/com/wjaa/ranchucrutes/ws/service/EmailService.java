@@ -7,5 +7,6 @@ public interface EmailService {
 
 
     void sendEmailNovoProfissional(String email, String... params);
+	public void sendEmailRecuperarSenhaProfissional(String email, String... params) ;
 
 }

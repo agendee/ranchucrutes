@@ -1,11 +1,15 @@
 package br.com.wjaa.ranchucrutes.ws.controller;
 
 import br.com.wjaa.ranchucrutes.commons.form.LoginForm;
+import br.com.wjaa.ranchucrutes.commons.form.ProfissionalForm;
 import br.com.wjaa.ranchucrutes.commons.vo.ConfirmaCadastroVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ResultadoLoginVo;
 import br.com.wjaa.ranchucrutes.ws.exception.LoginServiceException;
 import br.com.wjaa.ranchucrutes.ws.exception.LoginSocialException;
 import br.com.wjaa.ranchucrutes.ws.service.LoginService;
+import br.com.wjaa.ranchucrutes.ws.adapter.ProfissionalAdapter;
+import br.com.wjaa.ranchucrutes.ws.entity.ProfissaoEntity;
+import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalEntity;
 import br.com.wjaa.ranchucrutes.ws.exception.LoginNotConfirmationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,6 +34,15 @@ public class AuthWS {
     public ConfirmaCadastroVo confirma(@PathVariable String code){
         return loginService.confirmaCadastro(code);
     }
+    
+    
+    @RequestMapping(value = "/auth/confirmerecuperarsenha/{code}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8",
+            method = {RequestMethod.GET, RequestMethod.POST})
+    public ProfissionalForm confirmeRecuperarSenha(@PathVariable String code) throws LoginServiceException{
+    	ProfissionalForm form =  ProfissionalAdapter.toProfissionalForm(loginService.confirmeRecuperarSenha(code));
+    	return     	form;
+    }
+    
 
     @RequestMapping(value = "/auth/profissional", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8", method = RequestMethod.POST)
     public ResultadoLoginVo authProfissional(@RequestBody LoginForm form){

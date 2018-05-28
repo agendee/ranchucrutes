@@ -12,7 +12,7 @@ import java.util.List;
  * Created by wagner on 10/08/15.
  */
 public enum EmailTemplate {
-    NOVO_PROFISSIONAL("novo-profissional.html");
+    NOVO_PROFISSIONAL("novo-profissional.html"), RECUPERAR_SENHA_PROFISSIONAL("recuperar-senha-profissional.html");
 
 
     private StringBuilder template = new StringBuilder();
@@ -33,6 +33,18 @@ public enum EmailTemplate {
 
     public String getBody(String ... params) {
         if (NOVO_PROFISSIONAL.equals(this)){
+
+            Assert.isTrue(params != null && params.length == 2,"Parametros invalidos");
+
+            return StringUtils.replaceEach(template.toString(),
+                    new String[]{
+                            "{NOME_CLIENTE}",
+                            "{CODE}"
+                    },
+                    params);
+        }
+        
+        if (RECUPERAR_SENHA_PROFISSIONAL.equals(this)){
 
             Assert.isTrue(params != null && params.length == 2,"Parametros invalidos");
 

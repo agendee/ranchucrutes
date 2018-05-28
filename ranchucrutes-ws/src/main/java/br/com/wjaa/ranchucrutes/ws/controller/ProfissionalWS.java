@@ -83,8 +83,31 @@ public class ProfissionalWS extends BaseWS {
     ProfissionalForm saveProfissional(@RequestBody final ProfissionalForm form) throws ProfissionalServiceException {
         ProfissionalEntity profissional = ProfissionalAdapter.fromProfissionalForm(form);
         ProfissionalEntity entity = this.profissionalService.saveProfissional(profissional);
+        
         return ProfissionalAdapter.toProfissionalForm(entity);
     }
+    
+    @RequestMapping(value = "/profissional/recuperarsenha", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8",
+            method = RequestMethod.POST)
+    public @ResponseBody
+    ProfissionalForm recuperarSenhaProfissional(@RequestBody final ProfissionalForm form) throws ProfissionalServiceException {
+        ProfissionalEntity profissional = ProfissionalAdapter.fromProfissionalForm(form);
+        ProfissionalEntity entity =  this.profissionalService.recuperarSenha(profissional);
+        return ProfissionalAdapter.toProfissionalForm(entity);
+    }
+    
+    
+    @RequestMapping(value = "/profissional/alterarsenha", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8",
+            method = RequestMethod.POST)
+    public @ResponseBody
+    ProfissionalForm alterarSenhaProfissional(@RequestBody final ProfissionalForm form) throws ProfissionalServiceException {
+    	ProfissionalEntity profissional = ProfissionalAdapter.fromProfissionalForm(form);
+        ProfissionalEntity entity =  this.profissionalService.alterarSenha(profissional);
+        return ProfissionalAdapter.toProfissionalForm(entity);
+    }
+    
+    
+
 
     @RequestMapping(value = "/profissional/update", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8",
             method = RequestMethod.POST)

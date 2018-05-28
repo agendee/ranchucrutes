@@ -1,6 +1,7 @@
 package br.com.wjaa.ranchucrutes.ws.service;
 
 import br.com.wjaa.ranchucrutes.commons.form.FindProfissionalForm;
+import br.com.wjaa.ranchucrutes.commons.form.ProfissionalForm;
 import br.com.wjaa.ranchucrutes.commons.vo.DistanceVo;
 import br.com.wjaa.ranchucrutes.commons.vo.LocationVo;
 import br.com.wjaa.ranchucrutes.commons.vo.ProfissionalBasicoVo;
@@ -143,7 +144,47 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
         return this.insertProfissional(profissional);
     }
 
+    
+    
+	@Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+	public ProfissionalEntity recuperarSenha(ProfissionalEntity profissional) throws ProfissionalServiceException {
+		if(profissional.getEmail() == null) {
+            throw new ProfissionalServiceException("Impossivel reucuperar o email");
+		}
+		LOG.debug("m=recuperarSenha, profissional=" + profissional.getEmail());
+		ProfissionalEntity profissionalEntity = this.profissionalDao.getProfissionalByEmail(profissional.getEmail());
+		if(profissionalEntity == null) {
+            throw new ProfissionalServiceException("Profissional não encontrado");
+		}else if(profissionalEntity.getDataConfirmacao() == null) {
+            throw new ProfissionalServiceException("Profissional ainda não foi  confirmado. Verifique o email");
+		}else if(!profissionalEntity.getAtivo()) {
+            throw new ProfissionalServiceException("Profissional inativo");
+
+		}else {
+			profissionalEntity.setCodeRecuperacaoSenha(loginService.createCodeRecovery(profissional.getEmail(), profissional.getNumeroRegistro()));
+			profissionalEntity.setDataRecuperacaoSenha(new Date());
+			update(profissionalEntity);
+			emailService.sendEmailRecuperarSenhaProfissional(profissionalEntity.getEmail(), profissionalEntity.getNome(), profissionalEntity.getCodeRecuperacaoSenha());
+		}	
+			
+			return profissionalEntity;
+	}
+    
     @Override
+    @Transactional(propagation= Propagation.REQUIRES_NEW)
+	public ProfissionalEntity alterarSenha(ProfissionalEntity profissional) throws ProfissionalServiceException {
+		LOG.debug("m=alterarSenha, profissional=" + profissional);
+			ProfissionalEntity profissionalEntity = this.profissionalDao.get(profissional.getIdLogin());
+			profissionalEntity.setSenha(loginService.createHashPass(profissional.getSenha()));
+			profissionalEntity.setDataRecuperacaoSenha(null);
+			profissionalEntity.setCodeRecuperacaoSenha("");
+			update(profissionalEntity);
+			return profissional;
+
+	}
+
+	@Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ProfissionalEntity update(ProfissionalEntity profissional) throws ProfissionalServiceException {
         LOG.debug("m=update, profissional=" + profissional);
@@ -361,5 +402,7 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
 
 
     }
+
+
 
 }

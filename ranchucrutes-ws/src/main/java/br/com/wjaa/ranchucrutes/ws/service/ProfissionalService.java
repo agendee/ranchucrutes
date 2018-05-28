@@ -28,7 +28,11 @@ public interface ProfissionalService extends GenericService<ProfissionalEntity, 
     void removeClinica(Long idClinica) throws ProfissionalServiceException;
 
     ProfissionalEntity saveProfissional(ProfissionalEntity profissional) throws ProfissionalServiceException;
-
+    
+    ProfissionalEntity recuperarSenha(ProfissionalEntity profissional) throws ProfissionalServiceException;
+    
+    ProfissionalEntity alterarSenha(ProfissionalEntity profissional) throws ProfissionalServiceException;
+    
     ProfissionalEntity update(ProfissionalEntity profissional) throws ProfissionalServiceException;
 
     ProfissionalBasicoVo getProfissionalBasico(Long idProfissional);

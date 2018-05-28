@@ -17,77 +17,35 @@
 
     <div class="cadastro container content" >
         <section id="cadastro" style="margin-top:80px;">
-            <form id="formCadastro" class="form-horizontal" action="/profissional/save" method="POST">
+            <form id="formCadastro" role="form" class="form-horizontal" action="/profissional/alterarsenha" method="POST">
+            
+                 <input type="hidden" name="profissional.idLogin" value="${form.idLogin}"/>
                 <div class="col-md-7">
-
 
                     <div class="panel panel-default">
                       <div class="panel-body">
-                        <h2>CADASTRE-SE</h2>
+                        <h2>RECUPERAR SENHA</h2>
                         <c:if test="${errorMessage != null}">
                             <div class="alert alert-danger" role="alert">${errorMessage}</div>
                         </c:if>
                       </div>
-
                       <div class="panel-footer">
-
-                            <div class="form-group">
-                                <label class="col-md-12 control-label">Nome:<font style="color: rgb(169, 68, 66);">*</font> </label>
-                                <div class="col-md-12">
-                                    <input type="text" class="form-control" name="nome" placeholder="Nome Completo" maxlength="80" value="${form.nome}" required/>
-                                </div>
-                            </div>
-
-						   <div class="row">
-							<div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-md-12 control-label">Número Registro:<font style="color: rgb(169, 68, 66);">*</font></label>
-                                <div class="col-md-12">
-                                    <input type="number" class="form-control" name="numeroRegistro" placeholder="00000" maxlength="10" value="${form.numeroRegistro}" required/>
-                                </div>
-                            </div>
+						<div class="form-group">
+							<label class="col-md-12 control-label">Email:<font
+								style="color: rgb(169, 68, 66);">*</font></label>
+							<div class="col-md-12">
+								<input type="text" class="form-control" name="email" disabled="disabled"
+									placeholder="Email" maxlength="100" value="${form.email}"
+									required />
 							</div>
-							<div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-md-12 control-label">CPF:<font style="color: rgb(169, 68, 66);">*</font></label>
-                                <div class="col-md-12">
-                                    <input type="text" class="form-control" name="cpf" placeholder="CPF" maxlength="11" value="${form.cpf}" required/>
-                                </div>
-                            </div>
-							</div>
-						   </div>
-						   
-
-                            <div class="form-group">
-                                <label class="col-md-12 control-label">Especialidade:<font style="color: rgb(169, 68, 66);">*</font></label>
-                                <div class="col-md-12">
-                                    <select id="idEspecialidade" name="idEspecialidade" data-placeholder="Selecione suas especialidades" multiple class="form-control chosen-select" required></select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-md-12 control-label">Celular:</label>
-                                <div class="col-md-3">
-                                    <input type="number" class="form-control" name="ddd" placeholder="DDD" maxlength="2" value="${form.ddd}" />
-                                </div>
-                                <div class="col-md-9">
-                                    <input type="number" class="form-control" name="celular" placeholder="Celular" maxlength="9" value="${form.celular}" />
-                                </div>
-                            </div>
-
-                           <div class="form-group">
-                               <label class="col-md-12 control-label">Email:<font style="color: rgb(169, 68, 66);">*</font></label>
-                               <div class="col-md-12">
-                                   <input type="text" class="form-control" name="email" placeholder="Email" maxlength="100" value="${form.email}" required/>
-                               </div>
-                           </div>
-
-						   <div class="row">
+						</div>
+						
+							   <div class="row">
 							<div class="col-md-6">
                            <div class="form-group">
                               <label class="col-md-12 control-label">Senha:<font style="color: rgb(169, 68, 66);">*</font></label>
                               <div class="col-md-12">
-                                  <input type="password" class="form-control" name="senha" placeholder="Senha" maxlength="10" required />
+                                  <input type="password" class="form-control" name="profissional.senha" placeholder="Senha" maxlength="10" required />
                               </div>
                           </div>
 							</div>
@@ -95,12 +53,13 @@
                            <div class="form-group">
                               <label class="col-md-12 control-label">Confirmação:<font style="color: rgb(169, 68, 66);">*</font></label>
                               <div class="col-md-12">
-                                  <input type="password" class="form-control" name="confirmacao" placeholder="Repita a Senha" maxlength="10" required/>
+                                  <input type="password" class="form-control" name="profissional.confirmacao" placeholder="Repita a Senha" maxlength="10" required/>
                               </div>
                           </div>
 							</div>
 						   </div>
 
+					     </div>
                             <div class="form-group">
                                 <div class="col-md-12 text-right">
                                     <button type="submit" class="btn btn-primary">Enviar</button>
@@ -125,6 +84,7 @@
 
     <jsp:include page="/views/commons/footer.jsp" />
     <jsp:include page="/views/commons/footer-components.jsp" />
+    <script src="/static/js/ws/ranchucrutes-ws-client.js"></script>
     <script src="/static/js/commons/utils.js"></script>
     <script src="/static/js/profissional/cadastro.js"></script>
     <script src="/static/js/libs/cbpAnimatedHeader.js"></script>

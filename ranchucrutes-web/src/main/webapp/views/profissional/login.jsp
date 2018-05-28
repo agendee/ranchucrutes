@@ -66,7 +66,9 @@
                                 </form>
                             </div>
                             <div class="panel-footer ">
-                                Você não tem cadastro? <a href="/profissional/cadastro" > Cadastre-se aqui </a>
+                                Você não tem cadastro? <a href="/profissional/cadastro" > Cadastre-se aqui </a></br>
+                                Esqueceu sua senha? <a href="/profissional/recuperarsenha" > Acesse aqui </a>
+                                
                             </div>
                         </div>
                     </div>

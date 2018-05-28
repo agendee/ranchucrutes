@@ -83,6 +83,52 @@ public class ProfissionalController {
     }
 
 
+    
+    @RequestMapping(value = "/profissional/recuperarsenha", method = RequestMethod.POST)
+    public ModelAndView recuperarSenha(@ModelAttribute ProfissionalForm form) {
+        ModelAndView mav = new ModelAndView("profissional/confirmerecuperarsenha");
+        mav.addObject("form", form);
+        String json = ObjectUtils.toJson(form);
+        try {
+            ProfissionalForm resultado = RestUtils.postJson(ProfissionalForm.class, RanchucrutesConstantes.HOST_WS, "profissional/recuperarsenha", json);
+            mav.addObject("result", resultado);
+        } catch (RestResponseUnsatisfiedException | RestRequestUnstable e) {
+            LOG.error("Erro ao recuperar a senha do profissional", e);
+            mav.setViewName("profissional/recuperarsenha");
+            mav.addObject(RanchucrutesConstantes.ERROR_MESSAGE, "Ocorreu um erro interno, tente novamente mais tarde.");
+        } catch (RestException e) {
+            LOG.error("Erro ao recuperar a senha: ErrorMessage " + e.getErrorMessage().getErrorMessage(), e);
+            mav.setViewName("profissional/recuperarsenha");
+            mav.addObject(RanchucrutesConstantes.ERROR_MESSAGE, e.getErrorMessage().getErrorMessage());
+        }
+        return mav;
+    }
+    
+    
+    @RequestMapping(value = "/profissional/alterarsenha", method = RequestMethod.POST)
+    public ModelAndView alterarsenha(@ModelAttribute ProfissionalFullForm form) {
+        ModelAndView mav = new ModelAndView("profissional/confirmealterarsenha");
+        this.ignorarIndexVazioClinica(form);
+        String json = ObjectUtils.toJson(form.getProfissional());
+        try {
+            System.out.println("JSON:" +  json);
+
+            ProfissionalForm resultado = RestUtils.postJson(ProfissionalForm.class, RanchucrutesConstantes.HOST_WS, "profissional/alterarsenha", json);
+            mav.addObject("result", resultado);
+        } catch (RestResponseUnsatisfiedException | RestRequestUnstable e) {
+            LOG.error("Erro ao recuperar a senha do profissional", e);
+            mav.setViewName("profissional/recuperarsenha");
+            mav.addObject(RanchucrutesConstantes.ERROR_MESSAGE, "Ocorreu um erro interno, tente novamente mais tarde.");
+        } catch (RestException e) {
+            LOG.error("Erro ao recuperar a senha: ErrorMessage " + e.getErrorMessage().getErrorMessage(), e);
+            mav.setViewName("profissional/recuperarsenha");
+            mav.addObject(RanchucrutesConstantes.ERROR_MESSAGE, e.getErrorMessage().getErrorMessage());
+            e.printStackTrace();
+        }
+        return mav;
+    }
+    
+    
     @RequestMapping(value = "/profissional/update", method = RequestMethod.POST)
     public ModelAndView update(@ModelAttribute ProfissionalFullForm form, @RequestParam MultipartFile file, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("profissional/admin");
@@ -115,8 +161,16 @@ public class ProfissionalController {
         mav.addObject("form",new ProfissionalForm());
         return mav;
     }
+    
+    
+    @RequestMapping(value = "/profissional/recuperarsenha", method = RequestMethod.GET)
+    public ModelAndView recuperaSenha() {
+        ModelAndView mav = new ModelAndView("profissional/recuperarsenha");
+        mav.addObject("form",new ProfissionalForm());
+        return mav;
+    }
 
-
+    
     @RequestMapping(value = "/profissional/login")
     public ModelAndView login(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("profissional/login");
@@ -188,6 +242,14 @@ public class ProfissionalController {
         return mav;
     }
 
+    
+    
+
+   
+    
+    
+    
+    
     /**
      * Ignorando os objetos vazios criados pelo spring quando nao se usa um index no formulario.
      * @param form
