@@ -187,16 +187,28 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
 	@Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ProfissionalEntity update(ProfissionalEntity profissional) throws ProfissionalServiceException {
-        LOG.debug("m=update, profissional=" + profissional);
+       
+		try {
+		LOG.debug("m=update, profissional=" + profissional);
         if (profissional.getIdLogin() == null){
             throw new ProfissionalServiceException("Impossivel atualizar um profissional sem ID");
         }
 
         ProfissionalEntity profissionalExists = this.profissionalDao.get(profissional.getIdLogin());
         LOG.info("Atualizando profissional [" + profissional.getIdLogin() + "]");
-
+        
+        if(profissionalExists.getSenha() != profissional.getSenha()) {
+        	System.out.println(profissional.getSenha());
+        profissional.setSenha(loginService.createHashPass(profissional.getSenha()));
+        }
+        
         this.saveClinicas(profissionalExists, profissional.getClinicas());
         return this.mergeProfissional(profissionalExists, profissional);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
     }
 
     @Override
@@ -243,8 +255,7 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
                 "dataUltimoAcesso",
                 "codeConfirmacao",
                 "dataCriacao",
-                "dataConfirmacao",
-                "senha","ativo");
+                "dataConfirmacao","ativo");
 
         return profissionalDao.save(profissionalPersisted);
     }

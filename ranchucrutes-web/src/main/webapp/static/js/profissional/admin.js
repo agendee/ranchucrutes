@@ -5,9 +5,17 @@ var admin = function() {
             admin.initComboEspecialidade();
             admin.initBtnAddClinica();
             admin.prepareInputsClinica();
+            admin.adjustFieldPassword();
+
 
         },
-        prepareInputsClinica: function(){
+        
+        adjustFieldPassword: function(){
+			$("input[name='senha']").blur(function() {
+				$("input[name='confirmacao']").val("");
+			});
+        },
+         prepareInputsClinica: function(){
             for (var index = 0; index < countClinica; index ++ ){
                 admin.initComboConvenio(index);
                 admin.initComboCategoria(index);
@@ -182,7 +190,7 @@ var admin = function() {
                                     callback: {
                                         message: 'Confirmação da senha inválida.',
                                         callback: function(value, validator) {
-                                            return $("input[name='senha']").val() == value;
+                                            return $("#senha").val() == value;
                                         }
                                     }
                                 }

@@ -111,8 +111,6 @@ public class ProfissionalController {
         this.ignorarIndexVazioClinica(form);
         String json = ObjectUtils.toJson(form.getProfissional());
         try {
-            System.out.println("JSON:" +  json);
-
             ProfissionalForm resultado = RestUtils.postJson(ProfissionalForm.class, RanchucrutesConstantes.HOST_WS, "profissional/alterarsenha", json);
             mav.addObject("result", resultado);
         } catch (RestResponseUnsatisfiedException | RestRequestUnstable e) {
@@ -242,12 +240,6 @@ public class ProfissionalController {
         return mav;
     }
 
-    
-    
-
-   
-    
-    
     
     
     /**

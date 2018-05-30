@@ -46,6 +46,7 @@ public class LoginServiceImpl implements LoginService {
     public String createHashPass(String pass){
         return StringUtils.createMD5(pass);
     }
+    
 
     @Override
     public String createCodeConfirmation(String email, String numeroRegistro){

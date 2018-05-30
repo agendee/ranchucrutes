@@ -50,6 +50,10 @@ public class ProfissionalWS extends BaseWS {
     @RequestMapping(value = "/profissional/{id}", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8", method = {RequestMethod.GET, RequestMethod.POST})
     public ProfissionalFullForm getProfissionalById(@PathVariable Long id) {
         ProfissionalEntity entity = this.profissionalService.get(id);
+        ProfissionalFullForm profissionalForm = ProfissionalAdapter.toProfissionalFullForm(entity);
+        
+        System.out.println("SENHA" + profissionalForm.getProfissional().getSenha());
+
         return ProfissionalAdapter.toProfissionalFullForm(entity);
     }
 
@@ -113,12 +117,17 @@ public class ProfissionalWS extends BaseWS {
             method = RequestMethod.POST)
     public @ResponseBody
     ProfissionalFullForm update(@RequestBody final ProfissionalFullForm form) throws ProfissionalServiceException {
+    	try {
         ProfissionalEntity profissional = ProfissionalAdapter.fromProfissionalFullForm(form);
         ProfissionalEntity profissionalUpdated = this.profissionalService.update(profissional);
         //a atualizacao do profissional é feita em 2 transacoes
         //buscando os dados atualizados.
         profissionalUpdated = this.profissionalService.get(profissionalUpdated.getIdLogin());
         return ProfissionalAdapter.toProfissionalFullForm(profissionalUpdated);
+    	}catch(Exception e ) {
+    		e.printStackTrace();
+    	}
+    	return null;
     }
 
 

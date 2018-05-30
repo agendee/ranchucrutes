@@ -84,7 +84,7 @@
                                     <div class="form-group">
                                         <label class="col-md-12">CPF:<font style="color: rgb(169, 68, 66);">*</font></label>
                                         <div class="col-md-12">
-                                            <input type="number" class="form-control" name="profissional.cpf" placeholder="CPF" maxlength="11" value="${form.profissional.cpf}" required/>
+                                            <input type="text" class="form-control" name="profissional.cpf" placeholder="CPF" maxlength="11" value="${form.profissional.cpf}" required/>
                                         </div>
                                     </div>
 									</div>
@@ -113,6 +113,22 @@
                                            <input type="text" class="form-control" name="profissional.email" placeholder="Email" maxlength="100" value="${form.profissional.email}" required/>
                                        </div>
                                    </div>
+                                   <div class="form-group">
+                                       <label class="col-md-12">Senha:<font style="color: rgb(169, 68, 66);">*</font></label>
+                                       <div class="col-md-6">
+                                		  <input type="password" id="senha" class="form-control" name="profissional.senha" value="${form.profissional.senha}" placeholder="Senha" maxlength="10" required />
+                                     
+                                       </div>
+                                   </div>
+                                   <div class="form-group">
+                                       <label class="col-md-12">Confirmação:<font style="color: rgb(169, 68, 66);">*</font></label>
+                                       <div class="col-md-6">
+                                          <input type="password" class="form-control" name="confirmacao" placeholder="Repita a Senha" maxlength="10" value="${form.profissional.senha}" required/>
+                                       </div>
+                                   </div>
+                                   
+                                   
+                                   
 								   </div>
 								   
 								</div>
