@@ -51,9 +51,6 @@ public class ProfissionalWS extends BaseWS {
     public ProfissionalFullForm getProfissionalById(@PathVariable Long id) {
         ProfissionalEntity entity = this.profissionalService.get(id);
         ProfissionalFullForm profissionalForm = ProfissionalAdapter.toProfissionalFullForm(entity);
-        
-        System.out.println("SENHA" + profissionalForm.getProfissional().getSenha());
-
         return ProfissionalAdapter.toProfissionalFullForm(entity);
     }
 
@@ -159,6 +156,16 @@ public class ProfissionalWS extends BaseWS {
 
 
 
+    @RequestMapping(value = "/profissional/agendamentos/solicitacoes", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8",
+            method = {RequestMethod.POST})
+    public @ResponseBody
+    List<AgendamentoVo> getAgendamentosSolicitacao (@PathVariable String email) throws AgendamentoServiceException {
+        return agendamentoService.getAgendamentosSolicitacao(email);
+    }
+    
+    
+    
+    
 
     @ExceptionHandler(CepNotFoundException.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)

@@ -23,6 +23,11 @@
 			</c:if>
 			</div>
             <ul class="nav-menu">
+            
+                 <li>
+                    <a class="page-scroll" href="/profissional/solicitacao">Solicitacões <i class="fa fa-plus" aria-hidden="true"></i></a>
+                </li>
+            
                 <li>
                     <a class="page-scroll" href="/profissional/agenda">Agenda <i class="fa fa-calendar" aria-hidden="true"></i></a>
                 </li>

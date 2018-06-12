@@ -37,6 +37,8 @@ public interface AgendamentoService extends GenericService<AgendamentoEntity, Lo
     CalendarioAgendamentoVo getAgendamentosProfissional(Long idProfissional, Date dateIni, Date dateFim) throws AgendamentoServiceException;
 
     CalendarioAgendamentoVo getAgendamentosProfissional(Long idProfissional, Long idClinica, Date dateIni, Date dateFim) throws AgendamentoServiceException;
+    
+    List<AgendamentoVo> getAgendamentosSolicitacao(String email) throws AgendamentoServiceException;
 
     AgendamentoVo aprovarSolicitacao(Long idAgendamento) throws AgendamentoServiceException;
 

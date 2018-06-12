@@ -133,6 +133,7 @@ public class LoginServiceImpl implements LoginService {
         if (org.apache.commons.lang.StringUtils.isNumeric(emailOuCrm)){
             profissionalEntity = this.loginDao.autenticarProfissional(Integer.valueOf(emailOuCrm), this.createHashPass(pass));
         }else{
+        	System.out.println("SENHA: "+this.createHashPass(pass));
             profissionalEntity = this.loginDao.autenticarProfissional(emailOuCrm, this.createHashPass(pass));
         }
 

@@ -29,8 +29,11 @@ public class ProfissionalBasicoVo {
     private Boolean aceitaPlano;
     private Long idClinicaAtual;
     private String foto;
+    private String email;
+    
 
-    public String getNome() {
+ 
+	public String getNome() {
         return nome;
     }
 
@@ -182,4 +185,13 @@ public class ProfissionalBasicoVo {
     public void setFoto(String foto) {
         this.foto = foto;
     }
+    public String getEmail() {
+ 		return email;
+ 	}
+
+ 	public void setEmail(String email) {
+ 		this.email = email;
+ 	}
+
+    
 }

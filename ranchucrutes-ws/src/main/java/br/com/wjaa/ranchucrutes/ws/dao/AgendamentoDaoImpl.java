@@ -6,6 +6,8 @@ import br.com.wjaa.ranchucrutes.ws.entity.ProfissionalEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.AgendaCanceladaEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.AgendaEntity;
 import br.com.wjaa.ranchucrutes.ws.entity.AgendamentoEntity;
+import br.com.wjaa.ranchucrutes.ws.entity.ProfissaoEntity;
+
 import org.springframework.stereotype.Repository;
 
 import java.util.Calendar;
@@ -206,4 +208,29 @@ public class AgendamentoDaoImpl extends GenericDaoImpl<AgendamentoEntity, Long> 
 
         return (List<AgendamentoEntity>) resultList;
     }
+
+	@Override
+	public List<AgendamentoEntity> getAgendamentosPorEmail(String email) {
+		StringBuilder sb = new StringBuilder();
+        sb.append("select a from " + AgendamentoEntity.class.getName() + " a ");
+        sb.append(" join "+ProfissionalEntity.class.getName()+" p  on a.idProfissional = p.id");
+        sb.append(" and p.email LIKE '%:email%' ");
+        sb.append(" and a.dataAgendamento > :limitDate ");
+        sb.append(" and a.cancelado = TRUE ");
+        sb.append(" order by  a.dataAgendamento desc");
+
+        //mostrará apenas os agendamentos de 2 meses atrasagenda
+        Calendar c = DateUtils.nowCalendar();
+        c.add(Calendar.MONTH,-2);
+
+
+        List<?> resultList = this.getHibernateTemplate().findByNamedParam(
+                sb.toString(),
+                new String[]{"email","limitDate"},
+                new Object[]{email,c.getTime()}
+        );
+
+
+        return (List<AgendamentoEntity>) resultList;
+	}
 }

@@ -277,6 +277,31 @@ public class ProfissionalController {
         return hfs;
     }
 
+    
+    @RequestMapping(value = "/profissional/solicitacao", method = RequestMethod.GET)
+    public ModelAndView solicitacao(HttpServletRequest request) {
+    	ModelAndView mav = new ModelAndView("profissional/solicitacao");
+    	try {
+        String email = "";
+        if ( AuthHelper.isAutenticado(request) ){
+        	email = AuthHelper.getProfissional(request).getEmail();
+        }
+        String json = ObjectUtils.toJson(email);
+        System.out.println(AuthHelper.getProfissional(request));
+        List<AgendamentoVo> resultado = RestUtils.postJson(List.class, RanchucrutesConstantes.HOST_WS, "profissional/agendamentos/solicitacoes", json);
+        mav.addObject("agendamentos", resultado);
+        
+    	 } catch (RestResponseUnsatisfiedException | RestRequestUnstable e ) {
+             LOG.error("Erro ao buscar o calendario de agendamentos do profissional", e);
+             mav.addObject(RanchucrutesConstantes.ERROR_MESSAGE, "Erro ao buscar o calendário de agendamentos");
+         } catch (RestException e) {
+             LOG.error("Erro ao buscar o calendario de agendamentos do profissional: ErrorMessage " + e.getErrorMessage(), e);
+             mav.addObject(RanchucrutesConstantes.ERROR_MESSAGE, e.getErrorMessage().getErrorMessage());
+         }
+        
+        return mav;
+    }
+    
 
     @RequestMapping(value = "/profissional/agenda", method = RequestMethod.GET)
     public ModelAndView calendario(@ModelAttribute CalendarioAgendamentoForm calendarioForm, HttpServletRequest request) {
