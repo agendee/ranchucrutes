@@ -30,6 +30,7 @@ public class ProfissionalBasicoVo {
     private Long idClinicaAtual;
     private String foto;
     private String email;
+    private Boolean atendente;
     
 
  
@@ -192,6 +193,14 @@ public class ProfissionalBasicoVo {
  	public void setEmail(String email) {
  		this.email = email;
  	}
+
+	public Boolean getAtendente() {
+		return atendente;
+	}
+
+	public void setAtendente(Boolean atendente) {
+		this.atendente = atendente;
+	}
 
     
 }

@@ -41,7 +41,7 @@ var Agenda = function() {
                         $("#nomePaciente").html(calEvent.agendamento.paciente.nome);
                         $("#email").html(calEvent.agendamento.paciente.email);
                         $("#telefone").html(calEvent.agendamento.paciente.telefone);
-console.log(calEvent.agendamento.paciente.conveniosCategorias);
+                       console.log(calEvent.agendamento.paciente.conveniosCategorias);
 
                         calEvent.agendamento.paciente.conveniosCategorias.forEach(function(item,index){
                           $("#categoriaPlano").append(item.nome + "<br>");

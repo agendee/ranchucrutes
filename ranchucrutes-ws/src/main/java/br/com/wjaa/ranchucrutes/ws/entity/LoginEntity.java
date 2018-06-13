@@ -25,6 +25,7 @@ public abstract class LoginEntity implements Serializable {
     private Boolean ativo;
     private String foto;
     private String keyDeviceGcm;
+    private Boolean atendente;
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -137,6 +138,18 @@ public abstract class LoginEntity implements Serializable {
     public void setKeyDeviceGcm(String keyDeviceGcm) {
         this.keyDeviceGcm = keyDeviceGcm;
     }
+
+    @Column(name = "ATENDENTE", nullable = false)
+	public Boolean getAtendente() {
+		return atendente;
+	}
+
+	public void setAtendente(Boolean atendente) {
+		this.atendente = atendente;
+	}
+    
+    
+    
 
 
 }

@@ -198,7 +198,6 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
         LOG.info("Atualizando profissional [" + profissional.getIdLogin() + "]");
         
         if(profissionalExists.getSenha() != profissional.getSenha()) {
-        	System.out.println(profissional.getSenha());
         profissional.setSenha(loginService.createHashPass(profissional.getSenha()));
         }
         

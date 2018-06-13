@@ -61,6 +61,12 @@ public class AgendamentoWS {
     public AgendamentoVo rejeitarSolicitacao(@RequestBody RejeicaoSolicitacaoForm rejeitacaoSolicitacao) throws AgendamentoServiceException {
         return this.agendamentoService.rejeitarSolicitacao(rejeitacaoSolicitacao);
     }
+    
+    @RequestMapping(value = "/agendamento/rejeitarSolicitacao/{idAgendamento}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8", method = RequestMethod.POST)
+    public AgendamentoVo rejeitarAgendamento(@RequestBody RejeicaoSolicitacaoForm rejeitacaoSolicitacao) throws AgendamentoServiceException {
+        return this.agendamentoService.rejeitarSolicitacao(rejeitacaoSolicitacao);
+    }
+    
 
     @RequestMapping(value = "/agendamento/confirmarConsulta/{idAgendamento}/{confirma}", produces = MediaType.APPLICATION_JSON_VALUE+ ";charset=UTF-8",
             method = {RequestMethod.GET, RequestMethod.POST})

@@ -790,20 +790,18 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
 	public List<AgendamentoVo> getAgendamentosSolicitacao(String email) throws AgendamentoServiceException {
 	     LOG.debug("m=getAgendamentosSolicitacao email=" + email );
 	     	
-	     	String[] split = email.split("@");
-	     
+	     	String[] split = email.replace("\"", "").split("@");
 	     
 	        List<AgendamentoEntity> agendamentos = agendamentoDao.getAgendamentosPorEmail(split[1]);
-	        
-	        System.out.println("TAMANHO" + agendamentos.size());
 	        
 	        List<AgendamentoVo> agendamentoVos = new ArrayList<AgendamentoVo>();
 
 	        for(AgendamentoEntity a : agendamentos){
 	            ProfissionalEntity profissionalEntity = profissionalService.get(a.getIdProfissional());
 	            ProfissionalOrigemEntity po = profissionalService.getParceiro(a.getIdProfissional(),a.getIdClinica());
-//	            agendamentoVos.add(AgendamentoAdapter.toAgendamentoVo(a, pacienteEntity, profissionalEntity,
-//	                    a.getIdClinica(), po != null ? po.getIdParceiro() : null));
+	            PacienteEntity pacienteEntity = pacienteService.get(a.getIdPaciente());
+	            agendamentoVos.add(AgendamentoAdapter.toAgendamentoVo(a, pacienteEntity, profissionalEntity,
+	                    a.getIdClinica(), po != null ? po.getIdParceiro() : null));
 	        }
 
 	        return agendamentoVos;

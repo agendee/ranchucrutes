@@ -20,12 +20,13 @@
                 <li class="hidden">
                     <a href="#page-top"></a>
                 </li>
-                 <li>
-                    <a class="page-scroll" href="/profissional/solicitacao">Solicitacões</a>
-                </li>
                 <li>
                     <a class="page-scroll" href="/profissional/agenda">Agenda</a>
                 </li>
+                  <li>
+                    <a class="page-scroll" href="/profissional/solicitacao">Solicitacões <i class="fa fa-plus" aria-hidden="true"></i></a>
+                </li>
+                
                 <li>
                     <a class="page-scroll" href="/profissional/admin">Cadastro</a>
                 </li>

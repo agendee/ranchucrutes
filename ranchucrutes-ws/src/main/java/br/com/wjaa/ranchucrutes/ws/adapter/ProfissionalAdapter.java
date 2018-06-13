@@ -61,6 +61,7 @@ public class ProfissionalAdapter {
         profissionalBasicoVo.setNumeroRegistro(me.getNumeroRegistro());
         profissionalBasicoVo.setFoto(me.getFoto());
         profissionalBasicoVo.setEmail(me.getEmail());
+        profissionalBasicoVo.setAtendente(me.getAtendente());
 
         if (!CollectionUtils.isEmpty(me.getEspecialidades())){
             EspecialidadeEntity e = me.getEspecialidades().get(0);

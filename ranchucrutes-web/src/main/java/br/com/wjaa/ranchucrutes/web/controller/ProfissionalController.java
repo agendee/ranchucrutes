@@ -282,14 +282,17 @@ public class ProfissionalController {
     public ModelAndView solicitacao(HttpServletRequest request) {
     	ModelAndView mav = new ModelAndView("profissional/solicitacao");
     	try {
-        String email = "";
-        if ( AuthHelper.isAutenticado(request) ){
-        	email = AuthHelper.getProfissional(request).getEmail();
-        }
+        String email = AuthHelper.getProfissional(request).getEmail();;
         String json = ObjectUtils.toJson(email);
-        System.out.println(AuthHelper.getProfissional(request));
-        List<AgendamentoVo> resultado = RestUtils.postJson(List.class, RanchucrutesConstantes.HOST_WS, "profissional/agendamentos/solicitacoes", json);
+        List<AgendamentoVo> resultado = RestUtils.postJson(List.class, RanchucrutesConstantes.HOST_WS, "/profissional/agendamentos/solicitacoes/", json);
+        
+        
+        if(resultado.isEmpty()) {
+        	mav.addObject(RanchucrutesConstantes.ERROR_MESSAGE, "Não existe nenhuma solicitação de agendamento no momento!");
+        }
+        
         mav.addObject("agendamentos", resultado);
+        
         
     	 } catch (RestResponseUnsatisfiedException | RestRequestUnstable e ) {
              LOG.error("Erro ao buscar o calendario de agendamentos do profissional", e);
@@ -351,6 +354,27 @@ public class ProfissionalController {
                 idAgendamento.toString());
 
     }
+    
+    
+    
+    @RequestMapping(value = "/profissional/solicitacao/rejeitar", method = RequestMethod.POST)
+    public @ResponseBody AgendamentoVo rejeitarAgendamento(@RequestParam String idAgendamento, HttpServletRequest request)
+            throws RestResponseUnsatisfiedException, RestRequestUnstable, RestException {
+        return RestUtils.postJson(AgendamentoVo.class, RanchucrutesConstantes.HOST_WS, "/agendamento/rejeitarSolicitacao/",
+        		idAgendamento.toString());
+
+    }
+
+    @RequestMapping(value = "/profissional/solicitacao/confirmar", method = RequestMethod.POST)
+    public @ResponseBody AgendamentoVo confirmarAgendamento(@RequestParam String idAgendamento, HttpServletRequest request)
+            throws RestResponseUnsatisfiedException, RestRequestUnstable, RestException {
+    	
+        return RestUtils.getJsonWithParamPath(AgendamentoVo.class, RanchucrutesConstantes.HOST_WS, "/agendamento/aprovarSolicitacao/",
+                idAgendamento.toString());
+
+    }
+    
+    
 
     @InitBinder
     public void binder(WebDataBinder binder) {

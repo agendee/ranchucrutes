@@ -152,6 +152,7 @@ public class ProfissionalWS extends BaseWS {
     CalendarioAgendamentoVo getAgendamentos (@PathVariable Long idProfissional,@PathVariable Long idClinica,
                                              @PathVariable Date dateIni, @PathVariable Date dateFim) throws AgendamentoServiceException {
         return agendamentoService.getAgendamentosProfissional(idProfissional,idClinica, dateIni, dateFim);
+    
     }
 
 
@@ -159,7 +160,7 @@ public class ProfissionalWS extends BaseWS {
     @RequestMapping(value = "/profissional/agendamentos/solicitacoes", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8",
             method = {RequestMethod.POST})
     public @ResponseBody
-    List<AgendamentoVo> getAgendamentosSolicitacao (@PathVariable String email) throws AgendamentoServiceException {
+    List<AgendamentoVo> getAgendamentosSolicitacao (@RequestBody final String email) throws AgendamentoServiceException {
         return agendamentoService.getAgendamentosSolicitacao(email);
     }
     

@@ -212,25 +212,22 @@ public class AgendamentoDaoImpl extends GenericDaoImpl<AgendamentoEntity, Long> 
 	@Override
 	public List<AgendamentoEntity> getAgendamentosPorEmail(String email) {
 		StringBuilder sb = new StringBuilder();
-        sb.append("select a from " + AgendamentoEntity.class.getName() + " a ");
-        sb.append(" join "+ProfissionalEntity.class.getName()+" p  on a.idProfissional = p.id");
-        sb.append(" and p.email LIKE '%:email%' ");
+        sb.append("select a from " + AgendamentoEntity.class.getName() + " a,  ");
+        sb.append(" "+ProfissionalEntity.class.getName()+" p  where  a.idProfissional = p.id");
+        sb.append(" and p.email LIKE :email ");
+        sb.append(" and a.cancelado = false ");
+        sb.append(" and a.dataConfirmacaoProfissional is null ");
         sb.append(" and a.dataAgendamento > :limitDate ");
-        sb.append(" and a.cancelado = TRUE ");
         sb.append(" order by  a.dataAgendamento desc");
-
         //mostrará apenas os agendamentos de 2 meses atrasagenda
         Calendar c = DateUtils.nowCalendar();
         c.add(Calendar.MONTH,-2);
 
-
         List<?> resultList = this.getHibernateTemplate().findByNamedParam(
                 sb.toString(),
                 new String[]{"email","limitDate"},
-                new Object[]{email,c.getTime()}
+                new Object[]{'%'+email+'%',c.getTime()}
         );
-
-
         return (List<AgendamentoEntity>) resultList;
 	}
 }
