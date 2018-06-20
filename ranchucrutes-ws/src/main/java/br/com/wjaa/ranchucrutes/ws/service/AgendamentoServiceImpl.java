@@ -512,6 +512,26 @@ public class AgendamentoServiceImpl extends GenericServiceImpl<AgendamentoEntity
         return AgendamentoAdapter.toAgendamentoVo(agendamento,pacienteEntity,profissionalEntity,
                 agendamento.getIdClinica(), po != null ? po.getIdParceiro() : null);
     }
+    
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public AgendamentoVo rejeitarSolicitacao(Long idAgendamento) {
+		LOG.info("m=rejeitarSolicitacao, rejeitacaoSolicitacao=" + idAgendamento );
+        AgendamentoEntity agendamento = this.get(idAgendamento);
+        agendamento.setCancelado(true);
+        agendamento.setDataCancelamento(br.com.wjaa.ranchucrutes.commons.utils.DateUtils.now());
+        agendamento = agendamentoDao.save(agendamento);
+        PacienteEntity pacienteEntity = pacienteService.get(agendamento.getIdPaciente());
+        ProfissionalEntity profissionalEntity = profissionalService.get(agendamento.getIdProfissional());
+
+        LOG.info("Enviando notificação de cancelamento.");
+
+        this.sendCancelationNotification(pacienteEntity, profissionalEntity, agendamento);
+        ProfissionalOrigemEntity po = profissionalService.getParceiro(agendamento.getIdProfissional(),agendamento.getIdClinica());
+        return AgendamentoAdapter.toAgendamentoVo(agendamento,pacienteEntity,profissionalEntity,
+                agendamento.getIdClinica(), po != null ? po.getIdParceiro() : null);
+    }
+    
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override

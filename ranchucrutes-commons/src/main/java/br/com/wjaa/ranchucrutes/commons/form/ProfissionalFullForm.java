@@ -25,4 +25,5 @@ public class ProfissionalFullForm {
     public void setClinicas(List<ClinicaForm> clinicas) {
         this.clinicas = clinicas;
     }
+    
 }

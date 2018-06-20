@@ -41,6 +41,8 @@
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionDadosPessoais" href="#collapseDadosPessoais">Dados Pessoais</a>
                                     <input type="hidden" name="profissional.idLogin" value="${form.profissional.idLogin}"/>
                                     <input type="hidden" name="profissional.foto" value="${form.profissional.foto}"/>
+                                     <input type="hidden" name="profissional.atendente" value="${form.profissional.atendente}"/>
+                                    	
                                 </h4>
                             </div>
                             <div class="panel-collapse collapse in" id="collapseDadosPessoais">
@@ -116,14 +118,14 @@
                                    <div class="form-group">
                                        <label class="col-md-12">Senha:<font style="color: rgb(169, 68, 66);">*</font></label>
                                        <div class="col-md-6">
-                                		  <input type="password" id="senha" class="form-control" name="profissional.senha" value="${form.profissional.senha}" placeholder="Senha" maxlength="10" required />
+                                		  <input type="password" id="senha" class="form-control" name="profissional.senha" value="${form.profissional.senha}" placeholder="Senha"  required />
                                      
                                        </div>
                                    </div>
                                    <div class="form-group">
                                        <label class="col-md-12">Confirmação:<font style="color: rgb(169, 68, 66);">*</font></label>
                                        <div class="col-md-6">
-                                          <input type="password" class="form-control" name="confirmacao" placeholder="Repita a Senha" maxlength="10" value="${form.profissional.senha}" required/>
+                                          <input type="password" class="form-control" name="confirmacao" placeholder="Repita a Senha"  value="${form.profissional.senha}" required/>
                                        </div>
                                    </div>
                                    

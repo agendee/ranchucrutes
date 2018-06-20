@@ -122,8 +122,10 @@ public class ProfissionalAdapter {
 
     public static ProfissionalFullForm toProfissionalFullForm(ProfissionalEntity entity) {
         ProfissionalFullForm profissionalFull = new ProfissionalFullForm();
+        Boolean atendente= entity.getAtendente();
         ProfissionalForm profissionalForm = toProfissionalForm(entity);
         profissionalFull.setProfissional(profissionalForm);
+        profissionalFull.getProfissional().setAtendente(atendente);
         List<ClinicaForm> clinicasForm = toClinicaForm(entity.getClinicas());
         profissionalFull.setClinicas(clinicasForm);
         return profissionalFull;

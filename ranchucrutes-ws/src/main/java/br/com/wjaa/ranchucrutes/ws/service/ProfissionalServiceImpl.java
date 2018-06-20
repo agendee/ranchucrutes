@@ -187,27 +187,23 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
 	@Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ProfissionalEntity update(ProfissionalEntity profissional) throws ProfissionalServiceException {
-       
-		try {
 		LOG.debug("m=update, profissional=" + profissional);
         if (profissional.getIdLogin() == null){
             throw new ProfissionalServiceException("Impossivel atualizar um profissional sem ID");
         }
-
         ProfissionalEntity profissionalExists = this.profissionalDao.get(profissional.getIdLogin());
         LOG.info("Atualizando profissional [" + profissional.getIdLogin() + "]");
-        
-        if(profissionalExists.getSenha() != profissional.getSenha()) {
+    	System.out.println(profissional.getSenha());
+    	System.out.println(profissionalExists.getSenha());
+
+        if(!profissionalExists.getSenha().toString().equals(profissional.getSenha().toString())) {
         profissional.setSenha(loginService.createHashPass(profissional.getSenha()));
         }
         
+       	System.out.println(profissional.getSenha());
+    	System.out.println(profissionalExists.getSenha());
         this.saveClinicas(profissionalExists, profissional.getClinicas());
         return this.mergeProfissional(profissionalExists, profissional);
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return null;
     }
 
     @Override
@@ -264,6 +260,7 @@ public class ProfissionalServiceImpl extends GenericServiceImpl<ProfissionalEnti
         profissional.setDataCriacao(new Date());
         profissional.setDataUltimoAcesso(new Date());
         profissional.setAtivo(false);
+        profissional.setAtendente(false);
         try {
             profissional.setCodeConfirmacao(loginService.createCodeConfirmation(profissional.getEmail(),profissional.getNumeroRegistro()));
             profissional.setSenha(loginService.createHashPass(profissional.getSenha()));

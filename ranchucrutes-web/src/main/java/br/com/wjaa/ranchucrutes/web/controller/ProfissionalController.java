@@ -132,6 +132,7 @@ public class ProfissionalController {
         ModelAndView mav = new ModelAndView("profissional/admin");
         this.ignorarIndexVazioClinica(form);
         mav.addObject("form", form);
+        System.out.println(form.getProfissional().getAtendente());
         try {
             doUploadFoto(file,form);
             String json = ObjectUtils.toJson(form);
@@ -183,6 +184,7 @@ public class ProfissionalController {
             ProfissionalFullForm form = RestUtils.getJsonWithParamPath(ProfissionalFullForm.class, RanchucrutesConstantes.HOST_WS,
                     "profissional",profissionalBasico.getId().toString());
             mav.addObject("form",form);
+            System.out.println(form.getProfissional().getAtendente());
         } catch (RestResponseUnsatisfiedException | RestRequestUnstable e) {
             LOG.error("Erro ao pegar um profissional pelo seu id ", e);
             mav.addObject(RanchucrutesConstantes.ERROR_MESSAGE, "Ocorreu um erro interno, tente novamente mais tarde.");
@@ -360,7 +362,7 @@ public class ProfissionalController {
     @RequestMapping(value = "/profissional/solicitacao/rejeitar", method = RequestMethod.POST)
     public @ResponseBody AgendamentoVo rejeitarAgendamento(@RequestParam String idAgendamento, HttpServletRequest request)
             throws RestResponseUnsatisfiedException, RestRequestUnstable, RestException {
-        return RestUtils.postJson(AgendamentoVo.class, RanchucrutesConstantes.HOST_WS, "/agendamento/rejeitarSolicitacao/",
+        return RestUtils.getJsonWithParamPath(AgendamentoVo.class, RanchucrutesConstantes.HOST_WS, "/agendamento/rejeitarSolicitacao/",
         		idAgendamento.toString());
 
     }

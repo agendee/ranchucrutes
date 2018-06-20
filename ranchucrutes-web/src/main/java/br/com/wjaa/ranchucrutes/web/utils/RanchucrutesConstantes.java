@@ -5,7 +5,10 @@ package br.com.wjaa.ranchucrutes.web.utils;
  */
 public class RanchucrutesConstantes {
 
-	public static final String HOST_WS = "rest.agendee.com.br";
+    public static final String HOST_WS = "rest.agendee.com.br";
+	
+    //public static final String HOST_WS = "localhost:9191/ranchucrutes-ws/";
+
 	
 	public static final String END_POINT_AUTH_PROFISSIONAL = "auth/profissional";
 

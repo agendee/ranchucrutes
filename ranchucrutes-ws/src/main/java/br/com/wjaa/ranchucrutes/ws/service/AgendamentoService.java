@@ -45,4 +45,6 @@ public interface AgendamentoService extends GenericService<AgendamentoEntity, Lo
     AgendamentoVo rejeitarSolicitacao(RejeicaoSolicitacaoForm rejeitacaoSolicitacao);
 
     AgendamentoVo getAgendamento(Long idAgendamento) throws AgendamentoServiceException;
+
+	AgendamentoVo rejeitarSolicitacao(Long idAgendamento);
 }

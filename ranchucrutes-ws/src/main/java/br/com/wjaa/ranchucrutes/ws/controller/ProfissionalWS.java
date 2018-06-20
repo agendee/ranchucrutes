@@ -51,6 +51,7 @@ public class ProfissionalWS extends BaseWS {
     public ProfissionalFullForm getProfissionalById(@PathVariable Long id) {
         ProfissionalEntity entity = this.profissionalService.get(id);
         ProfissionalFullForm profissionalForm = ProfissionalAdapter.toProfissionalFullForm(entity);
+        System.out.println(profissionalForm.getProfissional().getAtendente());
         return ProfissionalAdapter.toProfissionalFullForm(entity);
     }
 
@@ -116,6 +117,9 @@ public class ProfissionalWS extends BaseWS {
     ProfissionalFullForm update(@RequestBody final ProfissionalFullForm form) throws ProfissionalServiceException {
     	try {
         ProfissionalEntity profissional = ProfissionalAdapter.fromProfissionalFullForm(form);
+        if(profissional.getAtendente() == null) {
+        	profissional.setAtendente(false);
+        }
         ProfissionalEntity profissionalUpdated = this.profissionalService.update(profissional);
         //a atualizacao do profissional é feita em 2 transacoes
         //buscando os dados atualizados.
@@ -151,8 +155,13 @@ public class ProfissionalWS extends BaseWS {
     public @ResponseBody
     CalendarioAgendamentoVo getAgendamentos (@PathVariable Long idProfissional,@PathVariable Long idClinica,
                                              @PathVariable Date dateIni, @PathVariable Date dateFim) throws AgendamentoServiceException {
-        return agendamentoService.getAgendamentosProfissional(idProfissional,idClinica, dateIni, dateFim);
-    
+        try {
+    	
+    	return agendamentoService.getAgendamentosProfissional(idProfissional,idClinica, dateIni, dateFim);
+        }catch (Exception e) {
+        	e.printStackTrace();
+        }
+        return null;
     }
 
 

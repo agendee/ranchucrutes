@@ -125,6 +125,7 @@
 
     <jsp:include page="/views/commons/footer.jsp" />
     <jsp:include page="/views/commons/footer-components.jsp" />
+   <script src="/static/js/ws/ranchucrutes-ws-client.js"></script>
     <script src="/static/js/commons/utils.js"></script>
     <script src="/static/js/profissional/cadastro.js"></script>
     <script src="/static/js/libs/cbpAnimatedHeader.js"></script>

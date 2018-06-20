@@ -15,7 +15,7 @@ public class ProfissionalForm {
     private String senha;
     private String cpf;
     private String foto;
-
+    private Boolean atendente;
 
     public String getNome() {
         return nome;
@@ -97,4 +97,12 @@ public class ProfissionalForm {
     public void setNumeroRegistro(String numeroRegistro) {
         this.numeroRegistro = numeroRegistro;
     }
+
+	public Boolean getAtendente() {
+		return atendente;
+	}
+
+	public void setAtendente(Boolean atendente) {
+		this.atendente = atendente;
+	}
 }
